@@ -49,7 +49,14 @@ jobs:
       - name: Build solution
         run: dotnet build SpatialLabsOptimizer.sln --configuration Release
       - name: Test solution
-        run: dotnet test SpatialLabsOptimizer.sln --configuration Release --no-build
+        timeout-minutes: 5
+        env:
+          VSTEST_TESTHOST_SHUTDOWN_TIMEOUT: 30000
+        run: >
+          dotnet test src/SpatialLabsOptimizer.Tests/SpatialLabsOptimizer.Tests.csproj
+          --configuration Release --no-build --verbosity normal
+          --blame-hang-timeout 3m --blame-hang-dump-type mini
+          -- RunConfiguration.TestSessionTimeout=120000 xUnit.ParallelizeAssembly=false
 
   privacy-audit:
     name: Privacy Audit
