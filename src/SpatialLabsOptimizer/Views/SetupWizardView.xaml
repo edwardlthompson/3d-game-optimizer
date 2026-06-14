@@ -1,0 +1,32 @@
+<Page
+    x:Class="SpatialLabsOptimizer.Views.SetupWizardView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:views="using:SpatialLabsOptimizer.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid Padding="24" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Setup Wizard" FontSize="28" FontWeight="SemiBold" />
+        <StackPanel Grid.Row="1" Spacing="16">
+            <StackPanel x:Name="DisclaimerPanel" Spacing="8">
+                <TextBlock Text="Legal consent" FontSize="18" FontWeight="SemiBold" />
+                <TextBlock TextWrapping="Wrap" Text="3D Game Optimizer is an independent tool. By continuing, you accept silent installation of third-party toolchain components per docs/LEGAL.md." />
+                <CheckBox x:Name="DisclaimerCheck" Content="I accept the toolchain EULA and legal disclaimers" Checked="DisclaimerCheck_Changed" Unchecked="DisclaimerCheck_Changed" />
+            </StackPanel>
+            <InfoBar x:Name="MuxInfoBar" Severity="Warning" IsOpen="False" Title="Dual-GPU detected" />
+            <TextBlock x:Name="ViewingDistanceBlock" TextWrapping="Wrap" Opacity="0.85" />
+            <views:ManualDisplayPickerView x:Name="DisplayPicker" Visibility="Collapsed" />
+            <TextBlock x:Name="StatusBlock" TextWrapping="Wrap" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8">
+            <Button Content="Continue" Click="Continue_Click" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Run Benchmark (optional)" Click="Benchmark_Click" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="2–3 minute local benchmark to refine performance tier" />
+        </StackPanel>
+    </Grid>
+</Page>

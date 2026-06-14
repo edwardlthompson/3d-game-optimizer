@@ -1,0 +1,25 @@
+{
+  "PackageIdentifier": "edwardlthompson.3DGameOptimizer",
+  "PackageVersion": "1.0.0",
+  "PackageLocale": "en-US",
+  "Publisher": "Edward L Thompson",
+  "PublisherUrl": "https://github.com/edwardlthompson",
+  "PackageName": "3D Game Optimizer",
+  "PackageUrl": "https://github.com/edwardlthompson/3d-game-optimizer",
+  "License": "MIT",
+  "ShortDescription": "One-click glasses-free 3D PC gaming hub for SpatialLabs, Samsung Odyssey 3D, and more.",
+  "Description": "Discovery-first Steam library, silent toolchain setup, zero-friction Play in 3D launch.",
+  "Moniker": "3d-game-optimizer",
+  "Tags": ["3d", "gaming", "steam", "spatiallabs", "winui"],
+  "Installers": [
+    {
+      "Architecture": "x64",
+      "InstallerType": "exe",
+      "InstallerUrl": "https://github.com/edwardlthompson/3d-game-optimizer/releases/download/v1.0.0/SpatialLabsOptimizer.exe",
+      "InstallerSha256": "PLACEHOLDER_SHA256",
+      "Scope": "user"
+    }
+  ],
+  "ManifestType": "singleton",
+  "ManifestVersion": "1.6.0"
+}

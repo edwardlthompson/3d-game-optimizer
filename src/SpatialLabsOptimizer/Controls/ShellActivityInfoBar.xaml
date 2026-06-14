@@ -1,0 +1,22 @@
+<UserControl
+    x:Class="SpatialLabsOptimizer.Controls.ShellActivityInfoBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <controls:InfoBar
+        x:Name="ActivityInfoBar"
+        IsOpen="False"
+        Severity="Informational"
+        IsClosable="True"
+        Title="Activity">
+        <controls:InfoBar.Content>
+            <StackPanel Spacing="8">
+                <TextBlock x:Name="MessageBlock" TextWrapping="Wrap" />
+                <ProgressBar x:Name="ActivityProgressBar" Maximum="100" />
+            </StackPanel>
+        </controls:InfoBar.Content>
+    </controls:InfoBar>
+</UserControl>

@@ -1,0 +1,29 @@
+{
+  "version": "v1",
+  "profiles": [
+    {
+      "id": "profile-acer-spatiallabs-balanced",
+      "vendor": "acer",
+      "displayId": "acer-psv27-2",
+      "recommendedPerformanceTier": "medium",
+      "defaults": {
+        "depthScale": 0.6,
+        "convergenceOffset": 0.32,
+        "comfortMode": "balanced",
+        "uiDepthCompensation": true
+      }
+    },
+    {
+      "id": "profile-samsung-odyssey-balanced",
+      "vendor": "samsung",
+      "displayId": "samsung-g90xf",
+      "recommendedPerformanceTier": "high",
+      "defaults": {
+        "depthScale": 0.57,
+        "convergenceOffset": 0.3,
+        "comfortMode": "clarity",
+        "uiDepthCompensation": true
+      }
+    }
+  ]
+}

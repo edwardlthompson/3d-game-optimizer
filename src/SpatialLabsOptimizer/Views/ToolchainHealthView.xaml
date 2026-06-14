@@ -1,0 +1,16 @@
+<Page
+    x:Class="SpatialLabsOptimizer.Views.ToolchainHealthView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer Padding="24">
+        <StackPanel Spacing="16" MaxWidth="640">
+            <TextBlock Text="Toolchain Health" FontSize="28" FontWeight="SemiBold" />
+            <TextBlock Text="Smoke-test installed tools. Configure trainer coexistence and launch safety." TextWrapping="Wrap" Opacity="0.8" />
+            <ToggleSwitch x:Name="SafeLaunchToggle" Header="Safe launch (no injectors)" OffContent="Off" OnContent="On" Toggled="Preference_Toggled" />
+            <ToggleSwitch x:Name="TrainerToggle" Header="I use game trainers (WeMod, Wand, etc.)" OffContent="Off" OnContent="On" Toggled="Preference_Toggled" />
+            <ToggleSwitch x:Name="SimpleModeToggle" Header="Simple mode UI" OffContent="Off" OnContent="On" Toggled="Preference_Toggled" />
+            <TextBlock Text="Trainer ToS: You are responsible for complying with trainer provider terms." Opacity="0.7" TextWrapping="Wrap" FontSize="12" />
+            <Button Content="Run health check" Style="{StaticResource AppButtonStyle}" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

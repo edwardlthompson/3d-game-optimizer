@@ -1,0 +1,13 @@
+<Page
+    x:Class="SpatialLabsOptimizer.Views.AboutView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer Padding="24">
+        <StackPanel Spacing="12" MaxWidth="640">
+            <TextBlock Text="About 3D Game Optimizer" FontSize="28" FontWeight="SemiBold" />
+            <TextBlock TextWrapping="Wrap" Text="Independent tool for glasses-free 3D PC gaming. Not affiliated with Acer, Samsung, NVIDIA, Valve, or other trademark holders. See docs/LEGAL.md and docs/TRADEMARKS.md." />
+            <HyperlinkButton Content="Privacy policy" NavigateUri="https://github.com/edwardlthompson/3d-game-optimizer/blob/main/docs/PRIVACY.md" />
+            <TextBlock Text="Version 1.0.0" Opacity="0.7" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

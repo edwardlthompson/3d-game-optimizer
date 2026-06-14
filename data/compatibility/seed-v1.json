@@ -1,0 +1,71 @@
+{
+  "version": "v1",
+  "games": [
+    {
+      "id": "cyberpunk-2077",
+      "title": "Cyberpunk 2077",
+      "steamAppId": 1091500,
+      "steamTags": [
+        "Open World",
+        "RPG",
+        "Sci-fi",
+        "Singleplayer"
+      ],
+      "tiersByVendor": {
+        "acer": "optimized",
+        "samsung": "playable",
+        "nvidia": "experimental",
+        "generic": "experimental"
+      },
+      "review": {
+        "summary": "Excellent depth separation on Acer profile, but requires conservative convergence for long sessions.",
+        "confidence": "high",
+        "lastReviewedAt": "2026-06-01"
+      }
+    },
+    {
+      "id": "forza-horizon-5",
+      "title": "Forza Horizon 5",
+      "steamAppId": 1551360,
+      "steamTags": [
+        "Racing",
+        "Open World",
+        "Driving",
+        "Multiplayer"
+      ],
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "optimized",
+        "nvidia": "playable",
+        "generic": "experimental"
+      },
+      "review": {
+        "summary": "Stable 3D effect across varied lighting; Samsung profile has best default clarity.",
+        "confidence": "medium",
+        "lastReviewedAt": "2026-05-19"
+      }
+    },
+    {
+      "id": "baldurs-gate-3",
+      "title": "Baldur's Gate 3",
+      "steamAppId": 1086940,
+      "steamTags": [
+        "RPG",
+        "Turn-Based",
+        "Story Rich",
+        "Co-op"
+      ],
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "playable",
+        "nvidia": "experimental",
+        "generic": "unsupported"
+      },
+      "review": {
+        "summary": "Playable with tuned presets; UI depth artifacts still present in some dialogue scenes.",
+        "confidence": "medium",
+        "lastReviewedAt": "2026-06-07"
+      }
+    }
+  ]
+}

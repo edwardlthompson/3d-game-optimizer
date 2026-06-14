@@ -1,0 +1,12 @@
+{
+  "stack": "none",
+  "pruned": false,
+  "active_modules": [
+    "android",
+    "web",
+    "python",
+    "lightroom"
+  ],
+  "parallel_scope_note": "Sprint 1 Parallel: scope per AGENT_MEMORY active modules",
+  "selected_at": "2026-06-14T19:06:48+00:00"
+}

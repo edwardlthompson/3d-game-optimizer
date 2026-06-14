@@ -1,0 +1,13 @@
+<Page
+    x:Class="SpatialLabsOptimizer.Views.TroubleshootingView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer Padding="24">
+        <StackPanel Spacing="12" MaxWidth="640">
+            <TextBlock Text="Troubleshooting" FontSize="28" FontWeight="SemiBold" />
+            <TextBlock Text="Export a redacted diagnostic bundle or view structured error codes (3DGO-####)." TextWrapping="Wrap" Opacity="0.8" />
+            <Button x:Name="ExportButton" Content="Export diagnostic bundle" Click="Export_Click" Style="{StaticResource AppButtonStyle}" />
+            <TextBlock x:Name="ExportPathBlock" TextWrapping="Wrap" Opacity="0.7" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

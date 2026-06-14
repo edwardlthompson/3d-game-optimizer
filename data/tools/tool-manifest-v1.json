@@ -1,0 +1,49 @@
+{
+  "version": "v1",
+  "tools": [
+    {
+      "id": "reshade",
+      "name": "ReShade",
+      "category": "post-processing",
+      "required": false,
+      "silentArgs": "SILENT_ARGS_PLACEHOLDER_RESHADE",
+      "verification": {
+        "type": "fileExists",
+        "pathHint": "ReShade.ini"
+      }
+    },
+    {
+      "id": "uevr",
+      "name": "UEVR",
+      "category": "runtime-injection",
+      "required": false,
+      "silentArgs": "SILENT_ARGS_PLACEHOLDER_UEVR",
+      "verification": {
+        "type": "fileExists",
+        "pathHint": "UEVRInjector.exe"
+      }
+    },
+    {
+      "id": "spatiallabs-runtime-platform",
+      "name": "SpatialLabs Runtime Platform",
+      "category": "vendor-runtime",
+      "required": true,
+      "silentArgs": "SILENT_ARGS_PLACEHOLDER_SR_PLATFORM",
+      "verification": {
+        "type": "registryKey",
+        "pathHint": "HKLM\\Software\\SpatialLabsRuntime"
+      }
+    },
+    {
+      "id": "odyssey-hub",
+      "name": "Odyssey Hub",
+      "category": "vendor-utility",
+      "required": false,
+      "silentArgs": "SILENT_ARGS_PLACEHOLDER_ODYSSEY_HUB",
+      "verification": {
+        "type": "processOrFile",
+        "pathHint": "OdysseyHub.exe"
+      }
+    }
+  ]
+}

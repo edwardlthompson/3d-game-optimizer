@@ -1,0 +1,62 @@
+<Page
+    x:Class="SpatialLabsOptimizer.Views.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:SpatialLabsOptimizer.Controls"
+    xmlns:views="using:SpatialLabsOptimizer.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid Background="{StaticResource Brush.Surface}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <controls:ShellActivityInfoBar
+            Grid.Row="0"
+            Message="{x:Bind ViewModel.ActivityMessage, Mode=OneWay}"
+            IsOpen="{x:Bind ViewModel.ShowActivityBar, Mode=OneWay}"
+            Progress="{x:Bind ViewModel.ActivityProgress, Mode=OneWay}" />
+
+        <NavigationView
+            Grid.Row="1"
+            x:Name="NavView"
+            IsBackButtonVisible="Collapsed"
+            PaneDisplayMode="Left"
+            SelectionChanged="NavView_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Library" Tag="library" Icon="Library" />
+                <NavigationViewItem Content="Setup Wizard" Tag="wizard" Icon="Setting" />
+                <NavigationViewItem Content="Settings" Tag="settings" Icon="Equalizer" />
+                <NavigationViewItem Content="Health" Tag="health" Icon="Repair" />
+                <NavigationViewItem Content="Troubleshooting" Tag="troubleshoot" Icon="Help" />
+                <NavigationViewItem Content="About" Tag="about" Icon="ContactInfo" />
+            </NavigationView.MenuItems>
+            <Frame x:Name="ContentFrame" />
+        </NavigationView>
+
+        <Grid Grid.Row="2" Padding="12,8" Background="{StaticResource Brush.SurfaceAlt}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{x:Bind ViewModel.Status, Mode=OneWay}" VerticalAlignment="Center" Opacity="0.8" />
+            <Border
+                Grid.Column="1"
+                Background="{StaticResource Brush.Accent}"
+                CornerRadius="12"
+                Padding="10,4"
+                ToolTipService.ToolTip="Background activity status">
+                <TextBlock Text="{x:Bind ViewModel.Status, Mode=OneWay}" FontSize="12" />
+            </Border>
+        </Grid>
+
+        <controls:LaunchProgressOverlay
+            Grid.RowSpan="3"
+            GameTitle="{x:Bind ViewModel.LaunchGameTitle, Mode=OneWay}"
+            CurrentStep="{x:Bind ViewModel.LaunchStep, Mode=OneWay}"
+            IsOpen="{x:Bind ViewModel.ShowLaunchOverlay, Mode=OneWay}" />
+    </Grid>
+</Page>

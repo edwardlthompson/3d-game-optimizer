@@ -1,0 +1,45 @@
+{
+  "version": "v1",
+  "tiers": [
+    {
+      "id": "low",
+      "label": "Low",
+      "rules": {
+        "targetFps": 45,
+        "maxRenderScale": 0.85,
+        "allowHighCostPostFx": false,
+        "preferredPresetIntensity": "safe"
+      }
+    },
+    {
+      "id": "medium",
+      "label": "Medium",
+      "rules": {
+        "targetFps": 60,
+        "maxRenderScale": 1.0,
+        "allowHighCostPostFx": false,
+        "preferredPresetIntensity": "balanced"
+      }
+    },
+    {
+      "id": "high",
+      "label": "High",
+      "rules": {
+        "targetFps": 90,
+        "maxRenderScale": 1.15,
+        "allowHighCostPostFx": true,
+        "preferredPresetIntensity": "enhanced"
+      }
+    },
+    {
+      "id": "enthusiast",
+      "label": "Enthusiast",
+      "rules": {
+        "targetFps": 120,
+        "maxRenderScale": 1.25,
+        "allowHighCostPostFx": true,
+        "preferredPresetIntensity": "aggressive"
+      }
+    }
+  ]
+}

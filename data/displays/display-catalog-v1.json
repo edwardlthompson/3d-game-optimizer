@@ -1,0 +1,62 @@
+{
+  "version": "v1",
+  "updatedAt": "2026-06-14",
+  "displays": [
+    {
+      "id": "acer-psv27-2",
+      "vendor": "Acer",
+      "model": "PSV27-2",
+      "marketingName": "SpatialLabs View Pro 27",
+      "type": "glasses-free-3d-monitor",
+      "edidSignatures": [
+        "EDID_PLACEHOLDER_ACER_PSV27_2_A",
+        "EDID_PLACEHOLDER_ACER_PSV27_2_B"
+      ],
+      "recommendedProfileId": "profile-acer-spatiallabs-balanced"
+    },
+    {
+      "id": "acer-spatiallabs-15",
+      "vendor": "Acer",
+      "model": "SpatialLabs 15",
+      "marketingName": "SpatialLabs 15 Laptop Panel",
+      "type": "integrated-display",
+      "edidSignatures": [
+        "EDID_PLACEHOLDER_ACER_SL15_A"
+      ],
+      "recommendedProfileId": "profile-acer-spatiallabs-laptop"
+    },
+    {
+      "id": "samsung-g90xf",
+      "vendor": "Samsung",
+      "model": "G90XF",
+      "marketingName": "Odyssey 3D G90XF",
+      "type": "glasses-free-3d-monitor",
+      "edidSignatures": [
+        "EDID_PLACEHOLDER_SAMSUNG_G90XF_A"
+      ],
+      "recommendedProfileId": "profile-samsung-odyssey-balanced"
+    },
+    {
+      "id": "nvidia-3d-vision-generic",
+      "vendor": "NVIDIA",
+      "model": "3D Vision (Generic)",
+      "marketingName": "NVIDIA 3D Vision Generic",
+      "type": "active-shutter-3d",
+      "edidSignatures": [
+        "EDID_PLACEHOLDER_NVIDIA_3DVISION_GENERIC"
+      ],
+      "recommendedProfileId": "profile-nvidia-3dvision-safe"
+    },
+    {
+      "id": "generic-manual",
+      "vendor": "Generic",
+      "model": "Manual Profile",
+      "marketingName": "Generic Manual Configuration",
+      "type": "manual",
+      "edidSignatures": [
+        "EDID_PLACEHOLDER_GENERIC_MANUAL"
+      ],
+      "recommendedProfileId": "profile-generic-safe-default"
+    }
+  ]
+}

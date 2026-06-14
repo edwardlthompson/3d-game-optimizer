@@ -1,0 +1,33 @@
+{
+  "version": "v1",
+  "presets": [
+    {
+      "id": "preset-balanced-acer-rpg",
+      "name": "Balanced Acer RPG",
+      "targetVendor": "acer",
+      "intendedGenres": [
+        "RPG",
+        "Story Rich"
+      ],
+      "settings": {
+        "depthScale": 0.62,
+        "convergenceOffset": 0.35,
+        "uiDepthCompensation": true
+      }
+    },
+    {
+      "id": "preset-fast-samsung-racing",
+      "name": "Fast Samsung Racing",
+      "targetVendor": "samsung",
+      "intendedGenres": [
+        "Racing",
+        "Action"
+      ],
+      "settings": {
+        "depthScale": 0.55,
+        "convergenceOffset": 0.28,
+        "uiDepthCompensation": false
+      }
+    }
+  ]
+}
