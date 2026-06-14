@@ -17,6 +17,9 @@ permissions:
 jobs:
   release:
     name: Attach SBOM and Packaging Assets
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'release' && !startsWith(github.event.release.tag_name, 'SpatialLabsOptimizer-v'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

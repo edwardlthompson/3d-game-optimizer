@@ -5,17 +5,17 @@ on:
     - cron: "0 6 * * 1"
   workflow_dispatch:
 
-permissions:
-  contents: read
-  actions: read
-  security-events: write
-  id-token: write
-  pull-requests: read
-
 jobs:
   scorecard:
     name: Scorecard analysis
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      checks: read
+      security-events: write
+      id-token: write
+      pull-requests: read
     steps:
       - uses: actions/checkout@v6
         with:

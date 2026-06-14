@@ -4,7 +4,14 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 bash scripts/check-file-encoding.sh
-dotnet test SpatialLabsOptimizer.sln -c Release --verbosity minimal
+case "$(uname -s)" in
+  Linux|Darwin)
+    echo "SKIP dotnet test on $(uname -s) — WinUI CI job runs tests on windows-latest"
+    ;;
+  *)
+    dotnet test SpatialLabsOptimizer.sln -c Release --verbosity minimal
+    ;;
+esac
 bash scripts/check-local-release-scripts.sh
 bash scripts/check-qa-matrix-coverage.sh
 bash scripts/check-compatibility-seed.sh

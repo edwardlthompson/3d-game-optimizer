@@ -15,6 +15,7 @@ permissions:
   issues: write
   pull-requests: read
   security-events: read
+  actions: read
 
 jobs:
   triage:
@@ -28,10 +29,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          COUNT="$(gh api "repos/${GITHUB_REPOSITORY}/dependabot/alerts?state=open&per_page=100" \
-            --jq '[.[] | select(.security_vulnerability.severity == "critical" or .security_vulnerability.severity == "high")] | length' 2>/dev/null || echo "0")"
-          echo "count=${COUNT}" >> "$GITHUB_OUTPUT"
-          echo "Open Critical/High Dependabot alerts: ${COUNT}"
+          if COUNT="$(bash scripts/dependabot-critical-high-count.sh "$GITHUB_REPOSITORY")"; then
+            echo "count=${COUNT}" >> "$GITHUB_OUTPUT"
+            echo "Open Critical/High Dependabot alerts: ${COUNT}"
+          else
+            echo "count=unknown" >> "$GITHUB_OUTPUT"
+            echo "WARN: could not fetch Dependabot alerts (enable Dependabot alerts and security-events: read)"
+          fi
 
       - name: Enable auto-merge on open Dependabot PRs
         env:

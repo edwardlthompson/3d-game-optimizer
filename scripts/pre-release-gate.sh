@@ -50,11 +50,14 @@ if [ -z "$REPO" ]; then
   exit 1
 fi
 
-ALERT_COUNT="$(gh api "repos/${REPO}/dependabot/alerts?state=open&per_page=100" \
-  --jq '[.[] | select(.security_vulnerability.severity == "critical" or .security_vulnerability.severity == "high")] | length' 2>/dev/null || echo "error")"
+if ALERT_COUNT="$(bash scripts/dependabot-critical-high-count.sh "$REPO" 2>/dev/null)"; then
+  :
+else
+  ALERT_COUNT=""
+fi
 
-if [ "$ALERT_COUNT" = "error" ]; then
-  echo "WARN: could not fetch Dependabot alerts (check gh auth and Dependabot alerts enabled)"
+if [ -z "$ALERT_COUNT" ]; then
+  echo "WARN: could not fetch Dependabot alerts (check gh auth, Dependabot alerts, and security-events: read)"
   ERRORS=$((ERRORS + 1))
 elif [ "${ALERT_COUNT:-0}" -gt 0 ]; then
   if [ -n "$ALLOW_EXCEPTION" ]; then

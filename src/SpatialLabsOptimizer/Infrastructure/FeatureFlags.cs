@@ -48,7 +48,7 @@ public static class FeatureFlags
 
     /// <summary>Whether v2 DI services were registered at host build (requires restart when prefs differ).</summary>
 
-    public static bool V2RegisteredAtStartup { get; internal set; }
+    public static bool V2RegisteredAtStartup { get; set; }
 
 
 

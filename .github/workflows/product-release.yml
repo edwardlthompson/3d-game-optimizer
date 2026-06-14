@@ -11,6 +11,8 @@ on:
 
 permissions:
   contents: write
+  security-events: read
+  actions: read
 
 jobs:
   pre-release-gate:
@@ -21,19 +23,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: Install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+      - name: Run pre-release gate (non-Windows checks)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash scripts/pre-release-gate.sh --product-release --skip-dotnet
+
+  pre-release-dotnet:
+    name: Pre-release Gate (dotnet tests)
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      startsWith(github.event.release.tag_name, 'SpatialLabsOptimizer-v')
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: "8.0.x"
-      - name: Install ripgrep
-        run: sudo apt-get update && sudo apt-get install -y ripgrep
-      - name: Run full pre-release gate
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash scripts/pre-release-gate.sh --product-release
+      - name: Run product test suite
+        run: dotnet test src/SpatialLabsOptimizer.Tests/SpatialLabsOptimizer.Tests.csproj --configuration Release --verbosity minimal
 
   publish:
     name: Build and attach product zip
-    needs: pre-release-gate
+    needs: [pre-release-gate, pre-release-dotnet]
     if: |
       github.event_name == 'workflow_dispatch' ||
       startsWith(github.event.release.tag_name, 'SpatialLabsOptimizer-v')
