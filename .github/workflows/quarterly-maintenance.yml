@@ -1,0 +1,25 @@
+name: Quarterly Maintenance
+
+on:
+  schedule:
+    - cron: "0 9 1 1,4,7,10 *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quarterly:
+    name: Quarterly Maintenance Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+      - run: bash scripts/check-quarterly-maintenance.sh
+      - name: Release Please PR recency
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/check-release-please-pr.sh

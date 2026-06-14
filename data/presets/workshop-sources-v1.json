@@ -1,0 +1,6 @@
+{
+  "version": "v1",
+  "allowlistedUrls": [
+    "https://raw.githubusercontent.com/edwardlthompson/3d-game-optimizer/main/data/presets/preset-manifest-v1.json"
+  ]
+}

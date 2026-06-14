@@ -41,6 +41,22 @@ public sealed class SqliteSettingsStore : IAsyncDisposable
         await cmd.ExecuteNonQueryAsync(cancellationToken);
     }
 
+    public async Task<IReadOnlyList<string>> ListKeysByPrefixAsync(string prefix, CancellationToken cancellationToken = default)
+    {
+        await EnsureOpenAsync(cancellationToken);
+        await using var cmd = _connection!.CreateCommand();
+        cmd.CommandText = "SELECT key FROM settings WHERE key LIKE $prefix";
+        cmd.Parameters.AddWithValue("$prefix", prefix + "%");
+        var keys = new List<string>();
+        await using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            keys.Add(reader.GetString(0));
+        }
+
+        return keys;
+    }
+
     public async Task<string?> GetAsync(string key, CancellationToken cancellationToken = default)
     {
         await EnsureOpenAsync(cancellationToken);

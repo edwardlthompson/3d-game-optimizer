@@ -57,6 +57,8 @@ check_adr() {
 
 check_adr "0001"
 check_adr "0002"
+check_adr "0003"
+check_adr "0004"
 
 if [ "$ERRORS" -gt 0 ]; then
   echo "${ERRORS} ADR status check(s) failed"

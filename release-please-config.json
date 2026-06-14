@@ -10,6 +10,17 @@
       ],
       "include-component-in-tag": false,
       "include-v-in-tag": true
+    },
+    "src/SpatialLabsOptimizer": {
+      "release-type": "simple",
+      "component": "SpatialLabsOptimizer",
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        "src/SpatialLabsOptimizer/product-version.json"
+      ],
+      "include-component-in-tag": true,
+      "include-v-in-tag": true,
+      "tag-separator": "-"
     }
   },
   "changelog-sections": [

@@ -35,7 +35,8 @@ MANUAL SETUP CHECKLIST (GitHub UI - API returned 422 or insufficient permissions
   4. Settings -> Branches -> Branch protection rules -> main:
      - Require status checks: CI, Security Scan, CodeQL
      - Require branches to be up to date before merging (recommended)
-  5. Re-run: bash scripts/setup-github-repo.sh
+  5. Code security: bash scripts/setup-release-credentials.sh
+  6. Re-run: bash scripts/setup-github-repo.sh
 EOF
 }
 

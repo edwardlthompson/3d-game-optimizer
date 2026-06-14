@@ -350,6 +350,62 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-qa-matrix-coverage.sh",
+      "purpose": "Map QA matrix P0 and v1.1 scenarios to automated tests",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-quarterly-maintenance.sh",
+      "purpose": "Quarterly ADR, DECISION_LOG, and Dependabot exception checks",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-release-please-pr.sh",
+      "purpose": "Fail when Release Please PRs exceed SLA",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/generate-brand-assets.py",
+      "purpose": "Generate MSIX logos and README screenshot placeholders",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": "scripts/run-dev-v2.ps1",
+      "purpose": "Run WinUI app locally with SPATIALLABS_ENABLE_V2=true",
+      "read_when": "debugging",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": "scripts/setup-release-credentials.sh",
+      "purpose": "Automate code scanning, signing secrets, and release credential checks via gh API",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-release-credentials.sh",
+      "purpose": "Audit CODESIGN secrets, code scanning, and RELEASE_BOT_TOKEN need",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/sign-product-release.ps1",
+      "purpose": "Sign product zip exes with EV cert or AUTO sideload self-signed fallback",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-legal-consistency.sh",
       "purpose": "Verify UI consent strings match docs/LEGAL.md themes",
       "read_when": "release",
@@ -502,6 +558,34 @@
       "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
+    },
+    {
+      "path": "scripts/publish-product.sh",
+      "purpose": "Publish self-contained win-x64 product zip (app + ElevatedHelper)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": "scripts/publish-product.ps1",
+      "purpose": "Windows wrapper for publish-product.sh",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": "scripts/check-release-gate-parity.sh",
+      "purpose": "Verify pre-release gate flags match RUNBOOK and release-auto-merge.yml",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": ".github/workflows/product-release.yml",
+      "purpose": "Build and attach product win-x64 zip on SpatialLabsOptimizer-v* tags",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
     },
     {
       "path": ".github/workflows/pages.yml",

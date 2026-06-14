@@ -13,6 +13,9 @@ public static class PrivacyAllowlist
         "cdn.akamai.steamstatic.com",
         "github.com",
         "raw.githubusercontent.com",
-        "objects.githubusercontent.com"
+        "objects.githubusercontent.com",
+        "www.steamgriddb.com",
+        "steamgriddb.com",
+        "api.github.com"
     ];
 }

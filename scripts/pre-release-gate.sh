@@ -11,13 +11,15 @@ VERSION=""
 ALLOW_EXCEPTION=""
 SKIP_TRIAGE=false
 SKIP_DOTNET=false
+PRODUCT_RELEASE=false
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --allow-exception) ALLOW_EXCEPTION="${2:-}"; shift 2 ;;
     --skip-triage) SKIP_TRIAGE=true; shift ;;
     --skip-dotnet) SKIP_DOTNET=true; shift ;;
-    *) echo "Usage: $0 [--allow-exception ISSUE_URL] [--skip-triage] [--skip-dotnet]"; exit 1 ;;
+    --product-release) PRODUCT_RELEASE=true; shift ;;
+    *) echo "Usage: $0 [--allow-exception ISSUE_URL] [--skip-triage] [--skip-dotnet] [--product-release]"; exit 1 ;;
   esac
 done
 
@@ -102,6 +104,42 @@ fi
 if [ "$SKIP_DOTNET" = false ] && [ -f SpatialLabsOptimizer.sln ] && command -v dotnet >/dev/null 2>&1; then
   if ! dotnet test src/SpatialLabsOptimizer.Tests/SpatialLabsOptimizer.Tests.csproj \
     --configuration Release \
+    --verbosity minimal; then
+    echo "FAIL: product test suite failed"
+    ERRORS=$((ERRORS + 1))
+  else
+    echo "OK   Full test suite passed"
+  fi
+elif [ "$SKIP_DOTNET" = false ] && [ -f SpatialLabsOptimizer.sln ]; then
+  echo "SKIP dotnet tests (dotnet not installed)"
+fi
+
+if [ "${PRODUCT_RELEASE:-false}" = true ]; then
+  if [ -f src/SpatialLabsOptimizer/product-version.json ]; then
+    PRODUCT_VERSION="$(python3 -c "import json; print(json.load(open('src/SpatialLabsOptimizer/product-version.json'))['version'])" 2>/dev/null || true)"
+    if [ -n "$PRODUCT_VERSION" ]; then
+      echo "OK   product-version.json = ${PRODUCT_VERSION}"
+    else
+      echo "FAIL: could not read product-version.json"
+      ERRORS=$((ERRORS + 1))
+    fi
+  fi
+  if command -v rg >/dev/null 2>&1; then
+    if ! bash scripts/check-qa-matrix-coverage.sh; then
+      echo "FAIL: QA matrix P0 coverage incomplete"
+      ERRORS=$((ERRORS + 1))
+    fi
+    if ! bash scripts/check-compatibility-seed.sh; then
+      echo "FAIL: compatibility seed validation failed"
+      ERRORS=$((ERRORS + 1))
+    fi
+  fi
+fi
+
+# Legacy persistence spot-check (non-product-release quick path)
+if [ "${PRODUCT_RELEASE:-false}" != true ] && [ "$SKIP_DOTNET" = false ] && [ -f SpatialLabsOptimizer.sln ] && command -v dotnet >/dev/null 2>&1; then
+  if ! dotnet test src/SpatialLabsOptimizer.Tests/SpatialLabsOptimizer.Tests.csproj \
+    --configuration Release \
     --filter "FullyQualifiedName~SqliteSettingsStore_SurvivesSchemaMigration|FullyQualifiedName~SettingsStore" \
     --verbosity minimal 2>/dev/null; then
     if ! dotnet test src/SpatialLabsOptimizer.Tests/SpatialLabsOptimizer.Tests.csproj \
@@ -116,8 +154,6 @@ if [ "$SKIP_DOTNET" = false ] && [ -f SpatialLabsOptimizer.sln ] && command -v d
   else
     echo "OK   State persistence / settings tests passed"
   fi
-elif [ "$SKIP_DOTNET" = false ] && [ -f SpatialLabsOptimizer.sln ]; then
-  echo "SKIP dotnet persistence tests (dotnet not installed)"
 fi
 
 # Conventional commits on last 20 commits on main (when available)

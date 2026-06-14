@@ -22,7 +22,8 @@ public sealed record GameCompatibilityEntry(
     int? PeakPlayers = null,
     int? CurrentPlayers = null,
     string? CoverCachePath = null,
-    VrCapability VrCapability = VrCapability.None);
+    VrCapability VrCapability = VrCapability.None,
+    string? SteamVrLaunchOptions = null);
 
 public sealed record GameCatalogItem(
     int SteamAppId,
@@ -56,7 +57,8 @@ public sealed record ResolvedGameLaunchPlan(
     double Separation,
     string? PresetId,
     string? ShaderId,
-    bool SafeLaunch);
+    bool SafeLaunch,
+    string PreferredOutput = "Auto");
 
 public sealed record ToolManifestEntry(
     string Id,

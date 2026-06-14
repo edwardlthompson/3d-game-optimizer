@@ -1,12 +1,19 @@
+using System.Diagnostics;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using SpatialLabsOptimizer.Infrastructure.Launch;
+using SpatialLabsOptimizer.Infrastructure.Progress;
 using SpatialLabsOptimizer.Infrastructure.Responsive;
+using SpatialLabsOptimizer.Infrastructure.Settings;
 using SpatialLabsOptimizer.ViewModels;
 
 namespace SpatialLabsOptimizer.Views;
 
 public sealed partial class ShellPage : Page
 {
+    public static ShellPage? Current { get; private set; }
+
     private readonly ResponsiveStateService _responsive;
     private readonly GameLibraryViewModel _libraryViewModel;
     private readonly SetupWizardViewModel _wizardViewModel;
@@ -25,19 +32,134 @@ public sealed partial class ShellPage : Page
         _wizardViewModel = wizardViewModel;
         InitializeComponent();
         Loaded += ShellPage_Loaded;
+        Unloaded += (_, _) => Current = null;
+        ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+    }
+
+    private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(ShellViewModel.PendingSetupWizardRerun) && ViewModel.PendingSetupWizardRerun)
+        {
+            NavigateToTag("wizard");
+            ViewModel.ClearSetupWizardRerunRequest();
+        }
     }
 
     private async void ShellPage_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
+        Current = this;
         if (App.Current is App app && app.MainWindow is not null)
         {
             _responsive.AttachToWindow(app.MainWindow);
         }
 
+        ViewModel.StartDisplayMonitoring();
         await ViewModel.InitializeAsync();
         NavView.SelectedItem = NavView.MenuItems[0];
         ContentFrame.Navigate(typeof(GameLibraryView), _libraryViewModel);
+
+        if (App.PendingProtocolAppId is int protocolAppId)
+        {
+            App.PendingProtocolAppId = null;
+            NavigateToTag("library");
+            await _libraryViewModel.PlayByAppIdAsync(protocolAppId);
+        }
     }
+
+    public void NavigateToTag(string tag)
+    {
+        foreach (NavigationViewItem item in NavView.MenuItems)
+        {
+            if (item.Tag is string itemTag && itemTag == tag)
+            {
+                NavView.SelectedItem = item;
+                break;
+            }
+        }
+
+        NavigateContent(tag);
+    }
+
+    public async Task ExecuteCommandAsync(string commandId)
+    {
+        switch (commandId)
+        {
+            case "setup-wizard":
+                NavigateToTag("wizard");
+                break;
+            case "play-3d":
+                NavigateToTag("library");
+                _libraryViewModel.PlayCommand.Execute(null);
+                break;
+            case "play-vr":
+                NavigateToTag("library");
+                _libraryViewModel.PlayVrCommand.Execute(null);
+                break;
+            case "refresh-metadata":
+            case "rescan-library":
+                NavigateToTag("library");
+                await _libraryViewModel.LoadAsync();
+                ViewModel.Status = "Library re-indexed.";
+                break;
+            case "cache-presets":
+                await CacheTopPresetsAsync();
+                break;
+            case "open-logs":
+                OpenLogsFolder();
+                break;
+            case "toggle-safe-launch":
+                await ToggleSafeLaunchAsync();
+                break;
+            case "safe-launch":
+                NavigateToTag("health");
+                break;
+            case "diagnostic-bundle":
+                NavigateToTag("troubleshoot");
+                break;
+            case "command-palette":
+                NavigateToTag("commands");
+                break;
+        }
+    }
+
+    private async Task CacheTopPresetsAsync()
+    {
+        var presets = App.Services.GetRequiredService<PresetCacheService>();
+        var hub = App.Services.GetRequiredService<OperationProgressHub>();
+        ViewModel.Status = "Caching top presets…";
+        await presets.BulkCacheTopPresetsAsync(50, hub);
+        ViewModel.Status = "Top presets cached.";
+    }
+
+    private static void OpenLogsFolder()
+    {
+        var logDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "3d-game-optimizer", "logs");
+        Directory.CreateDirectory(logDir);
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = logDir,
+            UseShellExecute = true
+        });
+    }
+
+    private async Task ToggleSafeLaunchAsync()
+    {
+        var prefs = App.Services.GetRequiredService<UserPreferencesService>();
+        var enabled = await prefs.GetSafeLaunchAsync();
+        await prefs.SetSafeLaunchAsync(!enabled);
+        ViewModel.Status = !enabled ? "Safe launch enabled." : "Safe launch disabled.";
+    }
+
+    private void DisplayChangeRerun_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        => ViewModel.RequestSetupWizardRerun();
+
+    private void DisplayChangeInfoBar_Closed(InfoBar sender, InfoBarClosedEventArgs args)
+        => ViewModel.AcknowledgeDisplayChange();
+
+    private void UpdateAvailable_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        => NavigateToTag("about");
 
     private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
@@ -46,14 +168,22 @@ public sealed partial class ShellPage : Page
             return;
         }
 
+        NavigateContent(tag);
+    }
+
+    private void NavigateContent(string tag)
+    {
         var pageType = tag switch
         {
             "library" => typeof(GameLibraryView),
             "wizard" => typeof(SetupWizardView),
             "settings" => typeof(Global3DSettingsView),
+            "library-settings" => typeof(LibrarySettingsView),
             "health" => typeof(ToolchainHealthView),
             "troubleshoot" => typeof(TroubleshootingView),
+            "glossary" => typeof(GlossaryView),
             "about" => typeof(AboutView),
+            "commands" => typeof(CommandPaletteView),
             _ => typeof(GameLibraryView)
         };
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="WixToolset.Sdk/4.0.5">
+  <PropertyGroup>
+    <AppVersion Condition="'$(AppVersion)' == ''">1.0.0.0</AppVersion>
+    <DisplayVersion Condition="'$(DisplayVersion)' == ''">1.0.0</DisplayVersion>
+    <DefineConstants>AppVersion=$(AppVersion)</DefineConstants>
+    <StagingDir Condition="'$(StagingDir)' == ''">..\..\artifacts\product-win-x64\staging\app</StagingDir>
+    <OutputPath Condition="'$(OutputPath)' == ''">..\..\artifacts\product-msi</OutputPath>
+    <OutputName>SpatialLabsOptimizer-$(DisplayVersion)-win-x64</OutputName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <HarvestDirectory Include="$(StagingDir)">
+      <ComponentGroupName>AppFiles</ComponentGroupName>
+      <DirectoryRefId>INSTALLFOLDER</DirectoryRefId>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+    </HarvestDirectory>
+    <BindPath Include="$(StagingDir)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WixToolset.Heat" Version="4.0.5" />
+  </ItemGroup>
+</Project>

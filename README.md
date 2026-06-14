@@ -6,7 +6,10 @@
 ![MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 ![WinUI 3](https://img.shields.io/badge/UI-WinUI%203-68217A?style=flat-square)
 ![.NET 8](https://img.shields.io/badge/.NET-8-512BD4?style=flat-square&logo=dotnet&logoColor=white)
-![Privacy](https://img.shields.io/badge/telemetry-none-656d76?style=flat-square)
+![Product](https://img.shields.io/badge/product-v1.1.0-68217A?style=flat-square)
+![Template](https://img.shields.io/badge/template-v0.7.1-656d76?style=flat-square)
+
+_Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matching `.template-version`._
 
 **One-click glasses-free 3D PC gaming** — discovery library, silent toolchain setup, zero-friction launch.
 
@@ -38,7 +41,7 @@
 - Launcher-style box cover art from Steam Store API + CDN cache
 - Default **Ready to Play** view for 700+ Steam titles
 - Sort by 3D quality, players online, confidence-weighted Steam reviews, discovery score
-- Pinned shelf, favorites, queue, and session playlists (roadmap)
+- Pinned shelf, queue enqueue, favorites, session playlists, local game folder watch list
 
 **One-click launch**
 - Automatic platform routing: TrueGame, Odyssey 3D Hub, UEVR, ReShade
@@ -51,7 +54,8 @@
 - Performance-tier preset variants (depth, shader cost)
 
 **Trust & compatibility**
-- Trainer/mod manager coexistence (WeMod, Vortex, MO2 — detect, don't fight)
+- Trainer/mod manager coexistence (WeMod, Vortex, MO2 — detect, game-first launch)
+- In-app updates (About → Check now / Update and restart) from GitHub releases
 - Safe launch (no injectors) for debugging
 - Structured error codes (`3DGO-####`) + diagnostic bundle export
 
@@ -76,13 +80,15 @@ See [docs/DISPLAY_VENDORS.md](docs/DISPLAY_VENDORS.md) for EDID signatures and i
 
 <div align="center">
 
-*Screenshots will be added before v1.0 release.*
-
-Library grid · Setup wizard · Launch progress overlay · Settings
+| Library | Setup wizard |
+|:---:|:---:|
+| ![Library grid](docs/assets/readme/library-grid.png) | ![Setup wizard](docs/assets/readme/setup-wizard.png) |
+| Launch progress | Settings |
+| ![Launch progress](docs/assets/readme/launch-progress.png) | ![Settings](docs/assets/readme/settings.png) |
 
 </div>
 
-Assets live in `docs/assets/readme/`.
+Assets live in `docs/assets/readme/` (regenerate UI previews via `python scripts/generate-brand-assets.py`). The script skips real WinUI screenshots when the Windows App SDK / WinUI runtime is unavailable and falls back to synthetic placeholders. Replace with real WinUI captures before major releases if desired.
 
 </details>
 
@@ -119,6 +125,22 @@ Run the app:
 dotnet run --project src/SpatialLabsOptimizer/SpatialLabsOptimizer.csproj
 ```
 
+**v2 features** (Epic/GOG scan, workshop importer, LAN export) are off by default. Enable locally:
+
+```powershell
+# Option A — helper script
+.\scripts\run-dev-v2.ps1
+
+# Option B — launch profile (IDE / dotnet run)
+dotnet run --project src/SpatialLabsOptimizer/SpatialLabsOptimizer.csproj --launch-profile "SpatialLabsOptimizer (v2)"
+
+# Option C — session env var
+$env:SPATIALLABS_ENABLE_V2 = "true"
+dotnet run --project src/SpatialLabsOptimizer/SpatialLabsOptimizer.csproj
+```
+
+In Visual Studio or Cursor, pick the **SpatialLabsOptimizer (v2)** profile from `Properties/launchSettings.json`.
+
 </details>
 
 <details>
@@ -137,7 +159,7 @@ dotnet run --project src/SpatialLabsOptimizer/SpatialLabsOptimizer.csproj
 |---------|--------|
 | **v1.0** | WinUI hub, silent setup, discovery library, Play in 3D, multi-vendor displays |
 | **v1.0.1** | Incremental Steam scan, bulk preset cache, HDR watchdog |
-| **v1.1** | PCVR connector (delegate only), command palette, genre matrix |
+| **v1.1.0** | Local release (zip/MSIX/MSI), local game folders, About updates, PCVR/command palette, diagnostics |
 | **v2.0** | Epic/GOG stubs, workshop importer, co-op partner mode |
 
 Detail: [BUILD_PLAN.md](BUILD_PLAN.md)
@@ -154,13 +176,13 @@ No for basic use. Optional key unlocks owned-library merge and live player count
 No — it connects to and automates them. You still need vendor display software installed.
 
 **Will this work with WeMod?**  
-Coexistence mode detects trainers and adjusts launch order. You are responsible for game ToS compliance.
+Yes — enable **Trainer coexistence** in Toolchain Health. The app detects WeMod/Vortex/MO2 and can launch the game first (skipping UEVR injectors when configured). With coexistence off, launch is blocked if a conflicting trainer is running (`3DGO-0004`). You are responsible for game ToS compliance.
 
 **Does it support VR headsets?**  
-v1.1 adds a **Play in VR** connector that delegates to your existing SteamVR/OpenXR install.
+**Play in VR** delegates to your existing SteamVR/OpenXR install. OpenXR runtime can be overridden from settings.
 
 **Is my data sent anywhere?**  
-No. Outbound HTTP is limited to Steam APIs, Steam CDN, and signed GitHub release manifests.
+No. Outbound HTTP is limited to Steam APIs, Steam CDN, signed GitHub release manifests (`api.github.com`), and optional SteamGridDb when configured.
 
 </details>
 
@@ -176,6 +198,9 @@ No. Outbound HTTP is limited to Steam APIs, Steam CDN, and signed GitHub release
 | [docs/UX_PROGRESS.md](docs/UX_PROGRESS.md) | Progress feedback policy |
 | [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) | UI tokens & interaction |
 | [docs/QA_MATRIX.md](docs/QA_MATRIX.md) | Release QA hardware matrix |
+| [docs/LOCAL_RELEASE.md](docs/LOCAL_RELEASE.md) | Local zip/MSIX/MSI build & sign |
+| [docs/LOCAL_GAME_FOLDERS.md](docs/LOCAL_GAME_FOLDERS.md) | Watch-list folder scanning |
+| [docs/TRAINER_COEXISTENCE.md](docs/TRAINER_COEXISTENCE.md) | WeMod/mod-manager launch policy |
 
 </details>
 

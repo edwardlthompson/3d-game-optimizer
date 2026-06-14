@@ -1,0 +1,155 @@
+name: Product Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Product release tag (e.g. SpatialLabsOptimizer-v1.0.0)
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  pre-release-gate:
+    name: Pre-release Gate (full)
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      startsWith(github.event.release.tag_name, 'SpatialLabsOptimizer-v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
+      - name: Install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+      - name: Run full pre-release gate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash scripts/pre-release-gate.sh --product-release
+
+  publish:
+    name: Build and attach product zip
+    needs: pre-release-gate
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      startsWith(github.event.release.tag_name, 'SpatialLabsOptimizer-v')
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Publish self-contained win-x64 bundle
+        shell: bash
+        run: bash scripts/publish-product.sh Release artifacts/product-win-x64
+
+      - name: Authenticode signing (EV secrets or AUTO sideload)
+        shell: pwsh
+        env:
+          CODESIGN_PFX_BASE64: ${{ secrets.CODESIGN_PFX_BASE64 }}
+          CODESIGN_PASSWORD: ${{ secrets.CODESIGN_PASSWORD }}
+        run: |
+          $version = (Get-Content src/SpatialLabsOptimizer/product-version.json | ConvertFrom-Json).version
+          $zip = "artifacts/product-win-x64/SpatialLabsOptimizer-${version}-win-x64.zip"
+          $staging = "artifacts/product-win-x64/staging/app"
+          pwsh -File scripts/sign-product-release.ps1 -StagingDir $staging -ZipPath $zip
+
+      - name: Build MSI package
+        shell: pwsh
+        env:
+          CODESIGN_PFX_BASE64: ${{ secrets.CODESIGN_PFX_BASE64 }}
+          CODESIGN_PASSWORD: ${{ secrets.CODESIGN_PASSWORD }}
+        run: |
+          pwsh -File scripts/publish-product-msi.ps1 -Sign
+
+      - name: Build MSIX package (when assets present)
+        shell: pwsh
+        continue-on-error: true
+        env:
+          CODESIGN_PFX_BASE64: ${{ secrets.CODESIGN_PFX_BASE64 }}
+          CODESIGN_PASSWORD: ${{ secrets.CODESIGN_PASSWORD }}
+        run: |
+          if (Test-Path src/SpatialLabsOptimizer/Assets/StoreLogo.png) {
+            pwsh -File scripts/publish-product-msix.ps1 -Sign
+          } else {
+            Write-Host "Skipping MSIX — run python scripts/generate-brand-assets.py first"
+          }
+
+      - name: Resolve tag and asset paths
+        id: assets
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ inputs.tag }}"
+          else
+            TAG="${{ github.event.release.tag_name }}"
+          fi
+          VERSION="${TAG#SpatialLabsOptimizer-v}"
+          ZIP="artifacts/product-win-x64/SpatialLabsOptimizer-${VERSION}-win-x64.zip"
+          MSI="artifacts/product-msi/SpatialLabsOptimizer-${VERSION}-win-x64.msi"
+          MSIX=""
+          if compgen -G "artifacts/product-msix/*.msix" > /dev/null; then
+            MSIX="$(ls -1 artifacts/product-msix/*.msix | head -1)"
+          fi
+          if [ ! -f "$ZIP" ]; then
+            echo "Zip not found: $ZIP"
+            exit 1
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
+          if [ -f "$MSI" ]; then
+            echo "msi=$MSI" >> "$GITHUB_OUTPUT"
+          fi
+          if [ -n "$MSIX" ] && [ -f "$MSIX" ]; then
+            echo "msix=$MSIX" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate Winget manifest for product
+        shell: bash
+        run: |
+          VERSION="${{ steps.assets.outputs.tag }}"
+          VERSION="${VERSION#SpatialLabsOptimizer-v}"
+          INSTALLER="${{ steps.assets.outputs.zip }}"
+          INSTALLER_TYPE="zip"
+          if [ -n "${{ steps.assets.outputs.msi }}" ] && [ -f "${{ steps.assets.outputs.msi }}" ]; then
+            INSTALLER="${{ steps.assets.outputs.msi }}"
+            INSTALLER_TYPE="msi"
+          fi
+          bash scripts/generate-winget-manifest.sh \
+            "edwardlthompson.SpatialLabsOptimizer" \
+            "$VERSION" \
+            packaging/winget-product \
+            "$INSTALLER" \
+            "$INSTALLER_TYPE"
+          bash scripts/generate-winget-multifile.sh "$VERSION" "$INSTALLER" "$INSTALLER_TYPE"
+
+      - name: Upload product assets to GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -- gh release upload "${{ steps.assets.outputs.tag }}" \
+            "${{ steps.assets.outputs.zip }}" \
+            packaging/winget-product/manifest.stub.yaml \
+            --clobber
+          if [ -n "${{ steps.assets.outputs.msi }}" ] && [ -f "${{ steps.assets.outputs.msi }}" ]; then
+            set -- "$@" "${{ steps.assets.outputs.msi }}"
+          fi
+          if [ -n "${{ steps.assets.outputs.msix }}" ] && [ -f "${{ steps.assets.outputs.msix }}" ]; then
+            set -- "$@" "${{ steps.assets.outputs.msix }}"
+          fi
+          MULTIFILE="packaging/winget-product/multifile"
+          VERSION="${{ steps.assets.outputs.tag }}"
+          VERSION="${VERSION#SpatialLabsOptimizer-v}"
+          if [ -d "$MULTIFILE/$VERSION" ]; then
+            set -- "$@" "$MULTIFILE/$VERSION/edwardlthompson.SpatialLabsOptimizer.yaml"
+            set -- "$@" "$MULTIFILE/$VERSION/edwardlthompson.SpatialLabsOptimizer.installer.yaml"
+            set -- "$@" "$MULTIFILE/$VERSION/edwardlthompson.SpatialLabsOptimizer.locale.en-US.yaml"
+          fi
+          "$@"

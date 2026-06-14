@@ -17,16 +17,19 @@
             <StackPanel x:Name="DisclaimerPanel" Spacing="8">
                 <TextBlock Text="Legal consent" FontSize="18" FontWeight="SemiBold" />
                 <TextBlock TextWrapping="Wrap" Text="3D Game Optimizer is an independent tool. By continuing, you accept silent installation of third-party toolchain components per docs/LEGAL.md." />
-                <CheckBox x:Name="DisclaimerCheck" Content="I accept the toolchain EULA and legal disclaimers" Checked="DisclaimerCheck_Changed" Unchecked="DisclaimerCheck_Changed" />
+                <CheckBox x:Name="DisclaimerCheck" AutomationProperties.AutomationId="SetupWizard_DisclaimerCheck" Content="I accept the toolchain EULA and legal disclaimers" Checked="DisclaimerCheck_Changed" Unchecked="DisclaimerCheck_Changed" />
+                <CheckBox x:Name="OfflineCheck" Content="Offline onboarding (skip network downloads)" Checked="OfflineCheck_Changed" Unchecked="OfflineCheck_Changed" />
             </StackPanel>
             <InfoBar x:Name="MuxInfoBar" Severity="Warning" IsOpen="False" Title="Dual-GPU detected" />
             <TextBlock x:Name="ViewingDistanceBlock" TextWrapping="Wrap" Opacity="0.85" />
+            <views:ViewingDistanceCoachView x:Name="ViewingDistanceCoach" Visibility="Collapsed" />
+            <Button x:Name="ViewingDistanceCoachButton" Content="Viewing distance coach" Click="ViewingDistanceCoach_Click" Style="{StaticResource AppButtonStyle}" HorizontalAlignment="Left" />
             <views:ManualDisplayPickerView x:Name="DisplayPicker" Visibility="Collapsed" />
             <TextBlock x:Name="StatusBlock" TextWrapping="Wrap" />
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8">
-            <Button Content="Continue" Click="Continue_Click" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Run Benchmark (optional)" Click="Benchmark_Click" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="2–3 minute local benchmark to refine performance tier" />
+            <Button AutomationProperties.AutomationId="SetupWizard_Continue" Content="Continue" Click="Continue_Click" Style="{StaticResource AppButtonStyle}" />
+            <Button AutomationProperties.AutomationId="SetupWizard_Benchmark" Content="Run Benchmark (optional)" Click="Benchmark_Click" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="2–3 minute local benchmark to refine performance tier" />
         </StackPanel>
     </Grid>
 </Page>

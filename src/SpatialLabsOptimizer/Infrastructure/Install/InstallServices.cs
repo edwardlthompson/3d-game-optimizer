@@ -6,15 +6,52 @@ using SpatialLabsOptimizer.Infrastructure.Progress;
 
 namespace SpatialLabsOptimizer.Infrastructure.Install;
 
+public sealed class InstallErrorCatalog
+{
+    private readonly Dictionary<int, (string Code, string Message, string Recovery)> _errors = new()
+    {
+        [1] = ("3DGO-0101", "Tool ID not allowlisted", "Verify tool manifest entry"),
+        [2] = ("3DGO-0102", "Download URL not allowlisted", "Check vendor download source"),
+        [3] = ("3DGO-0103", "Installer hash mismatch", "Re-download toolchain package"),
+        [-1] = ("3DGO-0104", "Elevated helper missing", "Reinstall SpatialLabs Optimizer"),
+        [-2] = ("3DGO-0105", "Silent install failed", "Re-run setup wizard or install manually")
+    };
+
+    public (string Code, string Message, string Recovery) Classify(int exitCode, bool helperMissing)
+    {
+        if (helperMissing)
+        {
+            return _errors[-1];
+        }
+
+        if (_errors.TryGetValue(exitCode, out var entry))
+        {
+            return entry;
+        }
+
+        return exitCode == 0
+            ? ("3DGO-0000", "Install succeeded", "")
+            : _errors[-2];
+    }
+}
+
 public sealed class SilentInstallOrchestrator : IProgressReportingOperation
 {
     private readonly JsonDataLoader _loader;
     private readonly OperationProgressHub _progressHub;
+    private readonly InstallErrorCatalog _errors;
+    private readonly IElevatedHelperLocator _helperLocator;
 
-    public SilentInstallOrchestrator(JsonDataLoader loader, OperationProgressHub progressHub)
+    public SilentInstallOrchestrator(
+        JsonDataLoader loader,
+        OperationProgressHub progressHub,
+        InstallErrorCatalog errors,
+        IElevatedHelperLocator helperLocator)
     {
         _loader = loader;
         _progressHub = progressHub;
+        _errors = errors;
+        _helperLocator = helperLocator;
     }
 
     public string OperationId => "silent-install";
@@ -25,7 +62,10 @@ public sealed class SilentInstallOrchestrator : IProgressReportingOperation
     public async Task ExecuteAsync(CancellationToken cancellationToken = default)
     {
         var manifest = await _loader.LoadAsync<ToolManifestDocument>("tools/tool-manifest-v1.json", cancellationToken);
-        var tools = manifest?.Tools ?? [];
+        var tools = manifest?.Tools?.Select(t => t.ToEntry()).ToList() ?? [];
+        var helperPath = _helperLocator.HelperPath;
+        var helperMissing = !File.Exists(helperPath);
+
         for (var i = 0; i < tools.Count; i++)
         {
             var tool = tools[i];
@@ -40,7 +80,24 @@ public sealed class SilentInstallOrchestrator : IProgressReportingOperation
                 DetailMessage: tool.SilentArgs);
             ProgressChanged?.Invoke(this, report);
             _progressHub.Publish(report);
-            await Task.Delay(100, cancellationToken);
+
+            var exitCode = await InstallToolAsync(tool, cancellationToken);
+            var classified = _errors.Classify(exitCode, helperMissing);
+            if (exitCode != 0)
+            {
+                var failed = new OperationProgressReport(
+                    OperationId,
+                    Category,
+                    "Silent toolchain install",
+                    classified.Message,
+                    StepIndex: i + 1,
+                    TotalSteps: tools.Count,
+                    IsFailed: true,
+                    ErrorMessage: $"{classified.Code}: {classified.Recovery}");
+                ProgressChanged?.Invoke(this, failed);
+                _progressHub.Publish(failed);
+                return;
+            }
         }
 
         _progressHub.Publish(new OperationProgressReport(
@@ -52,15 +109,15 @@ public sealed class SilentInstallOrchestrator : IProgressReportingOperation
             PercentComplete: 100));
     }
 
-    public async Task InstallToolAsync(ToolManifestEntry tool, CancellationToken cancellationToken = default)
+    public async Task<int> InstallToolAsync(ToolManifestEntry tool, CancellationToken cancellationToken = default)
     {
-        var helperPath = Path.Combine(AppContext.BaseDirectory, "SpatialLabsOptimizer.ElevatedHelper.exe");
+        var helperPath = _helperLocator.HelperPath;
         if (!File.Exists(helperPath))
         {
-            return;
+            return -1;
         }
 
-        var args = $"install --tool-id {tool.Id} --silent \"{tool.SilentArgs}\"";
+        var args = BuildHelperArgs(tool);
         using var process = Process.Start(new ProcessStartInfo
         {
             FileName = helperPath,
@@ -69,18 +126,38 @@ public sealed class SilentInstallOrchestrator : IProgressReportingOperation
             UseShellExecute = false
         });
 
-        if (process is not null)
+        if (process is null)
         {
-            await process.WaitForExitAsync(cancellationToken);
+            return -2;
         }
+
+        await process.WaitForExitAsync(cancellationToken);
+        return tool.SuccessExitCodes.Contains(process.ExitCode) ? 0 : process.ExitCode;
+    }
+
+    private static string BuildHelperArgs(ToolManifestEntry tool)
+    {
+        var builder = new System.Text.StringBuilder();
+        builder.Append("install --tool-id ").Append(tool.Id).Append(" --silent \"").Append(tool.SilentArgs).Append('"');
+        if (!string.IsNullOrWhiteSpace(tool.DownloadUrl))
+        {
+            builder.Append(" --url \"").Append(tool.DownloadUrl).Append('"');
+        }
+
+        if (!string.IsNullOrWhiteSpace(tool.Sha256))
+        {
+            builder.Append(" --sha256 ").Append(tool.Sha256);
+        }
+
+        return builder.ToString();
     }
 
     private sealed class ToolManifestDocument
     {
-        public List<ToolEntryDto> Tools { get; set; } = [];
+        public List<ToolManifestEntryDto> Tools { get; set; } = [];
     }
 
-    private sealed class ToolEntryDto
+    private sealed class ToolManifestEntryDto
     {
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
@@ -89,6 +166,15 @@ public sealed class SilentInstallOrchestrator : IProgressReportingOperation
         public string SilentArgs { get; set; } = "";
         public List<int> SuccessExitCodes { get; set; } = [0];
         public string? PostInstallConfig { get; set; }
+
+        public ToolManifestEntry ToEntry() => new(
+            Id,
+            Name,
+            DownloadUrl,
+            Sha256,
+            SilentArgs,
+            SuccessExitCodes,
+            PostInstallConfig);
     }
 }
 

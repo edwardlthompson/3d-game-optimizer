@@ -1,23 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <RootNamespace>SpatialLabsOptimizer</RootNamespace>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="..\SpatialLabsOptimizer\Domain\**\*.cs" Link="Domain\%(RecursiveDir)%(Filename)%(Extension)" />
-    <Compile Include="..\SpatialLabsOptimizer\Application\**\*.cs" Link="Application\%(RecursiveDir)%(Filename)%(Extension)" />
-    <Compile Include="..\SpatialLabsOptimizer\Infrastructure\**\*.cs" Link="Infrastructure\%(RecursiveDir)%(Filename)%(Extension)" />
-    <Compile Remove="..\SpatialLabsOptimizer\Infrastructure\Responsive\**\*.cs" />
-    <Compile Remove="..\SpatialLabsOptimizer\Infrastructure\Hosting\**\*.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
-  </ItemGroup>
-
-</Project>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>SpatialLabsOptimizer</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\SpatialLabsOptimizer\Domain\**\*.cs" Link="Domain\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\SpatialLabsOptimizer\Application\**\*.cs" Link="Application\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\SpatialLabsOptimizer\Infrastructure\**\*.cs" Link="Infrastructure\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Remove="..\SpatialLabsOptimizer\Infrastructure\Responsive\**\*.cs" />
+    <Compile Remove="..\SpatialLabsOptimizer\Infrastructure\Hosting\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
+    <PackageReference Include="System.Management" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>

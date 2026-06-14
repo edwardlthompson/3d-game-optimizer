@@ -5,12 +5,7 @@
       "id": "cyberpunk-2077",
       "title": "Cyberpunk 2077",
       "steamAppId": 1091500,
-      "steamTags": [
-        "Open World",
-        "RPG",
-        "Sci-fi",
-        "Singleplayer"
-      ],
+      "steamTags": ["Open World", "RPG", "Sci-fi", "Singleplayer"],
       "tiersByVendor": {
         "acer": "optimized",
         "samsung": "playable",
@@ -21,18 +16,15 @@
         "summary": "Excellent depth separation on Acer profile, but requires conservative convergence for long sessions.",
         "confidence": "high",
         "lastReviewedAt": "2026-06-01"
-      }
+      },
+      "vrCapability": "uevrCompatible",
+      "steamVrLaunchOptions": "-vr"
     },
     {
       "id": "forza-horizon-5",
       "title": "Forza Horizon 5",
       "steamAppId": 1551360,
-      "steamTags": [
-        "Racing",
-        "Open World",
-        "Driving",
-        "Multiplayer"
-      ],
+      "steamTags": ["Racing", "Open World", "Driving", "Multiplayer"],
       "tiersByVendor": {
         "acer": "playable",
         "samsung": "optimized",
@@ -49,12 +41,7 @@
       "id": "baldurs-gate-3",
       "title": "Baldur's Gate 3",
       "steamAppId": 1086940,
-      "steamTags": [
-        "RPG",
-        "Turn-Based",
-        "Story Rich",
-        "Co-op"
-      ],
+      "steamTags": ["RPG", "Turn-Based", "Story Rich", "Co-op"],
       "tiersByVendor": {
         "acer": "playable",
         "samsung": "playable",
@@ -65,6 +52,167 @@
         "summary": "Playable with tuned presets; UI depth artifacts still present in some dialogue scenes.",
         "confidence": "medium",
         "lastReviewedAt": "2026-06-07"
+      }
+    },
+    {
+      "id": "elden-ring",
+      "title": "Elden Ring",
+      "steamAppId": 1245620,
+      "steamTags": ["Souls-like", "Open World", "RPG", "Dark Fantasy"],
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "playable",
+        "nvidia": "experimental",
+        "generic": "experimental"
+      },
+      "review": {
+        "summary": "Strong parallax in open areas; fast camera motion can induce discomfort without reduced depth.",
+        "confidence": "medium",
+        "lastReviewedAt": "2026-05-28"
+      }
+    },
+    {
+      "id": "red-dead-redemption-2",
+      "title": "Red Dead Redemption 2",
+      "steamAppId": 1174180,
+      "steamTags": ["Open World", "Western", "Story Rich", "Multiplayer"],
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "playable",
+        "nvidia": "experimental",
+        "generic": "experimental"
+      },
+      "review": {
+        "summary": "Cinematic landscapes benefit from moderate depth; cutscenes need UI depth compensation.",
+        "confidence": "medium",
+        "lastReviewedAt": "2026-05-22"
+      },
+      "vrCapability": "uevrCompatible"
+    },
+    {
+      "id": "the-witcher-3",
+      "title": "The Witcher 3: Wild Hunt",
+      "steamAppId": 292030,
+      "steamTags": ["Open World", "RPG", "Story Rich", "Fantasy"],
+      "tiersByVendor": {
+        "acer": "optimized",
+        "samsung": "playable",
+        "nvidia": "playable",
+        "generic": "experimental"
+      },
+      "review": {
+        "summary": "Mature title for 3D profiles; foliage-heavy scenes need conservative convergence defaults.",
+        "confidence": "high",
+        "lastReviewedAt": "2026-06-03"
+      },
+      "vrCapability": "uevrCompatible"
+    },
+    {
+      "id": "skyrim-se",
+      "title": "The Elder Scrolls V: Skyrim Special Edition",
+      "steamAppId": 489830,
+      "steamTags": ["Open World", "RPG", "Fantasy", "Moddable"],
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "playable",
+        "nvidia": "experimental",
+        "generic": "experimental"
+      },
+      "review": {
+        "summary": "Well-understood UEVR target; mod load order can affect injector stability.",
+        "confidence": "high",
+        "lastReviewedAt": "2026-06-05"
+      },
+      "vrCapability": "uevrCompatible"
+    },
+    {
+      "id": "hogwarts-legacy",
+      "title": "Hogwarts Legacy",
+      "steamAppId": 990080,
+      "steamTags": ["Open World", "Magic", "RPG", "Singleplayer"],
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "experimental",
+        "nvidia": "experimental",
+        "generic": "unsupported"
+      },
+      "review": {
+        "summary": "Interior scenes show strong depth; performance spikes on generic profiles.",
+        "confidence": "low",
+        "lastReviewedAt": "2026-05-15"
+      },
+      "vrCapability": "uevrCompatible"
+    },
+    {
+      "id": "starfield",
+      "title": "Starfield",
+      "steamAppId": 1716740,
+      "steamTags": ["Open World", "RPG", "Sci-fi", "Space"],
+      "tiersByVendor": {
+        "acer": "experimental",
+        "samsung": "experimental",
+        "nvidia": "unsupported",
+        "generic": "unsupported"
+      },
+      "review": {
+        "summary": "Experimental only; cockpit UI and space transitions need manual tuning.",
+        "confidence": "low",
+        "lastReviewedAt": "2026-05-10"
+      }
+    },
+    {
+      "id": "half-life-alyx",
+      "title": "Half-Life: Alyx",
+      "steamAppId": 546560,
+      "steamTags": ["VR", "FPS", "Story Rich", "Sci-fi"],
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "unsupported",
+        "generic": "unsupported"
+      },
+      "review": {
+        "summary": "Native VR title; use Play in VR rather than 3D display profiles.",
+        "confidence": "high",
+        "lastReviewedAt": "2026-06-08"
+      },
+      "vrCapability": "nativeVr",
+      "steamVrLaunchOptions": "-vr"
+    },
+    {
+      "id": "beat-saber",
+      "title": "Beat Saber",
+      "steamAppId": 620980,
+      "steamTags": ["VR", "Rhythm", "Music", "Arcade"],
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "unsupported",
+        "generic": "unsupported"
+      },
+      "review": {
+        "summary": "Native VR rhythm game; launch via SteamVR when runtime is available.",
+        "confidence": "high",
+        "lastReviewedAt": "2026-06-08"
+      },
+      "vrCapability": "nativeVr",
+      "steamVrLaunchOptions": "-vr"
+    },
+    {
+      "id": "portal-2",
+      "title": "Portal 2",
+      "steamAppId": 620,
+      "steamTags": ["Puzzle", "Co-op", "Sci-fi", "Comedy"],
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "playable",
+        "nvidia": "playable",
+        "generic": "experimental"
+      },
+      "review": {
+        "summary": "Clean geometry makes it a strong 3D showcase; co-op split-screen not validated.",
+        "confidence": "high",
+        "lastReviewedAt": "2026-06-02"
       }
     }
   ]

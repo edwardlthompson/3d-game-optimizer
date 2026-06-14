@@ -41,6 +41,53 @@ Static PWAs and CLIs may skip HTTP endpoints; document stack-specific checks ins
 
 **Token setup:** If auto-merge fails with HTTP 403, create a fine-grained PAT with `contents` + `pull_requests` write access, store as repository secret `RELEASE_BOT_TOKEN`, and re-run the Release Please PR check.
 
+### Product vs template releases
+
+| Track | Tag pattern | Workflow | Version source |
+|-------|-------------|----------|----------------|
+| Template bootstrap | `v0.x.x` | `release.yml` | `.template-version` |
+| Product app | `SpatialLabsOptimizer-v1.x.x` | `product-release.yml` | `src/SpatialLabsOptimizer/product-version.json` |
+
+Product publish locally: `scripts/publish-product.ps1` or `scripts/publish-product.sh`.
+
+### Pre-release gate parity
+
+| Context | Command | Notes |
+|---------|---------|-------|
+| Local sign-off | `scripts/pre-release-gate.sh` | Full gate; omit flags only when documented |
+| Release Please PR (template) | `pre-release-gate.sh --skip-triage` | Skips weekly triage recency — template bumps only |
+| Product v1.0 tag | `pre-release-gate.sh` (no `--skip-dotnet`) | Must pass dotnet build + tests |
+
+Verify docs/scripts stay aligned: `scripts/check-release-gate-parity.sh`.
+
+### Code signing (product v1.0)
+
+| Artifact | Requirement |
+|----------|-------------|
+| Public v1.0 `.exe` zip | EV Authenticode when `CODESIGN_*` secrets set |
+| CI / sideload default | AUTO ephemeral self-signed via `scripts/sign-product-release.ps1` |
+| MSIX sideload | `AppxPackageSigningEnabled=true` + cert in trusted store |
+
+Store EV cert thumbprint in docs only — never commit `.pfx` files. One-time repo setup:
+
+```bash
+bash scripts/setup-release-credentials.sh owner/repo
+# Optional: push sideload cert to secrets
+AUTO_SETUP_SIDeload_CODESIGN=1 bash scripts/setup-release-credentials.sh owner/repo
+```
+
+Or run the **Release Credentials Setup** workflow (`release-credentials-setup.yml`) from Actions.
+
+### GitHub Code Scanning
+
+CodeQL runs with separate `upload-sarif` steps (`continue-on-error: true`). Enable analysis via:
+
+```bash
+bash scripts/setup-release-credentials.sh owner/repo
+```
+
+Verify: `bash scripts/check-release-credentials.sh owner/repo`
+
 ## Rollback
 
 1. Revert to previous release tag or artifact

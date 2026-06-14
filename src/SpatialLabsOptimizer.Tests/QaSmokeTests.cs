@@ -5,6 +5,7 @@ using SpatialLabsOptimizer.Domain;
 using SpatialLabsOptimizer.Infrastructure.Data;
 using SpatialLabsOptimizer.Infrastructure.Install;
 using SpatialLabsOptimizer.Infrastructure.Launch;
+using SpatialLabsOptimizer.Infrastructure.Launch.Coexistence;
 using SpatialLabsOptimizer.Infrastructure.Library;
 using SpatialLabsOptimizer.Infrastructure.Performance;
 using SpatialLabsOptimizer.Infrastructure.Progress;
@@ -17,10 +18,14 @@ public class QaSmokeTests
     [Fact]
     public async Task SilentInstallOrchestrator_RecordsExpectedAuditSteps()
     {
-        var dataRoot = FindDataRoot();
+        var dataRoot = TestPaths.FindDataRoot();
         var loader = new JsonDataLoader(dataRoot);
         var hub = new OperationProgressHub();
-        var orchestrator = new SilentInstallOrchestrator(loader, hub);
+        var orchestrator = new SilentInstallOrchestrator(
+            loader,
+            hub,
+            new InstallErrorCatalog(),
+            new TestHelperLocator(TestPaths.FindElevatedHelperBuildOutput()));
         var reports = new List<OperationProgressReport>();
         orchestrator.ProgressChanged += (_, report) => reports.Add(report);
         hub.ProgressPublished += (_, report) => reports.Add(report);
@@ -93,7 +98,7 @@ public class QaSmokeTests
     {
         var registry = new LaunchAdapterRegistry(new LaunchAdapterBase[]
         {
-            new UevrLauncher()
+            new SucceedingLaunchAdapter(LaunchPlatform.Uevr)
         });
         var fallback = new AutoFallbackLaunchService(registry);
         var plan = new ResolvedGameLaunchPlan(
@@ -108,8 +113,19 @@ public class QaSmokeTests
             null,
             false);
 
-        var result = await fallback.LaunchWithFallbackAsync(plan);
+        var result = await fallback.LaunchWithFallbackAsync(plan, LaunchContext.Standard);
         Assert.True(result.Success);
+    }
+
+    private sealed class SucceedingLaunchAdapter : LaunchAdapterBase
+    {
+        public SucceedingLaunchAdapter(LaunchPlatform platform) => Platform = platform;
+        public override LaunchPlatform Platform { get; }
+        public override Task<bool> LaunchAsync(
+            ResolvedGameLaunchPlan plan,
+            LaunchContext context,
+            CancellationToken cancellationToken = default)
+            => Task.FromResult(true);
     }
 
     [Fact]
@@ -149,20 +165,5 @@ public class QaSmokeTests
         await store.DisposeAsync();
     }
 
-    private static string FindDataRoot()
-    {
-        var dir = new DirectoryInfo(Directory.GetCurrentDirectory());
-        while (dir is not null)
-        {
-            var candidate = Path.Combine(dir.FullName, "data");
-            if (Directory.Exists(candidate))
-            {
-                return candidate;
-            }
-
-            dir = dir.Parent;
-        }
-
-        throw new InvalidOperationException("data folder not found");
-    }
+    private static string FindDataRoot() => TestPaths.FindDataRoot();
 }

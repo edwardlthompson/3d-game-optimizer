@@ -8,6 +8,9 @@ on:
 permissions:
   contents: read
 
+env:
+  CI_EXAMPLE_STACKS: ${{ vars.CI_EXAMPLE_STACKS || 'on' }}
+
 jobs:
   health:
     name: Weekly Workflow Health
@@ -31,7 +34,7 @@ jobs:
         run: bash scripts/check-scorecard-recency.sh --days 30
 
       - name: Setup Node for npm audit
-        if: hashFiles('examples/web/package-lock.json') != ''
+        if: env.CI_EXAMPLE_STACKS == 'on' && hashFiles('examples/web/package-lock.json') != ''
         uses: actions/setup-node@v6
         with:
           node-version: "22"
@@ -39,19 +42,33 @@ jobs:
           cache-dependency-path: examples/web/package-lock.json
 
       - name: npm audit (examples/web)
-        if: hashFiles('examples/web/package-lock.json') != ''
+        if: env.CI_EXAMPLE_STACKS == 'on' && hashFiles('examples/web/package-lock.json') != ''
         run: |
           cd examples/web
           npm ci
           npm audit --audit-level=high
 
       - name: Setup uv for Python audit
-        if: hashFiles('examples/python/uv.lock') != ''
+        if: env.CI_EXAMPLE_STACKS == 'on' && hashFiles('examples/python/uv.lock') != ''
         uses: astral-sh/setup-uv@v7
 
       - name: uv pip audit (examples/python)
-        if: hashFiles('examples/python/uv.lock') != ''
+        if: env.CI_EXAMPLE_STACKS == 'on' && hashFiles('examples/python/uv.lock') != ''
         run: |
           cd examples/python
           uv sync --locked
           uv pip audit
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: NuGet vulnerable package audit
+        run: |
+          dotnet restore SpatialLabsOptimizer.sln
+          dotnet list SpatialLabsOptimizer.sln package --vulnerable --include-transitive \
+            | tee nuget-vulnerable.txt
+          if rg -q 'has the following vulnerable packages' nuget-vulnerable.txt; then
+            echo "High/Critical NuGet vulnerabilities found"
+            exit 1
+          fi

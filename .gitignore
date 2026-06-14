@@ -77,6 +77,11 @@ playwright-report/
 .env
 .env.*
 !.env.example
+artifacts/sideload-codesign/
+artifacts/product-win-x64/
+artifacts/product-msi/
+artifacts/product-msix/
+packaging/msi/obj/
 
 # Logs
 *.log

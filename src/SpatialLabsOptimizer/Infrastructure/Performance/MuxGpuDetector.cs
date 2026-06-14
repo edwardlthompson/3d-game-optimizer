@@ -4,11 +4,17 @@ public sealed class MuxGpuDetector
 {
     public Task<MuxGpuStatus> DetectAsync(CancellationToken cancellationToken = default)
     {
-        // WMI probe placeholder — real implementation queries Win32_VideoController + MUX switch state.
-        var hasMux = Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER")?.Contains("Intel", StringComparison.OrdinalIgnoreCase) == true;
-        return Task.FromResult(new MuxGpuStatus(
+        cancellationToken.ThrowIfCancellationRequested();
+        return Task.Run(DetectCore, cancellationToken);
+    }
+
+    private static MuxGpuStatus DetectCore()
+    {
+        var controllers = WmiHardwareProbe.QueryVideoControllers();
+        var hasMux = WmiHardwareProbe.HasHybridGraphics(controllers);
+        return new MuxGpuStatus(
             hasMux,
-            hasMux ? "Hybrid graphics detected — ensure the dGPU is active for 3D titles." : null));
+            hasMux ? "Hybrid graphics detected — ensure the dGPU is active for 3D titles." : null);
     }
 }
 

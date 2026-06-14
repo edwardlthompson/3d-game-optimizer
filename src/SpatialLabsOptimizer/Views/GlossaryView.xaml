@@ -1,0 +1,59 @@
+<Page
+    x:Class="SpatialLabsOptimizer.Views.GlossaryView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer Padding="24">
+        <StackPanel Spacing="16" MaxWidth="720">
+            <TextBlock Text="Glossary" FontSize="28" FontWeight="SemiBold" />
+            <TextBlock
+                Text="Plain-language definitions for 3D gaming and compatibility terms used in this app."
+                TextWrapping="Wrap"
+                Opacity="0.8" />
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="SBS (Side-by-Side)" FontWeight="SemiBold" />
+                <TextBlock TextWrapping="Wrap" Text="Stereoscopic format that places the left and right eye images next to each other in a single frame. Many glasses-free displays expect SBS or similar layouts." Opacity="0.85" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Depth" FontWeight="SemiBold" />
+                <TextBlock TextWrapping="Wrap" Text="How strongly objects appear to pop out of or sink into the screen. Higher depth increases the 3D effect but can cause discomfort if pushed too far." Opacity="0.85" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Convergence" FontWeight="SemiBold" />
+                <TextBlock TextWrapping="Wrap" Text="The point where left and right views align. Adjusting convergence shifts where depth feels anchored in the scene." Opacity="0.85" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Separation" FontWeight="SemiBold" />
+                <TextBlock TextWrapping="Wrap" Text="Distance between the virtual left and right cameras. Works with depth and convergence to control overall stereoscopic intensity." Opacity="0.85" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Compatibility tier" FontWeight="SemiBold" />
+                <TextBlock TextWrapping="Wrap" Text="Native — built-in 3D support. Optimized — verified preset. Playable — community-tested. Experimental — may need tweaks. Unsupported — not recommended." Opacity="0.85" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Performance tier" FontWeight="SemiBold" />
+                <TextBlock TextWrapping="Wrap" Text="Hardware class derived from detected VRAM: Low, Medium, High, or Enthusiast. Guides render scale and post-processing defaults." Opacity="0.85" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Launch platform" FontWeight="SemiBold" />
+                <TextBlock TextWrapping="Wrap" Text="The toolchain used to start a title in 3D — for example UEVR, ReShade, TrueGame, or a display vendor hub. Shown in the launch preview before Play in 3D." Opacity="0.85" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Safe launch" FontWeight="SemiBold" />
+                <TextBlock TextWrapping="Wrap" Text="Launches with minimal injection so you can verify the game starts before applying full 3D presets. Rollback restores prior configs if launch fails." Opacity="0.85" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Hybrid graphics (MUX)" FontWeight="SemiBold" />
+                <TextBlock TextWrapping="Wrap" Text="Laptops with both integrated and discrete GPUs. Ensure the discrete GPU is active for 3D titles to avoid low performance or black screens." Opacity="0.85" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

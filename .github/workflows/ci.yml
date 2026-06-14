@@ -108,3 +108,36 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: bash scripts/build-verification-gate.sh --quick --skip-pre-commit --skip-dotnet
+
+  qa-matrix-coverage:
+    name: QA Matrix P0 Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+      - run: bash scripts/check-qa-matrix-coverage.sh
+      - run: bash scripts/check-compatibility-seed.sh
+
+  local-release-scripts:
+    name: Local Release Script Inventory
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: bash scripts/check-local-release-scripts.sh
+
+  post-sprint-validation:
+    name: Post-Sprint Validation (assets + gates)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
+      - name: Install ripgrep
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+      - run: bash scripts/run-post-sprint-validation.sh

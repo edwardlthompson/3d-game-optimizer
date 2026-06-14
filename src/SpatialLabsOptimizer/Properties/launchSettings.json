@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "SpatialLabsOptimizer": {
+      "commandName": "Project"
+    },
+    "SpatialLabsOptimizer (v2)": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "SPATIALLABS_ENABLE_V2": "true"
+      }
+    }
+  }
+}

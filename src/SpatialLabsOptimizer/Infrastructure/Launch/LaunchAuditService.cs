@@ -1,5 +1,6 @@
 using System.Text;
 using SpatialLabsOptimizer.Domain;
+using SpatialLabsOptimizer.Infrastructure.Launch.Coexistence;
 
 namespace SpatialLabsOptimizer.Infrastructure.Launch;
 
@@ -50,18 +51,19 @@ public sealed class AutoFallbackLaunchService
 
     public async Task<(bool Success, LaunchPlatform UsedPlatform, string? Note)> LaunchWithFallbackAsync(
         ResolvedGameLaunchPlan plan,
+        LaunchContext context,
         CancellationToken cancellationToken = default)
     {
         var primary = _adapters.GetAdapter(plan.Platform);
-        if (primary is not null && await primary.LaunchAsync(plan, cancellationToken))
+        if (primary is not null && await primary.LaunchAsync(plan, context, cancellationToken))
         {
             return (true, plan.Platform, null);
         }
 
-        if (plan.Platform == LaunchPlatform.ReShade)
+        if (plan.Platform == LaunchPlatform.ReShade && !context.IsGameFirst)
         {
             var uevr = _adapters.GetAdapter(LaunchPlatform.Uevr);
-            if (uevr is not null && await uevr.LaunchAsync(plan with { Platform = LaunchPlatform.Uevr }, cancellationToken))
+            if (uevr is not null && await uevr.LaunchAsync(plan with { Platform = LaunchPlatform.Uevr }, context, cancellationToken))
             {
                 return (true, LaunchPlatform.Uevr, "Auto-fallback: ReShade → UEVR");
             }

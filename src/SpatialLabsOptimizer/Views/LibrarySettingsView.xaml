@@ -1,0 +1,30 @@
+<Page
+    x:Class="SpatialLabsOptimizer.Views.LibrarySettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer Padding="24">
+        <StackPanel Spacing="16" MaxWidth="720">
+            <TextBlock Text="Library Settings" FontSize="28" FontWeight="SemiBold" />
+            <TextBlock
+                Text="Add folders where games are installed outside Steam, Epic, or GOG. Scans stay on your PC — paths are never uploaded."
+                TextWrapping="Wrap"
+                Opacity="0.8" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button x:Name="AddFolderButton" Content="Add folder" Click="AddFolder_Click" Style="{StaticResource AppButtonStyle}" />
+                <Button x:Name="RemoveFolderButton" Content="Remove selected" Click="RemoveFolder_Click" Style="{StaticResource AppButtonStyle}" />
+                <Button x:Name="RefreshFoldersButton" Content="Refresh scan" Click="RefreshFolders_Click" Style="{StaticResource AppButtonStyle}" />
+            </StackPanel>
+            <ListView
+                x:Name="FoldersList"
+                SelectionMode="Single"
+                MinHeight="160"
+                AutomationProperties.AutomationId="LibrarySettings_FolderList" />
+            <TextBlock x:Name="StatusBlock" TextWrapping="Wrap" Opacity="0.7" />
+            <TextBlock
+                Text="Empty state: Add a folder to find games installed outside Steam, Epic, or GOG."
+                Opacity="0.6"
+                FontSize="12"
+                TextWrapping="Wrap" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

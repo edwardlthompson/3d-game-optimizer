@@ -2,6 +2,8 @@ using SpatialLabsOptimizer.Infrastructure.Data;
 using SpatialLabsOptimizer.Infrastructure.Progress;
 using SpatialLabsOptimizer.Infrastructure.Steam;
 
+using SpatialLabsOptimizer.Infrastructure.Updates;
+
 namespace SpatialLabsOptimizer.Infrastructure.Artwork;
 
 public sealed class CoverArtCache
@@ -30,17 +32,20 @@ public sealed class GameArtworkService
     private readonly ExternalDataGateway _gateway;
     private readonly CoverArtCache _cache;
     private readonly OperationProgressHub _progressHub;
+    private readonly SteamGridDbClient? _steamGridDb;
 
     public GameArtworkService(
         SteamStoreApiClient storeClient,
         ExternalDataGateway gateway,
         CoverArtCache cache,
-        OperationProgressHub progressHub)
+        OperationProgressHub progressHub,
+        SteamGridDbClient? steamGridDb = null)
     {
         _storeClient = storeClient;
         _gateway = gateway;
         _cache = cache;
         _progressHub = progressHub;
+        _steamGridDb = steamGridDb;
     }
 
     public async Task<string?> ResolveCoverPathAsync(int appId, CancellationToken cancellationToken = default)
@@ -58,7 +63,7 @@ public sealed class GameArtworkService
         var bytes = await _gateway.GetBytesAsync(url, $"cover-{appId}", null, cancellationToken);
         if (bytes is null || bytes.Length == 0)
         {
-            return null;
+            return await TrySteamGridDbFallbackAsync(appId, cancellationToken);
         }
 
         var path = _cache.GetCachePath(appId);
@@ -71,6 +76,41 @@ public sealed class GameArtworkService
             details?.Name ?? appId.ToString(),
             IsComplete: true));
 
+        return path;
+    }
+
+    private async Task<string?> TrySteamGridDbFallbackAsync(int appId, CancellationToken cancellationToken)
+    {
+        if (_steamGridDb is null)
+        {
+            return null;
+        }
+
+        var fallback = await _steamGridDb.ResolveCoverAsync(appId, cancellationToken);
+        if (string.IsNullOrWhiteSpace(fallback))
+        {
+            return null;
+        }
+
+        if (File.Exists(fallback))
+        {
+            return fallback;
+        }
+
+        if (!fallback.StartsWith("http://", StringComparison.OrdinalIgnoreCase) &&
+            !fallback.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
+        var bytes = await _gateway.GetBytesAsync(fallback, $"cover-grid-{appId}", null, cancellationToken);
+        if (bytes is null || bytes.Length == 0)
+        {
+            return null;
+        }
+
+        var path = _cache.GetCachePath(appId);
+        await File.WriteAllBytesAsync(path, bytes, cancellationToken);
         return path;
     }
 }

@@ -4,6 +4,7 @@ using SpatialLabsOptimizer.Infrastructure.Compatibility;
 using SpatialLabsOptimizer.Infrastructure.Data;
 using SpatialLabsOptimizer.Infrastructure.Displays;
 using SpatialLabsOptimizer.Infrastructure.Launch;
+using SpatialLabsOptimizer.Infrastructure.Launch.Coexistence;
 using SpatialLabsOptimizer.Infrastructure.Library;
 using SpatialLabsOptimizer.Infrastructure.Privacy;
 using SpatialLabsOptimizer.Infrastructure.Progress;
@@ -130,11 +131,11 @@ public class InfrastructureTests
         var registry = new LaunchAdapterRegistry(new LaunchAdapterBase[]
         {
             new FailingLaunchAdapter(LaunchPlatform.ReShade),
-            new UevrLauncher()
+            new SucceedingLaunchAdapter(LaunchPlatform.Uevr)
         });
         var fallback = new AutoFallbackLaunchService(registry);
         var plan = new ResolvedGameLaunchPlan(570, "Dota 2", LaunchPlatform.ReShade, CompatibilityTier.Playable, 0.5, 0.5, 0.5, null, null, false);
-        var result = await fallback.LaunchWithFallbackAsync(plan);
+        var result = await fallback.LaunchWithFallbackAsync(plan, LaunchContext.Standard);
         Assert.True(result.Success);
         Assert.Equal(LaunchPlatform.Uevr, result.UsedPlatform);
     }
@@ -169,8 +170,22 @@ public class InfrastructureTests
     {
         public FailingLaunchAdapter(LaunchPlatform platform) => Platform = platform;
         public override LaunchPlatform Platform { get; }
-        public override Task<bool> LaunchAsync(ResolvedGameLaunchPlan plan, CancellationToken cancellationToken = default)
+        public override Task<bool> LaunchAsync(
+            ResolvedGameLaunchPlan plan,
+            LaunchContext context,
+            CancellationToken cancellationToken = default)
             => Task.FromResult(false);
+    }
+
+    private sealed class SucceedingLaunchAdapter : LaunchAdapterBase
+    {
+        public SucceedingLaunchAdapter(LaunchPlatform platform) => Platform = platform;
+        public override LaunchPlatform Platform { get; }
+        public override Task<bool> LaunchAsync(
+            ResolvedGameLaunchPlan plan,
+            LaunchContext context,
+            CancellationToken cancellationToken = default)
+            => Task.FromResult(true);
     }
 
     private sealed class StubMessageHandler : HttpMessageHandler

@@ -1,14 +1,11 @@
 {
   "version": "v1",
-  "presets": [
+  "displayPresets": [
     {
       "id": "preset-balanced-acer-rpg",
       "name": "Balanced Acer RPG",
       "targetVendor": "acer",
-      "intendedGenres": [
-        "RPG",
-        "Story Rich"
-      ],
+      "intendedGenres": ["RPG", "Story Rich"],
       "settings": {
         "depthScale": 0.62,
         "convergenceOffset": 0.35,
@@ -19,15 +16,39 @@
       "id": "preset-fast-samsung-racing",
       "name": "Fast Samsung Racing",
       "targetVendor": "samsung",
-      "intendedGenres": [
-        "Racing",
-        "Action"
-      ],
+      "intendedGenres": ["Racing", "Action"],
       "settings": {
         "depthScale": 0.55,
         "convergenceOffset": 0.28,
         "uiDepthCompensation": false
       }
     }
-  ]
+  ],
+  "UevrProfiles": [
+    {
+      "id": "uevr-cyberpunk-2077",
+      "url": "",
+      "sha256": "",
+      "steamAppIds": [1091500]
+    },
+    {
+      "id": "uevr-skyrim-se",
+      "url": "",
+      "sha256": "",
+      "steamAppIds": [489830]
+    },
+    {
+      "id": "uevr-witcher-3",
+      "url": "",
+      "sha256": "",
+      "steamAppIds": [292030]
+    },
+    {
+      "id": "uevr-hogwarts-legacy",
+      "url": "",
+      "sha256": "",
+      "steamAppIds": [990080]
+    }
+  ],
+  "ReshadePresets": []
 }

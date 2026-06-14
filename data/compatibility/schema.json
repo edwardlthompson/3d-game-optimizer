@@ -113,6 +113,17 @@
         },
         "review": {
           "$ref": "#/$defs/review"
+        },
+        "vrCapability": {
+          "type": "string",
+          "enum": [
+            "none",
+            "nativeVr",
+            "uevrCompatible"
+          ]
+        },
+        "steamVrLaunchOptions": {
+          "type": "string"
         }
       },
       "additionalProperties": false

@@ -20,6 +20,35 @@
             IsOpen="{x:Bind ViewModel.ShowActivityBar, Mode=OneWay}"
             Progress="{x:Bind ViewModel.ActivityProgress, Mode=OneWay}" />
 
+        <InfoBar
+            Grid.Row="0"
+            x:Name="DisplayChangeInfoBar"
+            Margin="0,48,0,0"
+            Severity="Warning"
+            Title="Display changed"
+            Message="{x:Bind ViewModel.DisplayChangeMessage, Mode=OneWay}"
+            IsOpen="{x:Bind ViewModel.ShowDisplayChangePrompt, Mode=OneWay}"
+            IsClosable="True"
+            Closed="DisplayChangeInfoBar_Closed">
+            <InfoBar.ActionButton>
+                <Button Content="Re-run setup wizard" Click="DisplayChangeRerun_Click" Style="{StaticResource AppButtonStyle}" />
+            </InfoBar.ActionButton>
+        </InfoBar>
+
+        <InfoBar
+            Grid.Row="0"
+            x:Name="UpdateAvailableInfoBar"
+            Margin="0,48,0,0"
+            Severity="Informational"
+            Title="Update available"
+            Message="A newer version is ready to install."
+            IsOpen="{x:Bind ViewModel.UpdateAvailable, Mode=OneWay}"
+            IsClosable="True">
+            <InfoBar.ActionButton>
+                <Button Content="View in About" Click="UpdateAvailable_Click" Style="{StaticResource AppButtonStyle}" />
+            </InfoBar.ActionButton>
+        </InfoBar>
+
         <NavigationView
             Grid.Row="1"
             x:Name="NavView"
@@ -30,8 +59,11 @@
                 <NavigationViewItem Content="Library" Tag="library" Icon="Library" />
                 <NavigationViewItem Content="Setup Wizard" Tag="wizard" Icon="Setting" />
                 <NavigationViewItem Content="Settings" Tag="settings" Icon="Equalizer" />
+                <NavigationViewItem Content="Library folders" Tag="library-settings" Icon="OpenFolder" />
+                <NavigationViewItem Content="Commands" Tag="commands" Icon="Find" />
                 <NavigationViewItem Content="Health" Tag="health" Icon="Repair" />
                 <NavigationViewItem Content="Troubleshooting" Tag="troubleshoot" Icon="Help" />
+                <NavigationViewItem Content="Glossary" Tag="glossary" Icon="Dictionary" />
                 <NavigationViewItem Content="About" Tag="about" Icon="ContactInfo" />
             </NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" />

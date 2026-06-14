@@ -16,7 +16,28 @@
 
 ## Entries
 
-_No project-specific decisions yet. The seed ADR is at `docs/adr/0001-template-baseline.md`._
+### 2026-06-14 — Sprint 39 CI truth and update UX polish
+- **Status:** Accepted
+- **Context:** BUILD_PLAN Sprint 39 exit gate before landing Sprints 32–38 on `main`
+- **Decision:** Fixed legal-consistency script paths; staged-update reuse with SHA-256 verify (`3DGO-0103`); About retry banner for `update_restart_pending`; shell update InfoBar; v2 toggle restart notice when DI differs from saved pref; 118/118 tests + post-sprint validation green
+- **Validation:** `run-post-sprint-validation.ps1`, `check-file-encoding.py`, `dotnet test` Release
+- **Consequences:** `product-release.yml` dispatch after push; WinGet v1.1.0 manifest remains `[HUMAN]` pending CLA on PR #387878
+
+### 2026-06-14 — Sprints 32–38 product roadmap closure
+- **Status:** Accepted
+- **Context:** BUILD_PLAN integration for distribution, coexistence, library, updates, diagnostics
+- **Decision:** Shipped local release pipeline (zip+MSIX+WiX MSI), trainer/mod game-first launch, WMI hardware scan, local game folders, in-app update apply+restart (v1.1.0), display/PCVR UX, diagnostic dry-run and `3dgo://` protocol
+- **Validation:** 114/114 Release tests; `dotnet build` WinUI + tests green
+- **Alternatives considered:** Defer MSI to separate sprint (rejected: user requested classic installer in Sprint 32)
+- **Consequences:** WinGet merge remains `[HUMAN]` until microsoft/winget-pkgs approves PR #387878
+
+### 2026-06-14 — Winget manifest PR (SpatialLabsOptimizer v1.0.1)
+- **Status:** Accepted
+- **Context:** Sprint 31 optional `[HUMAN]` task — publish `edwardlthompson.SpatialLabsOptimizer` to WinGet after product release
+- **Decision:** Created GitHub release `SpatialLabsOptimizer-v1.0.1` with self-contained zip; opened PR to [microsoft/winget-pkgs](https://github.com/microsoft/winget-pkgs) using 1.6.0 multi-file schema (`zip` + `portable` nested installer)
+- **PR:** https://github.com/microsoft/winget-pkgs/pull/387878
+- **Alternatives considered:** Singleton stub only in product repo (rejected: winget-pkgs requires upstream PR); `edwardlthompson.3DGameOptimizer` identifier (rejected: align with CI `generate-winget-manifest.sh` and README path)
+- **Consequences:** Source repo is public; PR merge blocked on CLA queue / branch policy as of 2026-06-14. Re-run validation after merge.
 
 ### 2026-06-14 — BUILD_PLAN maintenance closure (KB-007 + Scorecard)
 - **Status:** Accepted

@@ -8,7 +8,16 @@ cd "$ROOT"
 ERRORS=0
 
 LEGAL="docs/LEGAL.md"
-UI_SOURCES=(src/SpatialLabsOptimizer/Views/SetupWizardView.xaml src/SpatialLabsOptimizer/ViewModels/ViewModels.cs)
+UI_SOURCES=(src/SpatialLabsOptimizer/Views/SetupWizardView.xaml)
+
+if [ ! -d src/SpatialLabsOptimizer/ViewModels ]; then
+  echo "FAIL missing ViewModels directory"
+  exit 1
+fi
+
+while IFS= read -r -d '' vm; do
+  UI_SOURCES+=("$vm")
+done < <(find src/SpatialLabsOptimizer/ViewModels -maxdepth 1 -name '*.cs' -print0 2>/dev/null)
 
 if [ ! -f "$LEGAL" ]; then
   echo "MISSING: $LEGAL"

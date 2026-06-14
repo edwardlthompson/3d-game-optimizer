@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="SpatialLabsOptimizer" />
+    </StandardDirectory>
+  </Fragment>
+
+  <!-- UpgradeCode must remain stable across all product versions. -->
+  <Package
+    Name="3D Game Optimizer"
+    Manufacturer="Edward Thompson"
+    Version="$(var.AppVersion)"
+    UpgradeCode="A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D"
+    Scope="perMachine">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of 3D Game Optimizer is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="Main" Title="3D Game Optimizer" Level="1">
+      <ComponentGroupRef Id="AppFiles" />
+    </Feature>
+  </Package>
+</Wix>

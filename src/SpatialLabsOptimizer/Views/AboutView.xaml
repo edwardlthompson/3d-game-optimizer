@@ -7,7 +7,43 @@
             <TextBlock Text="About 3D Game Optimizer" FontSize="28" FontWeight="SemiBold" />
             <TextBlock TextWrapping="Wrap" Text="Independent tool for glasses-free 3D PC gaming. Not affiliated with Acer, Samsung, NVIDIA, Valve, or other trademark holders. See docs/LEGAL.md and docs/TRADEMARKS.md." />
             <HyperlinkButton Content="Privacy policy" NavigateUri="https://github.com/edwardlthompson/3d-game-optimizer/blob/main/docs/PRIVACY.md" />
-            <TextBlock Text="Version 1.0.0" Opacity="0.7" />
+            <TextBlock x:Name="VersionBlock" Opacity="0.7" />
+
+            <TextBlock Text="Updates" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0" />
+            <InfoBar
+                x:Name="RetryUpdateInfoBar"
+                Severity="Warning"
+                Title="Update pending restart"
+                Message="The last update did not finish applying. Retry without re-downloading if the installer is already staged."
+                IsOpen="False"
+                IsClosable="False">
+                <InfoBar.ActionButton>
+                    <Button x:Name="RetryUpdateButton" Content="Retry update" Click="RetryUpdate_Click" Style="{StaticResource AppButtonStyle}" />
+                </InfoBar.ActionButton>
+            </InfoBar>
+            <ComboBox x:Name="UpdateIntervalCombo" Header="Automatic update checks" SelectionChanged="UpdateInterval_SelectionChanged" Width="320">
+                <ComboBoxItem Content="Off" Tag="Off" />
+                <ComboBoxItem Content="On startup" Tag="Startup" />
+                <ComboBoxItem Content="Daily" Tag="Daily" />
+                <ComboBoxItem Content="Weekly" Tag="Weekly" />
+            </ComboBox>
+            <TextBlock x:Name="InstallTypeBlock" Opacity="0.7" />
+            <ComboBox x:Name="InstallTypeOverrideCombo" Header="Install type override (advanced)" SelectionChanged="InstallTypeOverride_SelectionChanged" Width="320">
+                <ComboBoxItem Content="Auto-detect" Tag="" />
+                <ComboBoxItem Content="Portable (zip)" Tag="Zip" />
+                <ComboBoxItem Content="MSIX" Tag="Msix" />
+                <ComboBoxItem Content="MSI" Tag="Msi" />
+            </ComboBox>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button x:Name="CheckUpdateButton" Content="Check now" Click="CheckUpdate_Click" Style="{StaticResource AppButtonStyle}" />
+                <Button x:Name="ApplyUpdateButton" Content="Update and restart" Click="ApplyUpdate_Click" IsEnabled="False" Style="{StaticResource AppButtonStyle}" />
+            </StackPanel>
+            <HyperlinkButton x:Name="ReleaseNotesLink" Content="View release notes" Visibility="Collapsed" Click="ReleaseNotesLink_Click" />
+            <TextBlock x:Name="UpdateStatusBlock" TextWrapping="Wrap" Opacity="0.7" />
+
+            <TextBlock Text="Support development" FontSize="20" FontWeight="SemiBold" Margin="0,12,0,0" />
+            <TextBlock TextWrapping="Wrap" Opacity="0.8" Text="Enjoying 3D Game Optimizer? Voluntary tips help support development. Donations are optional and not affiliated with Venmo or PayPal." />
+            <HyperlinkButton Content="Support on Venmo" NavigateUri="https://venmo.com/code?user_id=1857304970395648420" />
         </StackPanel>
     </ScrollViewer>
 </Page>

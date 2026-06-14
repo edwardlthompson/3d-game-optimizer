@@ -54,6 +54,13 @@ else
   echo "WARN repo description empty — run setup-github-repo.sh"
 fi
 
+# Code scanning / release credentials — see scripts/check-release-credentials.sh
+if bash scripts/check-release-credentials.sh "$REPO" 2>/dev/null; then
+  echo "OK   Release credentials check passed"
+else
+  echo "WARN release credentials — run: bash scripts/setup-release-credentials.sh $REPO"
+fi
+
 if [ "$ERRORS" -gt 0 ]; then
   exit 1
 fi

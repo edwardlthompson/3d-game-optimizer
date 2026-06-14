@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Text.Json;
 using SpatialLabsOptimizer.Domain;
 using SpatialLabsOptimizer.Infrastructure.Compatibility;
@@ -68,6 +67,12 @@ public sealed class PresetCacheService
             return;
         }
 
+        if (string.IsNullOrWhiteSpace(preset.Url))
+        {
+            await File.WriteAllTextAsync(GetPresetPath(appId), "{}", cancellationToken);
+            return;
+        }
+
         var bytes = await _gateway.GetBytesAsync(preset.Url, $"preset-{appId}", null, cancellationToken);
         if (bytes is not null)
         {
@@ -79,6 +84,17 @@ public sealed class PresetCacheService
     {
         var manifest = await _loader.LoadAsync<PresetManifest>("presets/preset-manifest-v1.json", cancellationToken);
         var presets = manifest?.UevrProfiles?.Take(maxCount).ToList() ?? [];
+        if (presets.Count == 0)
+        {
+            hub.Publish(new OperationProgressReport(
+                "bulk-preset",
+                Application.Progress.OperationCategory.Download,
+                "Caching presets",
+                "No UEVR presets in manifest",
+                IsComplete: true));
+            return;
+        }
+
         for (var i = 0; i < presets.Count; i++)
         {
             var preset = presets[i];
@@ -97,6 +113,17 @@ public sealed class PresetCacheService
                 TotalSteps: presets.Count,
                 PercentComplete: (i + 1) * 100.0 / presets.Count));
         }
+    }
+
+    public TimeSpan? GetCachedPresetAge(int appId)
+    {
+        var path = GetPresetPath(appId);
+        if (!File.Exists(path))
+        {
+            return null;
+        }
+
+        return DateTimeOffset.UtcNow - File.GetLastWriteTimeUtc(path);
     }
 
     private string GetPresetPath(int appId) => Path.Combine(_presetDir, $"{appId}.json");
@@ -175,6 +202,8 @@ public sealed class ResolveGameSettings
 
         var gameOverride = await _overrides.GetAsync(appId, cancellationToken);
         var platform = _router.Route(tier, vendorAdapter, gameOverride?.PlatformOverride);
+        var safeLaunch = gameOverride?.SafeLaunch ?? false;
+        var preferredOutput = gameOverride?.PreferredOutput ?? "Auto";
 
         return new ResolvedGameLaunchPlan(
             appId,
@@ -186,7 +215,8 @@ public sealed class ResolveGameSettings
             0.7,
             null,
             null,
-            gameOverride?.SafeLaunch ?? false);
+            safeLaunch,
+            preferredOutput);
     }
 }
 
@@ -199,11 +229,34 @@ public sealed class GameOverrideRepository
         _settings = settings;
     }
 
-    public Task<GameOverride?> GetAsync(int appId, CancellationToken cancellationToken = default)
-        => Task.FromResult<GameOverride?>(null);
+    public async Task<GameOverride?> GetAsync(int appId, CancellationToken cancellationToken = default)
+    {
+        var raw = await _settings.GetAsync($"override:{appId}", cancellationToken);
+        if (string.IsNullOrWhiteSpace(raw))
+        {
+            return null;
+        }
 
-    public Task SaveAsync(GameOverride entry, CancellationToken cancellationToken = default)
-        => Task.CompletedTask;
+        var parts = raw.Split('|');
+        return new GameOverride(
+            appId,
+            parts.Length > 0 && double.TryParse(parts[0], out var d) ? d : null,
+            parts.Length > 1 && double.TryParse(parts[1], out var c) ? c : null,
+            parts.Length > 2 && Enum.TryParse<LaunchPlatform>(parts[2], out var p) ? p : null,
+            parts.Length > 3 && parts[3] == "1",
+            parts.Length > 4 ? parts[4] : "Auto");
+    }
+
+    public async Task SaveAsync(GameOverride entry, CancellationToken cancellationToken = default)
+    {
+        var raw = string.Join('|',
+            entry.Depth?.ToString("F2") ?? "",
+            entry.Convergence?.ToString("F2") ?? "",
+            entry.PlatformOverride?.ToString() ?? "",
+            entry.SafeLaunch ? "1" : "0",
+            entry.PreferredOutput ?? "Auto");
+        await _settings.SetAsync($"override:{entry.SteamAppId}", raw, cancellationToken);
+    }
 }
 
 public sealed record GameOverride(
@@ -211,7 +264,8 @@ public sealed record GameOverride(
     double? Depth,
     double? Convergence,
     LaunchPlatform? PlatformOverride,
-    bool SafeLaunch);
+    bool SafeLaunch,
+    string PreferredOutput = "Auto");
 
 public sealed class LaunchErrorCatalog
 {
@@ -220,7 +274,7 @@ public sealed class LaunchErrorCatalog
         ["3DGO-0001"] = ("Preset cache failed", "Retry preset download"),
         ["3DGO-0002"] = ("Toolchain missing", "Re-run setup wizard"),
         ["3DGO-0003"] = ("Launch blocked — unsupported tier", "View compatibility notes"),
-        ["3DGO-0004"] = ("Trainer conflict detected", "Enable coexistence or use Safe launch"),
+        ["3DGO-0004"] = ("External tool conflict detected", "Enable coexistence or use Safe launch"),
         ["3DGO-0005"] = ("Config apply failed", "Rollback and retry")
     };
 
@@ -230,25 +284,15 @@ public sealed class LaunchErrorCatalog
 
 public sealed class SafeLaunchService
 {
+    private readonly IProcessLauncher _launcher;
+
+    public SafeLaunchService(IProcessLauncher launcher)
+    {
+        _launcher = launcher;
+    }
+
     public Task<bool> LaunchAsync(int appId, CancellationToken cancellationToken = default)
-        => Task.FromResult(true);
-}
-
-public sealed class TrainerCoexistenceService
-{
-    public bool IsTrainerRunning() =>
-        Process.GetProcessesByName("WeMod").Length > 0 ||
-        Process.GetProcessesByName("Wand").Length > 0;
-
-    public Task PrepareCoexistenceAsync(CancellationToken cancellationToken = default)
-        => Task.Delay(50, cancellationToken);
-}
-
-public sealed class ModManagerCoexistenceService
-{
-    public bool IsModManagerRunning() =>
-        Process.GetProcessesByName("Vortex").Length > 0 ||
-        Process.GetProcessesByName("ModOrganizer").Length > 0;
+        => _launcher.TryStartSteamGameAsync(appId, cancellationToken);
 }
 
 public sealed class ConfigSnapshotService
@@ -269,6 +313,27 @@ public sealed class ConfigSnapshotService
         return path;
     }
 
+    public IReadOnlyList<ConfigSnapshotEntry> ListSnapshots(int? appId = null)
+    {
+        if (!Directory.Exists(_snapshotDir))
+        {
+            return [];
+        }
+
+        return Directory.EnumerateFiles(_snapshotDir, "*.json")
+            .Select(path =>
+            {
+                var name = Path.GetFileNameWithoutExtension(path);
+                var parts = name.Split('-', 2);
+                var parsedAppId = parts.Length > 0 && int.TryParse(parts[0], out var id) ? id : 0;
+                var created = File.GetCreationTimeUtc(path);
+                return new ConfigSnapshotEntry(parsedAppId, path, new DateTimeOffset(created, TimeSpan.Zero));
+            })
+            .Where(entry => appId is null || entry.AppId == appId)
+            .OrderByDescending(entry => entry.CreatedAt)
+            .ToList();
+    }
+
     public async Task RollbackAsync(string snapshotPath, CancellationToken cancellationToken = default)
     {
         if (File.Exists(snapshotPath))
@@ -278,42 +343,4 @@ public sealed class ConfigSnapshotService
     }
 }
 
-public abstract class LaunchAdapterBase
-{
-    public abstract LaunchPlatform Platform { get; }
-    public abstract Task<bool> LaunchAsync(ResolvedGameLaunchPlan plan, CancellationToken cancellationToken = default);
-}
-
-public sealed class TrueGameLauncher : LaunchAdapterBase
-{
-    public override LaunchPlatform Platform => LaunchPlatform.TrueGame;
-    public override Task<bool> LaunchAsync(ResolvedGameLaunchPlan plan, CancellationToken cancellationToken = default)
-        => Task.FromResult(true);
-}
-
-public sealed class UevrLauncher : LaunchAdapterBase
-{
-    public override LaunchPlatform Platform => LaunchPlatform.Uevr;
-    public override Task<bool> LaunchAsync(ResolvedGameLaunchPlan plan, CancellationToken cancellationToken = default)
-        => Task.FromResult(true);
-}
-
-public sealed class ReShadeLauncher : LaunchAdapterBase
-{
-    public override LaunchPlatform Platform => LaunchPlatform.ReShade;
-    public override Task<bool> LaunchAsync(ResolvedGameLaunchPlan plan, CancellationToken cancellationToken = default)
-        => Task.FromResult(true);
-}
-
-public sealed class LaunchAdapterRegistry
-{
-    private readonly IReadOnlyList<LaunchAdapterBase> _adapters;
-
-    public LaunchAdapterRegistry(IEnumerable<LaunchAdapterBase> adapters)
-    {
-        _adapters = adapters.ToList();
-    }
-
-    public LaunchAdapterBase? GetAdapter(LaunchPlatform platform) =>
-        _adapters.FirstOrDefault(a => a.Platform == platform);
-}
+public sealed record ConfigSnapshotEntry(int AppId, string Path, DateTimeOffset CreatedAt);

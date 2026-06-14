@@ -34,7 +34,9 @@ public sealed class CompatibilityRepository
             g.SteamAppId,
             g.SteamTags,
             g.TiersByVendor,
-            g.Review.Summary)).ToList();
+            g.Review.Summary,
+            VrCapability: MapVrCapability(g.VrCapability),
+            SteamVrLaunchOptions: g.SteamVrLaunchOptions)).ToList();
 
         return _cache;
     }
@@ -68,6 +70,13 @@ public sealed class CompatibilityRepository
             : CompatibilityTier.Unsupported;
     }
 
+    private static VrCapability MapVrCapability(string? value) => value switch
+    {
+        "nativeVr" => VrCapability.NativeVr,
+        "uevrCompatible" => VrCapability.UevrCompatible,
+        _ => VrCapability.None
+    };
+
     private sealed class CompatibilitySeedDocument
     {
         public string Version { get; set; } = "";
@@ -82,6 +91,8 @@ public sealed class CompatibilityRepository
         public List<string> SteamTags { get; set; } = [];
         public Dictionary<string, string> TiersByVendor { get; set; } = [];
         public SeedReview Review { get; set; } = new();
+        public string? VrCapability { get; set; }
+        public string? SteamVrLaunchOptions { get; set; }
     }
 
     private sealed class SeedReview

@@ -2,6 +2,159 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Sprint 38 — Community, diagnostics & onboarding polish (archived 2026-06-14)
+
+- [x] [AGENT] `LaunchDryRunService` + Troubleshooting simulate button
+- [x] [AGENT] Enhanced `DiagnosticBundleService` (audit, display, toolchain, coexistence, update settings)
+- [x] [AGENT] `LanPresetExportService`, `SeedContributionExportService`
+- [x] [AGENT] `ReadinessScoreService` + offline onboarding in setup wizard
+- [x] [AGENT] `3dgo://play/{appid}` protocol + `scripts/register-3dgo-protocol.ps1`
+- [x] [AUTO] `DiagnosticsTests` (7 tests)
+
+> **Partial carryover (Sprint 43):** real WinUI README screenshots deferred — synthetic placeholders from `generate-brand-assets.py` remain until Sprint 43.
+
+## Sprint 37 — Display, PCVR & power UX (archived 2026-06-14)
+
+- [x] [AGENT] `DisplayChangeMonitor` EDID hot-plug + setup re-prompt
+- [x] [AGENT] `ViewingDistanceCoachView` interactive coach
+- [x] [AGENT] Multi-monitor launch picker, OpenXR runtime override, stream-friendly hotkeys
+- [x] [AGENT] Unified Play in 3D / Play in VR library actions
+- [x] [AGENT] Command palette real actions (cache, rescan, logs, safe launch)
+- [x] [AUTO] `DisplayPcvrUxTests` (9 tests)
+
+> **Partial carryover (Sprint 40):** streamer hotkey registration and command palette global keyboard shortcut deferred — nav/actions shipped in Sprint 37.
+
+## Sprint 36 — Launch depth & v2 productization (archived 2026-06-14)
+
+- [x] [AGENT] v2 experimental settings toggle + DI registration
+- [x] [AGENT] Per-game overrides, session profiles, HDR notice, config snapshot UI
+- [x] [AGENT] Full `UpdateService` + download/apply/restart pipeline; About intervals + Venmo
+- [x] [AGENT] `ElevatedHelper apply-update` for zip/msi
+- [x] [AGENT] Product version 1.1.0
+- [x] [AUTO] `UpdateServiceTests`, `InstallArtifactDetectorTests`, `UpdateSchedulerTests`
+
+## Sprint 35 — Library intelligence & local installs (archived 2026-06-14)
+
+- [x] [AGENT] `LocalGameFolderRepository`, `LocalFolderGameScanner`, `MergeLocalGamesAsync`
+- [x] [AGENT] `LocalGameInstallResolver` direct exe launch
+- [x] [AGENT] Library badges, Why not ready filter, recent launches, notes, collections, preset freshness
+- [x] [AGENT] `LibrarySettingsView` + `docs/LOCAL_GAME_FOLDERS.md`
+- [x] [AUTO] `LocalFolderGameTests`, `LibraryIntelligenceTests`; `V14_MAP` + `V15_MAP`
+
+## Sprint 34 — Hardware honesty & trust UX (archived 2026-06-14)
+
+- [x] [AGENT] WMI `SystemSpecsScanner`, deterministic `BenchmarkService`, `MuxGpuDetector`
+- [x] [AGENT] `LaunchPreviewService` pre-launch summary
+- [x] [AGENT] `GlossaryView` in shell navigation
+- [x] [AGENT] `docs/UX_PROGRESS.md` milestones updated
+- [x] [AUTO] `HardwareTrustTests`
+
+## Sprint 33 — Trainer & mod-manager coexistence (archived 2026-06-14)
+
+- [x] [AGENT] `ExternalToolCoexistenceService`, `GameFirstLaunchOrchestrator`, `LaunchContext`
+- [x] [AGENT] `3DGO-0004` when coexistence off; game-first UEVR skip
+- [x] [AGENT] Toolchain Health mod-manager toggle + detected tools display
+- [x] [AGENT] `docs/TRAINER_COEXISTENCE.md`
+- [x] [AUTO] `CoexistenceLaunchTests`; `V13_MAP`
+
+## Sprint 32 — Distribution & local release (archived 2026-06-14)
+
+- [x] [HUMAN] WinGet PR [#387878](https://github.com/microsoft/winget-pkgs/pull/387878) submitted (merge pending CLA)
+- [x] [AGENT] `build-product-local.ps1` orchestrator (zip + MSIX + WiX MSI)
+- [x] [AGENT] `codesign-common.ps1`, `verify-product-signatures.ps1`, `packaging/msi/`
+- [x] [AGENT] `docs/LOCAL_RELEASE.md`, ADR-0003 MSI distribution
+- [x] [AUTO] `check-local-release-scripts.sh`, `product-release.yml` MSI attach
+
+## Sprint 31 — PCVR depth & distribution polish (archived 2026-06-14)
+
+- [x] [AGENT] `OpenXrRuntimeProbe` registry + runtime.json active runtime detection
+- [x] [AGENT] Session profile save/list UI + streamer hotkey display in settings
+- [x] [AGENT] Sprint 31 UI preview screenshots via `generate-brand-assets.py`
+- [x] [AGENT] Winget submission checklist in `packaging/winget/README.md`
+- [x] [HUMAN] Submit manifest PR to `microsoft/winget-pkgs` (post-release) — see DECISION_LOG 2026-06-14 Winget entry
+
+## Sprint 30 — v2.0 production quality (archived 2026-06-14)
+
+- [x] [AGENT] `EpicGogLibraryScanner` parses Epic `.item` + GOG `goggame-*.info` manifests
+- [x] [AGENT] `WorkshopPresetImporter` + `workshop-sources-v1.json` with PrivacyGuard allowlist
+- [x] [AGENT] Troubleshooting UI: library checkboxes for LAN export + hybrid co-op session
+- [x] [AGENT] `HybridSessionService` persists session code; structured LAN export JSON
+- [x] [AUTO] `V2IntegrationTests` (8 tests) + `V2_MAP` QA coverage
+
+## Sprint 29 — library UX completion (archived 2026-06-14)
+
+- [x] [AGENT] Favorites toggle/filter UI; `SetFavoriteAsync` preserves across re-index
+- [x] [AGENT] Pin unpin, play-next queue, playlist save/load UI
+- [x] [AGENT] `SteamGridDbClient` artwork fallback in `GameArtworkService`
+- [x] [AUTO] `LibraryUxTests` + `V12_MAP` in `check-qa-matrix-coverage.sh`
+
+## Sprint 28 — data & manifest alignment (archived 2026-06-14)
+
+- [x] [AGENT] Migrated `preset-manifest-v1.json` to `UevrProfiles` + preserved `displayPresets`
+- [x] [AGENT] Expanded `seed-v1.json` to 12 titles with `vrCapability` / `steamVrLaunchOptions`
+- [x] [AGENT] `PlayInVR` + `PcvrRuntimeConnector` consume seed launch options; empty preset URL guard
+- [x] [AUTO] `check-compatibility-seed.sh` wired in `ci.yml` + `pre-release-gate.sh`
+- [x] [AUTO] 46 tests pass; bulk preset cache exercises manifest profiles
+
+## Post-v1 Refresh — Sprints 18–23 (archived 2026-06-14)
+
+### Sprint 18 — v1.0 closure automation
+
+- [x] [AUTO] `check-qa-matrix-coverage.sh`, `QaMatrixAutomationTests`, `AccessibilitySmokeTests`
+- [x] [AUTO] `product-release.yml` pre-release gate; optional Authenticode signing
+- [x] [AUTO] `quarterly-maintenance.yml`, `check-quarterly-maintenance.sh`, `check-release-please-pr.sh`
+- [x] [AGENT] ADR-0003 release policy; `docs/HARDWARE_QA_OUT_OF_BAND.md`
+- [x] [AUTO] Extended `verify-github-settings.sh` (code scanning WARN, RELEASE_BOT_TOKEN WARN)
+
+### Sprint 19 — v1.0.1
+
+- [x] [AGENT] `IncrementalSteamScanService` wired to library load; real `HdrWatchdogService`
+- [x] [AGENT] Bulk preset cache UI; `FeatureFlags.V101Enabled`; product version 1.0.1
+
+### Sprint 20 — v1.1
+
+- [x] [AGENT] `PcvrRuntimeConnector` OpenXR probe; `PlayInVR` SteamVR launch
+- [x] [AGENT] `GameOverrideRepository` + `PreferredOutput`; `LibrarySortMode.Genre`
+- [x] [AGENT] `CommandPaletteView`; PCVR + milestone tests
+
+### Sprint 21 — v1.x polish
+
+- [x] [AGENT] Update/diagnostic/safe-launch/pinned shelf/queue/command palette/bulk preset
+- [x] [AGENT] MSIX PNG assets (`StoreLogo.png`, `Square44x44Logo.png`)
+
+### Sprint 22 — v2.0
+
+- [x] [AGENT] ADR-0004; `EpicGogLibraryScanner`, `WorkshopPresetImporter`, v2 feature flag
+
+### Sprint 23 — release hardening
+
+- [x] [AGENT] Winget SHA256 in CI; README screenshots; QA matrix v2 exit criteria
+
+## Plan parity closure — Sprints 24–27 (archived 2026-06-14)
+
+### Sprint 24 — automation parity
+
+- [x] [AGENT] CodeQL upload-sarif; AccessibilitySmokeTests → Core `SetupWizardFlow` / `AccessibilityIds`
+- [x] [AGENT] QA matrix v1.1 coverage map; stale Release Please PR fail; RUNBOOK `CODESIGN_*`; TEMPLATE_INDEX scripts
+
+### Sprint 25 — v1.0.1 / v1.1 feature parity
+
+- [x] [AGENT] HDR registry disable; bulk cache progress test; PreferredOutput in resolve + library UI
+- [x] [AGENT] Play in VR UI; command palette nav + execution; Genre sort; vrCapability seeds; PCVR tests
+
+### Sprint 26 — v1.x polish UI
+
+- [x] [AGENT] Update check in About; safe-launch preference in PlayIn3D; pin/queue UI; settings prefs
+
+### Sprint 27 — v2 integration
+
+- [x] [AGENT] Epic/GOG library merge; workshop/LAN troubleshooting UI; SteamGridDb JSON parse; v2 tests
+
+## Product v1.0 Ship Track — Sprints 15–17 (archived 2026-06-14)
+
+- [x] [AGENT] Real launch/install, product publish pipeline, Release Please split, CodeQL C#
+- [x] [AGENT] Sprint 16 hygiene; Sprint 17 MSIX scaffold, ViewModel splits, feature flags
+
 ## Human Task Automation (2026-06-14)
 
 - [x] [AUTO] Gate scripts: `build-verification-gate`, `sprint-signoff-gate`, `check-readme-health`, `check-adr-status`, `check-legal-consistency`, `check-security-triage`, `verify-github-settings`; extended `pre-release-gate`, `setup-github-repo`
@@ -23,6 +176,8 @@
 - [x] [AUTO] v1.0 release sign-off (`pre-release-gate.sh` + `release-auto-merge.yml`)
 
 ## 3d-game-optimizer — Product Sprints 3–14 (archived 2026-06-14)
+
+> **Note (2026-06-14):** Sprints 5–8 and v1.0 sign-off items marked complete refer to **scaffolding, gate automation, and AUTO smoke tests**. Product feature completeness is tracked in BUILD_PLAN Sprint 15+.
 
 ### Sprint 3 — WinUI Foundation
 

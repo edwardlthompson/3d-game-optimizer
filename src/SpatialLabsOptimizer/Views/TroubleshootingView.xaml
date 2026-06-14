@@ -7,7 +7,21 @@
             <TextBlock Text="Troubleshooting" FontSize="28" FontWeight="SemiBold" />
             <TextBlock Text="Export a redacted diagnostic bundle or view structured error codes (3DGO-####)." TextWrapping="Wrap" Opacity="0.8" />
             <Button x:Name="ExportButton" Content="Export diagnostic bundle" Click="Export_Click" Style="{StaticResource AppButtonStyle}" />
+            <TextBox x:Name="DryRunAppIdBox" Header="Steam App ID for dry run" PlaceholderText="e.g. 1091500" />
+            <Button x:Name="DryRunButton" Content="Simulate Play in 3D (dry run)" Click="DryRun_Click" Style="{StaticResource AppButtonStyle}" />
+            <Button x:Name="SeedExportButton" Content="Export seed contribution JSON" Click="SeedExport_Click" Style="{StaticResource AppButtonStyle}" />
             <TextBlock x:Name="ExportPathBlock" TextWrapping="Wrap" Opacity="0.7" />
+            <StackPanel x:Name="V2Panel" Spacing="8" Visibility="Collapsed">
+                <TextBlock Text="v2 tools (SPATIALLABS_ENABLE_V2=true)" FontWeight="SemiBold" />
+                <TextBlock Text="Select library titles for LAN export or hybrid co-op session." TextWrapping="Wrap" Opacity="0.8" />
+                <StackPanel x:Name="LibraryExportPanel" Spacing="4" />
+                <TextBox x:Name="WorkshopUrlBox" Header="Workshop URL (optional)" PlaceholderText="Allowlisted HTTPS URL" />
+                <Button x:Name="WorkshopImportButton" Content="Import workshop presets" Click="WorkshopImport_Click" Style="{StaticResource AppButtonStyle}" />
+                <Button x:Name="LanExportButton" Content="Export LAN party list" Click="LanExport_Click" Style="{StaticResource AppButtonStyle}" />
+                <Button x:Name="LanPresetExportButton" Content="Export LAN preset allowlist" Click="LanPresetExport_Click" Style="{StaticResource AppButtonStyle}" />
+                <Button x:Name="HybridSessionButton" Content="Start hybrid co-op session" Click="HybridSession_Click" Style="{StaticResource AppButtonStyle}" />
+                <TextBlock x:Name="V2StatusBlock" TextWrapping="Wrap" Opacity="0.7" />
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </Page>
