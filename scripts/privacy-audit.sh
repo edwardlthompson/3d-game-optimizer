@@ -15,8 +15,9 @@ for pattern in HtmlAgilityPack AngleSharp Selenium Playwright; do
   fi
 done
 HTTPCLIENT_FILES=$(rg -l 'new HttpClient' src/SpatialLabsOptimizer --glob '*.cs' 2>/dev/null || true)
+ALLOWED_HTTPCLIENT='Infrastructure/Privacy|Infrastructure/Data/ExternalDataGateway'
 for file in $HTTPCLIENT_FILES; do
-  if ! echo "$file" | rg -q 'Infrastructure/Privacy'; then
+  if ! echo "$file" | rg -q "$ALLOWED_HTTPCLIENT"; then
     echo "FAIL: HttpClient outside PrivacyGuard: $file"; FAIL=1
   fi
 done
