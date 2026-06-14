@@ -160,6 +160,50 @@ check_node() {
 
 
 
+check_winui() {
+
+  if [ ! -f SpatialLabsOptimizer.sln ]; then
+
+    return 0
+
+  fi
+
+  if ! command -v dotnet >/dev/null 2>&1; then
+
+    echo "SKIP WinUI license check (dotnet not installed)"
+
+    return 0
+
+  fi
+
+  dotnet restore SpatialLabsOptimizer.sln --verbosity quiet 2>/dev/null || true
+
+  local assets="src/SpatialLabsOptimizer/obj/project.assets.json"
+
+  if [ ! -f "$assets" ]; then
+
+    echo "WARN WinUI project.assets.json missing after restore"
+
+    return 0
+
+  fi
+
+  if grep -qiE '"(GPL|AGPL|SSPL|BUSL)' "$assets"; then
+
+    echo "ERROR: WinUI dependencies may include copyleft licenses"
+
+    ERRORS=$((ERRORS + 1))
+
+  else
+
+    echo "WinUI license scan passed (no GPL/AGPL in assets)"
+
+  fi
+
+}
+
+
+
 case "$STACK" in
 
   web) check_web ;;
@@ -168,6 +212,8 @@ case "$STACK" in
 
   node) check_node ;;
 
+  winui) check_winui ;;
+
   all)
 
     check_web
@@ -175,6 +221,8 @@ case "$STACK" in
     check_python
 
     check_node
+
+    check_winui
 
     ;;
 

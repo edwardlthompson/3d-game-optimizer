@@ -18,7 +18,7 @@ Initialize the repository with a professional, hermetic layout. Early in the lif
 
 - **Quality Gates:** Linters, formatting, full regression test suites, strict file size limits (max 250 lines for views, 150 lines for logic), and strict test coverage budgets.
 - **Security Scanning:** GitHub Advanced Security (CodeQL), Dependabot, and Trivy container/dependency scanning.
-  - **`[HUMAN]` Enable Dependabot alerts** on GitHub: **Settings → Code security and analysis** → enable **Dependabot alerts** and **Dependabot security updates** (FOSS-native CVE notifications; free on public repos). See `docs/SECURITY_TRIAGE.md` for setup.
+  - **`[AUTO]` Enable Dependabot alerts** via `scripts/setup-github-repo.sh` (also enables security updates and private vulnerability reporting). See `docs/SECURITY_TRIAGE.md`.
   - **`[AGENT]`** Scaffold `.github/dependabot.yml` for each active package ecosystem (npm, pip, github-actions, gradle for Android) with **weekly** grouped updates. Note: `dependabot.yml` schedules version-update PRs; **Dependabot alerts** are a separate GitHub repo setting for CVE advisories — both are required.
   - **`[AUTO]`** Trivy + CodeQL workflows complement but do not replace Dependabot alerts.
   - **`[AGENT]`** Scaffold `.github/workflows/security.yml` (Trivy filesystem scan) and `.github/workflows/codeql.yml` as **separate workflows** from the main CI workflow — do not assume CI green means security scans passed.
@@ -29,9 +29,9 @@ Initialize the repository with a professional, hermetic layout. Early in the lif
   - **`[AGENT]`** Maintain `THIRD_PARTY_LICENSES.md` or `NOTICE` for bundled dependencies.
   - **`[AGENT]`** Declare SPDX license in package manifests (`"license": "MIT"` in `package.json` even when `"private": true`) so production dependency audits pass; CI excludes the private root package via `--excludePrivatePackages`.
 - **Branch Protection & PR Hygiene:**
-  - **`[HUMAN]`** Branch protection on `main`: required status checks (**CI**, **Security Scan**, **CodeQL** at minimum), linear history, no force-push.
-  - **`[HUMAN]`** Require PR reviews for `.github/`, `SECURITY.md`, and secrets-adjacent config.
-  - **`[HUMAN]`** Enable GitHub **Private vulnerability reporting** (Settings → Code security).
+  - **`[AUTO]`** Branch protection on `main` via `scripts/setup-github-repo.sh` (required checks: **CI**, **Security Scan**, **CodeQL**).
+  - **`[HUMAN]`** Require PR reviews for `.github/`, `SECURITY.md`, and secrets-adjacent config (optional; auto-merge uses `required_approving_review_count: 0` for release PRs).
+  - **`[AUTO]`** Private vulnerability reporting via `scripts/setup-github-repo.sh`.
   - **`[AGENT]`** Add `.github/CODEOWNERS` mapping critical paths to owners.
 - **Secrets & Environments:**
   - **`[AGENT]`** `.env.example` with documented vars; never commit `.env`.
@@ -108,7 +108,7 @@ Every task in `BUILD_PLAN.md` must carry an owner label so automated and human w
 ### Sequential (must complete in order)
 
 1. [ ] [AGENT] Draft ADR-0001 core architecture
-2. [ ] [HUMAN] Approve ADR-0001
+2. [ ] [AUTO] Approve ADR-0001 via `scripts/check-adr-status.sh`
 3. [ ] [AGENT] Implement Golden Path (shared schema/types first)
 
 ### Parallel (safe after Sequential step 3)
@@ -174,7 +174,7 @@ To maximize reasoning accuracy, eliminate architectural drift, and maintain cris
 - **Operational Readiness:** For services, expose `/health` and `/ready` endpoints. Maintain `docs/RUNBOOK.md` (deploy, rollback, common failures, escalation). Use structured logging (JSON, correlation IDs). `[HUMAN]` defines SLOs for user-facing features.
 - **Token Economy:** Keep functions highly modular and files small to stay well within optimal token performance windows.
 - **Template Update Notifications:** Child repos track upstream template version via `.template-version` and `.template-update.json`. Intervals: `off` | `daily` | `weekly` | `monthly` | `on_session`. Human selects interval during `scripts/init-project.sh` / `init-project.ps1` or by editing JSON. Checker scripts (`scripts/check-template-updates.sh` / `.ps1`) run on devcontainer start and manually; on new release they print a stdout banner. See `docs/UPGRADING_FROM_TEMPLATE.md`. `[HUMAN]` owns interval preference; `[AUTO]` owns scheduled runs.
-- **Weekly Security Triage:** `[HUMAN]` runs a weekly CVE triage pass (recommended: Monday, aligned with Trivy scheduled scan). Follow `docs/SECURITY_TRIAGE.md`: review GitHub → Security → Dependabot alerts (Critical/High first), triage open Dependabot PRs, fix/defer/dismiss each alert, confirm **Security Scan** (Trivy), **CodeQL**, and **CI** workflows green on `main`. Log deferred Critical/High items in `DECISION_LOG.md` or `BUILD_PLAN.md` Ongoing Maintenance section.
+- **Weekly Security Triage:** **`[AUTO]`** `.github/workflows/security-triage.yml` + `scripts/check-security-triage.sh` (Monday). See `docs/SECURITY_TRIAGE.md` for manual supplement on major Dependabot bumps.
 
 ## 7. Mandatory Pre-Release Quality Gate
 
@@ -182,7 +182,7 @@ Before any version bump, release tag, or production deployment, activate a focus
 
 - Complete regression test compliance and visual snapshot verification (zero failures).
 - Clean static analysis, linting, and dependency/vulnerability scans (CodeQL/Trivy).
-- **Dependabot alert gate:** zero open **Critical** or **High** Dependabot alerts (or documented exception with `[HUMAN]` approval + linked issue/ADR reference).
+- **Dependabot alert gate:** zero open **Critical** or **High** Dependabot alerts (or documented exception via `pre-release-gate.sh --allow-exception ISSUE_URL`).
 - **Weekly triage current:** last CVE triage pass within 7 days of release tag (see `docs/SECURITY_TRIAGE.md`).
 - Memory profiling validation (ensuring resource cleanup and no uncontrolled heap growth).
 - State persistence sanity checks (settings survive simulated upgrades/wipes).
@@ -194,9 +194,10 @@ Before any version bump, release tag, or production deployment, activate a focus
 
 ### Sprint 0 / Milestone Build Verification Gate
 
-Before claiming any sprint complete or requesting `[HUMAN]` approval:
+Before claiming any sprint complete:
 
 ```text
+[AUTO] scripts/build-verification-gate.sh
 [AUTO] scripts/check-file-encoding.sh
 [AUTO] scripts/validate-workflow-actions.sh
 [AUTO] scripts/validate-template-index.sh
@@ -238,13 +239,13 @@ Only when all quality checks return clean may you update the `CHANGELOG.md` (Kee
 8. `[AGENT]` Create `SECURITY.md` (supported versions, reporting channel, disclosure timeline) and `CODE_OF_CONDUCT.md` (Contributor Covenant).
 9. `[AGENT]` Add `.github/CODEOWNERS` and `THIRD_PARTY_LICENSES.md`.
 10. `[AGENT]` Draft `docs/GITHUB_ABOUT.md` with a description ≤ 350 characters and 5–10 relevant topics for the GitHub repo About preview.
-11. `[HUMAN]` Enable Dependabot alerts, security updates, and private vulnerability reporting in GitHub repo settings (see `docs/SECURITY_TRIAGE.md` § Setup).
-12. `[HUMAN]` Configure branch protection on `main` (required checks: CI, Security Scan, CodeQL; linear history, no force-push).
-13. `[HUMAN]` Paste `docs/GITHUB_ABOUT.md` description and topics into **GitHub → Settings → General → About**.
+11. `[AUTO]` Run `scripts/setup-github-repo.sh` — Dependabot alerts, security updates, private vulnerability reporting, branch protection, GitHub About (see `docs/SECURITY_TRIAGE.md` § Setup).
+12. `[AUTO]` Verify settings via `scripts/verify-github-settings.sh`.
+13. `[AUTO]` GitHub About synced from `docs/GITHUB_ABOUT.md` by setup script.
 14. `[AGENT]` Verify `.github/dependabot.yml` covers all active package ecosystems.
 15. `[AUTO]` Run `scripts/validate-bootstrap.sh` to confirm Sprint 0 artifacts exist.
 16. `[AGENT]` Run full **Build Verification Gate** (Section 7 checklist) including `validate-workflow-actions.sh` and stack-specific commands; fix all failures. Re-run encoding check after fixes on Windows.
 17. `[AGENT]` Cross-link all playbooks in `README.md`; sync `UPGRADING_FROM_TEMPLATE.md` and `PROMPT_LIBRARY.md`.
-18. `[HUMAN]` Approve Sprint 0 only after `[AUTO]` **CI**, **Security Scan**, and **CodeQL** green on `main` (verify via `check-github-ci.sh`) and Build Verification Gate passes.
+18. `[AUTO]` Approve Sprint 0 via `scripts/sprint-signoff-gate.sh` after **CI**, **Security Scan**, and **CodeQL** green on `main`.
 
 **Begin now.**

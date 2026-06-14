@@ -1,0 +1,75 @@
+name: Security Triage
+
+on:
+  schedule:
+    - cron: "30 6 * * 1"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/security-triage.yml
+      - scripts/check-security-triage.sh
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+  security-events: read
+
+jobs:
+  triage:
+    name: Weekly CVE Triage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Fetch Critical/High Dependabot alerts
+        id: alerts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          COUNT="$(gh api "repos/${GITHUB_REPOSITORY}/dependabot/alerts?state=open&per_page=100" \
+            --jq '[.[] | select(.security_vulnerability.severity == "critical" or .security_vulnerability.severity == "high")] | length' 2>/dev/null || echo "0")"
+          echo "count=${COUNT}" >> "$GITHUB_OUTPUT"
+          echo "Open Critical/High Dependabot alerts: ${COUNT}"
+
+      - name: Enable auto-merge on open Dependabot PRs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr list --repo "$GITHUB_REPOSITORY" --author "app/dependabot" --state open --json number,url \
+            --jq '.[].number' | while read -r num; do
+              gh pr merge "$num" --repo "$GITHUB_REPOSITORY" --auto --squash || true
+            done
+
+      - name: Open or update triage issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="Security triage $(date -u +%Y-%m-%d)"
+          BODY="Automated weekly CVE triage.
+
+          - Open Critical/High Dependabot alerts: **${{ steps.alerts.outputs.count }}**
+          - Workflow: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          - Playbook: docs/SECURITY_TRIAGE.md
+
+          This issue satisfies the weekly triage gate for release automation."
+          EXISTING="$(gh issue list --repo "$GITHUB_REPOSITORY" --label security-triage --state open --limit 1 --json number --jq '.[0].number // empty')"
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+            gh issue edit "$EXISTING" --repo "$GITHUB_REPOSITORY" --add-label security-triage
+            echo "Updated triage issue #${EXISTING}"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body "$BODY" --label security-triage
+            echo "Created triage issue"
+          fi
+
+      - name: Close triage issue when clean
+        if: steps.alerts.outputs.count == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue list --repo "$GITHUB_REPOSITORY" --label security-triage --state open --json number \
+            --jq '.[].number' | while read -r num; do
+              gh issue close "$num" --repo "$GITHUB_REPOSITORY" --comment "All Critical/High alerts resolved."
+            done

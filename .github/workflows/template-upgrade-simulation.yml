@@ -1,0 +1,17 @@
+name: Template Upgrade Simulation
+
+on:
+  schedule:
+    - cron: "0 8 1-7 * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  simulate-upgrade:
+    name: Simulate Template Upgrade
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: bash scripts/simulate-template-upgrade.sh

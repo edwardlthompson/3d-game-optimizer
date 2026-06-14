@@ -2,7 +2,7 @@
 
 Weekly CVE triage playbook for Dependabot alerts and release security gates.
 
-## Setup (one-time, [HUMAN])
+## Setup (one-time, [AUTO])
 
 1. Open GitHub -> **Settings** -> **Code security and analysis**
 2. Enable **Dependabot alerts** and **Dependabot security updates** (CVE advisories on dependencies)
@@ -15,6 +15,7 @@ Weekly CVE triage playbook for Dependabot alerts and release security gates.
 bash scripts/setup-github-repo.sh
 # Windows:
 pwsh scripts/setup-github-repo.ps1
+bash scripts/verify-github-settings.sh
 ```
 
 Requires `gh` CLI authenticated with admin access. On API `422` (plan or permission limits), the script prints a manual UI checklist. Re-run after fixing permissions.
@@ -25,18 +26,29 @@ Requires `gh` CLI authenticated with admin access. On API `422` (plan or permiss
 
 `dependabot.yml` schedules version-update PRs; **Dependabot alerts** are a separate GitHub setting for CVE advisories - both are required.
 
-## Weekly Triage Pass
+## Automated Weekly Triage
+
+`.github/workflows/security-triage.yml` runs every **Monday 06:30 UTC** (and on `workflow_dispatch`):
+
+1. Counts open Critical/High Dependabot alerts
+2. Enables auto-merge on open Dependabot PRs (patch/minor via `dependabot-automerge.yml`)
+3. Opens or updates a GitHub issue labeled **`security-triage`**
+4. Closes the triage issue when alert count is zero
+
+Gate script: `bash scripts/check-security-triage.sh` (7-day recency; bootstrap grace when no triage issues exist yet).
+
+## Weekly Triage Pass (manual supplement)
 
 Recommended cadence: **Monday** (aligned with scheduled security scans and `health-check.yml`).
 
 | Step | Owner | Action |
 |------|-------|--------|
-| 1 | HUMAN | Open **Security -> Dependabot alerts**; sort Critical/High first |
-| 2 | HUMAN | Review open Dependabot version-update PRs |
-| 3 | AGENT | Apply dependency bumps, run tests locally, open PRs as needed |
+| 1 | AUTO | `security-triage.yml` summarizes Critical/High alerts in a `security-triage` issue |
+| 2 | AUTO | Dependabot patch/minor PRs auto-merge when CI + Dependency Review pass |
+| 3 | AGENT | Apply remaining dependency bumps, run tests locally, open PRs as needed |
 | 4 | AUTO | CI (Trivy, CodeQL, matrix tests) validates merges |
-| 5 | HUMAN | Merge PR or escalate deferred items |
-| 6 | AUTO | Review `health-check.yml` weekly run (Monday 07:00 UTC); confirm CI + Security Scan + CodeQL green on main |
+| 5 | HUMAN | Merge major bumps or escalate deferred items (requires `HUMAN` label on Dependabot PR) |
+| 6 | AUTO | `health-check.yml` weekly run (Monday 07:00 UTC); `check-security-triage.sh` |
 
 ## Triage Decisions
 
@@ -62,17 +74,18 @@ Third-party workflow actions must use **immutable refs** to reduce supply-chain 
 
 ## Release Gate (mandatory before tag)
 
-Before any version bump or GitHub Release:
+Automated via `scripts/pre-release-gate.sh` and `.github/workflows/release-auto-merge.yml`:
 
-- [ ] Weekly triage completed within last **7 days**
-- [ ] Zero open **Critical/High** Dependabot alerts (or documented exception with [HUMAN] approval + linked issue/ADR)
-- [ ] Deferred vulnerabilities have a linked issue and [HUMAN] sign-off in release notes or DECISION_LOG.md
-- [ ] All [AUTO] security scans green on main (Trivy, CodeQL)
+- [AUTO] Weekly triage within last **7 days** (`scripts/check-security-triage.sh`)
+- [AUTO] Zero open **Critical/High** Dependabot alerts (or `--allow-exception ISSUE_URL`)
+- [AUTO] CHANGELOG section matches `.template-version`
+- [AUTO] License compliance and state persistence tests pass
+- [AUTO] CI, Security Scan, CodeQL green on `main`
 
 If a Critical/High alert has no upstream fix, release may proceed only when:
 
 1. A linked issue documents the advisory, impact, and mitigation
-2. [HUMAN] explicitly approves in the release notes or DECISION_LOG.md
+2. Issue URL passed to `pre-release-gate.sh --allow-exception`
 
 ## Related Files
 

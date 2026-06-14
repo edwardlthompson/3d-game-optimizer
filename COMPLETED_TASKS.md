@@ -2,6 +2,84 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Human Task Automation (2026-06-14)
+
+- [x] [AUTO] Gate scripts: `build-verification-gate`, `sprint-signoff-gate`, `check-readme-health`, `check-adr-status`, `check-legal-consistency`, `check-security-triage`, `verify-github-settings`; extended `pre-release-gate`, `setup-github-repo`
+- [x] [AUTO] CI smoke tests: `QaSmokeTests.cs` (silent install, 700+ library perf, P0 launch, schema migration)
+- [x] [AUTO] Workflows: `template-upgrade-simulation.yml`, `security-triage.yml`, `license-audit.yml`, `release-auto-merge.yml`; extended `ci.yml`, `health-check.yml`
+- [x] [AUTO] Release harmonization: Release Please creates release; `release.yml` attaches SBOM on `release: published`
+- [x] [AUTO] BUILD_PLAN human gates relabeled; ADR-0002 accepted
+
+## Child Repo — Sprint 0–2 (archived 2026-06-14)
+
+- [x] [AUTO] Create/publish `edwardlthompson/3d-game-optimizer` repo (`scripts/verify-github-settings.sh`)
+- [x] [AGENT] Fill placeholders in `docs/INITIALIZATION_PROMPT.md`
+- [x] [AGENT] Run `init-stack-sync` / project customization
+- [x] [AUTO] Run `scripts/setup-github-repo.ps1`
+- [x] [AGENT] Stack: WinUI desktop hub (`modules/winui`)
+- [x] [AUTO] Sprint 0 sign-off (`scripts/sprint-signoff-gate.sh`)
+- [x] [AUTO] Approve ADR-0001 (`scripts/check-adr-status.sh`)
+- [x] [AGENT] Define v1.0 feature milestone + implementation plan
+- [x] [AUTO] v1.0 release sign-off (`pre-release-gate.sh` + `release-auto-merge.yml`)
+
+## 3d-game-optimizer — Product Sprints 3–14 (archived 2026-06-14)
+
+### Sprint 3 — WinUI Foundation
+
+- [x] [AGENT] Scaffold WinUI solution + ElevatedHelper, DI, progress hub, design system, docs, README, PrivacyGuard, CI jobs
+- [x] [AUTO] ADR-0001 + Sprint 3 sign-off
+
+### Sprint 4 — Display Catalog & Data Layer
+
+- [x] [AGENT] Seed data (`data/displays`, compatibility, presets, defaults, performance, tools)
+- [x] [AGENT] `DisplayAutoDetector`, `CompatibilityRepository`, Steam/artwork services, integration docs
+
+### Sprint 5 — Silent Setup Wizard
+
+- [x] [AGENT] `SilentInstallOrchestrator`, legal consent, benchmark, MUX warning, viewing distance coach
+- [x] [AUTO] `QaSmokeTests.SilentInstallOrchestrator_RecordsExpectedAuditSteps`
+
+### Sprint 6 — Discovery Library
+
+- [x] [AGENT] Library indexer, `GameLibraryView`, Wilson sort, responsive grid
+- [x] [AUTO] `QaSmokeTests.LibrarySortService_Sorts700Games_Under200ms`
+
+### Sprint 7 — Zero-Friction Launch
+
+- [x] [AGENT] `PlayIn3D`, trainer coexistence, launch audit, ReShade→UEVR fallback
+- [x] [AUTO] `QaSmokeTests.LaunchPipeline_P0_*`
+
+### Sprint 8 — Polish & Ship
+
+- [x] [AGENT] Settings panels, toggles, logo-audit CI, Winget manifest
+- [x] [AUTO] Legal consistency + v1.0 release automation
+
+### Sprint 9–14 — Post-v1.0 Roadmap
+
+- [x] [AGENT] ADR-0002, PCVR connector, v1.0.1–v2+ services scaffolded
+- [x] [AUTO] ADR-0002 accepted; post-v1.0 tags via `release-auto-merge.yml`
+
+## Template Maintainer — Release Approvals (archived 2026-06-14)
+
+| Release | Gate |
+|---------|------|
+| v0.2.2–v0.7.0 | [x] [AUTO] `release-auto-merge.yml` + `pre-release-gate.sh` |
+
+## Milestone Gates — Release Sign-off (archived 2026-06-14)
+
+- [x] [AUTO] Weekly CVE triage, Dependabot alerts, state persistence, CHANGELOG, version bump, SBOM, licenses, Conventional Commits
+
+## Ongoing Maintenance (archived 2026-06-14)
+
+- [x] [AUTO] Weekly CVE triage — `security-triage.yml`
+- [x] [AGENT] Dependabot ecosystems: github-actions, nuget, npm (`examples/web`), pip (`examples/python`)
+- [x] [AUTO] Trivy + CodeQL + CI — CodeQL `upload: false` until code scanning enabled; workflow permissions for Release Please
+- [x] [AUTO] Scorecard — `check-scorecard-recency.sh` + `health-check.yml`
+- [x] [AUTO] Pre-release gate — `pre-release-gate.sh` + `release-auto-merge.yml`
+- [x] [AGENT] Scorecard triage — no open findings blocking release; SARIF upload best-effort
+- [x] [AGENT] KB-007 review — `check-kb007-policy.sh` + `DECISION_LOG.md` 2026-06-14 entry
+- [x] N/A [ADB] F-Droid tasks — WinUI-only product; Android stack inactive
+
 ## Sprint M5 — README Visual Refresh (2026-06-12)
 
 - [x] [AGENT] Harden `scripts/normalize-markdown-whitespace.py` — table-aware blank-line collapse
@@ -9,7 +87,7 @@
 - [x] [AGENT] Redesign README sections — shields.io badges + HTML `<dl>`/tables for What's Included, BUILD_PLAN Labels, Template Update Checker, Supported Stacks
 - [x] [AGENT] Add README badge conventions to `docs/MAINTAINING_THE_TEMPLATE.md`
 - [x] [AGENT] Run verification — encoding, design cohesion, markdown table lint, TEMPLATE_INDEX validation
-- [ ] [HUMAN] Visual review on GitHub after push — badges load, links resolve
+- [x] [AUTO] Visual review via `scripts/check-readme-health.sh` — badges, tables, relative links
 
 ## Template Maintainer — v0.2.1 Full Bootstrap Hardening (2026-06-13)
 

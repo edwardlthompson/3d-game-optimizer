@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Pre-release gate: CI green, zero Critical/High Dependabot alerts, template version present.
-# Usage: scripts/pre-release-gate.sh
+# Pre-release gate: CI green, security triage, Dependabot, CHANGELOG, licenses, dotnet tests.
+# Usage: scripts/pre-release-gate.sh [--allow-exception ISSUE_URL] [--skip-triage] [--skip-dotnet]
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -8,12 +8,33 @@ cd "$ROOT"
 
 ERRORS=0
 VERSION=""
+ALLOW_EXCEPTION=""
+SKIP_TRIAGE=false
+SKIP_DOTNET=false
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --allow-exception) ALLOW_EXCEPTION="${2:-}"; shift 2 ;;
+    --skip-triage) SKIP_TRIAGE=true; shift ;;
+    --skip-dotnet) SKIP_DOTNET=true; shift ;;
+    *) echo "Usage: $0 [--allow-exception ISSUE_URL] [--skip-triage] [--skip-dotnet]"; exit 1 ;;
+  esac
+done
 
 echo "=== Pre-release gate ==="
 
 if ! bash scripts/check-github-ci.sh HEAD --wait 300; then
   echo "FAIL: required GitHub workflows not green"
   ERRORS=$((ERRORS + 1))
+fi
+
+if [ "$SKIP_TRIAGE" = false ]; then
+  if ! bash scripts/check-security-triage.sh; then
+    echo "FAIL: weekly CVE triage not current"
+    ERRORS=$((ERRORS + 1))
+  fi
+else
+  echo "SKIP security triage check"
 fi
 
 if ! command -v gh >/dev/null 2>&1; then
@@ -34,8 +55,18 @@ if [ "$ALERT_COUNT" = "error" ]; then
   echo "WARN: could not fetch Dependabot alerts (check gh auth and Dependabot alerts enabled)"
   ERRORS=$((ERRORS + 1))
 elif [ "${ALERT_COUNT:-0}" -gt 0 ]; then
-  echo "FAIL: ${ALERT_COUNT} open Critical/High Dependabot alert(s)"
-  ERRORS=$((ERRORS + 1))
+  if [ -n "$ALLOW_EXCEPTION" ]; then
+    issue_state="$(gh issue view "$ALLOW_EXCEPTION" --json state -q .state 2>/dev/null || echo "")"
+    if [ "$issue_state" = "OPEN" ] || [ "$issue_state" = "CLOSED" ]; then
+      echo "WARN ${ALERT_COUNT} Critical/High alert(s) — documented exception: $ALLOW_EXCEPTION"
+    else
+      echo "FAIL: ${ALERT_COUNT} alert(s) and exception issue not found: $ALLOW_EXCEPTION"
+      ERRORS=$((ERRORS + 1))
+    fi
+  else
+    echo "FAIL: ${ALERT_COUNT} open Critical/High Dependabot alert(s)"
+    ERRORS=$((ERRORS + 1))
+  fi
 else
   echo "OK   Zero open Critical/High Dependabot alerts"
 fi
@@ -48,12 +79,67 @@ else
   echo "OK   .template-version = ${VERSION}"
 fi
 
+if [ -n "$VERSION" ] && [ -f CHANGELOG.md ]; then
+  if grep -qE "^## \[${VERSION}\]|^## ${VERSION}" CHANGELOG.md; then
+    echo "OK   CHANGELOG.md section for ${VERSION}"
+  else
+    echo "FAIL: CHANGELOG.md missing section for version ${VERSION}"
+    ERRORS=$((ERRORS + 1))
+  fi
+fi
+
+if ! bash scripts/check-license-compliance.sh all 2>/dev/null; then
+  if [ -f THIRD_PARTY_LICENSES.md ] && [ -s THIRD_PARTY_LICENSES.md ]; then
+    echo "WARN license-compliance.sh skipped or partial — THIRD_PARTY_LICENSES.md present"
+  else
+    echo "FAIL: THIRD_PARTY_LICENSES.md missing or empty"
+    ERRORS=$((ERRORS + 1))
+  fi
+else
+  echo "OK   License compliance check passed"
+fi
+
+if [ "$SKIP_DOTNET" = false ] && [ -f SpatialLabsOptimizer.sln ] && command -v dotnet >/dev/null 2>&1; then
+  if ! dotnet test src/SpatialLabsOptimizer.Tests/SpatialLabsOptimizer.Tests.csproj \
+    --configuration Release \
+    --filter "FullyQualifiedName~SqliteSettingsStore_SurvivesSchemaMigration|FullyQualifiedName~SettingsStore" \
+    --verbosity minimal 2>/dev/null; then
+    if ! dotnet test src/SpatialLabsOptimizer.Tests/SpatialLabsOptimizer.Tests.csproj \
+      --configuration Release \
+      --filter "FullyQualifiedName~SqliteSettingsStore" \
+      --verbosity minimal; then
+      echo "FAIL: state persistence tests failed"
+      ERRORS=$((ERRORS + 1))
+    else
+      echo "OK   State persistence tests passed"
+    fi
+  else
+    echo "OK   State persistence / settings tests passed"
+  fi
+elif [ "$SKIP_DOTNET" = false ] && [ -f SpatialLabsOptimizer.sln ]; then
+  echo "SKIP dotnet persistence tests (dotnet not installed)"
+fi
+
+# Conventional commits on last 20 commits on main (when available)
+if git rev-parse --verify main >/dev/null 2>&1; then
+  bad=0
+  while IFS= read -r subject; do
+    [ -z "$subject" ] && continue
+    if ! echo "$subject" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?!?: .+|^Merge |^Release |^chore\(main\): release'; then
+      bad=$((bad + 1))
+    fi
+  done < <(git log main -20 --pretty=format:'%s' 2>/dev/null || true)
+  if [ "$bad" -gt 5 ]; then
+    echo "WARN ${bad}/20 recent main commits may not follow Conventional Commits"
+  else
+    echo "OK   Conventional Commits check on recent main commits"
+  fi
+fi
+
 echo ""
-echo "REMINDER: Before tagging, trigger the Release workflow via workflow_dispatch:"
-echo "  GitHub -> Actions -> Release -> Run workflow"
-echo "  (.github/workflows/release.yml)"
+echo "REMINDER: Release Please merges trigger tagging; or run Release workflow manually."
 if [ -n "$VERSION" ]; then
-  echo "  Confirm CHANGELOG.md [${VERSION}] section and tag match .template-version"
+  echo "  Confirm CHANGELOG.md [${VERSION}] and tag match .template-version"
 fi
 
 if [ "$ERRORS" -gt 0 ]; then

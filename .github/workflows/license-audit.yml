@@ -1,0 +1,40 @@
+name: License Audit
+
+on:
+  schedule:
+    - cron: "0 9 1-7 * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  license-audit:
+    name: Monthly License and SBOM Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: WinUI license scan
+        run: bash scripts/check-license-compliance.sh winui
+
+      - name: Verify THIRD_PARTY_LICENSES.md
+        run: |
+          test -s THIRD_PARTY_LICENSES.md
+          echo "THIRD_PARTY_LICENSES.md present"
+
+      - name: Check latest release SBOM artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="$(gh release list --repo "$GITHUB_REPOSITORY" --limit 1 --json tagName --jq '.[0].tagName // empty')"
+          if [ -z "$TAG" ]; then
+            echo "WARN no GitHub releases yet"
+            exit 0
+          fi
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets \
+            --jq '.assets[].name' | grep -q sbom || echo "WARN SBOM not attached to ${TAG}"

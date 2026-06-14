@@ -18,6 +18,13 @@
 
 _No project-specific decisions yet. The seed ADR is at `docs/adr/0001-template-baseline.md`._
 
+### 2026-06-14 — BUILD_PLAN maintenance closure (KB-007 + Scorecard)
+- **Status:** Accepted
+- **Context:** Remaining BUILD_PLAN items: Dependabot coverage, Scorecard triage, CodeQL/Release Please CI failures, KB-007 policy review
+- **Decision:** Extend `dependabot.yml` with npm/pip ecosystems; gate major bumps via `dependabot-automerge.yml` + `scripts/check-kb007-policy.sh`; CodeQL/Scorecard use `upload: false` / `continue-on-error` until code scanning enabled in repo settings; workflow permissions allow Release Please PRs via `setup-github-repo.sh`
+- **Alternatives considered:** Require manual code scanning enable before merge (deferred — documented in setup checklist)
+- **Consequences:** OpenSSF SARIF upload is best-effort; enable **Settings → Code security → Code scanning** for full Security tab integration
+
 ### 2026-06-13 — @lhci/cli npm overrides for transitive CVEs
 - **Status:** Accepted
 - **Context:** Lighthouse CI (`@lhci/cli`) bundles transitive dependencies (`tmp`, `uuid`) with known CVEs; no patched `@lhci/cli` release available at triage time

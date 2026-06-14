@@ -23,5 +23,6 @@ jobs:
       - name: Release created
         if: steps.release.outputs.release_created == 'true'
         run: |
-          echo "Release ${{ steps.release.outputs.tag_name }} created"
-          echo "Run scripts/pre-release-gate.sh before tagging if not using Release Please merge flow"
+          echo "Release ${{ steps.release.outputs.tag_name }} created by Release Please"
+          echo "release.yml attaches SBOM assets on release published event"
+          echo "release-auto-merge.yml merges Release Please PRs when pre-release-gate passes"

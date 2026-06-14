@@ -22,10 +22,24 @@ Static PWAs and CLIs may skip HTTP endpoints; document stack-specific checks ins
 
 ## Deploy
 
-1. `[AUTO]` CI green on `main`
-2. `[HUMAN]` Approve release (Milestone Gates in `BUILD_PLAN.md`)
-3. `[AUTO]` Tag and publish via GitHub Release workflow
-4. `[HUMAN]` Verify deployment on target platform
+1. `[AUTO]` CI green on `main` (`scripts/check-github-ci.sh --wait 300`)
+2. `[AUTO]` Pre-release gate (`scripts/pre-release-gate.sh`)
+3. `[AUTO]` Release Please opens a release PR; `release-auto-merge.yml` merges when gates pass
+4. `[AUTO]` Release Please publishes the tag; `release.yml` attaches SBOM assets on `release: published`
+5. `[AUTO]` WinUI QA smoke tests in CI (`src/SpatialLabsOptimizer.Tests/QaSmokeTests.cs`)
+
+### Full auto-release flow
+
+| Step | Workflow / script |
+|------|-------------------|
+| Changelog bump PR | `release-please.yml` on push to `main` |
+| Gate checks | `pre-release-gate.sh` in `release-auto-merge.yml` |
+| Merge release PR | `gh pr merge --auto --squash` (optional `RELEASE_BOT_TOKEN` secret if branch protection blocks `GITHUB_TOKEN`) |
+| Create GitHub Release | Release Please on merged PR |
+| Attach SBOM + Winget stub | `release.yml` on `release: published` |
+| Manual fallback | `workflow_dispatch` on `release.yml` with tag input |
+
+**Token setup:** If auto-merge fails with HTTP 403, create a fine-grained PAT with `contents` + `pull_requests` write access, store as repository secret `RELEASE_BOT_TOKEN`, and re-run the Release Please PR check.
 
 ## Rollback
 

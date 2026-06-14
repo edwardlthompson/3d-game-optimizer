@@ -1,0 +1,53 @@
+name: Release Auto Merge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+jobs:
+  pre-release-gate:
+    name: Pre-release Gate
+    if: |
+      github.event.pull_request.user.login == 'release-please[bot]' ||
+      startsWith(github.event.pull_request.title, 'chore(main): release')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Run pre-release gate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash scripts/pre-release-gate.sh --skip-triage
+
+  auto-merge:
+    name: Auto-merge Release Please PR
+    needs: pre-release-gate
+    if: |
+      github.event.pull_request.user.login == 'release-please[bot]' ||
+      startsWith(github.event.pull_request.title, 'chore(main): release')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable squash merge when checks pass
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -n "${{ secrets.RELEASE_BOT_TOKEN }}" ]; then
+            export GH_TOKEN="${{ secrets.RELEASE_BOT_TOKEN }}"
+          fi
+          gh pr merge "${{ github.event.pull_request.number }}" \
+            --repo "$GITHUB_REPOSITORY" \
+            --auto \
+            --squash
+          echo "Auto-merge queued for Release Please PR #${{ github.event.pull_request.number }}"

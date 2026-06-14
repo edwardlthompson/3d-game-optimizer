@@ -115,11 +115,26 @@ else
   echo "OK   Dependabot vulnerability alerts enabled"
 fi
 
+if ! gh_api_retry PUT "repos/${REPO}/automated-security-fixes"; then
+  rc=$?
+  if [ "$rc" -eq 3 ]; then TRANSIENT=$((TRANSIENT + 1)); elif [ "$rc" -eq 1 ]; then FAILED=$((FAILED + 1)); fi
+else
+  echo "OK   Dependabot security updates enabled"
+fi
+
 if ! gh_api_retry PUT "repos/${REPO}/private-vulnerability-reporting"; then
   rc=$?
   if [ "$rc" -eq 3 ]; then TRANSIENT=$((TRANSIENT + 1)); elif [ "$rc" -eq 1 ]; then FAILED=$((FAILED + 1)); fi
 else
   echo "OK   Private vulnerability reporting enabled"
+fi
+
+workflow_json='{"default_workflow_permissions":"write","can_approve_pull_request_reviews":true}'
+if ! gh_api_retry PUT "repos/${REPO}/actions/permissions/workflow" "$workflow_json"; then
+  rc=$?
+  if [ "$rc" -eq 3 ]; then TRANSIENT=$((TRANSIENT + 1)); elif [ "$rc" -eq 1 ]; then FAILED=$((FAILED + 1)); fi
+else
+  echo "OK   Actions workflow permissions: write + PR create/approve (Release Please)"
 fi
 
 protection_json="$(python3 - <<'PY'
@@ -155,6 +170,51 @@ fi
 if [ "$FAILED" -gt 0 ]; then
   echo "$FAILED setup step(s) failed"
   exit 1
+fi
+
+# Repo About block from docs/GITHUB_ABOUT.md
+if [ -f docs/GITHUB_ABOUT.md ]; then
+  ABOUT_DESC="$(python3 - <<'PY'
+import re
+from pathlib import Path
+text = Path("docs/GITHUB_ABOUT.md").read_text(encoding="utf-8")
+# Prefer Child Project Draft when placeholders are replaced; else template description.
+child = re.search(r"## Child Project Draft\s*\n\s*(.+)", text)
+if child and "[PROJECT_NAME]" not in child.group(1):
+    print(child.group(1).strip()[:350])
+else:
+    m = re.search(r"## Template Repo Description[^\n]*\n\s*(.+)", text)
+    print((m.group(1).strip() if m else "")[:350])
+PY
+)"
+  ABOUT_TOPICS="$(python3 - <<'PY'
+import re
+from pathlib import Path
+text = Path("docs/GITHUB_ABOUT.md").read_text(encoding="utf-8")
+m = re.search(r"## Topics\s*\n\s*(.+)", text)
+if not m:
+    print("")
+else:
+    topics = [t.strip() for t in m.group(1).split(",") if t.strip()]
+    print(",".join(topics[:10]))
+PY
+)"
+  if [ -n "$ABOUT_DESC" ]; then
+    if gh repo edit "$REPO" --description "$ABOUT_DESC" 2>/dev/null; then
+      echo "OK   GitHub About description updated"
+    else
+      echo "WARN could not update GitHub About description"
+    fi
+    if [ -n "$ABOUT_TOPICS" ]; then
+      IFS=',' read -ra TOPIC_ARR <<< "$ABOUT_TOPICS"
+      for topic in "${TOPIC_ARR[@]}"; do
+        topic="$(echo "$topic" | xargs)"
+        [ -z "$topic" ] && continue
+        gh repo edit "$REPO" --add-topic "$topic" 2>/dev/null || true
+      done
+      echo "OK   GitHub topics updated"
+    fi
+  fi
 fi
 
 echo "GitHub repo security setup complete for ${REPO}"

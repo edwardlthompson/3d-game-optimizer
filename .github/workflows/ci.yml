@@ -77,3 +77,36 @@ jobs:
       - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  readme-health:
+    name: README Health
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: bash scripts/check-readme-health.sh --quick
+
+  adr-status:
+    name: ADR Status
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: bash scripts/check-adr-status.sh
+
+  legal-consistency:
+    name: Legal Consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: bash scripts/check-legal-consistency.sh
+
+  build-verification:
+    name: Build Verification Gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Quick gate (PR)
+        if: github.event_name == 'pull_request'
+        run: bash scripts/build-verification-gate.sh --quick --skip-pre-commit --skip-dotnet
+      - name: Full gate (main)
+        if: github.event_name != 'pull_request'
+        run: bash scripts/build-verification-gate.sh --skip-pre-commit --skip-dotnet

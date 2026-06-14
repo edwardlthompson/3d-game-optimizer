@@ -246,7 +246,35 @@
     },
     {
       "path": ".github/workflows/release.yml",
-      "purpose": "SBOM, provenance attestation, and GitHub Release on version tags",
+      "purpose": "Attach SBOM and Winget stub to GitHub Release on release published",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/template-upgrade-simulation.yml",
+      "purpose": "Scheduled simulate-template-upgrade.sh (first Monday monthly)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/security-triage.yml",
+      "purpose": "Weekly automated CVE triage issue and Dependabot auto-merge",
+      "read_when": "security_triage",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/license-audit.yml",
+      "purpose": "Monthly THIRD_PARTY_LICENSES and SBOM audit",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/release-auto-merge.yml",
+      "purpose": "Auto-merge Release Please PRs when pre-release gate passes",
       "read_when": "release",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -276,6 +304,83 @@
       "path": "scripts/pre-release-gate.ps1",
       "purpose": "Windows wrapper for pre-release-gate.sh",
       "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/build-verification-gate.sh",
+      "purpose": "Unified Build Verification Gate (INITIALIZATION_PROMPT Section 7)",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/build-verification-gate.ps1",
+      "purpose": "Windows wrapper for build-verification-gate.sh",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/sprint-signoff-gate.sh",
+      "purpose": "Sprint sign-off: build verification + GitHub CI poll",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/sprint-signoff-gate.ps1",
+      "purpose": "Windows wrapper for sprint-signoff-gate.sh",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-readme-health.sh",
+      "purpose": "README badges, tables, and relative link validation",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-adr-status.sh",
+      "purpose": "Enforce ADR Status Accepted when BUILD_PLAN gates apply",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-legal-consistency.sh",
+      "purpose": "Verify UI consent strings match docs/LEGAL.md themes",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-security-triage.sh",
+      "purpose": "Verify weekly security-triage issue within 7 days",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/verify-github-settings.sh",
+      "purpose": "Read-only GitHub repo security settings verification",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-scorecard-recency.sh",
+      "purpose": "Verify OpenSSF Scorecard workflow succeeded within N days",
+      "read_when": "security_triage",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-kb007-policy.sh",
+      "purpose": "Verify KB-007 npm overrides policy and Dependabot major gate",
+      "read_when": "security_triage",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
     },

@@ -13,7 +13,7 @@ globs:
 After push to `main` or before release sign-off:
 
 ```bash
-bash scripts/check-github-ci.sh --wait 300
+bash scripts/check-github-ci.sh HEAD --wait 300
 ```
 
 ## Gate Order (local)
@@ -21,7 +21,10 @@ bash scripts/check-github-ci.sh --wait 300
 1. `scripts/check-file-encoding.py`
 2. `scripts/validate-template-index.sh`
 3. `scripts/validate-bootstrap.sh`
-4. `pre-commit run --all-files`
+4. `scripts/build-verification-gate.sh --quick`
+5. `scripts/sprint-signoff-gate.sh` (sprint sign-off)
+6. `scripts/pre-release-gate.sh` (release)
+7. `pre-commit run --all-files`
 
 ## Do Not Mark Complete
 

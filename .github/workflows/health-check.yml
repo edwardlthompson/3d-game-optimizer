@@ -20,6 +20,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: bash scripts/check-github-ci.sh "$(git rev-parse HEAD)"
 
+      - name: Security triage recency
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/check-security-triage.sh
+
+      - name: Scorecard recency
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/check-scorecard-recency.sh --days 30
+
       - name: Setup Node for npm audit
         if: hashFiles('examples/web/package-lock.json') != ''
         uses: actions/setup-node@v6
