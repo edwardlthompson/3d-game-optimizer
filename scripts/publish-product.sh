@@ -45,7 +45,7 @@ cp "$HELPER_EXE" "$PUBLISH_APP/SpatialLabsOptimizer.ElevatedHelper.exe"
 VERSION="$(python3 -c "import json; print(json.load(open('src/SpatialLabsOptimizer/product-version.json'))['version'])")"
 ZIP_NAME="SpatialLabsOptimizer-${VERSION}-win-x64.zip"
 mkdir -p "$OUT_DIR"
-( cd "$PUBLISH_APP" && zip -r "../$ZIP_NAME" . )
+( cd "$PUBLISH_APP" && zip -r "../../$ZIP_NAME" . )
 
 echo "Wrote $OUT_DIR/$ZIP_NAME"
 echo "Helper present: $(test -f "$PUBLISH_APP/SpatialLabsOptimizer.ElevatedHelper.exe" && echo yes || echo no)"

@@ -15,8 +15,22 @@ permissions:
   actions: read
 
 jobs:
+  wait-for-ci:
+    name: Wait for CI on commit
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      startsWith(github.event.release.tag_name, 'SpatialLabsOptimizer-v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Wait for required workflows
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash scripts/check-github-ci.sh HEAD --wait 900
+
   pre-release-gate:
     name: Pre-release Gate (full)
+    needs: wait-for-ci
     if: |
       github.event_name == 'workflow_dispatch' ||
       startsWith(github.event.release.tag_name, 'SpatialLabsOptimizer-v')
@@ -32,10 +46,11 @@ jobs:
       - name: Run pre-release gate (non-Windows checks)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash scripts/pre-release-gate.sh --product-release --skip-dotnet --skip-triage
+        run: bash scripts/pre-release-gate.sh --product-release --skip-dotnet --skip-triage --skip-ci-check
 
   pre-release-dotnet:
     name: Pre-release Gate (dotnet tests)
+    needs: wait-for-ci
     if: |
       github.event_name == 'workflow_dispatch' ||
       startsWith(github.event.release.tag_name, 'SpatialLabsOptimizer-v')
@@ -65,8 +80,8 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Publish self-contained win-x64 bundle
-        shell: bash
-        run: bash scripts/publish-product.sh Release artifacts/product-win-x64
+        shell: pwsh
+        run: pwsh -File scripts/publish-product.ps1 -Configuration Release -OutputDir artifacts/product-win-x64
 
       - name: Authenticode signing (EV secrets or AUTO sideload)
         shell: pwsh

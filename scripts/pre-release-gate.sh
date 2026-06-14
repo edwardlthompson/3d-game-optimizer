@@ -11,6 +11,7 @@ VERSION=""
 ALLOW_EXCEPTION=""
 SKIP_TRIAGE=false
 SKIP_DOTNET=false
+SKIP_CI_CHECK=false
 PRODUCT_RELEASE=false
 
 while [ $# -gt 0 ]; do
@@ -18,16 +19,21 @@ while [ $# -gt 0 ]; do
     --allow-exception) ALLOW_EXCEPTION="${2:-}"; shift 2 ;;
     --skip-triage) SKIP_TRIAGE=true; shift ;;
     --skip-dotnet) SKIP_DOTNET=true; shift ;;
+    --skip-ci-check) SKIP_CI_CHECK=true; shift ;;
     --product-release) PRODUCT_RELEASE=true; shift ;;
-    *) echo "Usage: $0 [--allow-exception ISSUE_URL] [--skip-triage] [--skip-dotnet] [--product-release]"; exit 1 ;;
+    *) echo "Usage: $0 [--allow-exception ISSUE_URL] [--skip-triage] [--skip-dotnet] [--skip-ci-check] [--product-release]"; exit 1 ;;
   esac
 done
 
 echo "=== Pre-release gate ==="
 
-if ! bash scripts/check-github-ci.sh HEAD --wait 300; then
-  echo "FAIL: required GitHub workflows not green"
-  ERRORS=$((ERRORS + 1))
+if [ "$SKIP_CI_CHECK" = false ]; then
+  if ! bash scripts/check-github-ci.sh HEAD --wait 300; then
+    echo "FAIL: required GitHub workflows not green"
+    ERRORS=$((ERRORS + 1))
+  fi
+else
+  echo "SKIP GitHub CI check"
 fi
 
 if [ "$SKIP_TRIAGE" = false ]; then
