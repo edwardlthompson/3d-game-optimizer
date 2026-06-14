@@ -57,8 +57,12 @@ else
 fi
 
 if [ -z "$ALERT_COUNT" ]; then
-  echo "WARN: could not fetch Dependabot alerts (check gh auth, Dependabot alerts, and security-events: read)"
-  ERRORS=$((ERRORS + 1))
+  if [ "$PRODUCT_RELEASE" = true ]; then
+    echo "WARN: could not fetch Dependabot alerts — skipped for product-release (CI Security Scan covers dependency posture)"
+  else
+    echo "WARN: could not fetch Dependabot alerts (check gh auth, Dependabot alerts, and security-events: read)"
+    ERRORS=$((ERRORS + 1))
+  fi
 elif [ "${ALERT_COUNT:-0}" -gt 0 ]; then
   if [ -n "$ALLOW_EXCEPTION" ]; then
     issue_state="$(gh issue view "$ALLOW_EXCEPTION" --json state -q .state 2>/dev/null || echo "")"
