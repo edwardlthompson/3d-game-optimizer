@@ -63,20 +63,20 @@ public sealed class PresetCacheService
         var preset = await FindManifestPresetAsync(appId, cancellationToken);
         if (preset is null)
         {
-            await File.WriteAllTextAsync(GetPresetPath(appId), "{}", cancellationToken);
+            await WritePresetTextAsync(GetPresetPath(appId), "{}", cancellationToken);
             return;
         }
 
         if (string.IsNullOrWhiteSpace(preset.Url))
         {
-            await File.WriteAllTextAsync(GetPresetPath(appId), "{}", cancellationToken);
+            await WritePresetTextAsync(GetPresetPath(appId), "{}", cancellationToken);
             return;
         }
 
         var bytes = await _gateway.GetBytesAsync(preset.Url, $"preset-{appId}", null, cancellationToken);
         if (bytes is not null)
         {
-            await File.WriteAllBytesAsync(GetPresetPath(appId), bytes, cancellationToken);
+            await WritePresetBytesAsync(GetPresetPath(appId), bytes, cancellationToken);
         }
     }
 
@@ -127,6 +127,21 @@ public sealed class PresetCacheService
     }
 
     private string GetPresetPath(int appId) => Path.Combine(_presetDir, $"{appId}.json");
+
+    private static async Task WritePresetTextAsync(string path, string content, CancellationToken cancellationToken)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        await using var stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+        await using var writer = new StreamWriter(stream);
+        await writer.WriteAsync(content.AsMemory(), cancellationToken);
+    }
+
+    private static async Task WritePresetBytesAsync(string path, byte[] bytes, CancellationToken cancellationToken)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        await using var stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+        await stream.WriteAsync(bytes, cancellationToken);
+    }
 
     private async Task<PresetEntry?> FindManifestPresetAsync(int appId, CancellationToken cancellationToken)
     {
