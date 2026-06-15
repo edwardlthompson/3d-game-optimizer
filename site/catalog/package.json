@@ -8,6 +8,7 @@
     "dev": "vite",
     "prebuild": "node scripts/copy-catalog.mjs",
     "build": "tsc && vite build",
+    "smoke": "node scripts/smoke-grid.mjs",
     "preview": "vite preview",
     "lint": "tsc --noEmit"
   },

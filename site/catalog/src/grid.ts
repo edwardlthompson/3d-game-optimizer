@@ -216,6 +216,12 @@ export class CatalogGrid {
         get globalFilter() {
           return String(self.filterRevision);
         },
+        get columnPinning() {
+          return { left: [] as string[], right: [] as string[] };
+        },
+      },
+      initialState: {
+        columnPinning: { left: [], right: [] },
       },
       onSortingChange: (updater) => {
         self.sorting = typeof updater === "function" ? updater(self.sorting) : updater;

@@ -45,6 +45,7 @@ jobs:
         run: |
           npm install
           npm run build
+          npm run smoke
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/catalog/
 
