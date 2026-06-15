@@ -1,5 +1,5 @@
 import "./style.css";
-import { DATA_COVERAGE_GAPS } from "./data-coverage";
+import { DATA_COVERAGE_GAPS, DONATE_URL } from "./data-coverage";
 import { CatalogGrid, type GridOptions } from "./grid";
 import { checkCatalogSync, loadPriceHistory, type PriceHistoryDocument } from "./price-chart";
 import type { ListFilterMode } from "./list-filter";
@@ -69,6 +69,9 @@ function bindToolbar(): void {
       grid?.setOptions({ ...gridOptions });
     });
   });
+  appRoot.querySelector<HTMLAnchorElement>(".footer-summary a")?.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
 }
 
 function shell(): void {
@@ -101,9 +104,17 @@ function shell(): void {
     <div class="banner" id="sync-banner" hidden></div>
     <div class="status"></div>
     <div id="grid-root"></div>
-    <footer>
-      <div>Wishlist and library stored on this device only. Sort by <strong>Rank</strong> for review scores weighted by vote count and players. Price history self-tracked each catalog sync (SteamDB backfill later).</div>
-      <ul>${DATA_COVERAGE_GAPS.map((g) => `<li>${escapeHtml(g)}</li>`).join("")}</ul>
+    <footer class="site-footer">
+      <details class="footer-details">
+        <summary class="footer-summary">
+          <span>3D Rank = top path score · Steam Rank = weighted reviews · local wishlist/library</span>
+          <span class="footer-summary-actions">
+            <a href="${escapeHtml(DONATE_URL)}" target="_blank" rel="noopener noreferrer">Support on Venmo</a>
+            <span class="footer-expand-hint">Details ▾</span>
+          </span>
+        </summary>
+        <ul class="footer-notes">${DATA_COVERAGE_GAPS.map((g) => `<li>${escapeHtml(g)}</li>`).join("")}</ul>
+      </details>
     </footer>
   `;
   bindToolbar();

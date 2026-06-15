@@ -63,7 +63,7 @@ function rankEntry(
   };
 }
 
-/** Best 3D path for a title using play-method labels and support levels. */
+/** Highest-scoring play path for a title (not cumulative across methods). */
 export function rank3DForGame(game: CatalogGame): Rank3DResult {
   let best: Rank3DResult = {
     score: LEVEL_SCORE[game.bestLevel] ?? 0,
@@ -103,8 +103,4 @@ export function rank3DScore(game: CatalogGame): number {
 
 export function rank3DLabel(game: CatalogGame): string {
   return rank3DForGame(game).label;
-}
-
-export function rank3DFilterKey(game: CatalogGame): string {
-  return rank3DForGame(game).filterKey;
 }

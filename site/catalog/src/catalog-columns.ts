@@ -8,12 +8,14 @@ import {
   playerBucket,
   playMethodKeysForGame,
   priceBucket,
+  rank3DBucket,
   releaseYearBucket,
   reviewBucket,
+  steamRankBucket,
 } from "./filters/buckets";
 import { matchesCheckboxFilter } from "./filters/checkbox-filter";
 import { playMethodsForGame, playMethodsText } from "./game-accessors";
-import { rank3DFilterKey, rank3DForGame, rank3DScore } from "./rank-3d";
+import { rank3DForGame, rank3DScore } from "./rank-3d";
 import { weightedReviewScore } from "./steam-ranking";
 import type { CatalogGame } from "./types";
 import { displayTitle, escapeHtml } from "./utils";
@@ -73,7 +75,7 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
       meta: { wrap: true },
       sortingFn: (a, b) => rank3DScore(a.original) - rank3DScore(b.original),
       filterFn: (row, _id, value) =>
-        matchesCheckboxFilter(rank3DFilterKey(row.original), value),
+        matchesCheckboxFilter(rank3DBucket(rank3DScore(row.original)), value),
       cell: (info) => {
         const game = info.row.original;
         const rank = rank3DForGame(game);
@@ -114,14 +116,18 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
     }),
     columnHelper.accessor((g) => weightedReviewScore(g.steamStats), {
       id: "weightedReview",
-      header: "Rank",
+      header: "Steam Rank",
       meta: { steam: true },
       sortingFn: (a, b) => {
         const av = weightedReviewScore(a.original.steamStats) ?? -1;
         const bv = weightedReviewScore(b.original.steamStats) ?? -1;
         return av - bv;
       },
-      enableColumnFilter: false,
+      filterFn: (row, _id, value) =>
+        matchesCheckboxFilter(
+          steamRankBucket(weightedReviewScore(row.original.steamStats)),
+          value,
+        ),
       cell: (info) => {
         const score = weightedReviewScore(info.row.original.steamStats);
         return score != null ? score.toFixed(1) : "—";

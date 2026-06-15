@@ -205,9 +205,7 @@ export class CatalogGrid {
       if (header.column.getCanFilter()) {
         const options = this.filterOptions[header.column.id] ?? ["Has Steam link", "No link"];
         const format =
-          header.column.id === "playMethods" || header.column.id === "rank3d"
-            ? formatPlayMethodOption
-            : (v: string) => v;
+          header.column.id === "playMethods" ? formatPlayMethodOption : (v: string) => v;
         const popover = new ColumnFilterPopover(
           options,
           String(header.column.columnDef.header ?? header.column.id),

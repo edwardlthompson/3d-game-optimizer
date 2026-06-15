@@ -1,6 +1,5 @@
 import type { CatalogGame } from "../types";
 import { DISPLAY_LABEL } from "../constants";
-import { rank3DFilterKey } from "../rank-3d";
 import { playMethodsForGame } from "../game-accessors";
 
 export const NO_DATA = "(No data)";
@@ -31,6 +30,38 @@ export function releaseYearBucket(date: string | undefined): string {
   if (!date) return NO_DATA;
   const match = date.match(/\b(19|20)\d{2}\b/);
   return match ? match[0] : NO_DATA;
+}
+
+function scoreBucket(score: number | null | undefined): string {
+  if (score == null || Number.isNaN(score)) return NO_DATA;
+  if (score >= 100) return "100";
+  const start = Math.floor(score / 10) * 10;
+  return `${start}–${start + 9}`;
+}
+
+function buildScoreBucketOptions(): string[] {
+  const options: string[] = [];
+  for (let start = 0; start < 100; start += 10) {
+    options.push(`${start}–${start + 9}`);
+  }
+  options.push("100", NO_DATA);
+  return options;
+}
+
+export function rank3DBucket(score: number | null | undefined): string {
+  return scoreBucket(score);
+}
+
+export function buildRank3DBucketOptions(): string[] {
+  return buildScoreBucketOptions();
+}
+
+export function steamRankBucket(score: number | null | undefined): string {
+  return scoreBucket(score);
+}
+
+export function buildSteamRankBucketOptions(): string[] {
+  return buildScoreBucketOptions();
 }
 
 export function hardwareSummary(game: CatalogGame): string {
@@ -74,13 +105,11 @@ export function buildPlayerBucketOptions(): string[] {
 }
 
 export function collectUniqueValues(games: CatalogGame[]): Record<string, string[]> {
-  const rank3d = new Set<string>();
   const playMethods = new Set<string>();
   const hardware = new Set<string>();
   const release = new Set<string>();
 
   for (const game of games) {
-    rank3d.add(rank3DFilterKey(game));
     for (const m of playMethodsForGame(game)) playMethods.add(m.key);
     hardware.add(hardwareSummary(game));
     release.add(releaseYearBucket(game.steamStats?.releaseDate));
@@ -88,7 +117,8 @@ export function collectUniqueValues(games: CatalogGame[]): Record<string, string
 
   const sort = (s: Set<string>) => [...s].sort((a, b) => a.localeCompare(b));
   return {
-    rank3d: sort(rank3d),
+    rank3d: buildRank3DBucketOptions(),
+    weightedReview: buildSteamRankBucketOptions(),
     playMethods: sort(playMethods),
     hardware: sort(hardware),
     releaseDate: sort(release),
