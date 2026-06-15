@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     catalog_path = ROOT / "data" / "compatibility" / "catalog-v2.json"
     schema_path = ROOT / "data" / "compatibility" / "schema-v2.json"
-    min_games = int(sys.argv[1]) if len(sys.argv) > 1 else 10
+    min_games = int(sys.argv[1]) if len(sys.argv) > 1 else 400
 
     level_values = {
         "ultra3d", "native3d", "optimized3d", "playable3d", "experimental3d", "unsupported2d"

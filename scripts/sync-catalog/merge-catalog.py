@@ -39,25 +39,51 @@ SOURCE_VENDOR = {
     "samsung-odyssey-hub": "samsung",
     "nvidia-3d-vision": "nvidia",
     "uevr-profiles": "generic",
+    "vrto3d-wiki": "generic",
+    "reshade-depth-shaders": "generic",
     "asus-spatial-vision": "acer",
 }
 
 SOURCE_PLATFORM = {
     "acer-truegame": "truegame",
     "uevr-profiles": "uevr",
+    "vrto3d-wiki": "uevr",
     "nvidia-3d-vision": "nvidia-3d-vision",
     "samsung-odyssey-hub": "odyssey-hub",
     "asus-spatial-vision": "asus-spatial-vision",
+    "reshade-depth-shaders": "reshade-depth",
     "manual-curated": "manual",
 }
 
 SOURCE_DISPLAYS: dict[str, list[str]] = {
-    "acer-truegame": ["acer-psv27-2", "acer-asv15-1", "acer-spatiallabs-15"],
-    "samsung-odyssey-hub": ["samsung-g90xf"],
+    "acer-truegame": ["acer-psv27-2", "acer-asv15-1", "acer-spatiallabs-15", "generic-manual"],
+    "samsung-odyssey-hub": ["samsung-g90xf", "generic-manual"],
     "nvidia-3d-vision": ["nvidia-3d-vision-generic"],
     "uevr-profiles": ["generic-manual"],
+    "vrto3d-wiki": ["generic-manual"],
+    "reshade-depth-shaders": ["generic-manual"],
     "asus-spatial-vision": ["generic-manual"],
     "manual-curated": ["generic-manual"],
+}
+
+SOURCE_DISPLAY_NAME = {
+    "acer-truegame": "Acer TrueGame",
+    "samsung-odyssey-hub": "Samsung Odyssey 3D Hub",
+    "uevr-profiles": "UEVR",
+    "vrto3d-wiki": "VRto3D",
+    "nvidia-3d-vision": "NVIDIA 3D Vision",
+    "reshade-depth-shaders": "ReShade depth",
+    "manual-curated": "Curated",
+    "asus-spatial-vision": "ASUS Spatial Vision",
+}
+
+LEVEL_LABEL = {
+    "ultra3d": "3D Ultra",
+    "native3d": "3D",
+    "optimized3d": "Optimized",
+    "playable3d": "Playable",
+    "experimental3d": "Experimental",
+    "unsupported2d": "Unsupported",
 }
 
 UEVR_LABEL_TO_LEVEL = {
@@ -92,6 +118,10 @@ def level_from_label(source_id: str, label: str) -> str:
         return UEVR_LABEL_TO_LEVEL.get(key, "playable3d")
     if source_id == "acer-truegame":
         return TRUEGAME_LABEL_TO_LEVEL.get(key, "native3d")
+    if source_id == "vrto3d-wiki":
+        return "playable3d"
+    if source_id == "reshade-depth-shaders":
+        return "playable3d"
     return "native3d"
 
 
@@ -129,9 +159,10 @@ def tiers_from_sources(sources: list[dict[str, Any]]) -> dict[str, str]:
 
 def compute_hardware(sources: list[dict[str, Any]]) -> dict[str, Any]:
     displays: set[str] = set()
-    has_uevr = any(s["sourceId"] == "uevr-profiles" for s in sources)
+    has_uevr = any(s["sourceId"] in ("uevr-profiles", "vrto3d-wiki") for s in sources)
     has_generic_path = has_uevr or any(
-        s["sourceId"] in ("manual-curated", "reshade-depth-shaders") for s in sources
+        s["sourceId"] in ("manual-curated", "reshade-depth-shaders", "acer-truegame", "samsung-odyssey-hub")
+        for s in sources
     )
 
     for source in sources:
@@ -144,12 +175,9 @@ def compute_hardware(sources: list[dict[str, Any]]) -> dict[str, Any]:
     exclusive: list[str] = []
     needs_review = False
 
-    if len(display_list) == 1 and not has_generic_path:
-        exclusive = display_list.copy()
-        if display_list[0] == "nvidia-3d-vision-generic":
-            needs_review = False
-        else:
-            needs_review = True
+    nvidia_only = all(s["sourceId"] == "nvidia-3d-vision" for s in sources)
+    if nvidia_only and "nvidia-3d-vision-generic" in display_list:
+        exclusive = ["nvidia-3d-vision-generic"]
 
     notes_parts: list[str] = []
     if any(s["sourceId"] == "nvidia-3d-vision" for s in sources):
@@ -158,8 +186,12 @@ def compute_hardware(sources: list[dict[str, Any]]) -> dict[str, Any]:
         )
     if any(s["sourceId"] == "acer-truegame" for s in sources):
         notes_parts.append("Acer SpatialLabs TrueGame path.")
+    if any(s["sourceId"] == "samsung-odyssey-hub" for s in sources):
+        notes_parts.append("Samsung Odyssey 3D Hub profile; confirm in Hub app when marked hub-only.")
     if has_uevr:
         notes_parts.append("UEVR community profile may apply.")
+    if any(s["sourceId"] == "reshade-depth-shaders" for s in sources):
+        notes_parts.append("ReShade/srReshade depth path; quality varies by game depth buffer.")
 
     hardware: dict[str, Any] = {
         "displays": display_list,
@@ -175,6 +207,60 @@ def compute_hardware(sources: list[dict[str, Any]]) -> dict[str, Any]:
         hardware["needsHumanReview"] = True
 
     return hardware
+
+
+def build_platform_support(sources: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    support: list[dict[str, Any]] = []
+    for source in sources:
+        platform_key = SOURCE_PLATFORM.get(source["sourceId"], source["sourceId"])
+        support.append(
+            {
+                "platformKey": platform_key,
+                "sourceId": source["sourceId"],
+                "level": source["level"],
+                "label": source.get("label") or LEVEL_LABEL.get(source["level"], source["level"]),
+            }
+        )
+    support.sort(key=lambda s: (LEVEL_ORDER.index(s["level"]), s["platformKey"]))
+    return support
+
+
+def build_best_experience(sources: list[dict[str, Any]]) -> dict[str, Any]:
+    if not sources:
+        return {"level": "unsupported2d", "platformKey": "unknown", "sourceId": "unknown", "label": "Unknown"}
+    best_level = best_level_from_sources(sources)
+    tied = [s for s in sources if s["level"] == best_level]
+    primary = tied[0]
+    platform_key = SOURCE_PLATFORM.get(primary["sourceId"], primary["sourceId"])
+    name = SOURCE_DISPLAY_NAME.get(primary["sourceId"], platform_key)
+    level_label = LEVEL_LABEL.get(best_level, best_level)
+    return {
+        "level": best_level,
+        "platformKey": platform_key,
+        "sourceId": primary["sourceId"],
+        "label": f"{name} · {level_label}",
+    }
+
+
+def best_level_from_sources(sources: list[dict[str, Any]]) -> str:
+    return best_level([s["level"] for s in sources])
+
+
+def build_purchase_links(game: dict[str, Any]) -> dict[str, str] | None:
+    app_id = game.get("steamAppId")
+    confidence = float(game.get("steamMatchConfidence") or 0)
+    if app_id and confidence >= 0.92:
+        return {"steam": f"https://store.steampowered.com/app/{app_id}/"}
+    return None
+
+
+def merge_entry_flags(rows: list[dict[str, Any]]) -> dict[str, bool]:
+    flags: dict[str, bool] = {}
+    for row in rows:
+        for key in ("hot", "newRelease", "hubOnly", "motionControls"):
+            if row.get(key):
+                flags[key] = True
+    return flags
 
 
 def load_lock() -> dict[str, int]:
@@ -266,6 +352,9 @@ def load_source_files() -> tuple[list[dict[str, Any]], dict[str, str]]:
                 "steamMatchConfidence": item.get("steamMatchConfidence", 0.95 if item.get("steamAppId") else 0),
                 "sources": [source_entry],
             }
+            for optional in ("hot", "newRelease", "hubOnly", "motionControls"):
+                if optional in item:
+                    row[optional] = item[optional]
             if item.get("steamTags"):
                 row["steamTags"] = item["steamTags"]
             rows.append(row)
@@ -273,16 +362,24 @@ def load_source_files() -> tuple[list[dict[str, Any]], dict[str, str]]:
     return rows, sync_status
 
 
+def normalize_title_key(title: str) -> str:
+    normalized = unicodedata.normalize("NFKD", title)
+    ascii_text = normalized.encode("ascii", "ignore").decode("ascii").lower()
+    ascii_text = re.sub(r"[™®©]", "", ascii_text)
+    return re.sub(r"[^a-z0-9]+", " ", ascii_text).strip()
+
+
 def merge_rows(all_rows: list[dict[str, Any]], locked: dict[str, int]) -> list[dict[str, Any]]:
     buckets: dict[str, dict[str, Any]] = {}
 
     for row in all_rows:
+        key = f"title:{normalize_title_key(row['title'])}"
         app_id = row.get("steamAppId")
         confidence = float(row.get("steamMatchConfidence") or 0)
-        key = f"app:{app_id}" if app_id and confidence >= 0.92 else f"title:{row['title'].strip().lower()}"
 
         if key not in buckets:
             game_id = row.get("id") or slugify(row["title"])
+            flags = {f: True for f in ("hot", "newRelease", "hubOnly", "motionControls") if row.get(f)}
             buckets[key] = {
                 "id": game_id,
                 "title": row["title"],
@@ -294,6 +391,7 @@ def merge_rows(all_rows: list[dict[str, Any]], locked: dict[str, int]) -> list[d
                 "tiersByVendorSeed": row.get("tiersByVendorSeed"),
                 "vrCapability": row.get("vrCapability"),
                 "steamVrLaunchOptions": row.get("steamVrLaunchOptions"),
+                "flags": flags,
             }
         else:
             bucket = buckets[key]
@@ -309,13 +407,23 @@ def merge_rows(all_rows: list[dict[str, Any]], locked: dict[str, int]) -> list[d
             for field in ("vrCapability", "steamVrLaunchOptions"):
                 if row.get(field) and not bucket.get(field):
                     bucket[field] = row[field]
+            for flag in ("hot", "newRelease", "hubOnly", "motionControls"):
+                if row.get(flag):
+                    bucket["flags"][flag] = True
 
         existing_source_ids = {s["sourceId"] for s in buckets[key]["sources"]}
         for source in row.get("sources", []):
-            if source["sourceId"] in existing_source_ids:
+            sid = source["sourceId"]
+            if sid in existing_source_ids:
+                # Upgrade level if incoming is better
+                for existing in buckets[key]["sources"]:
+                    if existing["sourceId"] == sid:
+                        if LEVEL_ORDER.index(source["level"]) < LEVEL_ORDER.index(existing["level"]):
+                            existing.update(source)
+                        break
                 continue
             buckets[key]["sources"].append(source)
-            existing_source_ids.add(source["sourceId"])
+            existing_source_ids.add(sid)
 
     games: list[dict[str, Any]] = []
     for bucket in buckets.values():
@@ -340,14 +448,21 @@ def merge_rows(all_rows: list[dict[str, Any]], locked: dict[str, int]) -> list[d
             "title": bucket["title"],
             "sources": sources,
             "bestLevel": best,
+            "bestExperience": build_best_experience(sources),
+            "platformSupport": build_platform_support(sources),
             "platforms": platforms,
             "hardwareRequirements": compute_hardware(sources),
             "tiersByVendor": tiers,
         }
+        if bucket.get("flags"):
+            game["flags"] = bucket["flags"]
         if bucket.get("steamAppId"):
             game["steamAppId"] = bucket["steamAppId"]
         if bucket.get("steamMatchConfidence") is not None:
             game["steamMatchConfidence"] = bucket["steamMatchConfidence"]
+        links = build_purchase_links(game)
+        if links:
+            game["purchaseLinks"] = links
         if bucket.get("steamTags"):
             game["steamTags"] = bucket["steamTags"]
         if bucket.get("reviewSummary"):

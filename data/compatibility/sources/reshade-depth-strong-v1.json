@@ -1,0 +1,18 @@
+{
+  "sourceId": "reshade-depth-shaders",
+  "syncedAt": "2026-06-15",
+  "syncStatus": "partial",
+  "notes": "Curated community list — strong depth buffer titles for srReshade / lenticular output.",
+  "entries": [
+    { "title": "Cyberpunk 2077", "label": "Strong depth", "level": "playable3d" },
+    { "title": "Red Dead Redemption 2", "label": "Strong depth", "level": "playable3d" },
+    { "title": "The Witcher 3: Wild Hunt", "label": "Strong depth", "level": "playable3d" },
+    { "title": "Elden Ring", "label": "Strong depth", "level": "playable3d" },
+    { "title": "Horizon Zero Dawn", "label": "Strong depth", "level": "playable3d" },
+    { "title": "Death Stranding", "label": "Strong depth", "level": "playable3d" },
+    { "title": "Assassin's Creed Valhalla", "label": "Strong depth", "level": "experimental3d" },
+    { "title": "Control", "label": "Strong depth", "level": "playable3d" },
+    { "title": "Metro Exodus", "label": "Strong depth", "level": "playable3d" },
+    { "title": "Doom Eternal", "label": "Strong depth", "level": "playable3d" }
+  ]
+}

@@ -1,0 +1,2497 @@
+{
+  "sourceId": "uevr-profiles",
+  "syncedAt": "2026-06-15",
+  "syncStatus": "ok",
+  "entryCount": 471,
+  "entries": [
+    {
+      "title": "471 games and counting...",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "A Quiet Place: The Road Ahead",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "A.I.L.A",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Abiotic Factor",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Abyssus",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "ABZÛ",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Ad Infinitum",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "ADACA",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Adios",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Alchemy Garden",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Alice's Lullaby",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Alien: Rogue Incursion Evolved Edition",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "Aliens: Dark Descent",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Aliens: Fireteam Elite",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "All-Star Fruit Racing",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Alone in the Dark",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "Alpha Response",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Ambrosia Sky: Act One",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Amenti",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Amygdala",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "Aquanox Deep Descent",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Arcus",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Arena Tails",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "ARK: Survival Ascended",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "Assault On Proxima",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "Assetto Corsa Rally",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Astrometica",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Atomic Heart",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Aven Colony",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Avowed",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Back 4 Blood",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Backrooms Rec.",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Backrooms: Escape Together",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Bad Cheese",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Banishers: Ghosts of New Eden",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Bears In Space",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Beyond a Steel Sky",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "BIT.TRIP RERUNNER",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Black Myth: Wukong",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Black One Blood Brothers",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Blair Witch",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "BLOODKILL: Goreblast Overkill",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Bloodstained: Ritual of the Night",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Bodycam",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Borderlands 3",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Boti: Byteland Overclocked",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "BPM: BULLETS PER MINUTE",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Bramble: The Mountain King",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Breathedge",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Brick Rigs",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Bright Memory: Infinite",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Broken Pieces",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Brothers: A Tale of Two Sons Remake",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Bunker's Shadow",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Burger Zombies",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Bylina",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "Call of Cthulhu",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Call of the Sea",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Chaos on Wheels",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Chasmal Fear",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Chernobylite Enhanced Edition",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "Chivalry 2",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Chorus",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "ChromaGun 2: Dye Hard",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Cine Tracer 2",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "City Of Brass",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Clair Obscur: Expedition 33",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Close to the Sun",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Comanche",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Conan Exiles",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Crab Champions",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "CRABS MUST DIE!",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Crash Bandicoot™ 4: It’s About Time",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Creature in the Well",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "CRISIS CORE –FINAL FANTASY VII– REUNION",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Crisol: Theater of Idols",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Cronos: The New Dawn",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Cyberpunk Horror",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "DAEMON X MACHINA",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DAIMON BLADES",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Dakar Desert Rally",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Darwin's Paradox!",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Daymare: 1994 Sandcastle",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Daymare: 1998",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Dead Alone",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Dead Island 2",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Deadland Outlaws",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Deadlink",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Deadly Contagion",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "DEAREND",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Deep Rock Galactic",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Deliver Us Mars",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Destroy All Humans!",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Destroy All Humans! 2 - Reprobed",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Disintegration",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Disney Epic Mickey: Rebrushed",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Dispatch",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "DNF DUEL",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Downward",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "DRAGON QUEST III HD-2D Remake",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DRAGON QUEST TREASURES",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DRAGON QUEST XI S: Echoes of an Elusive Age – Definitive Edition",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Drake Hollow",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "DreadOut 2",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Dream Cage",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "DRIFT ISLAND",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Driftland: The Magic Revival",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Drive Beyond Horizons",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DUELANT",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Dungeon Defenders: Awakened",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Dungeons of Sundaria",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "EARTH DEFENSE FORCE: IRON RAIN",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Earthfall",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "EBOLA VILLAGE",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Echo Point Nova",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Effie",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "ENDER LILIES: Quietus of the Knights",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "ENTITY: THE BLACK DAY",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Epstein",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Eresys",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Eriksholm: The Stolen Dream",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Escape from Ever After",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "ESCAPE Protocol: Online",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "ETERNAL EXILE: BENEATH THE DARKNESS",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Eternal Strands",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "EVERDARK: Undead Apocalypse",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "EVERSPACE™ 2",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Evil Dead: The Game",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Evil Seal",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Evil West",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "F.I.S.T.: Forged In Shadow Torch",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Faaast Penguin",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Faraday Protocol",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Fast Food Simulator: Prologue",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Fastival",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Fear The Timeloop LiveNow Broadcasting: Watch the developer play",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Filament",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "FINAL FANTASY VII REBIRTH",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "FINAL FANTASY VII REMAKE INTERGRADE",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Firefighting Simulator: Ignite",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "First Dwarf",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Five Nights at Freddy's: Security Breach",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Flintlock: The Siege of Dawn",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Fobia - St. Dinfna Hotel",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "Forever Skies",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Forgive Me Father",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Forgive Me Father 2",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Formula Legends",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Fort Solis",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Fossilfuel 2",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Fractals of Destiny",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Frozenheim",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Fuck You Witch",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "G.I. Joe: Operation Blackout",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Game of Thrones: Kingsroad",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Gamedec - Definitive Edition",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Garden Life: A Cozy Simulator",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Genesis Alpha One Deluxe Edition",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Ghostbusters: Spirits Unleashed Ecto Edition",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Ghostrunner",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Ghostrunner 2",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Ghostwire: Tokyo",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "GigaBash",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Godfall",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "GONE Fishing",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "Gotham Knights",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Granny Remake",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Granny: Escape Together",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Gravel",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "GRAVEN",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Grippy Golf",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "GROUND BRANCH",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Grounded",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Grounded 2",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "GUILTY GEAR -STRIVE-",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "GUNDAM BREAKER 4",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "GYLT",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Half Sword",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Hatred",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Heavy Metal Death Can",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Hell is Us",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Hello Neighbor",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Hello Neighbor 2",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Hello Neighbor 3",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Hello Neighbor: Hide and Seek",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Hermit",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Hex Gambit: Respawned",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "High On Life",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "High On Life 2",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Hogwarts Legacy",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Holy Shoot",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Homeworld 3",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "HYPERCHARGE: Unboxed",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Icarus",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "ILLWILL",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Immortals of Aveum™",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Imp of the Sun",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Incursion Red River",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "INDUSTRIA",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Infinity Nikki",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Infinity Strash: DRAGON QUEST The Adventure of Dai",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Insurgency: Sandstorm",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Invincible Presents: Atom Eve",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "IS Defense",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "JDM: Japanese Drift Master",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Journey To The Savage Planet",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Joyville",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Kao the Kangaroo",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "KARMA: The Dark World",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Kena: Bridge of Spirits",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Kick Bastards",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Kill It With Fire 2",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Killing Floor 3",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "KINGDOM HEARTS III + Re Mind (DLC)",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Kneedle Knight",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Kvark",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Layers of Fear",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Leaf Blower Co.",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Legend of the Outlaw Mage",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "LEGO® Horizon Adventures™",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Level Unknown: Backrooms",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "Lies of P",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Life is Strange Remastered",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Life is Strange: Double Exposure",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Lightyear Frontier",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "LIMINAL SHIFT",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Little Nightmares",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Little Nightmares Enhanced Edition",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Little Nightmares III",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "LOLLIPOP CHAINSAW RePOP",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Long Way",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Luna Abyss",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Luto",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "M.I.N.S.K.",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Machine Tower 2984",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Maelstrom",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Mafia: The Old Country",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "Mandragora: Whispers of the Witch Tree",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Maneater",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Martha Is Dead",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "MechWarrior 5: Clans",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Medieval Dynasty",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Melted Valor",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "METAL EDEN",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Metal Garden",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "METAL GEAR SOLID Δ: SNAKE EATER",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Metamorphosis",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Mojito the Cat",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Monster Energy Supercross - The Official Videogame 5",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Monster Truck Championship",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Monsters Domain",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Mortal Kombat 1",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "Mortal Shell",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "MOTHERGUNSHIP",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Motor Town: Behind The Wheel",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Mutant Year Zero: Road to Eden",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "MXGP PRO",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "MythForce",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Nathan Morgan: Dilemma",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Necromunda: Hired Gun",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "New Tales from the Borderlands",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Nightingale",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "NINJA GAIDEN 2 Black",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Nobody Wants To Die",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Nomads of Driftland",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "North Sentinel Island",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "Observer: System Redux",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Oceanhorn 2: Knights of the Lost Realm",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Odd Town",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Of Ash and Steel",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Oh Deer",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "One Last Breath",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Only Climb: Better Together",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Operation “Kyiv”",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Operation: Harsh Doorstop",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Orcs Must Die! 3",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Outbreak Island",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Outcast - A New Beginning",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "OUTRIDERS",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Pacer",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Pacific Drive",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Pacify",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Palia",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Palworld",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "PERISH",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Persona 3 Reload",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Phantom Abyss",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Phantom Fury",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Pinball FX",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Pine Harbor",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Pizzapocalypse",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "PLANET ALPHA",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Pneumata",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Police Simulator: Patrol Officers",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Poppy Playtime",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "POSTAL 4: No Regerts",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Professional Baseball Spirits 2024-2025",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Project Silverfish",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Promise Mascot Agency",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Pseudoregalia",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Pumpkin Jack",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "PURGE - Three vs Blood",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Q.U.B.E. 10th Anniversary",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Q.U.B.E. 2",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Quod",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Race of the Nine Worlds",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "RAD",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Rainy Season",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Ready or Not",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Redfall",
+      "label": "Works Poorly",
+      "level": "experimental3d",
+      "motionControls": true
+    },
+    {
+      "title": "Reign of Guilds",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Relicta",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Remnant II",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Remnant: From the Ashes",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Return to Grace",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Returnal™",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "RIDE 4",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "RIDE 5",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "RIPOUT",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "Rise of Gun",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "RoboCop: Rogue City",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "RoboCop: Rogue City - Unfinished Business",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Roboquest",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "ROMEO IS A DEAD MAN",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "ROUTINE",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "Ruined Nurse",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "S.T.A.L.K.E.R. 2: Heart of Chornobyl",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Sackboy™: A Big Adventure",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "SAND LAND",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Sands of Aura",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Sans Logique",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Satisfactory",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Scars Above",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Scorn",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "SCP: 5K",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "SCUM",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Seed of the Dead: Sweet Home",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Senua’s Saga: Hellblade II",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Shadow Warrior 3: Definitive Edition",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Shamania",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Shenmue III",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Sherlock Holmes The Awakened",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Sherwood Extreme",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Shoomer Booter",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "SILENT BREATH",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "SILENT HILL 2",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "SILENT HILL f",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "SINNER: Sacrifice for Redemption",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Six Days in Fallujah",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Skibidi Toilets: Invasion",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Skulltide",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "SKYE",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Slender: The Arrival",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Slitterhead",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Smalland: Survive the Wilds",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Solar Ash",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "SONG OF HORROR",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Sonic Racing: CrossWorlds",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Sorrow Be The Night",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Soulmask",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Soulslinger: Envoy of Death",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "Soulstice",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Soundfall",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "SOUTH PARK: SNOW DAY!",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Species: Unknown",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Spider Fox",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Spirit of the North",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "SpongeBob SquarePants: Battle for Bikini Bottom - Rehydrated",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "SpongeBob SquarePants: The Cosmic Shake",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "SpongeBob SquarePants: Titans of the Tide",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "SPRAWL",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Squad",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Squad 44",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "STAR WARS Jedi: Fallen Order™",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "STAR WARS Jedi: Survivor™",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "StarRupture",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "State of Decay 2",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Stellar Blade™",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Stop Dead",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Stray",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Submerged: Hidden Depths",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Suit for Hire",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Super Buff HD",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Superior: Vengeance",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Supernormal",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Supraland",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Supraworld",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "SurrounDead",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "SWORD ART ONLINE Fractured Daydream",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Sword Art Online: Fatal Bullet",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "System Shock",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Tales of Arise",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Tandem: a tale of shadows",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "TankHead",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "Taxi Life: A City Driving Simulator",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "TEKKEN 8",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Tempest Rising",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Terminator: Resistance",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "The Anacrusis",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "The Axis Unseen",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "The Beast Inside",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "The Bridge Curse Road to Salvation",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Callisto Protocol",
+      "label": "Works OK",
+      "level": "playable3d",
+      "motionControls": true
+    },
+    {
+      "title": "The Complex: Found Footage",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "THE DESCENT",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Elder Scrolls IV: Oblivion Remastered",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "The Elision Effect",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Entropy Centre",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Forever Winter",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "The Forgotten City",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Forgotten Villages of Gondomayit 2 - Kost Karangsari",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "The Invincible",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "The Killing Antidote",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "The Lord of the Rings: Return to Moria™",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "The Mean Greens - Plastic Warfare",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "The Outer Worlds",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "The Outer Worlds 2",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "The Outer Worlds: Spacer's Choice Edition",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "The Outlast Trials",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "The Park",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "The Plucky Squire",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "The Sinking City",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "The Suicide of Rachel Foster",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "The Talos Principle 2",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "The Thaumaturge",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Turing Test",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "The Witch of Fern Island",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "This is a Ghost",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Tintin Reporter - Cigars of the Pharaoh",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Tiny Tina's Wonderlands",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Titan Quest II",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Tokyo Xtreme Racer",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Tormented Souls 2",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Total Conflict: Resistance",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Towers of Aghasba",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "TRAIL OUT | Steel Wheels",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Train Sim World® 4",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Trepang2",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "TRIBES 3: Rivals",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "TRON RUN/r",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Troublemaker",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Twin Mirror",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Under The Waves",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Unhomely",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "Until Dawn™",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Urban Trial Playground",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Valor Mortis",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Vampyr",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Vesnith Tapes",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Vindictus: Defying Fate",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Visage",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Visions of Mana",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "VLADiK BRUTAL",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "VOID/BREAKER",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Voidtrain",
+      "label": "Works Perfectly",
+      "level": "ultra3d",
+      "motionControls": true
+    },
+    {
+      "title": "Waking Tides",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Warhammer 40,000: Boltgun",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Way of the Hunter",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "We Happy Few",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "Weird West: Definitive Edition",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "What Remains of Edith Finch",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "White Day 2: The Flower That Tells Lies - Complete Edition",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "William and Sly",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Windfolk: Sky is just the Beginning",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Witchfire",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Wuthering Waves",
+      "label": "Works Poorly",
+      "level": "experimental3d"
+    },
+    {
+      "title": "Xenon Racer",
+      "label": "Works Well",
+      "level": "optimized3d"
+    },
+    {
+      "title": "ZOMBIE RAID: No One Survives",
+      "label": "Works Perfectly",
+      "level": "ultra3d"
+    },
+    {
+      "title": "ZomGoBo",
+      "label": "Works OK",
+      "level": "playable3d"
+    },
+    {
+      "title": "Zoochosis",
+      "label": "Works Well",
+      "level": "optimized3d",
+      "motionControls": true
+    },
+    {
+      "title": "Zoonomaly",
+      "label": "Works Well",
+      "level": "optimized3d"
+    }
+  ]
+}

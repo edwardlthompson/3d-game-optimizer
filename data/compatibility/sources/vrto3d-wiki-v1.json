@@ -1,0 +1,48 @@
+{
+  "sourceId": "vrto3d-wiki",
+  "syncedAt": "2026-06-15",
+  "syncStatus": "ok",
+  "entryCount": 8,
+  "entries": [
+    {
+      "title": "<a href=\"https://patreon.com/realvr\" target=\"_blank\" rel=\"noopener noreferrer\">REALVR</a>",
+      "label": "VRto3D wiki",
+      "level": "playable3d"
+    },
+    {
+      "title": "<a href=\"https://raicuparta.com/rai-pal\" target=\"_blank\" rel=\"noopener noreferrer\">UUVR</a>",
+      "label": "VRto3D wiki",
+      "level": "playable3d"
+    },
+    {
+      "title": "<a href=\"https://www.patreon.com/NoMoreFlat\" target=\"_blank\" rel=\"noopener noreferrer\">NoMoreFlat</a>",
+      "label": "VRto3D wiki",
+      "level": "playable3d"
+    },
+    {
+      "title": "<a href=\"https://www.vorpx.com/\" target=\"_blank\" rel=\"noopener noreferrer\">vorpX</a>",
+      "label": "VRto3D wiki",
+      "level": "playable3d"
+    },
+    {
+      "title": "HelixVision DX9",
+      "label": "VRto3D wiki",
+      "level": "playable3d"
+    },
+    {
+      "title": "Mods",
+      "label": "VRto3D wiki",
+      "level": "playable3d"
+    },
+    {
+      "title": "REFramework <a href=\"https://github.com/praydog/REFramework/releases\" target=\"_blank\" rel=\"noopener noreferrer\">Release</a> <a href=\"https://github.com/praydog/REFramework-nightly/releases\" target=\"_blank\" rel=\"noopener noreferrer\">Nightly</a> <a href=\"https://github.com/praydog/REFramework/actions/runs/11318179052\" target=\"_blank\" rel=\"noopener noreferrer\">pd_upscaler</a>",
+      "label": "VRto3D wiki",
+      "level": "playable3d"
+    },
+    {
+      "title": "UEVR <a href=\"https://github.com/praydog/UEVR/releases\" target=\"_blank\" rel=\"noopener noreferrer\">Release</a> <a href=\"https://github.com/praydog/UEVR-nightly/releases\" target=\"_blank\" rel=\"noopener noreferrer\">Nightly</a>",
+      "label": "VRto3D wiki",
+      "level": "playable3d"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "sourceId": "samsung-odyssey-hub",
+  "syncedAt": "2026-06-15",
+  "syncStatus": "partial",
+  "notes": "Full list lives inside Odyssey 3D Hub app. Public MS Store + community mentions only.",
+  "entries": [
+    { "title": "Hell is Us", "label": "Odyssey 3D Hub", "level": "native3d", "hubOnly": true },
+    { "title": "Khazan", "label": "Odyssey 3D Hub", "level": "native3d", "hubOnly": true },
+    { "title": "Lies of P", "label": "Odyssey 3D Hub", "level": "ultra3d", "hubOnly": true },
+    { "title": "Stellar Blade", "label": "Odyssey 3D Hub", "level": "native3d", "hubOnly": true },
+    { "title": "Black Myth: Wukong", "label": "Odyssey 3D Hub", "level": "ultra3d", "hubOnly": true },
+    { "title": "Elden Ring", "label": "Odyssey 3D Hub", "level": "ultra3d", "hubOnly": true },
+    { "title": "Cyberpunk 2077", "label": "Odyssey 3D Hub", "level": "native3d", "hubOnly": true },
+    { "title": "Hogwarts Legacy", "label": "Odyssey 3D Hub", "level": "native3d", "hubOnly": true },
+    { "title": "Resident Evil 4", "label": "Odyssey 3D Hub", "level": "ultra3d", "hubOnly": true },
+    { "title": "Resident Evil Village", "label": "Odyssey 3D Hub", "level": "ultra3d", "hubOnly": true },
+    { "title": "Devil May Cry 5", "label": "Odyssey 3D Hub", "level": "native3d", "hubOnly": true },
+    { "title": "God of War", "label": "Odyssey 3D Hub", "level": "ultra3d", "hubOnly": true },
+    { "title": "Horizon Forbidden West", "label": "Odyssey 3D Hub", "level": "native3d", "hubOnly": true },
+    { "title": "Spider-Man Remastered", "label": "Odyssey 3D Hub", "level": "native3d", "hubOnly": true },
+    { "title": "TEKKEN 8", "label": "Odyssey 3D Hub", "level": "ultra3d", "hubOnly": true }
+  ]
+}

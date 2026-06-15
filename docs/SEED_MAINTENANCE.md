@@ -19,11 +19,18 @@
 Regenerate the living catalog after editing sources or seed:
 
 ```bash
+python3 scripts/sync-catalog/scrape-truegame.py
+python3 scripts/sync-catalog/scrape-uevr-profiles.py
+python3 scripts/sync-catalog/scrape-vrto3d-wiki.py
 python3 scripts/sync-catalog/merge-catalog.py
-python3 scripts/check-compatibility-catalog.py
+python3 scripts/sync-catalog/resolve-steam-appids.py
+python3 scripts/sync-catalog/export-catalog-markdown.py
+python3 scripts/check-compatibility-catalog.py 400
 ```
 
-Source stubs live under `data/compatibility/sources/`. NVIDIA 3D Vision official Ready titles are in `nvidia-official-ready-v1.json`; PCGamingWiki and TrueGame/UEVR scrapers land in Phase 3 CI.
+Source payloads live under `data/compatibility/sources/` (TrueGame ~220, UEVR ~471, VRto3D wiki, Odyssey Hub seed, ReShade curated, NVIDIA 3D Vision).
+
+Markdown export: `docs/compatibility/LENTICULAR_GAMES.md`
 
 Public browser: `site/catalog/` (deployed to `/catalog/` on GitHub Pages).
 

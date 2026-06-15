@@ -14,35 +14,56 @@
       "name": "Acer TrueGame",
       "origin": "https://spatiallabs.acer.com/truegame/list",
       "syncMethod": "playwright",
-      "platformKey": "truegame"
+      "platformKey": "truegame",
+      "outputFile": "acer-truegame-v1.json"
     },
     {
       "sourceId": "uevr-profiles",
       "name": "UEVR Profiles",
       "origin": "https://uevr-profiles.com/",
       "syncMethod": "playwright",
-      "platformKey": "uevr"
+      "platformKey": "uevr",
+      "outputFile": "uevr-profiles-v1.json"
+    },
+    {
+      "sourceId": "vrto3d-wiki",
+      "name": "VRto3D Compatibility Wiki",
+      "origin": "https://github.com/oneup03/VRto3D/wiki/Compatibility-List",
+      "syncMethod": "fetch",
+      "platformKey": "uevr",
+      "outputFile": "vrto3d-wiki-v1.json"
     },
     {
       "sourceId": "nvidia-3d-vision",
       "name": "NVIDIA 3D Vision",
       "origin": "PCGamingWiki + official Ready list",
       "syncMethod": "scrape-import",
-      "platformKey": "nvidia-3d-vision"
+      "platformKey": "nvidia-3d-vision",
+      "outputFile": "nvidia-official-ready-v1.json"
     },
     {
       "sourceId": "samsung-odyssey-hub",
-      "name": "Samsung Odyssey Hub",
-      "origin": "Manual stub",
+      "name": "Samsung Odyssey 3D Hub",
+      "origin": "https://apps.microsoft.com/detail/xp8lx6slrzb813",
+      "syncMethod": "manual+partial-scrape",
+      "platformKey": "odyssey-hub",
+      "outputFile": "samsung-odyssey-hub-v1.json"
+    },
+    {
+      "sourceId": "reshade-depth-shaders",
+      "name": "ReShade / srReshade depth (curated)",
+      "origin": "Community curated — r/Stereo3Dgaming",
       "syncMethod": "manual",
-      "platformKey": "odyssey-hub"
+      "platformKey": "reshade-depth",
+      "outputFile": "reshade-depth-strong-v1.json"
     },
     {
       "sourceId": "asus-spatial-vision",
       "name": "ASUS Spatial Vision",
-      "origin": "Manual stub",
+      "origin": "https://www.asus.com/content/asus-spatial-vision-technology/",
       "syncMethod": "manual",
-      "platformKey": "asus-spatial-vision"
+      "platformKey": "asus-spatial-vision",
+      "outputFile": "asus-spatial-vision-v1.json"
     }
   ]
 }

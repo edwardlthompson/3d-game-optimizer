@@ -43,12 +43,14 @@ Browse the living multi-source 3D compatibility database in your browser — no 
 
 **https://edwardlthompson.github.io/3d-game-optimizer/catalog/**
 
-The catalog merges curated seed data with vendor and community lists (Acer TrueGame, UEVR, NVIDIA 3D Vision Ready, and more). Sort and filter like a lightweight SteamDB view, plus 3D-specific columns:
+The catalog merges **686 lenticular 3D titles** from Acer TrueGame (~222), UEVR profiles (~471), VRto3D wiki, Samsung Odyssey Hub seed, ReShade depth curated list, and NVIDIA 3D Vision Ready. Sort and filter like a lightweight SteamDB view, plus 3D-specific columns:
 
 | Column | What it shows |
 |--------|----------------|
+| **Best experience** | Highest-quality path (e.g. Acer TrueGame · 3D Ultra vs UEVR · Works Well) |
 | **3D level** | 3D Ultra · 3D · Optimized · Experimental |
 | **TrueGame / UEVR / 3D Vision** | Source-specific badges and ratings |
+| **Buy on Steam** | Purchase link when Steam app ID confidence ≥ 0.92 (~638 titles) |
 | **Platforms** | TrueGame, UEVR, NVIDIA 3D Vision, manual curated, … |
 | **Hardware** | Required display stack (SpatialLabs, Odyssey 3D, legacy 3D Vision, generic stereo) |
 | **Steam Store** | Reviews, players, release date, price (when enriched) |

@@ -1,0 +1,1120 @@
+{
+  "sourceId": "acer-truegame",
+  "syncedAt": "2026-06-15",
+  "syncStatus": "ok",
+  "entryCount": 222,
+  "entries": [
+    {
+      "title": "A Juggler's Tale",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "A Plague Tale: Innocence",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "A Plague Tale: Requiem",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "ABZÛ",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Afterimage",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Alan Wake Remastered",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Alone in the Dark (2024)",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "AMID EVIL",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "ANNO:Mutationem",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Asterigos: Curse of the Stars",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "ASTRONEER",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Atomic Heart",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Baldur's Gate 3",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Banishers: Ghosts of New Eden",
+      "label": "3D Ultra",
+      "level": "ultra3d",
+      "newRelease": true
+    },
+    {
+      "title": "BeamNG.drive",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "BioShock Infinite",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Black Mesa",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Black Myth: Wukong",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Bloodstained: Ritual of the Night",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Borderlands 2",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Borderlands Game of the Year Enhanced",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Bramble: The Mountain King",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Bright Memory: Infinite",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Bulletstorm: Full Clip Edition",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Call of Juarez: Gunslinger",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Call of the Sea",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Chorus",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Contra: Operation Galuga",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Crash Bandicoot™ 4: It’s About Time",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "CRISIS CORE –FINAL FANTASY VII– REUNION",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Cult of the Lamb",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DARK SOULS II: Scholar of the First Sin",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DARK SOULS III",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DARK SOULS™: REMASTERED",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Darkest Dungeon II",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Darksiders Genesis",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Darksiders III",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Days Gone",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Dead Island 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DEAD RISING",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Death's Door",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Deliver Us Mars",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Deliver Us The Moon",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Destroy All Humans!",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Destroy All Humans! 2 - Reprobed",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Deus Ex: Mankind Divided",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Devil May Cry 5",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Diablo III",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DiRT Rally 2.0",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Dishonored 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Disney Epic Mickey: Rebrushed",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DRAGON BALL XENOVERSE 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DRAGON BALL: Sparking! ZERO",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DRAGON QUEST BUILDERS",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "DRAGON QUEST BUILDERS 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Draugen",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Dying Light",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Eastshade",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "ELDEN RING",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Elite Dangerous",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Euro Truck Simulator 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Evil West",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Expeditions: Rome",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "F.I.S.T.: Forged In Shadow Torch",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Fallout 4",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "FINAL FANTASY VII REMAKE INTERGRADE",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Firewatch",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Forgive Me Father",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Forgive Me Father 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Forza Horizon 4",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Forza Horizon 5",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Ghostbusters: The Video Game Remastered",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Ghostrunner",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Ghostrunner 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Ghostrunner Demo",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Ghostwire: Tokyo",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Goat Simulator 3",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "God of War",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Godfall",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "GRIME",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "GUILTY GEAR -STRIVE-",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Halo Infinite",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Hellblade: Senua's Sacrifice",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Hi-Fi RUSH",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "High On Life",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Hob",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Hollow Knight",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "INDIKA",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Injustice 2",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Journey",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Just Cause 4 Reloaded",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Kena: Bridge of Spirits",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "LEGO Star Wars: The Skywalker Saga",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Lies of P",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Life is Strange 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Life is Strange: True Colors",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Little Nightmares",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Little Nightmares II",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Little Nightmares III",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Little Witch Nobeta",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "LOST EMBER",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Maneater",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Marvel's Guardians of the Galaxy",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Marvel's Midnight Suns",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Max Payne 3",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "METAL GEAR SOLID 2: Sons of Liberty",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "METAL GEAR SOLID 3: Snake Eater",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Metro 2033 Redux",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Metro: Last Light Redux",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Minecraft Dungeons",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Monster Boy and the Cursed Kingdom",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "MORDHAU",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "My Friend Pedro",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Need for Speed Heat",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Ni no Kuni Wrath of the White Witch Remastered",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "NieR Replicant™ ver.1.22474487139...",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "NieR:Automata™",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Nightmare Reaper",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Nioh 2 – The Complete Edition",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Nioh: Complete Edition",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "No Man's Sky",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Observer: System Redux",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "OCTOPATH TRAVELER",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "OCTOPATH TRAVELER II",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Okami HD",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "ONE PIECE: PIRATE WARRIORS 4",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Ori and the Will of the Wisps",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "OUTRIDERS",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Pacific Drive",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "PAGUI打鬼",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Palworld",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "PLANET ALPHA",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Planet Zoo",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "PowerSlave Exhumed",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Prince of Persia: The Lost Crown",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Project CARS 3",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Psychonauts 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Q.U.B.E. 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Quake",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Raft",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Raji: An Ancient Epic",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Remnant: From the Ashes",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Resident Evil 4",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Resident Evil Village",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "RiME",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Rogue Legacy 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "RUINER",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Sackboy: A Big Adventure",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Scathe",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Scorn",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "SEASON: A letter to the future",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Sekiro: Shadows Die Twice",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Serious Sam 4",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Serious Sam: Siberian Mayhem",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Shadow of the Tomb Raider",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Shadow of the Tomb Raider Trial",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Shadow Warrior 2",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Sherlock Holmes Chapter One",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Sifu",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "SILENT HILL 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Sky Force Reloaded",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Snake Pass",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Sniper Elite 4",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Sonic Frontiers",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "SONIC SUPERSTARS",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "SOULCALIBUR VI",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "SpongeBob SquarePants: Battle for Bikini Bottom - Rehydrated",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Spyro™ Reignited Trilogy",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "STAR WARS Jedi: Fallen Order",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Stray",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Street Fighter 6",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Street Fighter V",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Surgeon Simulator 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Tails Noir",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Tales of Arise",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "TEKKEN 7",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "TEKKEN 8",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Tell Me Why",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Terminator: Resistance",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Ascent",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Callisto Protocol",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Dark Pictures Anthology: House of Ashes",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Dark Pictures Anthology: Little Hope",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Dark Pictures Anthology: Man of Medan",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Dark Pictures Anthology: The Devil in Me",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Elder Scrolls V: Skyrim Special Edition",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "THE FINALS",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Forgotten City",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "The Gunk",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "THE KING OF FIGHTERS XV",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Medium",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Outer Worlds",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Pathless",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Quarry",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Surge 2",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "The Thaumaturge",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "The Witcher 3: Wild Hunt",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Thymesia",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Tiny Tina's Wonderlands",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Tony Hawk's Pro Skater 1 + 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Trackmania",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Trek to Yomi",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "TRIANGLE STRATEGY",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Trine",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Trine 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Trine 3: The Artifacts of Power",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "TUNIC",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Turok",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Turok 2: Seeds of Evil",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Turok 3: Shadow of Oblivion Remastered",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Twin Mirror",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Vampyr",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Wandering Sword",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "What Remains of Edith Finch",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "Wo Long: Fallen Dynasty",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Wolfenstein II: The New Colossus",
+      "label": "3D+",
+      "level": "native3d",
+      "newRelease": true
+    },
+    {
+      "title": "Wolfenstein: The Old Blood",
+      "label": "3D+",
+      "level": "native3d"
+    },
+    {
+      "title": "WORLD OF FINAL FANTASY",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "WUCHANG: Fallen Feathers",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Yakuza 0",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Yakuza Kiwami 2",
+      "label": "3D Ultra",
+      "level": "ultra3d"
+    },
+    {
+      "title": "Yooka-Laylee and the Impossible Lair",
+      "label": "3D+",
+      "level": "native3d"
+    }
+  ]
+}

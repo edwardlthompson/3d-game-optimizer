@@ -137,7 +137,49 @@
           "type": "string",
           "enum": ["none", "nativeVr", "uevrCompatible"]
         },
-        "steamVrLaunchOptions": { "type": "string" }
+        "steamVrLaunchOptions": { "type": "string" },
+        "bestExperience": {
+          "type": "object",
+          "required": ["level", "platformKey", "sourceId", "label"],
+          "properties": {
+            "level": { "$ref": "#/$defs/supportLevel" },
+            "platformKey": { "type": "string" },
+            "sourceId": { "type": "string" },
+            "label": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "platformSupport": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["platformKey", "sourceId", "level", "label"],
+            "properties": {
+              "platformKey": { "type": "string" },
+              "sourceId": { "type": "string" },
+              "level": { "$ref": "#/$defs/supportLevel" },
+              "label": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "purchaseLinks": {
+          "type": "object",
+          "properties": {
+            "steam": { "type": "string", "format": "uri" }
+          },
+          "additionalProperties": true
+        },
+        "flags": {
+          "type": "object",
+          "properties": {
+            "hot": { "type": "boolean" },
+            "newRelease": { "type": "boolean" },
+            "hubOnly": { "type": "boolean" },
+            "motionControls": { "type": "boolean" }
+          },
+          "additionalProperties": true
+        }
       },
       "additionalProperties": false
     }

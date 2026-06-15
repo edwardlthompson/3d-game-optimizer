@@ -34,7 +34,21 @@ export interface CatalogGame {
   id: string;
   title: string;
   steamAppId?: number;
+  steamMatchConfidence?: number;
   bestLevel: SupportLevel;
+  bestExperience?: {
+    level: SupportLevel;
+    platformKey: string;
+    sourceId: string;
+    label: string;
+  };
+  platformSupport?: Array<{
+    platformKey: string;
+    sourceId: string;
+    level: SupportLevel;
+    label: string;
+  }>;
+  purchaseLinks?: { steam?: string };
   trueGameLabel?: string;
   platforms: string[];
   sources: CatalogSource[];
@@ -42,6 +56,7 @@ export interface CatalogGame {
   steamStats?: SteamStats;
   steamTags?: string[];
   tiersByVendor: Record<string, string>;
+  flags?: Record<string, boolean>;
 }
 
 export interface CatalogDocument {
@@ -57,6 +72,7 @@ export interface CatalogDocument {
 export type SortKey =
   | "title"
   | "bestLevel"
+  | "bestExperience"
   | "releaseDate"
   | "reviewPercent"
   | "currentPlayers"

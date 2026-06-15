@@ -13,9 +13,13 @@ CATALOG = ROOT / "data" / "compatibility" / "catalog-v2.json"
 
 
 def fetch_app_details(app_id: int) -> dict | None:
-    url = f"https://store.steampowered.com/api/appdetails?appids={app_id}&filters=price_overview"
+    url = (
+        f"https://store.steampowered.com/api/appdetails"
+        f"?appids={app_id}&l=english&cc=US"
+    )
+    req = urllib.request.Request(url, headers={"User-Agent": "3d-game-optimizer-catalog/1.0"})
     try:
-        with urllib.request.urlopen(url, timeout=20) as response:
+        with urllib.request.urlopen(req, timeout=20) as response:
             payload = json.loads(response.read().decode("utf-8"))
     except (urllib.error.URLError, TimeoutError, json.JSONDecodeError):
         return None
@@ -24,6 +28,24 @@ def fetch_app_details(app_id: int) -> dict | None:
     if not entry.get("success"):
         return None
     return entry.get("data") or {}
+
+
+def build_stats(data: dict, existing_tags: list[str]) -> dict:
+    stats: dict = {"tags": existing_tags or []}
+    if data.get("release_date", {}).get("date"):
+        stats["releaseDate"] = data["release_date"]["date"]
+    price = data.get("price_overview") or {}
+    if price.get("final") is not None:
+        stats["priceUsd"] = round(price["final"] / 100, 2)
+    recommendations = data.get("recommendations") or {}
+    if recommendations.get("total"):
+        stats["reviewCount"] = recommendations["total"]
+    if data.get("metacritic", {}).get("score"):
+        stats["reviewPercent"] = data["metacritic"]["score"]
+    genres = [g.get("description") for g in data.get("genres") or [] if g.get("description")]
+    if genres:
+        stats["tags"] = list(dict.fromkeys([*stats.get("tags", []), *genres]))
+    return stats
 
 
 def main() -> int:
@@ -37,7 +59,7 @@ def main() -> int:
         app_id = game.get("steamAppId")
         if not app_id:
             continue
-        if game.get("steamStats"):
+        if float(game.get("steamMatchConfidence") or 0) < 0.92:
             continue
 
         data = fetch_app_details(int(app_id))
@@ -45,9 +67,9 @@ def main() -> int:
         if not data:
             continue
 
-        game["steamStats"] = {
-            "tags": game.get("steamTags", []),
-        }
+        game["steamStats"] = build_stats(data, game.get("steamTags") or [])
+        if not game.get("purchaseLinks"):
+            game["purchaseLinks"] = {"steam": f"https://store.steampowered.com/app/{app_id}/"}
         updated += 1
 
     CATALOG.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
