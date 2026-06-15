@@ -1,6 +1,6 @@
 # Build Plan
 
-> Active board only. Archives: [COMPLETED_TASKS.md](COMPLETED_TASKS.md) · Evidence: [docs/PLANNING_REVIEW.md](docs/PLANNING_REVIEW.md)
+> Active board only. Archives: [COMPLETED_TASKS.md](COMPLETED_TASKS.md) · Design: [`.cursor/plans/catalog_ux_v2.plan.md`](.cursor/plans/catalog_ux_v2.plan.md)
 
 ## Legend
 
@@ -16,34 +16,40 @@
 
 ## Status (2026-06-15)
 
-- ✅ **Living 3D catalog Phases 1–6** — archived
-- ✅ **Lenticular multi-source catalog** — **686 titles**, **638 Steam buy links**, TanStack grid deployed
-- ✅ [AUTO] Push → GitHub Pages redeploy (`a3691c2`)
+- ✅ **Lenticular catalog v1** — 686 titles, TanStack grid, Pages deploy
+- ✅ **Catalog UX v2** — spreadsheet filters, play methods, wishlist PWA, price history
 - ⬜ [HUMAN] Confirm GitHub Pages source = **GitHub Actions**
+- ⬜ [HUMAN] SteamDB price backfill ToS review (Phase 4b)
 
 ---
 
-## Sequential lane — Lenticular 3D catalog
+## Sequential lane — Catalog UX v2
 
-> Design: `.cursor/plans/full_3d_catalog_grid_38dd0a52.plan.md` · Export: [LENTICULAR_GAMES.md](docs/compatibility/LENTICULAR_GAMES.md)
+### Phase 0 — Steam stats fix ✅
 
-### Phase 1 — Multi-source scrape ✅
+- ✅ [AGENT] Steam reviews (`appreviews`) + concurrent players (606 / 623 of 638 linked)
+- ✅ [AGENT] `test_enrich_steam_stats.py` · VRto3D HTML title strip
 
-- ✅ [AGENT] TrueGame, UEVR, VRto3D wiki, Odyssey seed, ReShade curated, registry
+### Phase 1 — Spreadsheet column filters ✅
 
-### Phase 2 — Merge, Steam links, export ✅
+- ✅ [AGENT] Checkbox popovers · price $5 · reviews 10% · players ×100 buckets
 
-- ✅ [AGENT] merge, resolve (638 links), markdown export, CI pipeline
+### Phase 2 — Play methods column ✅
 
-### Phase 3 — Airtable-style public grid ✅
+- ✅ [AGENT] Full `platformSupport[]` column + filter (all platform keys)
 
-- ✅ [AGENT] TanStack Table per-column filters + pagination (25/50/100/250 rows)
+### Phase 3 — Wishlist + PWA ✅
 
-### Phase 4 — Ship
+- ✅ [AGENT] localStorage wishlist · manifest · service worker · export/import
 
-- ✅ [AGENT] Validate 686 games · site `npm run build` passes
-- ✅ [AUTO] Push → GitHub Pages redeploy
-- ✅ [AGENT] Steam resolve batch (+230 this session; ~48 remain for lock file)
+### Phase 4 — Price history + graph ✅
+
+- ✅ [AGENT] `append-price-history.py` · click price → SVG chart · sync banner
+- ⬜ [HUMAN] SteamDB backfill (deferred)
+
+### Phase 5 — Ship
+
+- ⬜ [AUTO] Push → GitHub Pages redeploy
 - ⬜ [HUMAN] Odyssey Hub CSV export from installed app
 
 ---
@@ -67,6 +73,5 @@
 | Topic | Location |
 |-------|----------|
 | Catalog maintenance | [docs/SEED_MAINTENANCE.md](docs/SEED_MAINTENANCE.md) |
-| Lenticular markdown export | [docs/compatibility/LENTICULAR_GAMES.md](docs/compatibility/LENTICULAR_GAMES.md) |
 | Live catalog site | https://edwardlthompson.github.io/3d-game-optimizer/catalog/ |
 | Completed work | [COMPLETED_TASKS.md](COMPLETED_TASKS.md) |

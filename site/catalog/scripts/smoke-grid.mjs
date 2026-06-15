@@ -54,4 +54,10 @@ if (rows.length === 0) {
   process.exit(1);
 }
 
-console.log(`smoke-grid: ok (${games.length} games, page rows ${rows.length})`);
+const withSupport = games.filter((g) => (g.platformSupport ?? []).length > 0).length;
+if (withSupport < games.length * 0.9) {
+  console.error(`smoke-grid: expected platformSupport on most games, got ${withSupport}/${games.length}`);
+  process.exit(1);
+}
+
+console.log(`smoke-grid: ok (${games.length} games, page rows ${rows.length}, platformSupport ${withSupport})`);

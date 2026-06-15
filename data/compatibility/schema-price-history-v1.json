@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Steam price history v1",
+  "type": "object",
+  "required": ["version", "updatedAt", "apps"],
+  "properties": {
+    "version": { "type": "string" },
+    "updatedAt": { "type": "string" },
+    "apps": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "lowUsd": { "type": "number", "minimum": 0 },
+          "highUsd": { "type": "number", "minimum": 0 },
+          "points": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["date", "priceUsd"],
+              "properties": {
+                "date": { "type": "string" },
+                "priceUsd": { "type": "number", "minimum": 0 },
+                "onSale": { "type": "boolean" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

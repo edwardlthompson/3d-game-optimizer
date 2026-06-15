@@ -55,6 +55,7 @@ jobs:
           cp -r site/catalog/dist/* examples/web/dist/catalog/
           mkdir -p examples/web/dist/catalog/data
           cp data/compatibility/catalog-v2.json examples/web/dist/catalog/data/catalog-v2.json
+          cp data/compatibility/price-history-v1.json examples/web/dist/catalog/data/price-history-v1.json 2>/dev/null || true
           python3 scripts/sync-catalog/compute-catalog-hash.py
           cp data/compatibility/catalog-v2.sha256 examples/web/dist/catalog/data/catalog-v2.sha256
 

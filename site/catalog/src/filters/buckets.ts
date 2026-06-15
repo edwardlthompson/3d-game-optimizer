@@ -1,0 +1,112 @@
+import type { CatalogGame } from "../types";
+import { DISPLAY_LABEL, formatLevel } from "../constants";
+import { playMethodKey, playMethodsForGame, visionLabel } from "../game-accessors";
+
+export const NO_DATA = "(No data)";
+
+export function priceBucket(price: number | null | undefined): string {
+  if (price == null || Number.isNaN(price)) return NO_DATA;
+  const start = Math.floor(price / 5) * 5;
+  return `$${start}–$${(start + 4.99).toFixed(2)}`;
+}
+
+export function reviewBucket(percent: number | null | undefined): string {
+  if (percent == null) return NO_DATA;
+  if (percent >= 100) return "100%";
+  const start = Math.floor(percent / 10) * 10;
+  return `${start}–${start + 9}%`;
+}
+
+export function playerBucket(count: number | null | undefined): string {
+  if (count == null) return NO_DATA;
+  if (count === 0) return "0";
+  if (count < 100) return "1–99";
+  const start = Math.floor(count / 100) * 100;
+  if (start >= 10000) return "10000+";
+  return `${start}–${start + 99}`;
+}
+
+export function releaseYearBucket(date: string | undefined): string {
+  if (!date) return NO_DATA;
+  const match = date.match(/\b(19|20)\d{2}\b/);
+  return match ? match[0] : NO_DATA;
+}
+
+export function hardwareSummary(game: CatalogGame): string {
+  return game.hardwareRequirements.displays.map((id) => DISPLAY_LABEL[id] ?? id).join(", ");
+}
+
+export function buyBucket(game: CatalogGame): string {
+  return game.purchaseLinks?.steam || game.steamAppId ? "Has Steam link" : "No link";
+}
+
+export function buildPriceBucketOptions(games: CatalogGame[]): string[] {
+  let max = 0;
+  for (const g of games) {
+    const p = g.steamStats?.priceUsd;
+    if (p != null) max = Math.max(max, p);
+  }
+  const cap = Math.max(60, Math.ceil(max / 5) * 5);
+  const options: string[] = [];
+  for (let start = 0; start <= cap; start += 5) {
+    options.push(`$${start}–$${(start + 4.99).toFixed(2)}`);
+  }
+  options.push(NO_DATA);
+  return options;
+}
+
+export function buildReviewBucketOptions(): string[] {
+  const options: string[] = [];
+  for (let start = 0; start < 100; start += 10) {
+    options.push(`${start}–${start + 9}%`);
+  }
+  options.push("100%", NO_DATA);
+  return options;
+}
+
+export function buildPlayerBucketOptions(): string[] {
+  const hundreds = Array.from({ length: 99 }, (_, i) => {
+    const start = (i + 1) * 100;
+    return `${start}–${start + 99}`;
+  });
+  return ["0", "1–99", ...hundreds, "10000+", NO_DATA];
+}
+
+export function collectUniqueValues(games: CatalogGame[]): Record<string, string[]> {
+  const level = new Set<string>();
+  const bestExp = new Set<string>();
+  const trueGame = new Set<string>();
+  const vision = new Set<string>();
+  const playMethods = new Set<string>();
+  const hardware = new Set<string>();
+  const release = new Set<string>();
+
+  for (const game of games) {
+    level.add(formatLevel(game.bestLevel));
+    bestExp.add(game.bestExperience?.label ?? formatLevel(game.bestLevel));
+    trueGame.add(game.trueGameLabel ?? "—");
+    vision.add(visionLabel(game));
+    for (const m of playMethodsForGame(game)) playMethods.add(m.key);
+    hardware.add(hardwareSummary(game));
+    release.add(releaseYearBucket(game.steamStats?.releaseDate));
+  }
+
+  const sort = (s: Set<string>) => [...s].sort((a, b) => a.localeCompare(b));
+  return {
+    bestLevel: sort(level),
+    bestExperience: sort(bestExp),
+    trueGame: sort(trueGame),
+    vision: sort(vision),
+    playMethods: sort(playMethods),
+    hardware: sort(hardware),
+    releaseDate: sort(release),
+    reviewPercent: buildReviewBucketOptions(),
+    currentPlayers: buildPlayerBucketOptions(),
+    priceUsd: buildPriceBucketOptions(games),
+    buy: ["Has Steam link", "No link"],
+  };
+}
+
+export function playMethodKeysForGame(game: CatalogGame): string[] {
+  return playMethodsForGame(game).map((m) => m.key);
+}

@@ -23,6 +23,14 @@ def fetch_wiki() -> str:
         return response.read().decode("utf-8", "replace")
 
 
+def strip_html(text: str) -> str:
+    return re.sub(r"<[^>]+>", "", text).strip()
+
+
+def clean_title(title: str) -> str:
+    return strip_html(title).strip() or title.strip()
+
+
 def parse_wiki_markdown(text: str) -> list[dict]:
     entries: dict[str, dict] = {}
     in_spatiallabs = False
@@ -38,8 +46,8 @@ def parse_wiki_markdown(text: str) -> list[dict]:
         if "|" in line:
             cells = [c.strip() for c in line.split("|") if c.strip()]
             if len(cells) >= 1 and not cells[0].startswith("-"):
-                title = cells[0]
-                if title.lower() in ("game", "title", "name"):
+                title = clean_title(cells[0])
+                if title.lower() in ("game", "title", "name") or len(title) < 2:
                     continue
                 label = cells[1] if len(cells) > 1 else "Compatible"
                 entries[title.lower()] = {
@@ -48,7 +56,7 @@ def parse_wiki_markdown(text: str) -> list[dict]:
                     "level": "playable3d",
                 }
         elif line.strip().startswith(("-", "*")):
-            title = line.strip().lstrip("-*").strip()
+            title = clean_title(line.strip().lstrip("-*").strip())
             if len(title) >= 2:
                 entries[title.lower()] = {
                     "title": title,
@@ -62,7 +70,7 @@ def parse_wiki_markdown(text: str) -> list[dict]:
                 continue
             cells = [c.strip() for c in line.split("|") if c.strip()]
             if len(cells) >= 1 and cells[0].lower() not in ("game", "title", "name", "---"):
-                title = cells[0]
+                title = clean_title(cells[0])
                 if len(title) >= 3 and not title.startswith("-"):
                     entries.setdefault(
                         title.lower(),

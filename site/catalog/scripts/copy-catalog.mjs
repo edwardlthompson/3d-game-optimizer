@@ -1,12 +1,22 @@
-import { copyFileSync, mkdirSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "../../..");
-const source = resolve(root, "data/compatibility/catalog-v2.json");
-const target = resolve(here, "../public/data/catalog-v2.json");
+const dataDir = resolve(here, "../public/data");
+mkdirSync(dataDir, { recursive: true });
 
-mkdirSync(dirname(target), { recursive: true });
-copyFileSync(source, target);
-console.log(`copied catalog to ${target}`);
+const copies = [
+  ["data/compatibility/catalog-v2.json", "catalog-v2.json"],
+  ["data/compatibility/price-history-v1.json", "price-history-v1.json"],
+];
+
+for (const [srcRel, name] of copies) {
+  const source = resolve(root, srcRel);
+  const target = resolve(dataDir, name);
+  if (existsSync(source)) {
+    copyFileSync(source, target);
+    console.log(`copied ${name}`);
+  }
+}
