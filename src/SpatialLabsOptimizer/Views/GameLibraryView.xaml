@@ -3,11 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:SpatialLabsOptimizer.Converters"
-    xmlns:viewmodels="using:SpatialLabsOptimizer.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    x:DataType="viewmodels:GameLibraryViewModel">
+    mc:Ignorable="d">
     <Page.Resources>
         <converters:CoverPathToImageConverter x:Key="CoverConverter" />
     </Page.Resources>
@@ -23,14 +21,14 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Spacing="8">
             <TextBlock Text="Ready to Play" FontSize="24" FontWeight="SemiBold" VerticalAlignment="Center" />
-            <Button Content="Refresh" Command="{x:Bind RefreshCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Reload library from cache" />
-            <Button Content="Play in 3D" Command="{x:Bind PlayCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch selected game in 3D" />
-            <Button Content="Play in VR" Command="{x:Bind PlayVrCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch selected game in VR" />
-            <Button Content="Pin" Command="{x:Bind PinCommand}" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Unpin" Command="{x:Bind UnpinCommand}" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Queue" Command="{x:Bind QueueCommand}" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Play next" Command="{x:Bind PlayNextCommand}" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Favorite" Command="{x:Bind ToggleFavoriteCommand}" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Refresh" Command="{Binding RefreshCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Reload library from cache" />
+            <Button Content="Play in 3D" Command="{Binding PlayCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch selected game in 3D" />
+            <Button Content="Play in VR" Command="{Binding PlayVrCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch selected game in VR" />
+            <Button Content="Pin" Command="{Binding PinCommand}" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Unpin" Command="{Binding UnpinCommand}" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Queue" Command="{Binding QueueCommand}" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Play next" Command="{Binding PlayNextCommand}" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Favorite" Command="{Binding ToggleFavoriteCommand}" Style="{StaticResource AppButtonStyle}" />
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="12">
             <ComboBox x:Name="SortCombo" Header="Sort by" SelectionChanged="SortCombo_SelectionChanged" Width="200" />
@@ -39,7 +37,7 @@
                 <ComboBoxItem Content="Monitor" Tag="Monitor" />
                 <ComboBoxItem Content="Headset" Tag="Headset" />
             </ComboBox>
-            <Button Content="Save output" Command="{x:Bind SaveOutputCommand}" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Bottom" />
+            <Button Content="Save output" Command="{Binding SaveOutputCommand}" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Bottom" />
             <CheckBox x:Name="FavoritesOnlyCheck" Content="Favorites only" Checked="Filter_Changed" Unchecked="Filter_Changed" VerticalAlignment="Bottom" />
             <CheckBox x:Name="LocalOnlyCheck" Content="Local installs" Checked="Filter_Changed" Unchecked="Filter_Changed" VerticalAlignment="Bottom" />
             <CheckBox x:Name="WhyNotReadyCheck" Content="Why not ready?" Checked="Filter_Changed" Unchecked="Filter_Changed" VerticalAlignment="Bottom" />
@@ -56,24 +54,24 @@
             <TextBlock Text="Community and co-op (v2)" FontWeight="SemiBold" />
             <TextBlock Text="Export selected titles for LAN parties, import allowlisted workshop presets, or start a hybrid co-op session." TextWrapping="Wrap" Opacity="0.8" />
             <StackPanel Orientation="Horizontal" Spacing="8">
-                <Button Content="Import workshop presets" Command="{x:Bind V2WorkshopImportCommand}" Style="{StaticResource AppButtonStyle}" />
-                <Button Content="Export LAN party list" Command="{x:Bind V2LanExportCommand}" Style="{StaticResource AppButtonStyle}" />
-                <Button Content="Start hybrid co-op" Command="{x:Bind V2HybridSessionCommand}" Style="{StaticResource AppButtonStyle}" />
+                <Button Content="Import workshop presets" Command="{Binding V2WorkshopImportCommand}" Style="{StaticResource AppButtonStyle}" />
+                <Button Content="Export LAN party list" Command="{Binding V2LanExportCommand}" Style="{StaticResource AppButtonStyle}" />
+                <Button Content="Start hybrid co-op" Command="{Binding V2HybridSessionCommand}" Style="{StaticResource AppButtonStyle}" />
             </StackPanel>
-            <TextBlock Text="{x:Bind V2StatusText, Mode=OneWay}" TextWrapping="Wrap" Opacity="0.7" />
+            <TextBlock Text="{Binding V2StatusText}" TextWrapping="Wrap" Opacity="0.7" />
         </StackPanel>
         <StackPanel Grid.Row="4" Spacing="6">
             <StackPanel x:Name="SelectedGamePanel" Spacing="8" Visibility="Collapsed">
                 <TextBlock x:Name="SelectedGameTitle" FontWeight="SemiBold" FontSize="16" />
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Button Content="Play in 3D" Command="{x:Bind PlayCommand}" Style="{StaticResource AppButtonStyle}" />
-                    <Button Content="Play in VR" Command="{x:Bind PlayVrCommand}" Style="{StaticResource AppButtonStyle}" />
+                    <Button Content="Play in 3D" Command="{Binding PlayCommand}" Style="{StaticResource AppButtonStyle}" />
+                    <Button Content="Play in VR" Command="{Binding PlayVrCommand}" Style="{StaticResource AppButtonStyle}" />
                 </StackPanel>
             </StackPanel>
             <TextBlock x:Name="WhyNotReadyBlock" TextWrapping="Wrap" Opacity="0.8" />
             <StackPanel Orientation="Horizontal" Spacing="8">
                 <TextBlock x:Name="PresetFreshnessBlock" VerticalAlignment="Center" Opacity="0.8" />
-                <Button Content="Refresh preset" Command="{x:Bind RefreshPresetCommand}" Style="{StaticResource AppButtonStyle}" />
+                <Button Content="Refresh preset" Command="{Binding RefreshPresetCommand}" Style="{StaticResource AppButtonStyle}" />
             </StackPanel>
             <TextBox x:Name="CompatibilityNoteBox" Header="Compatibility note (local only)" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="60" />
             <Button Content="Save note" Click="SaveNote_Click" Style="{StaticResource AppButtonStyle}" HorizontalAlignment="Left" />
