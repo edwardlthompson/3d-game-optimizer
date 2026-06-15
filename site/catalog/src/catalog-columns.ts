@@ -14,6 +14,7 @@ import {
 } from "./filters/buckets";
 import { matchesCheckboxFilter } from "./filters/checkbox-filter";
 import { playMethodsForGame, playMethodsText } from "./game-accessors";
+import { weightedReviewScore } from "./steam-ranking";
 import type { CatalogGame } from "./types";
 import { displayTitle, escapeHtml } from "./utils";
 
@@ -27,12 +28,24 @@ const columnHelper = createColumnHelper<CatalogGame>();
 
 export interface ColumnCallbacks {
   isWishlisted: (id: string) => boolean;
+  isInLibrary: (id: string) => boolean;
   onToggleWishlist: (id: string) => void;
   onPriceClick: (game: CatalogGame) => void;
 }
 
 export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame>[] {
   return [
+    columnHelper.display({
+      id: "library",
+      header: "Lib",
+      enableSorting: false,
+      enableColumnFilter: false,
+      cell: (info) => {
+        const game = info.row.original;
+        const on = callbacks.isInLibrary(game.id);
+        return `<button type="button" class="library-btn${on ? " on" : ""}" data-library="${escapeHtml(game.id)}" aria-label="In library">${on ? "✓" : "○"}</button>`;
+      },
+    }),
     columnHelper.display({
       id: "wishlist",
       header: "★",
@@ -105,6 +118,21 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
         const count = info.row.original.steamStats?.reviewCount;
         if (review == null) return "—";
         return count ? `${review}% (${count.toLocaleString()})` : `${review}%`;
+      },
+    }),
+    columnHelper.accessor((g) => weightedReviewScore(g.steamStats), {
+      id: "weightedReview",
+      header: "Rank",
+      meta: { steam: true },
+      sortingFn: (a, b) => {
+        const av = weightedReviewScore(a.original.steamStats) ?? -1;
+        const bv = weightedReviewScore(b.original.steamStats) ?? -1;
+        return av - bv;
+      },
+      enableColumnFilter: false,
+      cell: (info) => {
+        const score = weightedReviewScore(info.row.original.steamStats);
+        return score != null ? score.toFixed(1) : "—";
       },
     }),
     columnHelper.accessor((g) => g.steamStats?.currentPlayers ?? null, {

@@ -66,6 +66,15 @@ header p {
   color: var(--muted);
 }
 
+.filter-select select {
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.875rem;
+}
+
 .table-wrap {
   overflow: auto;
   max-height: calc(100vh - 280px);
@@ -86,16 +95,20 @@ td {
   vertical-align: top;
 }
 
+td[data-col="library"],
 td[data-col="wishlist"],
 td[data-col="bestLevel"],
 td[data-col="reviewPercent"],
+td[data-col="weightedReview"],
 td[data-col="currentPlayers"],
 td[data-col="releaseDate"],
 td[data-col="priceUsd"],
 td[data-col="buy"],
+th[data-col="library"],
 th[data-col="wishlist"],
 th[data-col="bestLevel"],
 th[data-col="reviewPercent"],
+th[data-col="weightedReview"],
 th[data-col="currentPlayers"],
 th[data-col="releaseDate"],
 th[data-col="priceUsd"],
@@ -280,6 +293,7 @@ footer ul {
 .filter-btn,
 .price-btn,
 .wish-btn,
+.library-btn,
 .toolbar button {
   padding: 0.25rem 0.5rem;
   border-radius: 6px;
@@ -292,6 +306,11 @@ footer ul {
 
 .wish-btn.on {
   color: #ffd166;
+}
+
+.library-btn.on {
+  color: #7dcea0;
+  border-color: rgba(125, 206, 160, 0.45);
 }
 
 th {

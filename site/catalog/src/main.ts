@@ -2,6 +2,7 @@ import "./style.css";
 import { DATA_COVERAGE_GAPS } from "./data-coverage";
 import { CatalogGrid, type GridOptions } from "./grid";
 import { checkCatalogSync, loadPriceHistory, type PriceHistoryDocument } from "./price-chart";
+import type { ListFilterMode } from "./list-filter";
 import type { CatalogDocument } from "./types";
 import { escapeHtml } from "./utils";
 import { exportWishlist, importWishlist, loadWishlist } from "./wishlist";
@@ -15,7 +16,8 @@ let priceHistory: PriceHistoryDocument | null = null;
 let grid: CatalogGrid | null = null;
 
 const gridOptions: GridOptions = {
-  wishlistOnly: false,
+  wishlistFilter: "all",
+  libraryFilter: "all",
   ultraOnly: false,
   visionCertifiedOnly: false,
 };
@@ -24,12 +26,22 @@ function syncGridOptions(): void {
   grid?.setOptions({ ...gridOptions });
 }
 
+function readListFilter(select: HTMLSelectElement | null): ListFilterMode {
+  const value = select?.value;
+  if (value === "only" || value === "exclude") return value;
+  return "all";
+}
+
 function bindToolbar(): void {
   appRoot.querySelector<HTMLInputElement>("#search")?.addEventListener("input", (e) => {
     grid?.setGlobalFilter((e.target as HTMLInputElement).value);
   });
-  appRoot.querySelector<HTMLInputElement>("#wishlist-only")?.addEventListener("change", (e) => {
-    gridOptions.wishlistOnly = (e.target as HTMLInputElement).checked;
+  appRoot.querySelector<HTMLSelectElement>("#wishlist-filter")?.addEventListener("change", (e) => {
+    gridOptions.wishlistFilter = readListFilter(e.target as HTMLSelectElement);
+    syncGridOptions();
+  });
+  appRoot.querySelector<HTMLSelectElement>("#library-filter")?.addEventListener("change", (e) => {
+    gridOptions.libraryFilter = readListFilter(e.target as HTMLSelectElement);
     syncGridOptions();
   });
   appRoot.querySelector<HTMLInputElement>("#ultra-only")?.addEventListener("change", (e) => {
@@ -63,11 +75,24 @@ function shell(): void {
   appRoot.innerHTML = `
     <header>
       <h1>3D Game Catalog</h1>
-      <p>Lenticular 3D titles — filter by play method, wishlist locally, track Steam prices over time.</p>
+      <p>Lenticular 3D titles — filter by play method, track your library and wishlist locally, Steam prices over time.</p>
     </header>
     <div class="toolbar">
       <input id="search" type="search" placeholder="Search title, play method…" aria-label="Search games" />
-      <label><input id="wishlist-only" type="checkbox" /> Wishlist only</label>
+      <label class="filter-select">Wishlist
+        <select id="wishlist-filter" aria-label="Wishlist filter">
+          <option value="all">All titles</option>
+          <option value="only">Wishlist only</option>
+          <option value="exclude">Exclude wishlist</option>
+        </select>
+      </label>
+      <label class="filter-select">Library
+        <select id="library-filter" aria-label="Library filter">
+          <option value="all">All titles</option>
+          <option value="only">Library only</option>
+          <option value="exclude">Exclude library</option>
+        </select>
+      </label>
       <label><input id="ultra-only" type="checkbox" /> 3D Ultra / native only</label>
       <label><input id="vision-certified" type="checkbox" /> 3D Vision certified</label>
       <button type="button" id="export-wishlist">Export wishlist</button>
@@ -77,7 +102,7 @@ function shell(): void {
     <div class="status"></div>
     <div id="grid-root"></div>
     <footer>
-      <div>Wishlist stored on this device only. Price history self-tracked each catalog sync (SteamDB backfill later).</div>
+      <div>Wishlist and library stored on this device only. Sort by <strong>Rank</strong> for review scores weighted by vote count and players. Price history self-tracked each catalog sync (SteamDB backfill later).</div>
       <ul>${DATA_COVERAGE_GAPS.map((g) => `<li>${escapeHtml(g)}</li>`).join("")}</ul>
     </footer>
   `;

@@ -15,6 +15,8 @@ import { collectUniqueValues } from "./filters/buckets";
 import { ColumnFilterPopover, formatPlayMethodOption } from "./filters/ColumnFilterPopover";
 import type { PriceHistoryDocument } from "./price-chart";
 import { showPriceChart } from "./price-chart";
+import { loadLibrary, toggleLibrary } from "./library";
+import { matchesListFilter, type ListFilterMode } from "./list-filter";
 import type { CatalogGame } from "./types";
 import { loadWishlist, toggleWishlist } from "./wishlist";
 
@@ -26,7 +28,8 @@ export interface GridStatus {
 }
 
 export interface GridOptions {
-  wishlistOnly: boolean;
+  wishlistFilter: ListFilterMode;
+  libraryFilter: ListFilterMode;
   ultraOnly: boolean;
   visionCertifiedOnly: boolean;
 }
@@ -38,8 +41,14 @@ export class CatalogGrid {
   private columns: ColumnDef<CatalogGame>[];
   private filterOptions: Record<string, string[]>;
   private wishlist: Set<string>;
+  private library: Set<string>;
   private priceHistory: PriceHistoryDocument | null;
-  private options: GridOptions = { wishlistOnly: false, ultraOnly: false, visionCertifiedOnly: false };
+  private options: GridOptions = {
+    wishlistFilter: "all",
+    libraryFilter: "all",
+    ultraOnly: false,
+    visionCertifiedOnly: false,
+  };
   private sorting: SortingState = [{ id: "title", desc: false }];
   private columnFilters: ColumnFiltersState = [];
   private pagination: PaginationState = { pageIndex: 0, pageSize: 50 };
@@ -64,9 +73,11 @@ export class CatalogGrid {
     this.priceHistory = priceHistory;
     this.onStatus = onStatus;
     this.wishlist = loadWishlist();
+    this.library = loadLibrary();
     this.filterOptions = collectUniqueValues(data);
     this.columns = createColumns({
       isWishlisted: (id) => this.wishlist.has(id),
+      isInLibrary: (id) => this.library.has(id),
       onToggleWishlist: () => undefined,
       onPriceClick: () => undefined,
     });
@@ -138,7 +149,8 @@ export class CatalogGrid {
   }
 
   private matchesGlobal(game: CatalogGame): boolean {
-    if (this.options.wishlistOnly && !this.wishlist.has(game.id)) return false;
+    if (!matchesListFilter(this.wishlist.has(game.id), this.options.wishlistFilter)) return false;
+    if (!matchesListFilter(this.library.has(game.id), this.options.libraryFilter)) return false;
     if (this.options.ultraOnly && game.bestLevel !== "ultra3d" && game.bestLevel !== "native3d") {
       return false;
     }
@@ -211,6 +223,12 @@ export class CatalogGrid {
     this.tbody.querySelectorAll<HTMLButtonElement>("button[data-wish]").forEach((btn) => {
       btn.addEventListener("click", () => {
         this.wishlist = toggleWishlist(this.wishlist, btn.dataset.wish!);
+        this.draw();
+      });
+    });
+    this.tbody.querySelectorAll<HTMLButtonElement>("button[data-library]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        this.library = toggleLibrary(this.library, btn.dataset.library!);
         this.draw();
       });
     });

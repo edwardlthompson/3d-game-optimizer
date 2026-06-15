@@ -75,6 +75,7 @@ export type SortKey =
   | "bestExperience"
   | "releaseDate"
   | "reviewPercent"
+  | "weightedReview"
   | "currentPlayers"
   | "priceUsd";
 
