@@ -156,7 +156,24 @@ export class CatalogGrid {
   private mount(): void {
     this.tableWrap = document.createElement("div");
     this.tableWrap.className = "table-wrap";
-    this.tableWrap.innerHTML = `<table><thead></thead><tbody></tbody></table>`;
+    this.tableWrap.innerHTML = `
+      <table>
+        <colgroup>
+          <col style="width:2%" />
+          <col style="width:15%" />
+          <col style="width:7%" />
+          <col style="width:10%" />
+          <col style="width:16%" />
+          <col style="width:10%" />
+          <col style="width:9%" />
+          <col style="width:6%" />
+          <col style="width:7%" />
+          <col style="width:5%" />
+          <col style="width:13%" />
+        </colgroup>
+        <thead></thead>
+        <tbody></tbody>
+      </table>`;
     this.tbody = this.tableWrap.querySelector("tbody")!;
     this.pager = document.createElement("div");
     this.pager.className = "pager";

@@ -15,7 +15,7 @@ import {
 import { matchesCheckboxFilter } from "./filters/checkbox-filter";
 import { playMethodsForGame, playMethodsText } from "./game-accessors";
 import type { CatalogGame } from "./types";
-import { escapeHtml, stripHtml } from "./utils";
+import { displayTitle, escapeHtml } from "./utils";
 
 function steamBuyCell(game: CatalogGame): string {
   const appId = game.steamAppId;
@@ -55,7 +55,10 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
       header: "Title",
       enableColumnFilter: false,
       meta: { wrap: true },
-      cell: (info) => escapeHtml(stripHtml(info.getValue())),
+      cell: (info) => {
+        const title = displayTitle(info.getValue());
+        return `<span class="title-cell" title="${escapeHtml(title)}">${escapeHtml(title)}</span>`;
+      },
     }),
     columnHelper.accessor("bestLevel", {
       id: "bestLevel",

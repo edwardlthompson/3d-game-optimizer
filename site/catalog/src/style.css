@@ -107,21 +107,37 @@ td.cell-wrap,
 td[data-col="title"],
 td[data-col="bestExperience"],
 td[data-col="playMethods"],
-td[data-col="hardware"] {
+td[data-col="hardware"],
+th[data-col="title"],
+th[data-col="bestExperience"],
+th[data-col="playMethods"],
+th[data-col="hardware"] {
   white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+td[data-col="title"],
+th[data-col="title"] {
+  width: 15%;
+  line-height: 1.35;
+}
+
+.title-cell {
+  display: block;
+  overflow-wrap: anywhere;
   word-break: break-word;
 }
 
-td[data-col="title"] {
-  max-width: 10rem;
+td[data-col="bestExperience"],
+th[data-col="bestExperience"] {
+  width: 10%;
 }
 
-td[data-col="bestExperience"] {
-  max-width: 9rem;
-}
-
-td[data-col="playMethods"] {
-  max-width: 14rem;
+td[data-col="playMethods"],
+th[data-col="playMethods"] {
+  width: 16%;
 }
 
 td[data-col="playMethods"] .badge {
@@ -129,8 +145,9 @@ td[data-col="playMethods"] .badge {
   margin-bottom: 0.2rem;
 }
 
-td[data-col="hardware"] {
-  max-width: 10rem;
+td[data-col="hardware"],
+th[data-col="hardware"] {
+  width: 10%;
 }
 
 .steam-app-link {
