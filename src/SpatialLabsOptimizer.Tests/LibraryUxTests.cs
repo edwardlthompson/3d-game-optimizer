@@ -81,7 +81,10 @@ public class LibraryUxTests
     [Fact]
     public async Task GameArtworkService_UsesSteamGridDbFallback_WhenCdnEmpty()
     {
-        var hub = new OperationProgressHub();
+        Environment.SetEnvironmentVariable("STEAMGRIDDB_API_KEY", "test-key");
+        try
+        {
+            var hub = new OperationProgressHub();
         var handler = new GridFallbackMessageHandler();
         var gateway = new ExternalDataGateway(
             new Infrastructure.Privacy.PrivacyGuardHttpHandler(
@@ -99,6 +102,11 @@ public class LibraryUxTests
         var path = await artwork.ResolveCoverPathAsync(570);
         Assert.NotNull(path);
         Assert.True(File.Exists(path));
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable("STEAMGRIDDB_API_KEY", null);
+        }
     }
 
     private sealed class GridFallbackMessageHandler : HttpMessageHandler
@@ -122,7 +130,7 @@ public class LibraryUxTests
             {
                 return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
                 {
-                    Content = new ByteArrayContent(new byte[] { 1, 2, 3, 4 })
+                    Content = new ByteArrayContent(new byte[] { 0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10 })
                 });
             }
 

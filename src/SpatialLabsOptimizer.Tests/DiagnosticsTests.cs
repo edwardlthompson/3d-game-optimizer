@@ -40,7 +40,7 @@ public class DiagnosticsTests
         var compat = new CompatibilityRepository(loader);
         var router = new LaunchPlatformRouter();
         var resolve = new ResolveGameSettings(defaults, overrides, compat, router);
-        var detector = new DisplayAutoDetector(loader);
+        var detector = TestPaths.CreateDisplayAutoDetector();
         var coexistence = new ExternalToolCoexistenceService(new FakeRunningProcessProbe([]));
         var settingsPath = Path.Combine(Path.GetTempPath(), $"3dgo-dry-prefs-{Guid.NewGuid()}.db");
         await using var settings = new SqliteSettingsStore(settingsPath);
@@ -70,8 +70,9 @@ public class DiagnosticsTests
         var dataRoot = TestPaths.FindDataRoot();
         var loader = new JsonDataLoader(dataRoot);
         var audit = new LaunchAuditService();
-        var detector = new DisplayAutoDetector(loader);
+        var detector = TestPaths.CreateDisplayAutoDetector();
         var toolPaths = new ToolPathResolver(Path.Combine(Path.GetTempPath(), $"3dgo-tools-{Guid.NewGuid()}"));
+        var toolDetector = new ToolInstallDetector(loader, toolPaths);
         var coexistence = new ExternalToolCoexistenceService(new FakeRunningProcessProbe([]));
         var settingsPath = Path.Combine(Path.GetTempPath(), $"3dgo-bundle-{Guid.NewGuid()}.db");
         await using var settings = new SqliteSettingsStore(settingsPath);
@@ -82,7 +83,7 @@ public class DiagnosticsTests
             audit,
             detector,
             loader,
-            toolPaths,
+            toolDetector,
             coexistence,
             prefs,
             detectorArtifact);
@@ -116,12 +117,13 @@ public class DiagnosticsTests
         await using var settings = new SqliteSettingsStore(settingsPath);
         await settings.InitializeAsync();
         var prefs = new UserPreferencesService(settings);
-        var detector = new DisplayAutoDetector(loader);
+        var detector = TestPaths.CreateDisplayAutoDetector();
         var toolPaths = new ToolPathResolver(Path.Combine(Path.GetTempPath(), $"3dgo-seed-tools-{Guid.NewGuid()}"));
+        var toolDetector = new ToolInstallDetector(loader, toolPaths);
         var presets = new PresetCacheService(loader, new ExternalDataGateway(
             new PrivacyGuardHttpHandler(new PrivacyGuard(PrivacyAllowlist.DefaultHosts)) { InnerHandler = new StubMessageHandler() },
             new OperationProgressHub()));
-        var readiness = new ReadinessScoreService(loader, toolPaths, settings, presets);
+        var readiness = new ReadinessScoreService(loader, toolDetector, settings, presets);
         var coexistence = new ExternalToolCoexistenceService(new FakeRunningProcessProbe([]));
         var artifactDetector = new InstallArtifactDetector(new FakePackageProbe(false), new FakeMsiProbe(false));
         var export = new SeedContributionExportService(
@@ -147,11 +149,12 @@ public class DiagnosticsTests
         await using var settings = new SqliteSettingsStore(settingsPath);
         await settings.InitializeAsync();
         var toolPaths = new ToolPathResolver(Path.Combine(Path.GetTempPath(), $"3dgo-ready-tools-{Guid.NewGuid()}"));
+        var toolDetector = new ToolInstallDetector(loader, toolPaths);
         var presets = new PresetCacheService(loader, new ExternalDataGateway(
             new PrivacyGuardHttpHandler(new PrivacyGuard(PrivacyAllowlist.DefaultHosts)) { InnerHandler = new StubMessageHandler() },
             new OperationProgressHub()));
-        var service = new ReadinessScoreService(loader, toolPaths, settings, presets);
-        var catalog = await new DisplayAutoDetector(loader).GetCatalogAsync();
+        var service = new ReadinessScoreService(loader, toolDetector, settings, presets);
+        var catalog = await TestPaths.CreateDisplayAutoDetector().GetCatalogAsync();
         var display = catalog.FirstOrDefault();
 
         var score = await service.ComputeAsync(display, offlineOnboarding: true, muxWarning: null);
@@ -170,11 +173,12 @@ public class DiagnosticsTests
         await settings.InitializeAsync();
         await settings.SetAsync("offline_onboarding", "true");
         var toolPaths = new ToolPathResolver(Path.Combine(Path.GetTempPath(), $"3dgo-offline-tools-{Guid.NewGuid()}"));
+        var toolDetector = new ToolInstallDetector(loader, toolPaths);
         var presets = new PresetCacheService(loader, new ExternalDataGateway(
             new PrivacyGuardHttpHandler(new PrivacyGuard(PrivacyAllowlist.DefaultHosts)) { InnerHandler = new StubMessageHandler() },
             new OperationProgressHub()));
-        var service = new ReadinessScoreService(loader, toolPaths, settings, presets);
-        var catalog = await new DisplayAutoDetector(loader).GetCatalogAsync();
+        var service = new ReadinessScoreService(loader, toolDetector, settings, presets);
+        var catalog = await TestPaths.CreateDisplayAutoDetector().GetCatalogAsync();
 
         var score = await service.ComputeAsync(catalog.FirstOrDefault(), offlineOnboarding: true, muxWarning: null);
 

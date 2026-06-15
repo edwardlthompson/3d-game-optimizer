@@ -15,19 +15,20 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Spacing="8">
             <TextBlock Text="Ready to Play" FontSize="24" FontWeight="SemiBold" VerticalAlignment="Center" />
-            <Button Content="Refresh" Click="Refresh_Click" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Reload library from cache" />
-            <Button Content="Play in 3D" Click="Play_Click" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch selected game in 3D" />
-            <Button Content="Play in VR" Click="PlayVr_Click" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch selected game in VR" />
-            <Button Content="Pin" Click="Pin_Click" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Unpin" Click="Unpin_Click" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Queue" Click="Queue_Click" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Play next" Click="PlayNext_Click" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Favorite" Click="Favorite_Click" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Refresh" Command="{Binding RefreshCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Reload library from cache" />
+            <Button Content="Play in 3D" Command="{Binding PlayCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch selected game in 3D" />
+            <Button Content="Play in VR" Command="{Binding PlayVrCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch selected game in VR" />
+            <Button Content="Pin" Command="{Binding PinCommand}" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Unpin" Command="{Binding UnpinCommand}" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Queue" Command="{Binding QueueCommand}" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Play next" Command="{Binding PlayNextCommand}" Style="{StaticResource AppButtonStyle}" />
+            <Button Content="Favorite" Command="{Binding ToggleFavoriteCommand}" Style="{StaticResource AppButtonStyle}" />
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="12">
             <ComboBox x:Name="SortCombo" Header="Sort by" SelectionChanged="SortCombo_SelectionChanged" Width="200" />
@@ -36,7 +37,7 @@
                 <ComboBoxItem Content="Monitor" Tag="Monitor" />
                 <ComboBoxItem Content="Headset" Tag="Headset" />
             </ComboBox>
-            <Button Content="Save output" Click="SaveOutput_Click" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Bottom" />
+            <Button Content="Save output" Command="{Binding SaveOutputCommand}" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Bottom" />
             <CheckBox x:Name="FavoritesOnlyCheck" Content="Favorites only" Checked="Filter_Changed" Unchecked="Filter_Changed" VerticalAlignment="Bottom" />
             <CheckBox x:Name="LocalOnlyCheck" Content="Local installs" Checked="Filter_Changed" Unchecked="Filter_Changed" VerticalAlignment="Bottom" />
             <CheckBox x:Name="WhyNotReadyCheck" Content="Why not ready?" Checked="Filter_Changed" Unchecked="Filter_Changed" VerticalAlignment="Bottom" />
@@ -49,25 +50,35 @@
             <Button Content="Load playlist" Click="LoadPlaylist_Click" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Bottom" />
             <ComboBox x:Name="PlaylistCombo" Header="Saved playlists" SelectionChanged="PlaylistCombo_SelectionChanged" Width="200" VerticalAlignment="Bottom" />
         </StackPanel>
-        <StackPanel Grid.Row="3" Spacing="6">
+        <StackPanel Grid.Row="3" x:Name="V2Panel" Spacing="8" Visibility="Collapsed">
+            <TextBlock Text="Community and co-op (v2)" FontWeight="SemiBold" />
+            <TextBlock Text="Export selected titles for LAN parties, import allowlisted workshop presets, or start a hybrid co-op session." TextWrapping="Wrap" Opacity="0.8" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="Import workshop presets" Command="{Binding V2WorkshopImportCommand}" Style="{StaticResource AppButtonStyle}" />
+                <Button Content="Export LAN party list" Command="{Binding V2LanExportCommand}" Style="{StaticResource AppButtonStyle}" />
+                <Button Content="Start hybrid co-op" Command="{Binding V2HybridSessionCommand}" Style="{StaticResource AppButtonStyle}" />
+            </StackPanel>
+            <TextBlock Text="{Binding V2StatusText}" TextWrapping="Wrap" Opacity="0.7" />
+        </StackPanel>
+        <StackPanel Grid.Row="4" Spacing="6">
             <StackPanel x:Name="SelectedGamePanel" Spacing="8" Visibility="Collapsed">
                 <TextBlock x:Name="SelectedGameTitle" FontWeight="SemiBold" FontSize="16" />
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Button Content="Play in 3D" Click="Play_Click" Style="{StaticResource AppButtonStyle}" />
-                    <Button Content="Play in VR" Click="PlayVr_Click" Style="{StaticResource AppButtonStyle}" />
+                    <Button Content="Play in 3D" Command="{Binding PlayCommand}" Style="{StaticResource AppButtonStyle}" />
+                    <Button Content="Play in VR" Command="{Binding PlayVrCommand}" Style="{StaticResource AppButtonStyle}" />
                 </StackPanel>
             </StackPanel>
             <TextBlock x:Name="WhyNotReadyBlock" TextWrapping="Wrap" Opacity="0.8" />
             <StackPanel Orientation="Horizontal" Spacing="8">
                 <TextBlock x:Name="PresetFreshnessBlock" VerticalAlignment="Center" Opacity="0.8" />
-                <Button Content="Refresh preset" Click="RefreshPreset_Click" Style="{StaticResource AppButtonStyle}" />
+                <Button Content="Refresh preset" Command="{Binding RefreshPresetCommand}" Style="{StaticResource AppButtonStyle}" />
             </StackPanel>
             <TextBox x:Name="CompatibilityNoteBox" Header="Compatibility note (local only)" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="60" />
             <Button Content="Save note" Click="SaveNote_Click" Style="{StaticResource AppButtonStyle}" HorizontalAlignment="Left" />
         </StackPanel>
         <GridView
             x:Name="GamesGrid"
-            Grid.Row="4"
+            Grid.Row="5"
             AutomationProperties.AutomationId="GameLibrary_Grid"
             SelectionMode="Single"
             IsItemClickEnabled="True"
@@ -88,7 +99,7 @@
                 <DataTemplate>
                     <Grid Width="180" Height="310" Background="{StaticResource Brush.SurfaceAlt}" CornerRadius="8" Padding="8">
                         <StackPanel Spacing="6">
-                            <Image Source="{Binding CoverPath, Converter={StaticResource CoverConverter}}" Height="200" Stretch="UniformToFill" />
+                            <Image Source="{Binding CoverImageKey, Converter={StaticResource CoverConverter}}" Height="200" Stretch="UniformToFill" />
                             <TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
                             <TextBlock Text="{Binding StatusDisplay}" FontSize="11" Opacity="0.7" />
                             <TextBlock Text="{Binding CompatibilityBadge}" FontSize="11" FontWeight="SemiBold" />
@@ -100,7 +111,7 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-        <StackPanel Grid.Row="5" Spacing="4">
+        <StackPanel Grid.Row="6" Spacing="4">
             <TextBlock Text="Recent launches" FontWeight="SemiBold" />
             <ListView x:Name="RecentLaunchesList" MinHeight="80" MaxHeight="120" />
         </StackPanel>

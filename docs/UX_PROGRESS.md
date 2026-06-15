@@ -73,6 +73,79 @@ Deliver a one-click flow that helps users select a supported display, detect com
 | PlayIn3D progress honesty | 41 |
 | Real README screenshots | 43 |
 
+## Sprint 45 deliverables (2026-06-14)
+
+- **Startup progress** — specs scan, library index, and benchmark publish `IsComplete`; activity bar marshaled to UI thread; cover art deferred to background prefetch.
+- **SpatialLabs 15" detection** — EDID/PNP probe wired into `DisplayAutoDetector` with catalog wildcard signatures and name heuristics.
+- **Orange high-contrast theme** — brand/accent tokens, app icon pipeline, splash logo.
+- **Setup wizard verbosity** — install progress bar + log, async benchmark feedback, detection status with EDID signature.
+- **Settings reorg** — Health merged into Settings expanders; Config Snapshots hidden; OpenXR runtime `DisplayMemberPath="Label"`; footer gear disabled.
+- **Session profiles + v2 checkboxes** — LAN/hybrid/Epic-GOG integrations with restart banner.
+- **Steam fetch transparency** — per-AppID status messages via `ExternalDataGateway`.
+- **Quick Actions** — renamed Commands nav item, `Ctrl+K` shortcut, palette descriptions.
+- **Validation** — `DisplayAutoDetectorTests`, `Sprint45UxTests`, `scripts/smoke-ui-flows.ps1`.
+
+## Sprint 46 deliverables (2026-06-15)
+
+- **Silent install JSON fix** — `OptimalDefaultsService` matches seed array schema; all catalog `recommendedProfileId` entries present; wizard stays on step 1 when install fails.
+- **Cover art pipeline** — CDN-first resolution, soft-fail HTTP, per-app prefetch with `artwork-prefetch.log`, library auto-refresh after prefetch, placeholder tile when art missing.
+- **ASV15 catalog** — SpatialLabs View / View Pro 15.6" (`acer-asv15-1`) in picker; laptop signatures tightened; external monitor preferred in matcher; live viewing-distance update on picker change.
+- **Settings layout** — full-width Expanders with gutters and uniform header height via `SettingsExpanderStyle`.
+- **Validation** — `Sprint46Tests` (130 total passing); smoke scripts verify process stays alive post-startup.
+
+## Sprint 47 deliverables (2026-06-15)
+
+- **Library platform connections** — platform link UI for Steam, Epic, GOG, and Ubisoft in Library Settings; local install path validation.
+- **Filter/sort persistence** — library toolbar preferences saved across sessions.
+- **Cover art URI fix** — expanded prefetch batch; live Steam review/metadata prefetch.
+- **Settings gutters** — inner category spacing in Global 3D Settings expanders.
+
+## Sprint 48 deliverables (2026-06-15)
+
+- **Cover art UI-thread refresh** — observable tile binding + cache bust after prefetch.
+- **Wizard toolchain checklist** — profile-filtered install steps from tool manifest.
+- **3D Display settings** — launch target display + OpenXR runtime override with Off option.
+- **AppWindow icon** — taskbar/window icon via `SetIcon`.
+
+## Sprint 49 deliverables (2026-06-15)
+
+- **Elevated helper installs** — real bundled tool install path; OpenXR Off end-to-end.
+- **Cover tile refresh** — store placeholder tiles when CDN art missing.
+- **Review hardening** — production gap fixes from Sprint 49 QA pass.
+
+## Sprint 50 deliverables (2026-06-15)
+
+- **Tool manifest bundled installs** — `installMode` in manifest; observable cover binding polish.
+- **Archive hygiene** — `.gitignore` for `artifacts/test-publish/` and `artifacts/fd-test/`.
+
+## Sprint 51 deliverables (2026-06-15)
+
+- **Modularization** — `GameLibraryViewModel` partials; library indexer/prefetch/merger split; diagnostics per-service files.
+- **ToolInstallDetector** — manifest cache + bounded Program Files scan.
+- **FOR_AGENTS.md** — `UiThreadDispatcher` / background host contract documented.
+- **150/150 tests green** after file-budget splits.
+
+## Sprint 52 deliverables (2026-06-15)
+
+- **Vendor toolchain policy** — manual-only vendor tools documented in `docs/TOOLCHAIN.md` and `tool-manifest-v1.json`.
+- **LibraryIndexMerger split** — external/Steam-owned/placeholder assigner orchestration.
+- **Config snapshots** — real JSON snapshot/rollback via `ConfigSnapshotService`; restore UI in Settings → Advanced.
+- **Platform scope** — Epic/GOG/Ubisoft local-only scope in `docs/PLATFORM_CONNECTIONS.md` and Library Settings copy.
+
+## Sprint 40 deliverables (2026-06-15)
+
+- **Streamer hotkeys** — `StreamerHotkeyService` registers Ctrl+Shift+3/S/L/M/H/R when app has focus.
+- **Library toolbar MVVM** — primary toolbar buttons bind to `GameLibraryViewModel` commands via `x:Bind`.
+- **ViewModels** — `AboutViewModel`, `TroubleshootingViewModel`, `Global3DSettingsViewModel` (launch safety); `LibrarySettingsViewModel` retained.
+- **Glossary seed** — `data/glossary/glossary-v1.json` drives dynamic `GlossaryView` content.
+
+## Sprint 41 deliverables (2026-06-15)
+
+- **PlayIn3D honesty** — progress steps map to real readiness, preset cache, config apply, optimal defaults, snapshot, and launch (12 steps).
+- **Multi-monitor handoff** — selected launch display flows through `LaunchContext` and audit trail.
+- **OpenXR handoff** — resolves SteamVR root from runtime.json; starts vrstartup before Steam VR applaunch.
+- **Rollback integration** — failed launch restores override snapshot; P0 QA verifies round-trip.
+
 ## Completed UX Actions
 
 - ~~Add glossary for terms like SBS, depth, convergence, and tier levels.~~ **Done** — GlossaryView in shell nav.

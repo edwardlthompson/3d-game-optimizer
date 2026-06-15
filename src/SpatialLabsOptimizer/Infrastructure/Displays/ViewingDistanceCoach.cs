@@ -17,6 +17,9 @@ public sealed class ViewingDistanceCoach
         ["acer-spatiallabs-15"] = new(
             "acer-spatiallabs-15", 50, 70, 60,
             "Laptop lenticular panels work best at 50–70 cm with the screen slightly below eye level."),
+        ["acer-asv15-1"] = new(
+            "acer-asv15-1", 55, 75, 65,
+            "Sit 55–75 cm from the SpatialLabs View / View Pro 15.6\" portable monitor. Center your head in the sweet spot."),
         ["samsung-g90xf"] = new(
             "samsung-g90xf", 70, 90, 80,
             "Position yourself 70–90 cm from the Odyssey 3D panel. Ensure the USB eye-tracking camera has a clear view."),

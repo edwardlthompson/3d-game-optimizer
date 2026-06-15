@@ -17,15 +17,8 @@
             <StackPanel Spacing="16">
                 <TextBlock Text="Launching in 3D" FontSize="20" FontWeight="SemiBold" />
                 <TextBlock x:Name="GameTitleBlock" FontSize="16" Opacity="0.9" />
-                <ProgressBar x:Name="LaunchProgressBar" IsIndeterminate="True" />
+                <ProgressBar x:Name="LaunchProgressBar" Minimum="0" Maximum="100" IsIndeterminate="True" />
                 <TextBlock x:Name="StepBlock" TextWrapping="Wrap" />
-                <ItemsRepeater x:Name="StepsRepeater">
-                    <ItemsRepeater.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" Opacity="0.8" />
-                        </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater>
             </StackPanel>
         </Border>
     </Grid>

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "term": "SBS (Side-by-Side)",
+      "definition": "Stereoscopic format that places the left and right eye images next to each other in a single frame. Many glasses-free displays expect SBS or similar layouts."
+    },
+    {
+      "term": "Depth",
+      "definition": "How strongly objects appear to pop out of or sink into the screen. Higher depth increases the 3D effect but can cause discomfort if pushed too far."
+    },
+    {
+      "term": "Convergence",
+      "definition": "The point where left and right views align. Adjusting convergence shifts where depth feels anchored in the scene."
+    },
+    {
+      "term": "Separation",
+      "definition": "Distance between the virtual left and right cameras. Works with depth and convergence to control overall stereoscopic intensity."
+    },
+    {
+      "term": "Compatibility tier",
+      "definition": "Native — built-in 3D support. Optimized — verified preset. Playable — community-tested. Experimental — may need tweaks. Unsupported — not recommended."
+    },
+    {
+      "term": "Performance tier",
+      "definition": "Hardware class derived from detected VRAM: Low, Medium, High, or Enthusiast. Guides render scale and post-processing defaults."
+    },
+    {
+      "term": "Launch platform",
+      "definition": "The toolchain used to start a title in 3D — for example UEVR, ReShade, TrueGame, or a display vendor hub. Shown in the launch preview before Play in 3D."
+    },
+    {
+      "term": "Safe launch",
+      "definition": "Launches with minimal injection so you can verify the game starts before applying full 3D presets. Rollback restores prior configs if launch fails."
+    },
+    {
+      "term": "Hybrid graphics (MUX)",
+      "definition": "Laptops with both integrated and discrete GPUs. Ensure the discrete GPU is active for 3D titles to avoid low performance or black screens."
+    }
+  ]
+}

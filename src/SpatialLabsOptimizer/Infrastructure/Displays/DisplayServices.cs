@@ -17,10 +17,12 @@ public interface IDisplayVendorAdapter
 public sealed class DisplayAutoDetector
 {
     private readonly JsonDataLoader _loader;
+    private readonly IDisplayEdidProbe _probe;
 
-    public DisplayAutoDetector(JsonDataLoader loader)
+    public DisplayAutoDetector(JsonDataLoader loader, IDisplayEdidProbe probe)
     {
         _loader = loader;
+        _probe = probe;
     }
 
     public async Task<IReadOnlyList<DisplayProfile>> GetCatalogAsync(CancellationToken cancellationToken = default)
@@ -38,20 +40,27 @@ public sealed class DisplayAutoDetector
             d.MarketingName,
             d.Type,
             d.EdidSignatures,
-            d.RecommendedProfileId)).ToList();
+            d.RecommendedProfileId,
+            d.RequiredToolIds ?? [])).ToList();
     }
 
     public async Task<DisplayProfile?> DetectAsync(CancellationToken cancellationToken = default)
     {
         var catalog = await GetCatalogAsync(cancellationToken);
-        // EDID probing requires hardware APIs; return generic manual as fallback for dev.
+        var snapshots = _probe.GetCurrentSnapshots();
+        var matched = DisplayCatalogMatcher.MatchCatalog(catalog, snapshots);
+        if (matched is not null)
+        {
+            return matched;
+        }
+
         return catalog.FirstOrDefault(d => d.Id == "generic-manual")
             ?? catalog.FirstOrDefault();
     }
 
     public IDisplayVendorAdapter CreateAdapter(DisplayProfile profile) => profile.Id switch
     {
-        "acer-psv27-2" or "acer-spatiallabs-15" => new AcerSpatialLabsAdapter(profile),
+        "acer-psv27-2" or "acer-spatiallabs-15" or "acer-asv15-1" => new AcerSpatialLabsAdapter(profile),
         "samsung-g90xf" => new SamsungOdyssey3DAdapter(profile),
         "nvidia-3d-vision-generic" => new Nvidia3DVisionAdapter(profile),
         _ => new GenericStereoscopicAdapter(profile)
@@ -72,6 +81,7 @@ public sealed class DisplayAutoDetector
         public string Type { get; set; } = "";
         public List<string> EdidSignatures { get; set; } = [];
         public string RecommendedProfileId { get; set; } = "";
+        public List<string>? RequiredToolIds { get; set; }
     }
 }
 

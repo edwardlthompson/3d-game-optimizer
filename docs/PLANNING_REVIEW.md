@@ -2,13 +2,14 @@
 
 > Living evidence table for release and automation decisions.
 
-## Parity status (2026-06-14)
+## Parity status (2026-06-15)
 
 | Track | State | Notes |
 |-------|-------|-------|
-| CI-shippable | **Pending push** | Sprints 32–38 local; verify after single PR to `main` |
-| Feature-complete (Sprints 32–38) | Local complete | Gaps tracked in Sprints 39–44 — see [BUILD_PLAN.md](../BUILD_PLAN.md) |
-| Release credentials | Automated | `setup-release-credentials.sh`, sideload signing, `build-product-local.ps1` |
+| CI-shippable | **Pending push** | Sprints 32–50 local; verify after single PR to `main` |
+| Feature-complete (Sprints 32–50) | Local complete | Sprint 50 P0/P1 shipped locally; P2 deferred to Sprint 51 |
+| Local release | Framework-dependent publish | WinUI launch verified; self-contained deferred |
+| Release credentials | Automated | `setup-release-credentials.sh`, sideload signing, `publish-product.ps1` |
 
 ## Release tracks
 
@@ -19,7 +20,7 @@
 
 ## Test count
 
-114 automated tests locally (Release). Regenerate from CI after Sprint 39 push.
+**156** automated tests locally (Release). Regenerate from CI after Sprint 39 push.
 
 ## Open follow-ups
 
@@ -29,31 +30,32 @@
 | WinGet PR [#387878](https://github.com/microsoft/winget-pkgs/pull/387878) | Submitted — merge pending CLA/validation |
 | WinGet v1.1.0 manifest PR | Pending after merge |
 | EV Authenticode cert | Optional |
+| Cover art hardware confirmation | **Pending** [HUMAN] — Sprint 50 ships debug instrumentation |
 | Real WinUI README screenshots | Sprint 43 |
+| SpatialLabs 15" / ASV15 EDID on physical panel | [HUMAN] |
 | Physical GPU / PCVR QA | Optional [HARDWARE_QA_OUT_OF_BAND.md](HARDWARE_QA_OUT_OF_BAND.md) |
+| Vendor silent install flags | **Done** — manual-only vendor policy in Sprint 52 (`docs/TOOLCHAIN.md`) |
 
-## Forward work (Sprints 39–44)
+## Active sprint
 
-> Active board: [BUILD_PLAN.md](../BUILD_PLAN.md).
+| Sprint | Theme | State |
+|--------|-------|-------|
+| **42** | v2 productization (Epic/GOG metadata, LAN surfacing) | **Active** |
+| 41 | Launch depth + PlayIn3D honesty | Shipped locally |
+| 51 | Modularization + Sprint 39 AGENT hygiene | Shipped locally |
+| 52 | Vendor toolchain docs + platform deferred work | Shipped locally |
+| 39 | CI truth + release ops (push, legal script, update tests) | **Blocking** — pending [HUMAN] PR to `main` |
+
+## Forward work
+
+> Active board: [BUILD_PLAN.md](../BUILD_PLAN.md) — checkbox task format restored.
 
 | Sprint | Theme | Priority |
 |--------|-------|----------|
-| 39 | CI truth + release ops (push, legal script, update tests) | **Active** |
-| 40 | MVVM and shell UX (palette hotkey, streamer keys) | Planned |
-| 41 | Launch depth and honesty (PlayIn3D wiring, multi-monitor) | Planned |
-| 42 | v2 productization (Epic/GOG launch, surface v2 features) | Planned |
-| 43 | QA gate hardening (P1 offline/Steam, real screenshots) | Planned |
-| 44 | Modularization (file size budgets) | Planned |
+| 44 | Modularization (remaining file splits) | Planned — partial debt in Sprint 51 |
+| 42–43 | v2 productization, QA gate, real screenshots | Planned |
+| 40–41 | MVVM consolidation, launch depth | Planned |
 
-## Closed (Sprints 28–38)
+## Closed (Sprints 28–50)
 
-| Gap | Sprint | Priority |
-|-----|--------|----------|
-| Sprints 28–31 (data, library, v2, PCVR, Winget submit) | 28–31 | **Closed** |
-| Local build zip/MSIX/MSI | 32 | **Closed** |
-| Trainer/mod coexistence | 33 | **Closed** |
-| Hardware scan, glossary, launch preview | 34 | **Closed** |
-| Local game folders, library intelligence | 35 | **Closed** |
-| v2 toggle, About updates, apply+restart | 36 | **Closed** |
-| Display/PCVR/command palette (partial hotkeys → Sprint 40) | 37 | **Closed** |
-| Diagnostics, protocol, readiness score (screenshots → Sprint 43) | 38 | **Closed** |
+See [COMPLETED_TASKS.md](../COMPLETED_TASKS.md).

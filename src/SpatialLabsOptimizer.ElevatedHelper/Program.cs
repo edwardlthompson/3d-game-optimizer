@@ -45,7 +45,7 @@ internal static class Program
     {
         Console.WriteLine("SpatialLabsOptimizer.ElevatedHelper");
         Console.WriteLine("Usage:");
-        Console.WriteLine("  install --tool-id <id> --silent \"<args>\" [--url <url>] [--sha256 <hash>]");
+        Console.WriteLine("  install --tool-id <id> --silent \"<args>\" [--url <url>] [--local-package <path>] [--sha256 <hash>]");
         Console.WriteLine("  apply-update zip <staging.zip> --install-dir <dir> --wait-pid <pid> --relaunch");
         Console.WriteLine("  apply-update msi <staging.msi> --wait-pid <pid> --relaunch");
         Console.WriteLine("Executes privileged silent installs with URL/hash allowlist and audit logging.");
@@ -189,6 +189,7 @@ internal static class Program
         string? toolId = null;
         string? silentArgs = null;
         string? url = null;
+        string? localPackage = null;
         string? sha256 = null;
 
         for (var i = 1; i < args.Length; i++)
@@ -204,6 +205,9 @@ internal static class Program
                 case "--url" when i + 1 < args.Length:
                     url = args[++i];
                     break;
+                case "--local-package" when i + 1 < args.Length:
+                    localPackage = args[++i];
+                    break;
                 case "--sha256" when i + 1 < args.Length:
                     sha256 = args[++i];
                     break;
@@ -216,24 +220,169 @@ internal static class Program
             return 1;
         }
 
-        if (!string.IsNullOrWhiteSpace(url) && !IsUrlAllowlisted(url))
+        if (string.IsNullOrWhiteSpace(url) && string.IsNullOrWhiteSpace(localPackage))
         {
-            await WriteAuditAsync(toolId, false, "URL not allowlisted");
-            return 2;
+            await WriteAuditAsync(toolId, false, "Download URL or local package required");
+            return 4;
         }
 
-        if (!string.IsNullOrWhiteSpace(url) && !string.IsNullOrWhiteSpace(sha256))
+        if (string.IsNullOrWhiteSpace(sha256))
         {
-            var verified = await VerifySha256Async(url, sha256);
-            if (!verified)
+            await WriteAuditAsync(toolId, false, "SHA256 required");
+            return 6;
+        }
+
+        byte[] bytes;
+        if (!string.IsNullOrWhiteSpace(localPackage))
+        {
+            if (!IsBundledPackagePathAllowed(localPackage))
             {
-                await WriteAuditAsync(toolId, false, "SHA256 mismatch");
-                return 3;
+                await WriteAuditAsync(toolId, false, "Local package path not allowlisted");
+                return 7;
+            }
+
+            bytes = await File.ReadAllBytesAsync(localPackage);
+        }
+        else
+        {
+            if (!IsUrlAllowlisted(url!))
+            {
+                await WriteAuditAsync(toolId, false, "URL not allowlisted");
+                return 2;
+            }
+
+            try
+            {
+                bytes = await DownloadAllowlistedAsync(url!);
+            }
+            catch (Exception ex)
+            {
+                await WriteAuditAsync(toolId, false, $"Download failed: {ex.Message}");
+                return 5;
             }
         }
 
-        await WriteAuditAsync(toolId, true, $"Silent args: {silentArgs ?? "(none)"}");
+        var hash = Convert.ToHexString(SHA256.HashData(bytes));
+        if (!hash.Equals(sha256, StringComparison.OrdinalIgnoreCase))
+        {
+            await WriteAuditAsync(toolId, false, "SHA256 mismatch");
+            return 3;
+        }
+
+        var toolsRoot = GetToolInstallRoot(toolId);
+        Directory.CreateDirectory(toolsRoot);
+        var stagingDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "3d-game-optimizer",
+            "staging",
+            toolId);
+        Directory.CreateDirectory(stagingDir);
+
+        var extension = GuessExtension(url ?? localPackage ?? "", bytes);
+        var stagingFile = Path.Combine(stagingDir, $"package{extension}");
+        await File.WriteAllBytesAsync(stagingFile, bytes);
+
+        var exitCode = extension switch
+        {
+            ".zip" => ExtractZip(stagingFile, toolsRoot),
+            ".msi" => RunMsiExec(stagingFile),
+            ".exe" => RunSilentExecutable(stagingFile, silentArgs),
+            _ => CopyPayload(stagingFile, toolsRoot)
+        };
+
+        await WriteAuditAsync(
+            toolId,
+            exitCode == 0,
+            exitCode == 0
+                ? $"Installed to {toolsRoot} via {extension}"
+                : $"Install failed with exit code {exitCode}");
+        return exitCode;
+    }
+
+    private static string GetToolInstallRoot(string toolId) =>
+        Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "3d-game-optimizer",
+            "tools",
+            toolId);
+
+    private static async Task<byte[]> DownloadAllowlistedAsync(string url)
+    {
+        using var client = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };
+        return await client.GetByteArrayAsync(url);
+    }
+
+    private static string GuessExtension(string url, byte[] bytes)
+    {
+        if (bytes.Length >= 2 && bytes[0] == 0x50 && bytes[1] == 0x4B)
+        {
+            return ".zip";
+        }
+
+        if (Uri.TryCreate(url, UriKind.Absolute, out var uri))
+        {
+            var ext = Path.GetExtension(uri.AbsolutePath);
+            if (!string.IsNullOrWhiteSpace(ext))
+            {
+                return ext.ToLowerInvariant();
+            }
+        }
+
+        return ".bin";
+    }
+
+    private static int ExtractZip(string zipPath, string targetDir)
+    {
+        try
+        {
+            ZipFile.ExtractToDirectory(zipPath, targetDir, overwriteFiles: true);
+            return 0;
+        }
+        catch (IOException)
+        {
+            return -2;
+        }
+        catch (InvalidDataException)
+        {
+            return -2;
+        }
+    }
+
+    private static int CopyPayload(string sourceFile, string targetDir)
+    {
+        var destination = Path.Combine(targetDir, Path.GetFileName(sourceFile));
+        File.Copy(sourceFile, destination, overwrite: true);
         return 0;
+    }
+
+    private static int RunSilentExecutable(string exePath, string? silentArgs)
+    {
+        var arguments = string.IsNullOrWhiteSpace(silentArgs) ? "/S" : silentArgs;
+        using var process = Process.Start(new ProcessStartInfo
+        {
+            FileName = exePath,
+            Arguments = arguments,
+            CreateNoWindow = true,
+            UseShellExecute = false
+        });
+        process?.WaitForExit();
+        return process?.ExitCode ?? 1;
+    }
+
+    private static bool IsBundledPackagePathAllowed(string path)
+    {
+        if (!Path.IsPathRooted(path) || !File.Exists(path))
+        {
+            return false;
+        }
+
+        var fullPath = Path.GetFullPath(path);
+        var markers = new[]
+        {
+            $"{Path.DirectorySeparatorChar}tools{Path.DirectorySeparatorChar}fixtures{Path.DirectorySeparatorChar}",
+            $"{Path.AltDirectorySeparatorChar}tools{Path.AltDirectorySeparatorChar}fixtures{Path.AltDirectorySeparatorChar}"
+        };
+        return markers.Any(marker => fullPath.Contains(marker, StringComparison.OrdinalIgnoreCase));
     }
 
     private static bool IsUrlAllowlisted(string url)
@@ -246,14 +395,6 @@ internal static class Program
         var host = uri.Host;
         return host.Equals("github.com", StringComparison.OrdinalIgnoreCase) ||
                host.EndsWith(".githubusercontent.com", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static async Task<bool> VerifySha256Async(string url, string expectedHash)
-    {
-        using var client = new HttpClient();
-        var bytes = await client.GetByteArrayAsync(url);
-        var hash = Convert.ToHexString(SHA256.HashData(bytes));
-        return hash.Equals(expectedHash, StringComparison.OrdinalIgnoreCase);
     }
 
     private static async Task WriteAuditAsync(string toolId, bool success, string detail)

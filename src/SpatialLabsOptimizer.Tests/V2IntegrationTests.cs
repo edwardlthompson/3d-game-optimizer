@@ -18,6 +18,94 @@ public class V2IntegrationTests
     }
 
     [Fact]
+    public void EpicScanner_ParseManifest_ResolvesInstallPath()
+    {
+        var installDir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"3dgo-epic-install-{Guid.NewGuid()}"));
+        var launchExe = Path.Combine(installDir.FullName, "Game.exe");
+        File.WriteAllText(launchExe, "stub");
+
+        var manifestDir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"3dgo-epic-manifest-{Guid.NewGuid()}"));
+        var manifestPath = Path.Combine(manifestDir.FullName, "SampleGame.item");
+        File.WriteAllText(manifestPath, $$"""
+            {
+              "CatalogItemId": "epic-catalog-install-001",
+              "DisplayName": "Installed Epic Game",
+              "InstallLocation": "{{installDir.FullName.Replace("\\", "\\\\")}}",
+              "LaunchExecutable": "Game.exe"
+            }
+            """);
+
+        Assert.True(EpicGogLibraryScanner.TryParseEpicManifest(manifestPath, out var game));
+        Assert.NotNull(game);
+        Assert.Equal(installDir.FullName, game!.InstallDir);
+        Assert.Equal(launchExe, game.LaunchExe);
+    }
+
+    [Fact]
+    public void GogScanner_ParseInfo_ResolvesLaunchExe()
+    {
+        var gameDir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"3dgo-gog-install-{Guid.NewGuid()}"));
+        var launchExe = Path.Combine(gameDir.FullName, "Game.exe");
+        File.WriteAllText(launchExe, "stub");
+
+        var infoPath = Path.Combine(gameDir.FullName, "goggame-1207659029.info");
+        File.WriteAllText(infoPath, $$"""
+            {
+              "gameId": 1207659029,
+              "name": "Cyberpunk GOG",
+              "rootPath": "{{gameDir.FullName.Replace("\\", "\\\\")}}",
+              "playTasks": [
+                { "isPrimary": true, "path": "Game.exe", "type": "launch" }
+              ]
+            }
+            """);
+
+        Assert.True(EpicGogLibraryScanner.TryParseGogInfoFile(infoPath, out var game));
+        Assert.NotNull(game);
+        Assert.Equal(gameDir.FullName, game!.InstallDir);
+        Assert.Equal(launchExe, game.LaunchExe);
+    }
+
+    [Fact]
+    public async Task MultiStoreMerge_PersistsInstallMetadata()
+    {
+        var installDir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"3dgo-merge-install-{Guid.NewGuid()}"));
+        var launchExe = Path.Combine(installDir.FullName, "Fortnite.exe");
+        File.WriteAllText(launchExe, "stub");
+
+        var epicDir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"3dgo-merge-epic-{Guid.NewGuid()}"));
+        File.WriteAllText(Path.Combine(epicDir.FullName, "Fortnite.item"), $$"""
+            {
+              "CatalogItemId": "epic-fortnite-install-001",
+              "DisplayName": "Fortnite Epic",
+              "InstallLocation": "{{installDir.FullName.Replace("\\", "\\\\")}}",
+              "LaunchExecutable": "Fortnite.exe"
+            }
+            """);
+
+        var dbPath = Path.Combine(Path.GetTempPath(), $"3dgo-merge-db-{Guid.NewGuid()}.db");
+        await using var db = new GameDatabase(dbPath);
+        await db.InitializeAsync();
+
+        var dataRoot = TestPaths.FindDataRoot();
+        var loader = new JsonDataLoader(dataRoot);
+        var presets = new PresetCacheService(loader, new ExternalDataGateway(
+            new PrivacyGuardHttpHandler(new PrivacyGuard(PrivacyAllowlist.DefaultHosts)) { InnerHandler = new StubMessageHandler() },
+            new Infrastructure.Progress.OperationProgressHub()));
+        var readiness = new LaunchReadinessService(presets);
+        var scanner = new EpicGogLibraryScanner(epicDir.FullName, Path.Combine(Path.GetTempPath(), $"3dgo-merge-gog-{Guid.NewGuid()}"));
+        var merger = new Infrastructure.Library.LibraryExternalGamesMerger(readiness, db, scanner);
+
+        await merger.MergeAsync([], null, CancellationToken.None);
+
+        var epicGame = scanner.ScanEpicInstalledGames()[0];
+        var install = await db.GetLocalInstallAsync(epicGame.StableAppId);
+        Assert.NotNull(install);
+        Assert.Equal(launchExe, install!.LaunchExe);
+        Assert.False(install.IsStale);
+    }
+
+    [Fact]
     public void EpicScanner_ParseManifest_UsesCatalogItemId()
     {
         var dir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"3dgo-epic-{Guid.NewGuid()}"));

@@ -3,12 +3,76 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ScrollViewer Padding="24">
-        <StackPanel Spacing="16" MaxWidth="720">
+        <StackPanel Spacing="16" MaxWidth="820">
             <TextBlock Text="Library Settings" FontSize="28" FontWeight="SemiBold" />
             <TextBlock
-                Text="Add folders where games are installed outside Steam, Epic, or GOG. Scans stay on your PC — paths are never uploaded."
+                Text="Connect game stores and watch custom install folders. Credentials stay on your PC — nothing is uploaded."
                 TextWrapping="Wrap"
                 Opacity="0.8" />
+
+            <Border Padding="16" Background="{StaticResource Brush.SurfaceAlt}" CornerRadius="8">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Library summary" FontWeight="SemiBold" />
+                    <TextBlock x:Name="StatsBlock" TextWrapping="Wrap" Opacity="0.85" />
+                    <Button x:Name="RefreshStatsButton" Content="Refresh counts" Click="RefreshStats_Click" Style="{StaticResource AppButtonStyle}" />
+                </StackPanel>
+            </Border>
+
+            <Border Padding="16" Background="{StaticResource Brush.SurfaceAlt}" CornerRadius="8">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Steam" FontWeight="SemiBold" FontSize="16" />
+                    <TextBlock Text="Web API key + Steam ID64 fetch your owned catalog and validate the connection." TextWrapping="Wrap" Opacity="0.75" FontSize="12" />
+                    <TextBox x:Name="SteamIdBox" Header="Steam ID64" PlaceholderText="7656119…" />
+                    <PasswordBox x:Name="SteamKeyBox" PlaceholderText="Steam Web API key" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="TestSteamButton" Content="Test connection" Click="TestSteam_Click" Style="{StaticResource AppButtonStyle}" />
+                        <Button x:Name="SteamKeyHelpButton" Content="Get API key" Click="SteamKeyHelp_Click" Style="{StaticResource AppButtonStyle}" />
+                    </StackPanel>
+                    <TextBlock x:Name="SteamStatusBlock" TextWrapping="Wrap" Opacity="0.85" />
+                </StackPanel>
+            </Border>
+
+            <Border Padding="16" Background="{StaticResource Brush.SurfaceAlt}" CornerRadius="8">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Epic Games" FontWeight="SemiBold" FontSize="16" />
+                    <TextBox x:Name="EpicPathBox" Header="Manifests folder" IsReadOnly="True" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="BrowseEpicButton" Content="Browse…" Click="BrowseEpic_Click" Style="{StaticResource AppButtonStyle}" />
+                        <Button x:Name="ValidateEpicButton" Content="Validate" Click="ValidateEpic_Click" Style="{StaticResource AppButtonStyle}" />
+                    </StackPanel>
+                    <TextBlock x:Name="EpicStatusBlock" TextWrapping="Wrap" Opacity="0.85" />
+                    <TextBlock Text="Local install scan only — online catalog deferred per ADR-0004. See docs/PLATFORM_CONNECTIONS.md." TextWrapping="Wrap" Opacity="0.55" FontSize="12" />
+                </StackPanel>
+            </Border>
+
+            <Border Padding="16" Background="{StaticResource Brush.SurfaceAlt}" CornerRadius="8">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="GOG Galaxy" FontWeight="SemiBold" FontSize="16" />
+                    <TextBox x:Name="GogPathBox" Header="Games folder" IsReadOnly="True" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="BrowseGogButton" Content="Browse…" Click="BrowseGog_Click" Style="{StaticResource AppButtonStyle}" />
+                        <Button x:Name="ValidateGogButton" Content="Validate" Click="ValidateGog_Click" Style="{StaticResource AppButtonStyle}" />
+                    </StackPanel>
+                    <TextBlock x:Name="GogStatusBlock" TextWrapping="Wrap" Opacity="0.85" />
+                    <TextBlock Text="Local install scan only — online catalog deferred per ADR-0004. See docs/PLATFORM_CONNECTIONS.md." TextWrapping="Wrap" Opacity="0.55" FontSize="12" />
+                </StackPanel>
+            </Border>
+
+            <Border Padding="16" Background="{StaticResource Brush.SurfaceAlt}" CornerRadius="8">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Ubisoft Connect" FontWeight="SemiBold" FontSize="16" />
+                    <TextBox x:Name="UbisoftPathBox" Header="Configuration folder" IsReadOnly="True" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="BrowseUbisoftButton" Content="Browse…" Click="BrowseUbisoft_Click" Style="{StaticResource AppButtonStyle}" />
+                        <Button x:Name="ValidateUbisoftButton" Content="Validate" Click="ValidateUbisoft_Click" Style="{StaticResource AppButtonStyle}" />
+                    </StackPanel>
+                    <TextBlock x:Name="UbisoftStatusBlock" TextWrapping="Wrap" Opacity="0.85" />
+                    <TextBlock Text="Local install scan only — online catalog deferred per ADR-0004. See docs/PLATFORM_CONNECTIONS.md." TextWrapping="Wrap" Opacity="0.55" FontSize="12" />
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="Custom local folders" FontWeight="SemiBold" FontSize="16" Margin="0,8,0,0" />
+            <TextBlock Text="Games installed outside store launchers." TextWrapping="Wrap" Opacity="0.75" FontSize="12" />
             <StackPanel Orientation="Horizontal" Spacing="8">
                 <Button x:Name="AddFolderButton" Content="Add folder" Click="AddFolder_Click" Style="{StaticResource AppButtonStyle}" />
                 <Button x:Name="RemoveFolderButton" Content="Remove selected" Click="RemoveFolder_Click" Style="{StaticResource AppButtonStyle}" />
@@ -17,14 +81,9 @@
             <ListView
                 x:Name="FoldersList"
                 SelectionMode="Single"
-                MinHeight="160"
+                MinHeight="120"
                 AutomationProperties.AutomationId="LibrarySettings_FolderList" />
             <TextBlock x:Name="StatusBlock" TextWrapping="Wrap" Opacity="0.7" />
-            <TextBlock
-                Text="Empty state: Add a folder to find games installed outside Steam, Epic, or GOG."
-                Opacity="0.6"
-                FontSize="12"
-                TextWrapping="Wrap" />
         </StackPanel>
     </ScrollViewer>
 </Page>

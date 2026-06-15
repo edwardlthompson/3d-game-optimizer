@@ -2,6 +2,135 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Sprint 44 — Modularization (archived 2026-06-15)
+
+- [x] [AGENT] Split `FutureServices.cs` — `IncrementalSteamScanService`, `HdrWatchdogService`, `PlayQueueService`, `SessionProfileService`, `SteamGridDbClient`, `LanPartyExportService`, `HybridSessionService`, `ModManagerIntegrationService`, `WorkshopPresetImporter`
+- [x] [AGENT] Split `UseCases.cs` — `RunSilentSetup`, `PlayIn3D`, `PlayInVR`, `ApplyOptimalDefaults`, `ValidateLaunch`
+- [x] [AGENT] Split `LaunchServices.cs` — `LaunchReadinessService`, `PresetCacheService`, `LaunchPlatformRouter`, `ResolveGameSettings`, `GameOverrideRepository`, `LaunchErrorCatalog`, `SafeLaunchService`
+- [x] [AGENT] Split `GameDatabase.cs` — core + `LocalInstalls` + `RecentLaunches` + `Games` partials + `Records`
+- [x] [AGENT] Split `UserPreferencesService.cs` — core + `Updates` + `Display` partials
+- [x] [AGENT] Split `Global3DSettingsView.xaml.cs` — `Snapshots`, `SessionProfiles`, `DisplayLaunch` partials
+- [x] [AGENT] Extract `CommandPaletteService` from `PcvrServices.cs`
+- [x] [AGENT] Residual splits — `PlayIn3D` partials; `PcvrRuntimeConnector` + `DiagnosticBundleService`
+- [x] [AUTO] 168/168 tests green after modularization
+
+> **Residual:** `PlayIn3D.cs` (~155 lines) slightly above logic budget; further split optional.
+
+## Sprint 43 — QA gate hardening (archived 2026-06-15)
+
+- [x] [AGENT] `P1_MAP` in `check-qa-matrix-coverage.sh` — offline/Steam, incremental scan, HDR, About, palette, filters
+- [x] [AGENT] `Sprint43QaGateTests` — 9 smoke tests for P1 scenarios
+- [x] [AGENT] Incremental Steam scan compares installed IDs vs DB (`CountNewInstalls`, `GetInstalledSteamAppIdsAsync`)
+- [x] [AGENT] HDR watchdog `DisableHdrFor3DWithOutcomeAsync` + OS Settings handoff copy
+- [x] [AGENT] README UI previews regenerated — 12-step launch progress in `launch-progress.png`
+- [x] [AUTO] 168/168 tests green
+
+## Sprint 42 — v2 productization (archived 2026-06-15)
+
+- [x] [AGENT] Epic/GOG install + launch metadata — `InstallLocation`/`LaunchExecutable` parsing; persisted via `UpsertLocalInstallAsync`
+- [x] [AGENT] v2 co-op tools in Library — workshop import, LAN export, hybrid session panel (`GameLibraryView` when `V2Enabled`)
+- [x] [AGENT] README v2 accuracy — local install scan, not stubs
+- [x] [AGENT] `V2_MAP` expanded — Epic/GOG install metadata scenarios
+- [x] [AUTO] 159/159 tests green (`V2IntegrationTests` +3)
+
+## Sprint 41 — Launch depth and honesty (archived 2026-06-15)
+
+- [x] [AGENT] PlayIn3D real progress — readiness, preset cache, configs, optimal defaults, snapshot (no fake delay loop)
+- [x] [AGENT] `LaunchDisplayHandoffService` wires `MultiMonitorLaunchPicker` into `LaunchContext` + audit notes
+- [x] [AGENT] OpenXR launch starts SteamVR when runtime.json points at SteamVR; passes `-mode vr`
+- [x] [AGENT] Launch overlay uses determinate progress percent from hub reports
+- [x] [AUTO] `PlayIn3DLaunchTests` + enhanced P0 rollback QA (156/156 green)
+
+## Sprint 40 — MVVM and shell UX (archived 2026-06-15)
+
+- [x] [AGENT] `StreamerHotkeyService` — app-focus hotkeys (Ctrl+Shift+3/S/L/M/H/R) wired in `ShellPage`
+- [x] [AGENT] Game library toolbar uses `x:Bind` VM commands — `GameLibraryView.xaml`
+- [x] [AGENT] `AboutViewModel`, `TroubleshootingViewModel`, `Global3DSettingsViewModel` + existing `LibrarySettingsViewModel`
+- [x] [AGENT] Glossary from `data/glossary/glossary-v1.json` — `GlossaryViewModel`, dynamic `GlossaryView`
+- [x] [AUTO] 152/152 tests green (StreamerHotkey + glossary seed tests)
+
+## Sprint 52 — Vendor toolchain & platform deferred work (archived 2026-06-15)
+
+- [x] [AGENT] Vendor manual-only install policy — `installMode` + `manualInstallGuide` in `tool-manifest-v1.json`; `docs/TOOLCHAIN.md`
+- [x] [AGENT] Split `LibraryIndexMerger` — `LibraryExternalGamesMerger`, `LibrarySteamOwnedMerger`, `LibraryStorePlaceholderAssigner`
+- [x] [AGENT] Real config snapshot JSON + rollback — `ConfigSnapshotService.cs`; `GameOverrideRepository.RemoveAsync`
+- [x] [AGENT] Config snapshot restore UI — Settings → Advanced in `Global3DSettingsView`
+- [x] [AGENT] Epic/GOG/Ubisoft local-only scope — `docs/PLATFORM_CONNECTIONS.md`; Library Settings copy (ADR-0004)
+- [x] [AGENT] Sync `docs/UX_PROGRESS.md` (Sprints 47–52)
+- [x] [AUTO] 150/150 tests green after Sprint 52 changes
+
+## Sprint 50 — Toolchain manifest, cover UX, archive hygiene (archived 2026-06-15)
+
+- [x] [AGENT] Bundled uevr/reshade fixtures + SHA256 in `tool-manifest-v1.json`; mandatory hash in `ElevatedHelper`
+- [x] [AGENT] Observable `GameLibraryItemViewModel` with `CoverImageKey`; store placeholder `cover-*` progress
+- [x] [AGENT] Batch tile refresh after metadata-prefetch; removed `ms-appx:///` converter fallback
+- [x] [AGENT] Wizard `ManualRequired` badge; OpenXR Off status when SteamVR present
+- [x] [AGENT] `CoverArtDebugLog` NDJSON instrumentation (`debug-2ca1ae.log`)
+- [x] [AUTO] `Sprint50Tests` (4 tests) + elevated helper bundled install coverage
+- [x] [AGENT] Archive Sprint 48 + 49 entries below
+
+> **Deferred (P2/P3):** carried to Sprint 51 — see Sprint 51 archive below.
+> **Pending [HUMAN]:** Cover art hardware confirmation on test build.
+
+## Sprint 51 — Modularization & deferred carryover (archived 2026-06-15)
+
+- [x] [AGENT] Split `GameLibraryViewModel` into partial files (CoverRefresh, Commands, Load, Preferences, Properties)
+- [x] [AGENT] Split library indexing — `LibraryIndexer`, `LibraryPrefetchService`, `LibraryIndexMerger`, `LibraryRepositories`
+- [x] [AGENT] Split `DiagnosticsServices.cs` into per-service files under `Infrastructure/Pcvr/`
+- [x] [AGENT] Document WinUI `UiThreadDispatcher` contract in `docs/FOR_AGENTS.md`
+- [x] [AGENT] `ToolInstallDetector` manifest cache + bounded Program Files scan
+- [x] [AGENT] `.gitignore` excludes `artifacts/test-publish/` and `artifacts/fd-test/`
+- [x] [AUTO] 150/150 tests green after modularization
+
+> **Deferred:** carried to Sprint 52 — see Sprint 52 archive above.
+
+## Sprint 49 — Review hardening & production gaps (archived 2026-06-15)
+
+- [x] [AGENT] Real download + silent install in `ElevatedHelper` (GitHub allowlist + local bundled packages)
+- [x] [AGENT] OpenXR **Off** short-circuit in `PcvrRuntimeConnector` + launch path
+- [x] [AGENT] Single-tile cover refresh; `LocalFileUriHelper` cache bust
+- [x] [AGENT] Store-branded placeholder assets (Epic/GOG/Ubisoft)
+- [x] [AGENT] Wizard UX (checklist vs log); smoke markers
+- [x] [AUTO] `Sprint49Tests`; 146 tests green at ship
+
+## Sprint 48 — Cover art, wizard toolchain, 3D Display settings, app icon (archived 2026-06-15)
+
+- [x] [AGENT] Copy Assets to publish output; `file:///` cover URIs; UI-thread grid refresh
+- [x] [AGENT] `ToolInstallDetector` + wizard toolchain checklist (check/X)
+- [x] [AGENT] Rename to **3D Display settings**; OpenXR **Off** option
+- [x] [AGENT] `AppWindow.SetIcon` in `MainWindow`
+- [x] [AUTO] `Sprint48Tests`; Release publish OK
+
+## Sprint 47 — Library connections, persistence, metadata (archived 2026-06-15)
+
+- [x] [AGENT] Platform connection hub (Steam Web API + Epic/GOG/Ubisoft local validation); `DpapiSecretStore`
+- [x] [AGENT] Library filter/sort/smart-collection persistence (`library_ui_prefs`)
+- [x] [AGENT] Cover URI fix + expanded prefetch; store-branded placeholders; Store CDN allowlist
+- [x] [AGENT] Steam owned-games merge + `MetadataPrefetchService` / reviews; Library Settings UI
+- [x] [AGENT] Settings inner category gutters; `UbisoftConnectScanner`
+- [x] [AUTO] `Sprint47Tests`; `STEAM_INTEGRATION.md` updated
+
+## Sprint 46 — Cover art, ASV15 catalog, silent install fix (archived 2026-06-15)
+
+- [x] [AGENT] Fix `optimal-displays-v1.json` schema drift; wizard step gating on install success
+- [x] [AGENT] CDN-first cover art pipeline + bundled placeholder tiles; soft-fail HTTP gateway
+- [x] [AGENT] `acer-asv15-1` catalog + viewing-distance coach; laptop vs monitor matcher
+- [x] [AGENT] Settings full-width expanders with gutters
+- [x] [AUTO] Artwork + ASV15 unit tests; smoke scripts pass (125+ tests at ship)
+
+> **Pending [HUMAN]:** ASV15 EDID capture on physical SpatialLabs View / View Pro 15.6" panel.
+
+## Sprint 45 — UX polish, detection, theme (archived 2026-06-15)
+
+- [x] [AGENT] Startup progress `IsComplete`; deferred cover HTTP; WMI/EDID hardware probe wiring
+- [x] [AGENT] SpatialLabs 15" catalog signatures; orange high-contrast theme + `AppIcon.ico`
+- [x] [AGENT] Setup wizard `x:Bind` + silent install per-tool progress; benchmark feedback
+- [x] [AGENT] Settings reorg (Toolchain Health → Settings, hide snapshots, v2 checkboxes + restart banner)
+- [x] [AGENT] Quick Actions rename + `Ctrl+K`; verbose Steam fetch; `scripts/smoke-ui-flows.ps1`
+- [x] [AUTO] Sprint 45 unit tests (progress, benchmark, settings nav)
+
+> **Follow-up shipped in Sprint 46:** silent install JSON, cover art, ASV15 catalog, Settings layout.
+
 ## Sprint 38 — Community, diagnostics & onboarding polish (archived 2026-06-14)
 
 - [x] [AGENT] `LaunchDryRunService` + Troubleshooting simulate button

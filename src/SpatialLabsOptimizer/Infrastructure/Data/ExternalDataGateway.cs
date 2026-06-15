@@ -26,7 +26,18 @@ public sealed class ExternalDataGateway
     public async Task<string?> GetStringAsync(
         string url,
         string operationId,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        string? userMessage = null)
+    {
+        var (body, _) = await TryGetStringAsync(url, operationId, cancellationToken, userMessage);
+        return body;
+    }
+
+    public async Task<(string? Body, int StatusCode)> TryGetStringAsync(
+        string url,
+        string operationId,
+        CancellationToken cancellationToken = default,
+        string? userMessage = null)
     {
         await _rateLimiter.WaitAsync(cancellationToken);
         try
@@ -37,17 +48,22 @@ public sealed class ExternalDataGateway
                 await Task.Delay(_minDelay - elapsed, cancellationToken);
             }
 
+            var step = userMessage ?? $"GET {new Uri(url).Host}";
             _progressHub.Publish(new OperationProgressReport(
                 operationId,
                 Application.Progress.OperationCategory.Download,
                 "Fetching data",
-                $"GET {new Uri(url).Host}",
+                step,
                 PercentComplete: null));
 
             _lastRequest = DateTimeOffset.UtcNow;
             var response = await _httpClient.GetAsync(url, cancellationToken);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync(cancellationToken);
+            if (!response.IsSuccessStatusCode)
+            {
+                return (null, (int)response.StatusCode);
+            }
+
+            return (await response.Content.ReadAsStringAsync(cancellationToken), (int)response.StatusCode);
         }
         finally
         {
@@ -61,12 +77,25 @@ public sealed class ExternalDataGateway
         IProgress<(long transferred, long total)>? progress = null,
         CancellationToken cancellationToken = default)
     {
+        var (bytes, _) = await TryGetBytesAsync(url, operationId, progress, cancellationToken);
+        return bytes;
+    }
+
+    public async Task<(byte[]? Bytes, int StatusCode)> TryGetBytesAsync(
+        string url,
+        string operationId,
+        IProgress<(long transferred, long total)>? progress = null,
+        CancellationToken cancellationToken = default)
+    {
         await _rateLimiter.WaitAsync(cancellationToken);
         try
         {
             _lastRequest = DateTimeOffset.UtcNow;
             using var response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+            {
+                return (null, (int)response.StatusCode);
+            }
 
             var total = response.Content.Headers.ContentLength ?? -1;
             await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
@@ -92,7 +121,7 @@ public sealed class ExternalDataGateway
                 }
             }
 
-            return ms.ToArray();
+            return (ms.ToArray(), (int)response.StatusCode);
         }
         finally
         {

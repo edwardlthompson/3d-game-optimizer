@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using SpatialLabsOptimizer.Domain;
 
 namespace SpatialLabsOptimizer.Infrastructure.Library;
@@ -23,8 +25,11 @@ public sealed class LibrarySortService
     };
 }
 
-public sealed class GameLibraryItemViewModel
+public sealed class GameLibraryItemViewModel : INotifyPropertyChanged
 {
+    private string? _coverPath;
+    private long _coverRevision;
+
     public GameLibraryItemViewModel(
         GameCatalogItem item,
         bool isPinned = false,
@@ -35,7 +40,7 @@ public sealed class GameLibraryItemViewModel
         Title = item.Title;
         Tier = item.Tier;
         Readiness = item.Readiness;
-        CoverPath = item.CoverCachePath;
+        _coverPath = item.CoverCachePath;
         IsFavorite = item.IsFavorite;
         IsPinned = isPinned;
         IsLocal = string.Equals(item.ReviewDescriptor, "Local", StringComparison.OrdinalIgnoreCase);
@@ -55,11 +60,12 @@ public sealed class GameLibraryItemViewModel
         Source = item;
     }
 
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     public int SteamAppId { get; }
     public string Title { get; }
     public CompatibilityTier Tier { get; }
     public LaunchReadinessState Readiness { get; }
-    public string? CoverPath { get; }
     public bool IsFavorite { get; }
     public bool IsPinned { get; }
     public bool IsLocal { get; }
@@ -69,4 +75,49 @@ public sealed class GameLibraryItemViewModel
     public string ReviewDisplay { get; }
     public string PlayersDisplay { get; }
     public GameCatalogItem Source { get; }
+
+    public string? CoverPath
+    {
+        get => _coverPath;
+        private set
+        {
+            if (_coverPath == value)
+            {
+                return;
+            }
+
+            _coverPath = value;
+            NotifyCoverChanged();
+        }
+    }
+
+    public long CoverRevision => _coverRevision;
+
+    public string? CoverImageKey => string.IsNullOrWhiteSpace(_coverPath)
+        ? null
+        : $"{_coverPath}|{_coverRevision}";
+
+    public void UpdateCover(string? path)
+    {
+        if (_coverPath == path)
+        {
+            _coverRevision = DateTimeOffset.UtcNow.Ticks;
+            OnPropertyChanged(nameof(CoverRevision));
+            OnPropertyChanged(nameof(CoverImageKey));
+            return;
+        }
+
+        CoverPath = path;
+    }
+
+    private void NotifyCoverChanged()
+    {
+        _coverRevision = DateTimeOffset.UtcNow.Ticks;
+        OnPropertyChanged(nameof(CoverPath));
+        OnPropertyChanged(nameof(CoverRevision));
+        OnPropertyChanged(nameof(CoverImageKey));
+    }
+
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null) =>
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }

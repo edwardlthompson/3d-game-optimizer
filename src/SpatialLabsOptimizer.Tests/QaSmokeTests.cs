@@ -87,10 +87,15 @@ public class QaSmokeTests
     [Fact]
     public async Task LaunchPipeline_P0_RollbackSnapshotExists()
     {
-        var snapshots = new ConfigSnapshotService();
-        var path = await snapshots.SnapshotAsync(1091500);
-        Assert.True(File.Exists(path));
-        await snapshots.RollbackAsync(path);
+        var dbPath = Path.Combine(Path.GetTempPath(), $"3dgo-snap-{Guid.NewGuid()}.db");
+        var store = new Infrastructure.Data.SqliteSettingsStore(dbPath);
+        await store.InitializeAsync();
+        var overrides = new GameOverrideRepository(store);
+        var snapshots = new ConfigSnapshotService(overrides);
+        var snapshotPath = await snapshots.SnapshotAsync(1091500);
+        Assert.True(File.Exists(snapshotPath));
+        await snapshots.RollbackAsync(snapshotPath);
+        await store.DisposeAsync();
     }
 
     [Fact]

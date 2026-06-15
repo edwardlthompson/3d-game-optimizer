@@ -1,8 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
+using SpatialLabsOptimizer.Infrastructure;
 using SpatialLabsOptimizer.Infrastructure.Hosting;
 using SpatialLabsOptimizer.Infrastructure.Pcvr;
+using SpatialLabsOptimizer.Views;
 
 namespace SpatialLabsOptimizer;
 
@@ -12,7 +15,7 @@ public partial class App : Microsoft.UI.Xaml.Application
 
     public static int? PendingProtocolAppId { get; set; }
 
-    public Window? MainWindow { get; private set; }
+    public MainWindow? PrimaryWindow { get; private set; }
 
     public static IServiceProvider Services =>
         ((App)Current)._host?.Services
@@ -20,23 +23,81 @@ public partial class App : Microsoft.UI.Xaml.Application
 
     public App()
     {
+        StartupDiagnostics.Trace("App constructor begin");
         InitializeComponent();
+        UnhandledException += (_, e) =>
+        {
+            StartupDiagnostics.WriteFailure($"UnhandledException: {e.Exception}");
+            e.Handled = false;
+        };
+        StartupDiagnostics.Trace("App constructor complete");
     }
 
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
-        _host = Host.CreateDefaultBuilder()
-            .ConfigureSpatialLabsOptimizerServices()
-            .Build();
+        StartupDiagnostics.Trace("OnLaunched begin");
 
-        if (ProtocolRegistrationService.TryParsePlayUri(
-                ProtocolRegistrationService.FindProtocolUriInCommandLine(),
-                out var appId))
+        var enqueued = DispatcherQueue.GetForCurrentThread().TryEnqueue(StartApplication);
+        if (!enqueued)
         {
-            PendingProtocolAppId = appId;
+            StartupDiagnostics.WriteFailure("Failed to enqueue StartApplication.");
         }
 
-        MainWindow = _host.Services.GetRequiredService<MainWindow>();
-        MainWindow.Activate();
+        StartupDiagnostics.Trace("OnLaunched returning");
+    }
+
+    private void StartApplication()
+    {
+        StartupDiagnostics.Trace("StartApplication begin");
+
+        try
+        {
+            var window = new MainWindow();
+            PrimaryWindow = window;
+            StartupDiagnostics.Trace("MainWindow constructed");
+            window.ShowSplash();
+            StartupDiagnostics.Trace("Splash content set");
+            window.Activate();
+            StartupDiagnostics.Trace("MainWindow activated with splash");
+
+            _ = FinishStartupAsync(window);
+        }
+        catch (Exception ex)
+        {
+            StartupDiagnostics.WriteFailure($"StartApplication failed: {ex}");
+        }
+    }
+
+    private async Task FinishStartupAsync(MainWindow window)
+    {
+        try
+        {
+            StartupDiagnostics.Trace("FinishStartupAsync begin");
+            _host = await Task.Run(
+                () => Host.CreateDefaultBuilder()
+                    .ConfigureSpatialLabsOptimizerServices()
+                    .Build());
+            StartupDiagnostics.Trace("Host built");
+
+            if (ProtocolRegistrationService.TryParsePlayUri(
+                    ProtocolRegistrationService.FindProtocolUriInCommandLine(),
+                    out var appId))
+            {
+                PendingProtocolAppId = appId;
+            }
+
+            await window.DispatcherQueue.EnqueueAsync(() =>
+            {
+                window.ShowShell(_host.Services);
+                StartupDiagnostics.Trace("Main shell shown; startup complete");
+            });
+        }
+        catch (Exception ex)
+        {
+            StartupDiagnostics.WriteFailure($"FinishStartupAsync failed: {ex}");
+            window.SplashProgress.ReportError(
+                $"Startup failed: {ex.Message}{Environment.NewLine}" +
+                $"Details were written to {StartupDiagnostics.LogDirectory}.");
+        }
     }
 }

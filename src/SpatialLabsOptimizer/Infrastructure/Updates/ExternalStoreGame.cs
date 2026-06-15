@@ -1,6 +1,12 @@
 namespace SpatialLabsOptimizer.Infrastructure.Updates;
 
-public sealed record ExternalStoreGame(string Store, string ExternalId, int StableAppId, string Title);
+public sealed record ExternalStoreGame(
+    string Store,
+    string ExternalId,
+    int StableAppId,
+    string Title,
+    string? InstallDir = null,
+    string? LaunchExe = null);
 
 public static class ExternalStoreIdMapper
 {

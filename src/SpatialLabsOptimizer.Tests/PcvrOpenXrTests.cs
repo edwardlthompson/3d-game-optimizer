@@ -33,6 +33,28 @@ public class PcvrOpenXrTests
     }
 
     [Fact]
+    public void OpenXrProbe_ResolveSteamVrRoot_FromRuntimeJson()
+    {
+        var dir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"3dgo-steamvr-root-{Guid.NewGuid()}"));
+        var runtimePath = Path.Combine(dir.FullName, "runtime.json");
+        var steamVrRoot = Path.Combine(dir.FullName, "SteamVR");
+        Directory.CreateDirectory(Path.Combine(steamVrRoot, "bin", "win64"));
+        File.WriteAllText(Path.Combine(steamVrRoot, "bin", "win64", "vrstartup.exe"), "");
+        File.WriteAllText(runtimePath, $$"""
+            {
+              "runtime": {
+                "name": "SteamVR/OpenXR",
+                "library_path": "{{Path.Combine(steamVrRoot, "bin", "win64", "openvr_api.dll").Replace("\\", "\\\\")}}"
+              }
+            }
+            """);
+
+        var root = OpenXrRuntimeProbe.TryResolveSteamVrRootFromRuntimeJson(runtimePath);
+        Assert.NotNull(root);
+        Assert.True(Directory.Exists(root!));
+    }
+
+    [Fact]
     public async Task PcvrConnector_ReturnsOpenXrLabel_WhenRuntimeJsonPresent()
     {
         var steamVr = Path.Combine(

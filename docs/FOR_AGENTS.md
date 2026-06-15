@@ -79,3 +79,16 @@ If overlap is reported, split tasks or serialize the conflicting rows in BUILD_P
 ### Encoding failures on Windows
 
 Run `python3 scripts/check-file-encoding.py` after edits. Write text with UTF-8 (no BOM); never UTF-16.
+
+## WinUI host and UI thread contract
+
+The app builds the DI host on a background thread (`App.FinishStartupAsync` uses `Task.Run`) so startup splash stays responsive. Singleton ViewModels are constructed during that build, so `SynchronizationContext.Current` is **null** in their constructors.
+
+**Rules:**
+
+1. `MainWindow.ShowShell` assigns `UiThreadDispatcher.Enqueue` to marshal work onto the WinUI `DispatcherQueue`.
+2. `ViewModelBase.RunOnUiThread` posts to captured `SynchronizationContext` when present, otherwise falls back to `UiThreadDispatcher.Run`.
+3. Progress hub handlers that touch bound collections (e.g. cover tile refresh) must use `RunOnUiThread` — never assume VM creation thread is the UI thread.
+4. Do not move host construction to the UI thread without measuring splash/index blocking regressions.
+
+**Key paths:** `App.xaml.cs`, `MainWindow.xaml.cs`, `ViewModels/ViewModelBase.cs`, `Infrastructure/UiThreadDispatcher.cs`

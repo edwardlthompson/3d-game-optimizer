@@ -17,6 +17,7 @@ using SpatialLabsOptimizer.Infrastructure.Privacy;
 using SpatialLabsOptimizer.Infrastructure.Progress;
 using SpatialLabsOptimizer.Infrastructure.Responsive;
 using SpatialLabsOptimizer.Infrastructure.Steam;
+using SpatialLabsOptimizer.Infrastructure.Security;
 using SpatialLabsOptimizer.Infrastructure.Settings;
 using SpatialLabsOptimizer.Infrastructure.Updates;
 using SpatialLabsOptimizer.ViewModels;
@@ -63,6 +64,7 @@ public static class ServiceCollectionExtensions
                 services.AddSingleton<DisplayAutoDetector>();
                 services.AddSingleton<DisplayChangeMonitor>();
                 services.AddSingleton<MultiMonitorLaunchPicker>();
+                services.AddSingleton<LaunchDisplayHandoffService>();
 
                 // Steam
                 services.AddSingleton<SteamStoreApiClient>();
@@ -70,6 +72,7 @@ public static class ServiceCollectionExtensions
                 services.AddSingleton<PlayerCountService>();
                 services.AddSingleton<SteamVdfScanner>();
                 services.AddSingleton<SteamWebApiClient>();
+                services.AddSingleton<SteamAppReviewsClient>();
 
                 // Artwork
                 services.AddSingleton<CoverArtCache>();
@@ -96,6 +99,7 @@ public static class ServiceCollectionExtensions
                 services.AddSingleton<IGameInstallPathResolver>(sp => sp.GetRequiredService<LocalGameInstallResolver>());
                 services.AddSingleton<IProcessLauncher, ProcessLauncher>();
                 services.AddSingleton<ToolPathResolver>();
+                services.AddSingleton<ToolInstallDetector>();
                 services.AddSingleton<PresetCacheService>();
                 services.AddSingleton<LaunchReadinessService>();
                 services.AddSingleton<LaunchPlatformRouter>();
@@ -106,7 +110,8 @@ public static class ServiceCollectionExtensions
                 services.AddSingleton<IRunningProcessProbe, RunningProcessProbe>();
                 services.AddSingleton<ExternalToolCoexistenceService>();
                 services.AddSingleton<GameFirstLaunchOrchestrator>();
-                services.AddSingleton<ConfigSnapshotService>();
+                services.AddSingleton<ConfigSnapshotService>(sp =>
+                    new ConfigSnapshotService(sp.GetRequiredService<GameOverrideRepository>()));
                 services.AddSingleton<LaunchAuditService>();
                 services.AddSingleton<LaunchPreviewService>();
                 services.AddSingleton<AutoFallbackLaunchService>();
@@ -121,18 +126,55 @@ public static class ServiceCollectionExtensions
                 }));
 
                 // Library
+                services.AddSingleton<PinnedShelfRepository>();
+                services.AddSingleton<LocalPlaylistRepository>();
+                services.AddSingleton<LocalGameFolderRepository>();
+                services.AddSingleton<LocalFolderGameScanner>();
+                services.AddSingleton<CompatibilityNotesRepository>();
+                services.AddSingleton<LibraryIntelligenceService>();
+                services.AddSingleton<DpapiSecretStore>();
+                services.AddSingleton<PlatformConnectionRepository>();
+                services.AddSingleton<PlatformConnectionService>();
+                services.AddSingleton<PlatformLibraryStatsService>();
+                services.AddSingleton<EpicGogLibraryScanner>();
+                services.AddSingleton<UbisoftConnectScanner>();
+                services.AddSingleton<LibraryExternalGamesMerger>(sp => new LibraryExternalGamesMerger(
+                    sp.GetRequiredService<LaunchReadinessService>(),
+                    sp.GetRequiredService<GameDatabase>(),
+                    sp.GetService<EpicGogLibraryScanner>(),
+                    sp.GetRequiredService<LocalGameFolderRepository>(),
+                    sp.GetRequiredService<LocalFolderGameScanner>(),
+                    sp.GetRequiredService<LocalGameInstallResolver>(),
+                    sp.GetRequiredService<UbisoftConnectScanner>()));
+                services.AddSingleton<LibrarySteamOwnedMerger>(sp => new LibrarySteamOwnedMerger(
+                    sp.GetRequiredService<LaunchReadinessService>(),
+                    sp.GetRequiredService<GameDatabase>(),
+                    sp.GetRequiredService<PlatformConnectionRepository>(),
+                    sp.GetRequiredService<SteamWebApiClient>(),
+                    sp.GetRequiredService<SteamStoreApiClient>()));
+                services.AddSingleton<LibraryStorePlaceholderAssigner>(sp => new LibraryStorePlaceholderAssigner(
+                    sp.GetRequiredService<GameDatabase>(),
+                    sp.GetRequiredService<OperationProgressHub>()));
+                services.AddSingleton<LibraryIndexMerger>(sp => new LibraryIndexMerger(
+                    sp.GetRequiredService<LibraryExternalGamesMerger>(),
+                    sp.GetRequiredService<LibrarySteamOwnedMerger>(),
+                    sp.GetRequiredService<LibraryStorePlaceholderAssigner>()));
+                services.AddSingleton<LibraryPrefetchService>(sp => new LibraryPrefetchService(
+                    sp.GetRequiredService<GameDatabase>(),
+                    sp.GetRequiredService<GameArtworkService>(),
+                    sp.GetRequiredService<OperationProgressHub>(),
+                    sp.GetRequiredService<PlatformConnectionRepository>(),
+                    sp.GetRequiredService<SteamAppReviewsClient>(),
+                    sp.GetRequiredService<PlayerCountService>()));
                 services.AddSingleton<LibraryIndexer>(sp => new LibraryIndexer(
                     sp.GetRequiredService<CompatibilityRepository>(),
                     sp.GetRequiredService<SteamVdfScanner>(),
                     sp.GetRequiredService<LaunchReadinessService>(),
                     sp.GetRequiredService<GameDatabase>(),
-                    sp.GetRequiredService<GameArtworkService>(),
                     sp.GetRequiredService<OperationProgressHub>(),
                     sp.GetRequiredService<DisplayAutoDetector>(),
-                    sp.GetService<EpicGogLibraryScanner>(),
-                    sp.GetRequiredService<LocalGameFolderRepository>(),
-                    sp.GetRequiredService<LocalFolderGameScanner>(),
-                    sp.GetRequiredService<LocalGameInstallResolver>()));
+                    sp.GetRequiredService<LibraryIndexMerger>(),
+                    sp.GetRequiredService<LibraryPrefetchService>()));
                 services.AddSingleton<LibrarySortService>();
 
                 // PCVR & extras (always on)
@@ -154,12 +196,6 @@ public static class ServiceCollectionExtensions
                 services.AddSingleton<CommandPaletteService>();
                 services.AddSingleton<PlayQueueService>();
                 services.AddSingleton<UserPreferencesService>();
-                services.AddSingleton<PinnedShelfRepository>();
-                services.AddSingleton<LocalPlaylistRepository>();
-                services.AddSingleton<LocalGameFolderRepository>();
-                services.AddSingleton<LocalFolderGameScanner>();
-                services.AddSingleton<CompatibilityNotesRepository>();
-                services.AddSingleton<LibraryIntelligenceService>();
 
                 if (FeatureFlags.V101Enabled)
                 {
@@ -170,8 +206,8 @@ public static class ServiceCollectionExtensions
                 if (FeatureFlags.V11Enabled)
                 {
                     services.AddSingleton<SessionProfileService>();
-                    services.AddSingleton<StreamerHotkeyService>();
                     services.AddSingleton<StreamFriendlyProfileService>();
+                    services.AddSingleton<StreamerHotkeyService>();
                     services.AddSingleton<ModManagerIntegrationService>();
                 }
 
@@ -184,7 +220,6 @@ public static class ServiceCollectionExtensions
                     services.AddSingleton<HybridSessionService>();
                     services.AddSingleton<ThreeDGoCodeService>();
                     services.AddSingleton<WorkshopPresetImporter>();
-                    services.AddSingleton<EpicGogLibraryScanner>();
                 }
 
                 // Use cases
@@ -195,11 +230,15 @@ public static class ServiceCollectionExtensions
                 services.AddSingleton<ValidateLaunch>();
 
                 // UI
-                services.AddSingleton<MainWindow>();
                 services.AddSingleton<ShellPage>();
                 services.AddSingleton<ShellViewModel>();
                 services.AddSingleton<GameLibraryViewModel>();
+                services.AddSingleton<LibrarySettingsViewModel>();
                 services.AddSingleton<SetupWizardViewModel>();
+                services.AddSingleton<AboutViewModel>();
+                services.AddSingleton<TroubleshootingViewModel>();
+                services.AddSingleton<GlossaryViewModel>();
+                services.AddSingleton<Global3DSettingsViewModel>();
             });
     }
 }

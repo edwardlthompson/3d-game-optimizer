@@ -3,17 +3,23 @@ using SpatialLabsOptimizer.Domain;
 using SpatialLabsOptimizer.Infrastructure;
 using SpatialLabsOptimizer.Infrastructure.Displays;
 using SpatialLabsOptimizer.Infrastructure.Launch;
+using SpatialLabsOptimizer.Infrastructure.Launch.Coexistence;
 using SpatialLabsOptimizer.Infrastructure.Performance;
 using SpatialLabsOptimizer.Infrastructure.Pcvr;
 using SpatialLabsOptimizer.Infrastructure.Progress;
 using SpatialLabsOptimizer.Infrastructure.Settings;
 using SpatialLabsOptimizer.Infrastructure.Updates;
+using SpatialLabsOptimizer.ViewModels;
 
 namespace SpatialLabsOptimizer.Views;
 
 public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Page
 {
+    private sealed record SnapshotListItem(int AppId, string Path, string Label);
+
     private bool _displayLaunchInitialized;
+
+    private Global3DSettingsViewModel? _settingsViewModel;
 
     public Global3DSettingsView()
     {
@@ -24,8 +30,15 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
     private async void Global3DSettingsView_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         var prefs = App.Services.GetRequiredService<UserPreferencesService>();
-        SimpleModeToggle.IsOn = await prefs.GetSimpleModeAsync();
-        var theme = await prefs.GetThemeAsync();
+        _settingsViewModel = App.Services.GetRequiredService<Global3DSettingsViewModel>();
+        await _settingsViewModel.LoadAsync();
+        SafeLaunchToggle.IsOn = _settingsViewModel.SafeLaunch;
+        TrainerToggle.IsOn = _settingsViewModel.TrainerCoexistence;
+        ModManagerToggle.IsOn = _settingsViewModel.ModManagerCoexistence;
+        SimpleModeToggle.IsOn = _settingsViewModel.SimpleMode;
+        RefreshDetectedTools();
+
+        var theme = _settingsViewModel.Theme;
         ThemeCombo.SelectedIndex = theme switch
         {
             "light" => 1,
@@ -34,17 +47,20 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
         };
 
         V2Panel.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+        IntegrationsExpander.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
         var v2Enabled = await FeatureFlags.IsV2EnabledAsync(prefs);
-        V2ExperimentalToggle.IsOn = v2Enabled;
+        V2LanCheck.IsChecked = v2Enabled;
+        V2HybridCheck.IsChecked = v2Enabled;
+        V2EpicGogCheck.IsChecked = v2Enabled;
         RefreshV2RestartNotice(v2Enabled);
 
         await RefreshHdrNoticeAsync();
-        RefreshSnapshotList();
         await RefreshDisplayLaunchPickersAsync();
 
         if (FeatureFlags.V11Enabled)
         {
             SessionToolsPanel.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+            SessionExpander.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
             var hotkey = App.Services.GetService<StreamerHotkeyService>();
             StreamerHotkeyBlock.Text = hotkey is null
                 ? "Streamer hotkey service unavailable."
@@ -56,8 +72,138 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
                     Environment.NewLine + Environment.NewLine,
                     streamFriendly.GetBundles().Select(streamFriendly.FormatBundleForDisplay));
             }
+
             await RefreshSessionProfilesAsync();
         }
+
+        await RefreshSnapshotsAsync();
+    }
+
+    private async void LaunchSafety_Toggled(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        if (_settingsViewModel is null)
+        {
+            return;
+        }
+
+        _settingsViewModel.SafeLaunch = SafeLaunchToggle.IsOn;
+        _settingsViewModel.TrainerCoexistence = TrainerToggle.IsOn;
+        _settingsViewModel.ModManagerCoexistence = ModManagerToggle.IsOn;
+        _settingsViewModel.SimpleMode = SimpleModeToggle.IsOn;
+        await _settingsViewModel.SaveLaunchSafetyAsync();
+    }
+
+    private void RefreshDetectedTools_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        => RefreshDetectedTools();
+
+    private void RefreshDetectedTools()
+    {
+        var coexistence = App.Services.GetRequiredService<ExternalToolCoexistenceService>();
+        var detected = coexistence.GetAllRunningExternalTools();
+        DetectedToolsText.Text = detected.Count == 0
+            ? "Detected external tools: none"
+            : $"Detected external tools: {string.Join(", ", detected)}";
+    }
+
+    private async void V2Feature_Changed(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var wantsV2 = V2LanCheck.IsChecked == true ||
+                      V2HybridCheck.IsChecked == true ||
+                      V2EpicGogCheck.IsChecked == true;
+        var prefs = App.Services.GetRequiredService<UserPreferencesService>();
+        await prefs.SetV2ExperimentalAsync(wantsV2);
+        RefreshV2RestartNotice(wantsV2);
+    }
+
+    private void RefreshV2RestartNotice(bool wantsV2)
+    {
+        if (FeatureFlags.V2EnabledFromEnvironment)
+        {
+            V2RestartNotice.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
+            return;
+        }
+
+        var mismatch = wantsV2 != FeatureFlags.V2RegisteredAtStartup;
+        V2RestartNotice.Visibility = mismatch
+            ? Microsoft.UI.Xaml.Visibility.Visible
+            : Microsoft.UI.Xaml.Visibility.Collapsed;
+        V2RestartNotice.Text = mismatch
+            ? "Restart the app to apply integration changes."
+            : string.Empty;
+    }
+
+    private async void SaveOverride_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        if (!int.TryParse(OverrideAppIdBox.Text?.Trim(), out var appId) || appId <= 0)
+        {
+            OverrideStatus.Text = "Enter a valid Steam App ID.";
+            return;
+        }
+
+        LaunchPlatform? platform = null;
+        if (OverridePlatformCombo.SelectedItem is Microsoft.UI.Xaml.Controls.ComboBoxItem item &&
+            item.Tag is string tag &&
+            !string.IsNullOrWhiteSpace(tag) &&
+            Enum.TryParse<LaunchPlatform>(tag, out var parsed))
+        {
+            platform = parsed;
+        }
+
+        var repo = App.Services.GetRequiredService<GameOverrideRepository>();
+        await repo.SaveAsync(new GameOverride(
+            appId,
+            OverrideDepthSlider.Value,
+            OverrideConvergenceSlider.Value,
+            platform,
+            false,
+            "Auto"));
+        OverrideStatus.Text = $"Saved override for app {appId}.";
+    }
+
+    private async void DisableHdr_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var watchdog = App.Services.GetService<HdrWatchdogService>();
+        if (watchdog is null)
+        {
+            return;
+        }
+
+        var disabled = await watchdog.DisableHdrFor3DAsync();
+        HdrNoticeBlock.Text = disabled
+            ? "HDR disable requested. Confirm in Windows display settings if needed."
+            : "HDR already disabled or unavailable.";
+    }
+
+    private async void BulkPreset_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var presets = App.Services.GetRequiredService<PresetCacheService>();
+        var hub = App.Services.GetRequiredService<OperationProgressHub>();
+        BulkPresetStatus.Text = "Caching presets…";
+        await presets.BulkCacheTopPresetsAsync(50, hub);
+        BulkPresetStatus.Text = "Top presets cached.";
+    }
+
+    private async void Benchmark_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var benchmark = App.Services.GetRequiredService<BenchmarkService>();
+        var score = await benchmark.RunBenchmarkAsync();
+        BenchmarkResult.Text = $"Benchmark score: {score:F0}";
+    }
+
+    private async void ThemeCombo_SelectionChanged(object sender, Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs e)
+    {
+        if (ThemeCombo.SelectedItem is not Microsoft.UI.Xaml.Controls.ComboBoxItem item || item.Tag is not string tag)
+        {
+            return;
+        }
+
+        var prefs = App.Services.GetRequiredService<UserPreferencesService>();
+        await _settingsViewModel!.SetThemeAsync(tag);
+    }
+
+    private void LibrarySettings_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ShellPage.Current?.NavigateToTag("library-settings");
     }
 
     private async Task RefreshDisplayLaunchPickersAsync()
@@ -79,9 +225,7 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
             .FirstOrDefault(o => o.Id == selectedRuntime);
 
         var effectiveRuntime = await openXrPicker.ResolveEffectiveRuntimeLabelAsync();
-        OpenXrRuntimeStatus.Text = effectiveRuntime is null
-            ? "No OpenXR runtime detected — PCVR launches may fail."
-            : $"Effective runtime: {effectiveRuntime}";
+        OpenXrRuntimeStatus.Text = BuildOpenXrOffStatusText(selectedRuntime, effectiveRuntime);
         LaunchDisplayStatus.Text = selectedDisplay is null
             ? "Using primary display."
             : $"Games launch on: {selectedDisplay.FriendlyName}";
@@ -106,13 +250,24 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
         }
     }
 
-    private void RefreshSnapshotList()
+    private Task RefreshSnapshotsAsync()
     {
+        int? filterAppId = int.TryParse(SnapshotFilterAppIdBox.Text?.Trim(), out var appId) && appId > 0
+            ? appId
+            : null;
         var snapshots = App.Services.GetRequiredService<ConfigSnapshotService>();
-        SnapshotList.ItemsSource = snapshots.ListSnapshots()
-            .Select(entry => $"{entry.AppId} — {entry.CreatedAt:yyyy-MM-dd HH:mm}")
+        SnapshotCombo.ItemsSource = snapshots.ListSnapshots(filterAppId)
+            .Select(entry => new SnapshotListItem(
+                entry.AppId,
+                entry.Path,
+                $"{entry.AppId} — {entry.CreatedAt:yyyy-MM-dd HH:mm}"))
             .ToList();
+        RestoreSnapshotButton.IsEnabled = SnapshotCombo.SelectedItem is not null;
+        return Task.CompletedTask;
     }
+
+    private async void RefreshSnapshots_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        => await RefreshSnapshotsAsync();
 
     private async Task RefreshSessionProfilesAsync()
     {
@@ -159,7 +314,7 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
             return;
         }
 
-        var theme = await App.Services.GetRequiredService<UserPreferencesService>().GetThemeAsync();
+        var theme = _settingsViewModel?.Theme ?? "system";
         await profiles.SaveProfileAsync(name, new SessionProfileData
         {
             Name = name,
@@ -194,8 +349,11 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
             "dark" => 2,
             _ => 0
         };
-        var prefs = App.Services.GetRequiredService<UserPreferencesService>();
-        await prefs.SetThemeAsync(profile.Theme);
+        if (_settingsViewModel is not null)
+        {
+            await _settingsViewModel.SetThemeAsync(profile.Theme);
+        }
+
         SessionProfileStatus.Text = $"Loaded profile \"{name}\".";
     }
 
@@ -207,133 +365,17 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
         }
     }
 
-    private async void SaveOverride_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        if (!int.TryParse(OverrideAppIdBox.Text?.Trim(), out var appId) || appId <= 0)
-        {
-            OverrideStatus.Text = "Enter a valid Steam App ID.";
-            return;
-        }
-
-        LaunchPlatform? platform = null;
-        if (OverridePlatformCombo.SelectedItem is Microsoft.UI.Xaml.Controls.ComboBoxItem item &&
-            item.Tag is string tag &&
-            !string.IsNullOrWhiteSpace(tag) &&
-            Enum.TryParse<LaunchPlatform>(tag, out var parsed))
-        {
-            platform = parsed;
-        }
-
-        var repo = App.Services.GetRequiredService<GameOverrideRepository>();
-        await repo.SaveAsync(new GameOverride(
-            appId,
-            OverrideDepthSlider.Value,
-            OverrideConvergenceSlider.Value,
-            platform,
-            false,
-            "Auto"));
-        OverrideStatus.Text = $"Saved override for app {appId}.";
-    }
-
-    private async void DisableHdr_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        var watchdog = App.Services.GetService<HdrWatchdogService>();
-        if (watchdog is null)
-        {
-            return;
-        }
-
-        var disabled = await watchdog.DisableHdrFor3DAsync();
-        HdrNoticeBlock.Text = disabled
-            ? "HDR disable requested. Confirm in Windows display settings if needed."
-            : "HDR already disabled or unavailable.";
-    }
-
-    private void SnapshotList_SelectionChanged(object sender, Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs e)
-    {
-        RestoreSnapshotButton.IsEnabled = SnapshotList.SelectedItem is not null;
-    }
-
     private async void RestoreSnapshot_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        if (SnapshotList.SelectedIndex < 0)
+        if (SnapshotCombo.SelectedItem is not SnapshotListItem selected)
         {
             return;
         }
 
         var snapshots = App.Services.GetRequiredService<ConfigSnapshotService>();
-        var entries = snapshots.ListSnapshots();
-        if (SnapshotList.SelectedIndex >= entries.Count)
-        {
-            return;
-        }
-
-        var entry = entries[SnapshotList.SelectedIndex];
-        await snapshots.RollbackAsync(entry.Path);
-        SnapshotStatus.Text = $"Restored snapshot for app {entry.AppId}.";
-    }
-
-    private async void V2Experimental_Toggled(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        var prefs = App.Services.GetRequiredService<UserPreferencesService>();
-        var wantsV2 = V2ExperimentalToggle.IsOn;
-        await prefs.SetV2ExperimentalAsync(wantsV2);
-        RefreshV2RestartNotice(wantsV2);
-    }
-
-    private void RefreshV2RestartNotice(bool wantsV2)
-    {
-        if (FeatureFlags.V2EnabledFromEnvironment)
-        {
-            V2RestartNotice.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
-            return;
-        }
-
-        var mismatch = wantsV2 != FeatureFlags.V2RegisteredAtStartup;
-        V2RestartNotice.Visibility = mismatch
-            ? Microsoft.UI.Xaml.Visibility.Visible
-            : Microsoft.UI.Xaml.Visibility.Collapsed;
-        V2RestartNotice.Text = mismatch
-            ? "Restart the app to apply v2 experimental changes."
-            : string.Empty;
-    }
-
-    private async void Benchmark_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        var benchmark = App.Services.GetRequiredService<BenchmarkService>();
-        var score = await benchmark.RunBenchmarkAsync();
-        BenchmarkResult.Text = $"Benchmark score: {score:F0}";
-    }
-
-    private async void BulkPreset_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        var presets = App.Services.GetRequiredService<PresetCacheService>();
-        var hub = App.Services.GetRequiredService<OperationProgressHub>();
-        BulkPresetStatus.Text = "Caching presets…";
-        await presets.BulkCacheTopPresetsAsync(50, hub);
-        BulkPresetStatus.Text = "Top presets cached.";
-    }
-
-    private async void Preference_Toggled(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        var prefs = App.Services.GetRequiredService<UserPreferencesService>();
-        await prefs.SetSimpleModeAsync(SimpleModeToggle.IsOn);
-    }
-
-    private async void ThemeCombo_SelectionChanged(object sender, Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs e)
-    {
-        if (ThemeCombo.SelectedItem is not Microsoft.UI.Xaml.Controls.ComboBoxItem item || item.Tag is not string tag)
-        {
-            return;
-        }
-
-        var prefs = App.Services.GetRequiredService<UserPreferencesService>();
-        await prefs.SetThemeAsync(tag);
-    }
-
-    private void LibrarySettings_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        ShellPage.Current?.NavigateToTag("library-settings");
+        await snapshots.RollbackAsync(selected.Path);
+        SnapshotStatus.Text = $"Restored snapshot for app {selected.AppId}.";
+        await RefreshSnapshotsAsync();
     }
 
     private async void LaunchDisplayCombo_SelectionChanged(object sender, Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs e)
@@ -358,9 +400,7 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
         var openXrPicker = App.Services.GetRequiredService<OpenXrRuntimePicker>();
         await openXrPicker.SetSelectedOverrideIdAsync(option.Id);
         var effective = await openXrPicker.ResolveEffectiveRuntimeLabelAsync();
-        OpenXrRuntimeStatus.Text = effective is null
-            ? "No OpenXR runtime detected — PCVR launches may fail."
-            : $"Effective runtime: {effective}";
+        OpenXrRuntimeStatus.Text = BuildOpenXrOffStatusText(option.Id, effective);
     }
 
     private void ViewingDistanceCoach_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -369,5 +409,30 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
             Microsoft.UI.Xaml.Visibility.Visible
             ? Microsoft.UI.Xaml.Visibility.Collapsed
             : Microsoft.UI.Xaml.Visibility.Visible;
+    }
+
+    private static string BuildOpenXrOffStatusText(string? selectedRuntimeId, string? effectiveRuntime)
+    {
+        if (string.Equals(selectedRuntimeId, "off", StringComparison.OrdinalIgnoreCase))
+        {
+            return IsSteamVrInstalled()
+                ? "OpenXR disabled — SteamVR and other VR runtimes are ignored for PCVR launches."
+                : "OpenXR override disabled.";
+        }
+
+        return effectiveRuntime is null
+            ? "No OpenXR runtime detected — PCVR launches may fail."
+            : $"Effective runtime: {effectiveRuntime}";
+    }
+
+    private static bool IsSteamVrInstalled()
+    {
+        var steamVr = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86),
+            "Steam",
+            "steamapps",
+            "common",
+            "SteamVR");
+        return Directory.Exists(steamVr);
     }
 }

@@ -81,6 +81,8 @@ artifacts/sideload-codesign/
 artifacts/product-win-x64/
 artifacts/product-msi/
 artifacts/product-msix/
+artifacts/test-publish/
+artifacts/fd-test/
 packaging/msi/obj/
 
 # Logs

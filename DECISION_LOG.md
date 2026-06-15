@@ -16,6 +16,13 @@
 
 ## Entries
 
+### 2026-06-15 — Sprint 44 residual file budget + local ship readiness
+- **Status:** Accepted
+- **Context:** BUILD_PLAN deferred items after Sprint 44 modularization; Sprint 39 ship gate still blocked on `[HUMAN]` PR to `main`
+- **Decision:** Split `PlayIn3D` into partials (`PlayIn3D.cs`, `PlayIn3D.LaunchPath.cs`); extracted `PcvrRuntimeConnector` and `DiagnosticBundleService` from `PcvrServices.cs`; consolidated BUILD_PLAN to active-board format with ✅/⬜ status glyphs
+- **Validation:** 168/168 `dotnet test`; `run-post-sprint-validation.ps1` green locally
+- **Consequences:** Remote CI, `product-release.yml` dispatch, and WinGet v1.1.0 remain `[HUMAN]`/`[AUTO]` until single PR merges to `main`
+
 ### 2026-06-14 — Sprint 39 CI truth and update UX polish
 - **Status:** Accepted
 - **Context:** BUILD_PLAN Sprint 39 exit gate before landing Sprints 32–38 on `main`

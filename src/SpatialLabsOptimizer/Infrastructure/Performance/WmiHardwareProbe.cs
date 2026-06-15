@@ -147,15 +147,32 @@ internal static class WmiHardwareProbe
         return long.TryParse(value.ToString(), out var parsed) ? parsed : 0;
     }
 
-    private static IEnumerable<ManagementObject> Search(string query)
+    private static IEnumerable<ManagementObject> Search(string query, int timeoutMs = 8000)
     {
+        using var cts = new CancellationTokenSource(timeoutMs);
         using var searcher = new ManagementObjectSearcher(query);
-        foreach (var obj in searcher.Get())
+        var results = new List<ManagementObject>();
+        try
         {
-            if (obj is ManagementObject managementObject)
+            foreach (var obj in searcher.Get())
             {
-                yield return managementObject;
+                cts.Token.ThrowIfCancellationRequested();
+                if (obj is ManagementObject managementObject)
+                {
+                    results.Add(managementObject);
+                }
             }
         }
+        catch (OperationCanceledException)
+        {
+            foreach (var obj in results)
+            {
+                obj.Dispose();
+            }
+
+            return Array.Empty<ManagementObject>();
+        }
+
+        return results;
     }
 }

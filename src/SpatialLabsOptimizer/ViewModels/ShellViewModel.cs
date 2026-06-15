@@ -1,3 +1,4 @@
+using SpatialLabsOptimizer.Domain;
 using SpatialLabsOptimizer.Infrastructure.Data;
 using SpatialLabsOptimizer.Infrastructure.Displays;
 using SpatialLabsOptimizer.Infrastructure.Library;
@@ -28,6 +29,7 @@ public sealed class ShellViewModel : ViewModelBase
     private bool _showLaunchOverlay;
     private string _launchGameTitle = "";
     private string _launchStep = "";
+    private double _launchProgressPercent;
     private bool _updateAvailable;
     private bool _showDisplayChangePrompt;
     private string _displayChangeMessage = "";
@@ -104,6 +106,12 @@ public sealed class ShellViewModel : ViewModelBase
         set => SetProperty(ref _launchStep, value);
     }
 
+    public double LaunchProgressPercent
+    {
+        get => _launchProgressPercent;
+        set => SetProperty(ref _launchProgressPercent, value);
+    }
+
     public bool UpdateAvailable
     {
         get => _updateAvailable;
@@ -172,18 +180,22 @@ public sealed class ShellViewModel : ViewModelBase
     }
 
     private void OnProgressPublished(object? sender, OperationProgressReport report)
+        => RunOnUiThread(() => ApplyProgressReport(report));
+
+    private void ApplyProgressReport(OperationProgressReport report)
     {
         if (report.Category == Application.Progress.OperationCategory.Launch)
         {
             ShowLaunchOverlay = !report.IsComplete && !report.IsFailed;
             LaunchGameTitle = report.Title;
             LaunchStep = report.CurrentStep;
+            LaunchProgressPercent = report.PercentComplete ?? LaunchProgressPercent;
         }
         else
         {
-            ShowActivityBar = !report.IsComplete;
+            ShowActivityBar = !report.IsComplete && !report.IsFailed;
             ActivityMessage = $"{report.Title}: {report.CurrentStep}";
-            ActivityProgress = report.PercentComplete ?? 0;
+            ActivityProgress = report.PercentComplete ?? (report.IsComplete ? 100 : ActivityProgress);
         }
 
         if (report.IsComplete)
@@ -194,10 +206,13 @@ public sealed class ShellViewModel : ViewModelBase
 
     private void OnDisplayConfigurationChanged(object? sender, DisplayConfigurationChangedEventArgs e)
     {
-        var names = string.Join(", ", e.Current.Select(s => s.FriendlyName));
-        DisplayChangeMessage =
-            $"Display configuration changed ({names}). Re-run the setup wizard to refresh your EDID profile.";
-        ShowDisplayChangePrompt = true;
-        Status = "Display hot-plug detected";
+        RunOnUiThread(() =>
+        {
+            var names = string.Join(", ", e.Current.Select(s => s.FriendlyName));
+            DisplayChangeMessage =
+                $"Display configuration changed ({names}). Re-run the setup wizard to refresh your EDID profile.";
+            ShowDisplayChangePrompt = true;
+            Status = "Display hot-plug detected";
+        });
     }
 }

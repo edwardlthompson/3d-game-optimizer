@@ -14,6 +14,30 @@
       }
     },
     {
+      "id": "profile-acer-spatiallabs-laptop",
+      "vendor": "acer",
+      "displayId": "acer-spatiallabs-15",
+      "recommendedPerformanceTier": "medium",
+      "defaults": {
+        "depthScale": 0.58,
+        "convergenceOffset": 0.3,
+        "comfortMode": "balanced",
+        "uiDepthCompensation": true
+      }
+    },
+    {
+      "id": "profile-acer-spatiallabs-view-15",
+      "vendor": "acer",
+      "displayId": "acer-asv15-1",
+      "recommendedPerformanceTier": "medium",
+      "defaults": {
+        "depthScale": 0.6,
+        "convergenceOffset": 0.32,
+        "comfortMode": "balanced",
+        "uiDepthCompensation": true
+      }
+    },
+    {
       "id": "profile-samsung-odyssey-balanced",
       "vendor": "samsung",
       "displayId": "samsung-g90xf",
@@ -23,6 +47,30 @@
         "convergenceOffset": 0.3,
         "comfortMode": "clarity",
         "uiDepthCompensation": true
+      }
+    },
+    {
+      "id": "profile-nvidia-3dvision-safe",
+      "vendor": "nvidia",
+      "displayId": "nvidia-3d-vision-generic",
+      "recommendedPerformanceTier": "medium",
+      "defaults": {
+        "depthScale": 0.5,
+        "convergenceOffset": 0.28,
+        "comfortMode": "safe",
+        "uiDepthCompensation": false
+      }
+    },
+    {
+      "id": "profile-generic-safe-default",
+      "vendor": "generic",
+      "displayId": "generic-manual",
+      "recommendedPerformanceTier": "medium",
+      "defaults": {
+        "depthScale": 0.55,
+        "convergenceOffset": 0.3,
+        "comfortMode": "safe",
+        "uiDepthCompensation": false
       }
     }
   ]

@@ -6,7 +6,10 @@
       "name": "ReShade",
       "category": "post-processing",
       "required": false,
-      "silentArgs": "SILENT_ARGS_PLACEHOLDER_RESHADE",
+      "installMode": "bundled",
+      "bundledPackage": "tools/fixtures/reshade-minimal.zip",
+      "sha256": "FB79E924E9548B07FB1717805ED8B09DB7B82042352BD146FFF29126FB3E44BB",
+      "silentArgs": "",
       "verification": {
         "type": "fileExists",
         "pathHint": "ReShade.ini"
@@ -17,7 +20,10 @@
       "name": "UEVR",
       "category": "runtime-injection",
       "required": false,
-      "silentArgs": "SILENT_ARGS_PLACEHOLDER_UEVR",
+      "installMode": "bundled",
+      "bundledPackage": "tools/fixtures/uevr-minimal.zip",
+      "sha256": "46050028BF817D74F06F94C252ACBD27F87AFB231184A9FB15322AB7713BF461",
+      "silentArgs": "",
       "verification": {
         "type": "fileExists",
         "pathHint": "UEVRInjector.exe"
@@ -28,7 +34,9 @@
       "name": "SpatialLabs Runtime Platform",
       "category": "vendor-runtime",
       "required": true,
-      "silentArgs": "SILENT_ARGS_PLACEHOLDER_SR_PLATFORM",
+      "installMode": "manual",
+      "manualInstallGuide": "Install from Acer SpatialLabs support site or preinstalled OEM driver bundle. Registry probe: HKLM\\Software\\SpatialLabsRuntime",
+      "silentArgs": "",
       "verification": {
         "type": "registryKey",
         "pathHint": "HKLM\\Software\\SpatialLabsRuntime"
@@ -39,7 +47,9 @@
       "name": "Odyssey Hub",
       "category": "vendor-utility",
       "required": false,
-      "silentArgs": "SILENT_ARGS_PLACEHOLDER_ODYSSEY_HUB",
+      "installMode": "manual",
+      "manualInstallGuide": "Install Samsung Odyssey Hub from Samsung support. Required for some Odyssey 3D utility features.",
+      "silentArgs": "",
       "verification": {
         "type": "processOrFile",
         "pathHint": "OdysseyHub.exe"
