@@ -16,6 +16,13 @@
 
 ## Entries
 
+### 2026-06-15 — Sprint 39 ship gate v1.1.0 complete
+- **Status:** Accepted
+- **Context:** Local Sprints 32–52 blocked on single PR + remote CI/release
+- **Decision:** Automated via `ship-sprint39-gate.ps1`; merged PR #2; Product Release 27548631008; post-merge CI flake fixed (snapshot filename GUID suffix)
+- **Validation:** Remote CI 168/168; local `dotnet test` 168/168
+- **Consequences:** BUILD_PLAN trimmed to active HUMAN follow-ups; WinGet v1.1.0 PR and hardware QA remain out-of-band
+
 ### 2026-06-15 — Sprint 44 residual file budget + local ship readiness
 - **Status:** Accepted
 - **Context:** BUILD_PLAN deferred items after Sprint 44 modularization; Sprint 39 ship gate still blocked on `[HUMAN]` PR to `main`

@@ -15,7 +15,9 @@ python (Join-Path $Root "scripts/check-file-encoding.py")
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 if (-not $SkipDotnet) {
-    dotnet test (Join-Path $Root "SpatialLabsOptimizer.sln") -c Release --verbosity minimal
+    dotnet build (Join-Path $Root "SpatialLabsOptimizer.sln") -c Release --verbosity minimal
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    dotnet test (Join-Path $Root "SpatialLabsOptimizer.sln") -c Release --no-build --verbosity minimal
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }
 

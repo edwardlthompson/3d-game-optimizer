@@ -51,8 +51,15 @@ if ($DryRun) {
 }
 
 if (Test-Path $wingetDir) { Remove-Item -Recurse -Force $wingetDir }
-gh repo clone microsoft/winget-pkgs $wingetDir -- --depth 1
+
+$forkOwner = (gh api user --jq .login).Trim()
+if (-not $forkOwner) { throw "gh auth required to resolve GitHub user for winget fork" }
+gh repo fork microsoft/winget-pkgs --clone=false 2>$null | Out-Null
+
+gh repo clone "$forkOwner/winget-pkgs" $wingetDir -- --depth 1
 Push-Location $wingetDir
+git remote add upstream https://github.com/microsoft/winget-pkgs.git 2>$null
+git fetch upstream master --depth 1 2>$null
 git checkout -b $branch
 New-Item -ItemType Directory -Force -Path $destRel | Out-Null
 Copy-Item -Path (Join-Path $src "*") -Destination $destRel -Force
@@ -60,6 +67,7 @@ git add $destRel
 git commit -m "New version: edwardlthompson.SpatialLabsOptimizer $Version"
 git push -u origin HEAD
 gh pr create --repo microsoft/winget-pkgs `
+    --head "${forkOwner}:${branch}" `
     --title "New version: edwardlthompson.SpatialLabsOptimizer $Version" `
     --body "Automated submission from 3d-game-optimizer v$Version.`n`nRelease: https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v$Version"
 Pop-Location

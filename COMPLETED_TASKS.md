@@ -2,6 +2,19 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Sprint 39 — Ship gate v1.1.0 (archived 2026-06-15)
+
+- [x] [HUMAN] Single PR to `main` — [#2](https://github.com/edwardlthompson/3d-game-optimizer/pull/2) squash-merged
+- [x] [AUTO] CI green on ship branch and `main` (168/168 tests)
+- [x] [AUTO] Gitleaks / Security Scan / CodeQL green after squash + XAML binding fix
+- [x] [AUTO] `product-release.yml` dispatched — run 27548631008
+- [x] [AUTO] Release assets — [SpatialLabsOptimizer-v1.1.0](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.1.0) (zip, MSI, Winget manifests)
+- [x] [AGENT] Ship automation — `scripts/ship-sprint39-gate.ps1` / `.sh`
+- [x] [AGENT] Post-merge fixes — `Global3DSettingsView` restore, `CoverArtDebugLog`, `GameLibraryView` `{Binding}` commands, snapshot filename collision
+- [x] [AGENT] Legal consistency, artifact gitignore, UX/docs sync (Sprints 39–40)
+
+> **WinGet:** v1.1.0 manifest generated at `packaging/winget-product/multifile/1.1.0`; PR submission remains `[HUMAN]` (CLA + `prepare-winget-submission.ps1 -OpenPr`).
+
 ## Sprint 44 — Modularization (archived 2026-06-15)
 
 - [x] [AGENT] Split `FutureServices.cs` — `IncrementalSteamScanService`, `HdrWatchdogService`, `PlayQueueService`, `SessionProfileService`, `SteamGridDbClient`, `LanPartyExportService`, `HybridSessionService`, `ModManagerIntegrationService`, `WorkshopPresetImporter`
