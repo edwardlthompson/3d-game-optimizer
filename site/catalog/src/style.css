@@ -102,15 +102,13 @@ td[data-col="reviewPercent"],
 td[data-col="currentPlayers"],
 td[data-col="releaseDate"],
 td[data-col="priceUsd"],
-td[data-col="buy"],
 th[data-col="library"],
 th[data-col="wishlist"],
 th[data-col="gameRank"],
 th[data-col="reviewPercent"],
 th[data-col="currentPlayers"],
 th[data-col="releaseDate"],
-th[data-col="priceUsd"],
-th[data-col="buy"] {
+th[data-col="priceUsd"] {
   white-space: nowrap;
 }
 
@@ -141,6 +139,16 @@ th[data-col="title"] {
   word-break: break-word;
 }
 
+.title-steam-link {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.title-steam-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 td[data-col="rank3d"],
 th[data-col="rank3d"] {
   max-width: 18rem;
@@ -160,11 +168,6 @@ td[data-col="playMethods"] .badge {
 td[data-col="hardware"],
 th[data-col="hardware"] {
   max-width: 12rem;
-}
-
-.steam-app-link {
-  display: inline-block;
-  font-size: 0.875rem;
 }
 
 th {
@@ -481,6 +484,42 @@ th {
   flex-shrink: 0;
   margin: 0;
   justify-self: start;
+}
+
+.steam-sync-banner.success {
+  background: rgba(125, 206, 160, 0.12);
+  border-color: rgba(125, 206, 160, 0.35);
+}
+
+.steam-sync-banner.warn {
+  background: rgba(196, 160, 53, 0.12);
+  border-color: rgba(196, 160, 53, 0.35);
+}
+
+.steam-sync-banner.error {
+  background: rgba(233, 69, 96, 0.15);
+  border-color: rgba(233, 69, 96, 0.35);
+}
+
+.steam-sync-advanced {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.steam-sync-advanced input {
+  min-width: 220px;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.muted-btn {
+  opacity: 0.85;
 }
 
 .banner {

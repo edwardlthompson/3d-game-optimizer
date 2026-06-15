@@ -144,6 +144,11 @@ export class CatalogGrid {
     this.bumpFilters();
   }
 
+  refreshLibrary(): void {
+    this.library = loadLibrary();
+    this.draw();
+  }
+
   private bumpFilters(): void {
     this.filterRevision += 1;
     this.draw();

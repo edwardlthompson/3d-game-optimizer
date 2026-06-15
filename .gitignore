@@ -89,3 +89,6 @@ packaging/msi/obj/
 
 # Logs
 *.log
+
+# Cloudflare Worker local secrets
+workers/steam-library/.dev.vars

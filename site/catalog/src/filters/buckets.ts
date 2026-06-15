@@ -68,10 +68,6 @@ export function hardwareSummary(game: CatalogGame): string {
   return game.hardwareRequirements.displays.map((id) => DISPLAY_LABEL[id] ?? id).join(", ");
 }
 
-export function buyBucket(game: CatalogGame): string {
-  return game.purchaseLinks?.steam || game.steamAppId ? "Has Steam link" : "No link";
-}
-
 export function buildPriceBucketOptions(games: CatalogGame[]): string[] {
   let max = 0;
   for (const g of games) {
@@ -125,7 +121,6 @@ export function collectUniqueValues(games: CatalogGame[]): Record<string, string
     reviewPercent: buildReviewBucketOptions(),
     currentPlayers: buildPlayerBucketOptions(),
     priceUsd: buildPriceBucketOptions(games),
-    buy: ["Has Steam link", "No link"],
   };
 }
 

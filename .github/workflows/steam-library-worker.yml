@@ -1,0 +1,62 @@
+name: Steam library worker
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "workers/steam-library/**"
+      - ".github/workflows/steam-library-worker.yml"
+  pull_request:
+    paths:
+      - "workers/steam-library/**"
+      - ".github/workflows/steam-library-worker.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Typecheck worker
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: workers/steam-library
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Typecheck
+        run: npm run lint
+
+  deploy:
+    name: Deploy to Cloudflare Workers
+    needs: lint
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: workers/steam-library
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: workers/steam-library
+          command: deploy

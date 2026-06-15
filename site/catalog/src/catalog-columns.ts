@@ -3,7 +3,6 @@ import {
   createColumnHelper,
 } from "@tanstack/table-core";
 import {
-  buyBucket,
   gameRankBucket,
   hardwareSummary,
   playerBucket,
@@ -20,10 +19,12 @@ import { rank3DForGame, rank3DScore } from "./rank-3d";
 import type { CatalogGame } from "./types";
 import { displayTitle, escapeHtml } from "./utils";
 
-function steamBuyCell(game: CatalogGame): string {
+function titleCell(game: CatalogGame, title: string): string {
   const appId = game.steamAppId;
-  if (!appId) return "—";
-  return `<a href="steam://store/${appId}" class="steam-app-link" aria-label="Open in Steam app">Open in Steam</a>`;
+  if (appId) {
+    return `<a href="steam://store/${appId}" class="title-cell title-steam-link" aria-label="Open in Steam: ${escapeHtml(title)}">${escapeHtml(title)}</a>`;
+  }
+  return `<span class="title-cell" title="${escapeHtml(title)}">${escapeHtml(title)}</span>`;
 }
 
 const columnHelper = createColumnHelper<CatalogGame>();
@@ -64,10 +65,7 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
       header: "Title",
       enableColumnFilter: false,
       meta: { wrap: true },
-      cell: (info) => {
-        const title = displayTitle(info.getValue());
-        return `<span class="title-cell" title="${escapeHtml(title)}">${escapeHtml(title)}</span>`;
-      },
+      cell: (info) => titleCell(info.row.original, displayTitle(info.getValue())),
     }),
     columnHelper.accessor((g) => gameRankScore(g), {
       id: "gameRank",
@@ -158,13 +156,6 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
         if (price == null) return "—";
         return `<button type="button" class="price-btn" data-price-game="${escapeHtml(game.id)}">$${price.toFixed(2)}</button>`;
       },
-    }),
-    columnHelper.accessor((g) => buyBucket(g), {
-      id: "buy",
-      header: "Buy",
-      enableSorting: false,
-      filterFn: (row, _id, value) => matchesCheckboxFilter(buyBucket(row.original), value),
-      cell: (info) => steamBuyCell(info.row.original),
     }),
   ] as ColumnDef<CatalogGame>[];
 }

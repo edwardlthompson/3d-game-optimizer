@@ -1,0 +1,17 @@
+{
+  "name": "steam-library-sync-worker",
+  "private": true,
+  "license": "MIT",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "typescript": "~5.7.2",
+    "wrangler": "^3.99.0"
+  }
+}

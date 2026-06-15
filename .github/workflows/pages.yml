@@ -6,6 +6,8 @@ on:
     paths:
       - "examples/web/**"
       - "site/catalog/**"
+      - "workers/steam-library/**"
+      - "docs/STEAM_CATALOG_SYNC.md"
       - "data/compatibility/catalog-v2.json"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
@@ -48,6 +50,7 @@ jobs:
           npm run smoke
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/catalog/
+          VITE_STEAM_SYNC_URL: ${{ vars.STEAM_SYNC_WORKER_URL }}
 
       - name: Combine Pages artifact
         run: |
