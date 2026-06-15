@@ -29,10 +29,11 @@ const DISPLAY_LABEL: Record<string, string> = {
   "generic-manual": "Generic stereo",
 };
 
-const appRoot = document.querySelector<HTMLDivElement>("#app");
-if (!appRoot) {
+const maybeRoot = document.querySelector<HTMLDivElement>("#app");
+if (!maybeRoot) {
   throw new Error("Missing #app root");
 }
+const appRoot: HTMLDivElement = maybeRoot;
 
 const state = {
   catalog: null as CatalogDocument | null,
