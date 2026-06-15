@@ -73,7 +73,7 @@ header p {
 
 table {
   width: 100%;
-  table-layout: fixed;
+  table-layout: auto;
   border-collapse: collapse;
   font-size: 0.875rem;
 }
@@ -120,7 +120,7 @@ th[data-col="hardware"] {
 
 td[data-col="title"],
 th[data-col="title"] {
-  width: 15%;
+  max-width: 20rem;
   line-height: 1.35;
 }
 
@@ -132,12 +132,12 @@ th[data-col="title"] {
 
 td[data-col="bestExperience"],
 th[data-col="bestExperience"] {
-  width: 10%;
+  max-width: 14rem;
 }
 
 td[data-col="playMethods"],
 th[data-col="playMethods"] {
-  width: 16%;
+  max-width: 16rem;
 }
 
 td[data-col="playMethods"] .badge {
@@ -147,13 +147,12 @@ td[data-col="playMethods"] .badge {
 
 td[data-col="hardware"],
 th[data-col="hardware"] {
-  width: 10%;
+  max-width: 12rem;
 }
 
 .steam-app-link {
   display: inline-block;
-  margin-inline-start: 0.35rem;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 }
 
 th {

@@ -19,14 +19,8 @@ import { displayTitle, escapeHtml } from "./utils";
 
 function steamBuyCell(game: CatalogGame): string {
   const appId = game.steamAppId;
-  const url =
-    game.purchaseLinks?.steam ??
-    (appId ? `https://store.steampowered.com/app/${appId}/` : null);
-  if (!url) return "—";
-  const steamApp = appId
-    ? ` <a href="steam://store/${appId}" class="steam-app-link" aria-label="Open in Steam app">Steam app</a>`
-    : "";
-  return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Buy on Steam</a>${steamApp}`;
+  if (!appId) return "—";
+  return `<a href="steam://store/${appId}" class="steam-app-link" aria-label="Open in Steam app">Open in Steam</a>`;
 }
 
 const columnHelper = createColumnHelper<CatalogGame>();

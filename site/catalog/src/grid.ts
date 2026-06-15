@@ -158,19 +158,6 @@ export class CatalogGrid {
     this.tableWrap.className = "table-wrap";
     this.tableWrap.innerHTML = `
       <table>
-        <colgroup>
-          <col style="width:2%" />
-          <col style="width:15%" />
-          <col style="width:7%" />
-          <col style="width:10%" />
-          <col style="width:16%" />
-          <col style="width:10%" />
-          <col style="width:9%" />
-          <col style="width:6%" />
-          <col style="width:7%" />
-          <col style="width:5%" />
-          <col style="width:13%" />
-        </colgroup>
         <thead></thead>
         <tbody></tbody>
       </table>`;
@@ -277,6 +264,47 @@ export class CatalogGrid {
       total: this.data.length,
       page: this.pagination.pageIndex + 1,
       pageCount: this.table.getPageCount(),
+    });
+    this.fitColumnWidths();
+  }
+
+  /** Measure visible rows in auto layout, then lock column widths for this page. */
+  private fitColumnWidths(): void {
+    const table = this.tableWrap.querySelector("table")!;
+    table.style.tableLayout = "auto";
+    table.querySelector("colgroup")?.remove();
+
+    requestAnimationFrame(() => {
+      const thead = table.querySelector("thead")!;
+      const headerRow = thead.querySelector("tr:first-child");
+      if (!headerRow) return;
+
+      const bodyRows = [...this.tbody.querySelectorAll("tr")].filter(
+        (row) => !row.querySelector(".empty"),
+      );
+      const colCount = headerRow.children.length;
+      if (colCount === 0 || bodyRows.length === 0) return;
+
+      const widths: number[] = [];
+      for (let i = 0; i < colCount; i += 1) {
+        let max = (headerRow.children[i] as HTMLElement).offsetWidth;
+        for (const row of bodyRows) {
+          const cell = row.children[i] as HTMLElement | undefined;
+          if (cell) max = Math.max(max, cell.offsetWidth);
+        }
+        widths.push(max);
+      }
+
+      const colgroup = document.createElement("colgroup");
+      colgroup.replaceChildren(
+        ...widths.map((width) => {
+          const col = document.createElement("col");
+          col.style.width = `${width}px`;
+          return col;
+        }),
+      );
+      table.insertBefore(colgroup, thead);
+      table.style.tableLayout = "fixed";
     });
   }
 
