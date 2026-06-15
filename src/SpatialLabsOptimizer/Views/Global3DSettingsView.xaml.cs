@@ -15,6 +15,8 @@ namespace SpatialLabsOptimizer.Views;
 
 public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Page
 {
+    private sealed record SnapshotListItem(int AppId, string Path, string Label);
+
     private bool _displayLaunchInitialized;
 
     private Global3DSettingsViewModel? _settingsViewModel;
@@ -202,6 +204,211 @@ public sealed partial class Global3DSettingsView : Microsoft.UI.Xaml.Controls.Pa
     private void LibrarySettings_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         ShellPage.Current?.NavigateToTag("library-settings");
+    }
+
+    private async Task RefreshDisplayLaunchPickersAsync()
+    {
+        var launchPicker = App.Services.GetRequiredService<MultiMonitorLaunchPicker>();
+        var openXrPicker = App.Services.GetRequiredService<OpenXrRuntimePicker>();
+        var selectedDisplay = await launchPicker.GetSelectedTargetAsync();
+        var selectedRuntime = await openXrPicker.GetSelectedOverrideIdAsync();
+
+        LaunchDisplayCombo.ItemsSource = launchPicker.GetAvailableTargets();
+        if (selectedDisplay is not null)
+        {
+            LaunchDisplayCombo.SelectedItem = launchPicker.GetAvailableTargets()
+                .FirstOrDefault(t => t.DeviceId == selectedDisplay.DeviceId);
+        }
+
+        OpenXrRuntimeCombo.ItemsSource = openXrPicker.GetOptions();
+        OpenXrRuntimeCombo.SelectedItem = openXrPicker.GetOptions()
+            .FirstOrDefault(o => o.Id == selectedRuntime);
+
+        var effectiveRuntime = await openXrPicker.ResolveEffectiveRuntimeLabelAsync();
+        OpenXrRuntimeStatus.Text = BuildOpenXrOffStatusText(selectedRuntime, effectiveRuntime);
+        LaunchDisplayStatus.Text = selectedDisplay is null
+            ? "Using primary display."
+            : $"Games launch on: {selectedDisplay.FriendlyName}";
+
+        ViewingDistanceCoachPanel.SetProfile("generic-manual");
+        _displayLaunchInitialized = true;
+    }
+
+    private async Task RefreshHdrNoticeAsync()
+    {
+        var watchdog = App.Services.GetService<HdrWatchdogService>();
+        if (watchdog is null)
+        {
+            return;
+        }
+
+        if (await watchdog.IsHdrEnabledAsync())
+        {
+            HdrPanel.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+            HdrNoticeBlock.Text =
+                "Windows HDR is enabled. 3D sessions may look washed out until HDR is disabled for SDR handoff.";
+        }
+    }
+
+    private Task RefreshSnapshotsAsync()
+    {
+        int? filterAppId = int.TryParse(SnapshotFilterAppIdBox.Text?.Trim(), out var appId) && appId > 0
+            ? appId
+            : null;
+        var snapshots = App.Services.GetRequiredService<ConfigSnapshotService>();
+        SnapshotCombo.ItemsSource = snapshots.ListSnapshots(filterAppId)
+            .Select(entry => new SnapshotListItem(
+                entry.AppId,
+                entry.Path,
+                $"{entry.AppId} — {entry.CreatedAt:yyyy-MM-dd HH:mm}"))
+            .ToList();
+        RestoreSnapshotButton.IsEnabled = SnapshotCombo.SelectedItem is not null;
+        return Task.CompletedTask;
+    }
+
+    private async void RefreshSnapshots_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        => await RefreshSnapshotsAsync();
+
+    private async Task RefreshSessionProfilesAsync()
+    {
+        var profiles = App.Services.GetService<SessionProfileService>();
+        if (profiles is null)
+        {
+            SessionProfileStatus.Text = "Session profiles require v1.1 feature flag.";
+            return;
+        }
+
+        var names = await profiles.ListProfileNamesAsync();
+        SessionProfileCombo.ItemsSource = names;
+        if (names.Count == 0)
+        {
+            SessionProfileStatus.Text = "No saved session profiles yet.";
+            return;
+        }
+
+        var lines = new List<string>();
+        foreach (var name in names)
+        {
+            var savedAt = await profiles.GetProfileSavedAtAsync(name);
+            lines.Add(savedAt.HasValue
+                ? $"{name} — saved {savedAt.Value:yyyy-MM-dd HH:mm}"
+                : name);
+        }
+
+        SessionProfileStatus.Text = string.Join(Environment.NewLine, lines);
+    }
+
+    private async void SaveSessionProfile_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var profiles = App.Services.GetService<SessionProfileService>();
+        if (profiles is null)
+        {
+            SessionProfileStatus.Text = "Session profiles require v1.1 feature flag.";
+            return;
+        }
+
+        var name = SessionProfileNameBox.Text?.Trim();
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            SessionProfileStatus.Text = "Enter a profile name.";
+            return;
+        }
+
+        var theme = _settingsViewModel?.Theme ?? "system";
+        await profiles.SaveProfileAsync(name, new SessionProfileData
+        {
+            Name = name,
+            Depth = DepthSlider.Value,
+            Convergence = ConvergenceSlider.Value,
+            Theme = theme
+        });
+        await RefreshSessionProfilesAsync();
+    }
+
+    private async void LoadSessionProfile_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var profiles = App.Services.GetService<SessionProfileService>();
+        if (profiles is null || SessionProfileCombo.SelectedItem is not string name)
+        {
+            SessionProfileStatus.Text = "Select a profile to load.";
+            return;
+        }
+
+        var profile = await profiles.LoadProfileAsync(name);
+        if (profile is null)
+        {
+            SessionProfileStatus.Text = "Profile not found.";
+            return;
+        }
+
+        DepthSlider.Value = profile.Depth;
+        ConvergenceSlider.Value = profile.Convergence;
+        ThemeCombo.SelectedIndex = profile.Theme switch
+        {
+            "light" => 1,
+            "dark" => 2,
+            _ => 0
+        };
+        if (_settingsViewModel is not null)
+        {
+            await _settingsViewModel.SetThemeAsync(profile.Theme);
+        }
+
+        SessionProfileStatus.Text = $"Loaded profile \"{name}\".";
+    }
+
+    private void SessionProfileCombo_SelectionChanged(object sender, Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs e)
+    {
+        if (SessionProfileCombo.SelectedItem is string name)
+        {
+            SessionProfileNameBox.Text = name;
+        }
+    }
+
+    private async void RestoreSnapshot_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        if (SnapshotCombo.SelectedItem is not SnapshotListItem selected)
+        {
+            return;
+        }
+
+        var snapshots = App.Services.GetRequiredService<ConfigSnapshotService>();
+        await snapshots.RollbackAsync(selected.Path);
+        SnapshotStatus.Text = $"Restored snapshot for app {selected.AppId}.";
+        await RefreshSnapshotsAsync();
+    }
+
+    private async void LaunchDisplayCombo_SelectionChanged(object sender, Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs e)
+    {
+        if (!_displayLaunchInitialized || LaunchDisplayCombo.SelectedItem is not LaunchDisplayTarget target)
+        {
+            return;
+        }
+
+        var launchPicker = App.Services.GetRequiredService<MultiMonitorLaunchPicker>();
+        await launchPicker.SetSelectedTargetAsync(target.DeviceId);
+        LaunchDisplayStatus.Text = $"Games launch on: {target.FriendlyName}";
+    }
+
+    private async void OpenXrRuntimeCombo_SelectionChanged(object sender, Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs e)
+    {
+        if (!_displayLaunchInitialized || OpenXrRuntimeCombo.SelectedItem is not OpenXrRuntimeOption option)
+        {
+            return;
+        }
+
+        var openXrPicker = App.Services.GetRequiredService<OpenXrRuntimePicker>();
+        await openXrPicker.SetSelectedOverrideIdAsync(option.Id);
+        var effective = await openXrPicker.ResolveEffectiveRuntimeLabelAsync();
+        OpenXrRuntimeStatus.Text = BuildOpenXrOffStatusText(option.Id, effective);
+    }
+
+    private void ViewingDistanceCoach_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ViewingDistanceCoachPanel.Visibility = ViewingDistanceCoachPanel.Visibility ==
+            Microsoft.UI.Xaml.Visibility.Visible
+            ? Microsoft.UI.Xaml.Visibility.Collapsed
+            : Microsoft.UI.Xaml.Visibility.Visible;
     }
 
     private static string BuildOpenXrOffStatusText(string? selectedRuntimeId, string? effectiveRuntime)
