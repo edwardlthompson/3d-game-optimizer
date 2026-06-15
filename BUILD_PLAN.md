@@ -47,9 +47,9 @@
 - ✅ [AGENT] `append-price-history.py` · click price → SVG chart · sync banner
 - ⬜ [HUMAN] SteamDB backfill (deferred)
 
-### Phase 5 — Ship
+### Phase 5 — Ship ✅
 
-- ⬜ [AUTO] Push → GitHub Pages redeploy
+- ✅ [AUTO] Push → GitHub Pages redeploy (`865d739`)
 - ⬜ [HUMAN] Odyssey Hub CSV export from installed app
 
 ---
