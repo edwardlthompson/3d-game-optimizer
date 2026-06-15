@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace SpatialLabsOptimizer.Infrastructure.Artwork;
 
-internal static class CoverArtDebugLog
+public static class CoverArtDebugLog
 {
     private static bool Enabled =>
         string.Equals(
