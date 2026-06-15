@@ -71,8 +71,7 @@ export interface CatalogDocument {
 
 export type SortKey =
   | "title"
-  | "bestLevel"
-  | "bestExperience"
+  | "rank3d"
   | "releaseDate"
   | "reviewPercent"
   | "weightedReview"

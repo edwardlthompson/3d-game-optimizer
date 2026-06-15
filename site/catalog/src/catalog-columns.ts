@@ -2,7 +2,6 @@ import {
   type ColumnDef,
   createColumnHelper,
 } from "@tanstack/table-core";
-import { LEVEL_RANK, formatLevel } from "./constants";
 import {
   buyBucket,
   hardwareSummary,
@@ -14,6 +13,7 @@ import {
 } from "./filters/buckets";
 import { matchesCheckboxFilter } from "./filters/checkbox-filter";
 import { playMethodsForGame, playMethodsText } from "./game-accessors";
+import { rank3DFilterKey, rank3DForGame, rank3DScore } from "./rank-3d";
 import { weightedReviewScore } from "./steam-ranking";
 import type { CatalogGame } from "./types";
 import { displayTitle, escapeHtml } from "./utils";
@@ -67,27 +67,19 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
         return `<span class="title-cell" title="${escapeHtml(title)}">${escapeHtml(title)}</span>`;
       },
     }),
-    columnHelper.accessor("bestLevel", {
-      id: "bestLevel",
-      header: "3D level",
-      sortingFn: (a, b) => LEVEL_RANK[a.original.bestLevel] - LEVEL_RANK[b.original.bestLevel],
+    columnHelper.accessor((g) => rank3DScore(g), {
+      id: "rank3d",
+      header: "3D Rank",
+      meta: { wrap: true },
+      sortingFn: (a, b) => rank3DScore(a.original) - rank3DScore(b.original),
       filterFn: (row, _id, value) =>
-        matchesCheckboxFilter(formatLevel(row.original.bestLevel), value),
+        matchesCheckboxFilter(rank3DFilterKey(row.original), value),
       cell: (info) => {
         const game = info.row.original;
-        const levelClass = game.bestLevel === "ultra3d" ? "badge ultra" : "badge";
-        return `<span class="${levelClass}">${escapeHtml(formatLevel(game.bestLevel))}</span>`;
+        const rank = rank3DForGame(game);
+        const levelClass = rank.score >= 95 ? "badge ultra" : rank.score >= 80 ? "badge" : "badge legacy";
+        return `<span class="${levelClass}">${rank.score}</span> ${escapeHtml(rank.label)}`;
       },
-    }),
-    columnHelper.accessor((g) => g.bestExperience?.label ?? formatLevel(g.bestLevel), {
-      id: "bestExperience",
-      header: "Best experience",
-      meta: { wrap: true },
-      filterFn: (row, _id, value) => {
-        const label = row.original.bestExperience?.label ?? formatLevel(row.original.bestLevel);
-        return matchesCheckboxFilter(label, value);
-      },
-      cell: (info) => escapeHtml(String(info.getValue())),
     }),
     columnHelper.accessor((g) => playMethodsText(g), {
       id: "playMethods",

@@ -1,6 +1,7 @@
 import type { CatalogGame } from "../types";
-import { DISPLAY_LABEL, formatLevel } from "../constants";
-import { playMethodKey, playMethodsForGame } from "../game-accessors";
+import { DISPLAY_LABEL } from "../constants";
+import { rank3DFilterKey } from "../rank-3d";
+import { playMethodsForGame } from "../game-accessors";
 
 export const NO_DATA = "(No data)";
 
@@ -73,15 +74,13 @@ export function buildPlayerBucketOptions(): string[] {
 }
 
 export function collectUniqueValues(games: CatalogGame[]): Record<string, string[]> {
-  const level = new Set<string>();
-  const bestExp = new Set<string>();
+  const rank3d = new Set<string>();
   const playMethods = new Set<string>();
   const hardware = new Set<string>();
   const release = new Set<string>();
 
   for (const game of games) {
-    level.add(formatLevel(game.bestLevel));
-    bestExp.add(game.bestExperience?.label ?? formatLevel(game.bestLevel));
+    rank3d.add(rank3DFilterKey(game));
     for (const m of playMethodsForGame(game)) playMethods.add(m.key);
     hardware.add(hardwareSummary(game));
     release.add(releaseYearBucket(game.steamStats?.releaseDate));
@@ -89,8 +88,7 @@ export function collectUniqueValues(games: CatalogGame[]): Record<string, string
 
   const sort = (s: Set<string>) => [...s].sort((a, b) => a.localeCompare(b));
   return {
-    bestLevel: sort(level),
-    bestExperience: sort(bestExp),
+    rank3d: sort(rank3d),
     playMethods: sort(playMethods),
     hardware: sort(hardware),
     releaseDate: sort(release),

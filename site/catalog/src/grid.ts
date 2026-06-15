@@ -15,6 +15,7 @@ import { collectUniqueValues } from "./filters/buckets";
 import { ColumnFilterPopover, formatPlayMethodOption } from "./filters/ColumnFilterPopover";
 import type { PriceHistoryDocument } from "./price-chart";
 import { showPriceChart } from "./price-chart";
+import { rank3DLabel } from "./rank-3d";
 import { loadLibrary, toggleLibrary } from "./library";
 import { matchesListFilter, type ListFilterMode } from "./list-filter";
 import type { CatalogGame } from "./types";
@@ -159,7 +160,7 @@ export class CatalogGrid {
       if (!nvidia || nvidia.label !== "3D Vision Ready") return false;
     }
     if (!this.globalFilter) return true;
-    const hay = [game.title, game.bestExperience?.label ?? "", ...(game.platformSupport ?? []).map((p) => p.label)]
+    const hay = [game.title, rank3DLabel(game), ...(game.platformSupport ?? []).map((p) => p.label)]
       .join(" ")
       .toLowerCase();
     return hay.includes(this.globalFilter);
@@ -204,7 +205,9 @@ export class CatalogGrid {
       if (header.column.getCanFilter()) {
         const options = this.filterOptions[header.column.id] ?? ["Has Steam link", "No link"];
         const format =
-          header.column.id === "playMethods" ? formatPlayMethodOption : (v: string) => v;
+          header.column.id === "playMethods" || header.column.id === "rank3d"
+            ? formatPlayMethodOption
+            : (v: string) => v;
         const popover = new ColumnFilterPopover(
           options,
           String(header.column.columnDef.header ?? header.column.id),
