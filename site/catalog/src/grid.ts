@@ -181,6 +181,7 @@ export class CatalogGrid {
         });
       }
       th.textContent = String(header.column.columnDef.header ?? header.column.id);
+      th.dataset.col = header.column.id;
       sortRow.append(th);
 
       const filterTh = document.createElement("th");
@@ -234,12 +235,18 @@ export class CatalogGrid {
       this.tbody.innerHTML = rows
         .map((row) => {
           const cells = row.getVisibleCells().map((cell) => {
-            const meta = cell.column.columnDef.meta as { steam?: boolean } | undefined;
-            const attr = meta?.steam ? ' data-source="steam-store"' : "";
+            const meta = cell.column.columnDef.meta as { steam?: boolean; wrap?: boolean } | undefined;
+            const colId = cell.column.id;
+            const classes = [meta?.wrap ? "cell-wrap" : ""].filter(Boolean).join(" ");
+            const attrs = [
+              meta?.steam ? ' data-source="steam-store"' : "",
+              ` data-col="${colId}"`,
+              classes ? ` class="${classes}"` : "",
+            ].join("");
             const rendered = cell.column.columnDef.cell;
             const value =
               typeof rendered === "function" ? rendered(cell.getContext()) : cell.getValue();
-            return `<td${attr}>${value ?? ""}</td>`;
+            return `<td${attrs}>${value ?? ""}</td>`;
           });
           return `<tr>${cells.join("")}</tr>`;
         })

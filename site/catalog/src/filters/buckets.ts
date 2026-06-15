@@ -1,6 +1,6 @@
 import type { CatalogGame } from "../types";
 import { DISPLAY_LABEL, formatLevel } from "../constants";
-import { playMethodKey, playMethodsForGame, visionLabel } from "../game-accessors";
+import { playMethodKey, playMethodsForGame } from "../game-accessors";
 
 export const NO_DATA = "(No data)";
 
@@ -75,8 +75,6 @@ export function buildPlayerBucketOptions(): string[] {
 export function collectUniqueValues(games: CatalogGame[]): Record<string, string[]> {
   const level = new Set<string>();
   const bestExp = new Set<string>();
-  const trueGame = new Set<string>();
-  const vision = new Set<string>();
   const playMethods = new Set<string>();
   const hardware = new Set<string>();
   const release = new Set<string>();
@@ -84,8 +82,6 @@ export function collectUniqueValues(games: CatalogGame[]): Record<string, string
   for (const game of games) {
     level.add(formatLevel(game.bestLevel));
     bestExp.add(game.bestExperience?.label ?? formatLevel(game.bestLevel));
-    trueGame.add(game.trueGameLabel ?? "—");
-    vision.add(visionLabel(game));
     for (const m of playMethodsForGame(game)) playMethods.add(m.key);
     hardware.add(hardwareSummary(game));
     release.add(releaseYearBucket(game.steamStats?.releaseDate));
@@ -95,8 +91,6 @@ export function collectUniqueValues(games: CatalogGame[]): Record<string, string
   return {
     bestLevel: sort(level),
     bestExperience: sort(bestExp),
-    trueGame: sort(trueGame),
-    vision: sort(vision),
     playMethods: sort(playMethods),
     hardware: sort(hardware),
     releaseDate: sort(release),

@@ -13,9 +13,21 @@ import {
   reviewBucket,
 } from "./filters/buckets";
 import { matchesCheckboxFilter } from "./filters/checkbox-filter";
-import { playMethodsForGame, playMethodsText, visionLabel } from "./game-accessors";
+import { playMethodsForGame, playMethodsText } from "./game-accessors";
 import type { CatalogGame } from "./types";
-import { escapeHtml } from "./utils";
+import { escapeHtml, stripHtml } from "./utils";
+
+function steamBuyCell(game: CatalogGame): string {
+  const appId = game.steamAppId;
+  const url =
+    game.purchaseLinks?.steam ??
+    (appId ? `https://store.steampowered.com/app/${appId}/` : null);
+  if (!url) return "—";
+  const steamApp = appId
+    ? ` <a href="steam://store/${appId}" class="steam-app-link" aria-label="Open in Steam app">Steam app</a>`
+    : "";
+  return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Buy on Steam</a>${steamApp}`;
+}
 
 const columnHelper = createColumnHelper<CatalogGame>();
 
@@ -42,7 +54,8 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
       id: "title",
       header: "Title",
       enableColumnFilter: false,
-      cell: (info) => escapeHtml(info.getValue()),
+      meta: { wrap: true },
+      cell: (info) => escapeHtml(stripHtml(info.getValue())),
     }),
     columnHelper.accessor("bestLevel", {
       id: "bestLevel",
@@ -59,6 +72,7 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
     columnHelper.accessor((g) => g.bestExperience?.label ?? formatLevel(g.bestLevel), {
       id: "bestExperience",
       header: "Best experience",
+      meta: { wrap: true },
       filterFn: (row, _id, value) => {
         const label = row.original.bestExperience?.label ?? formatLevel(row.original.bestLevel);
         return matchesCheckboxFilter(label, value);
@@ -68,6 +82,7 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
     columnHelper.accessor((g) => playMethodsText(g), {
       id: "playMethods",
       header: "Play methods",
+      meta: { wrap: true },
       filterFn: (row, _id, value) =>
         matchesCheckboxFilter(playMethodKeysForGame(row.original), value),
       cell: (info) =>
@@ -75,22 +90,10 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
           .map((m) => `<span class="badge">${escapeHtml(m.label)}</span>`)
           .join(""),
     }),
-    columnHelper.accessor((g) => g.trueGameLabel ?? "—", {
-      id: "trueGame",
-      header: "TrueGame",
-      filterFn: (row, _id, value) =>
-        matchesCheckboxFilter(row.original.trueGameLabel ?? "—", value),
-      cell: (info) => escapeHtml(String(info.getValue())),
-    }),
-    columnHelper.accessor((g) => visionLabel(g), {
-      id: "vision",
-      header: "3D Vision",
-      filterFn: (row, _id, value) => matchesCheckboxFilter(visionLabel(row.original), value),
-      cell: (info) => escapeHtml(String(info.getValue())),
-    }),
     columnHelper.accessor((g) => hardwareSummary(g), {
       id: "hardware",
       header: "Hardware",
+      meta: { wrap: true },
       filterFn: (row, _id, value) => matchesCheckboxFilter(hardwareSummary(row.original), value),
       cell: (info) => escapeHtml(hardwareSummary(info.row.original)),
     }),
@@ -144,13 +147,7 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
       header: "Buy",
       enableSorting: false,
       filterFn: (row, _id, value) => matchesCheckboxFilter(buyBucket(row.original), value),
-      cell: (info) => {
-        const game = info.row.original;
-        const url = game.purchaseLinks?.steam ?? (game.steamAppId ? `https://store.steampowered.com/app/${game.steamAppId}/` : null);
-        return url
-          ? `<a href="${escapeHtml(url)}" rel="noopener noreferrer">Buy on Steam</a>`
-          : "—";
-      },
+      cell: (info) => steamBuyCell(info.row.original),
     }),
   ] as ColumnDef<CatalogGame>[];
 }
