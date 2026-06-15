@@ -50,7 +50,7 @@ export class CatalogGrid {
     ultraOnly: false,
     visionCertifiedOnly: false,
   };
-  private sorting: SortingState = [{ id: "title", desc: false }];
+  private sorting: SortingState = [{ id: "gameRank", desc: true }];
   private columnFilters: ColumnFiltersState = [];
   private pagination: PaginationState = { pageIndex: 0, pageSize: 50 };
   private globalFilter = "";
