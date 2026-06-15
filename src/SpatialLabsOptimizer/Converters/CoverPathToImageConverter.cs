@@ -1,6 +1,6 @@
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media.Imaging;
-using SpatialLabsOptimizer.Infrastructure.Debug;
+using SpatialLabsOptimizer.Infrastructure.Artwork;
 using SpatialLabsOptimizer.Infrastructure.Media;
 
 namespace SpatialLabsOptimizer.Converters;
