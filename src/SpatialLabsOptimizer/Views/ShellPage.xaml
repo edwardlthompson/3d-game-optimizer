@@ -53,18 +53,51 @@
             Grid.Row="1"
             x:Name="NavView"
             IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
             PaneDisplayMode="Left"
+            KeyDown="NavView_KeyDown"
             SelectionChanged="NavView_SelectionChanged">
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Library" Tag="library" Icon="Library" />
-                <NavigationViewItem Content="Setup Wizard" Tag="wizard" Icon="Setting" />
-                <NavigationViewItem Content="Settings" Tag="settings" Icon="Equalizer" />
-                <NavigationViewItem Content="Library folders" Tag="library-settings" Icon="OpenFolder" />
-                <NavigationViewItem Content="Commands" Tag="commands" Icon="Find" />
-                <NavigationViewItem Content="Health" Tag="health" Icon="Repair" />
-                <NavigationViewItem Content="Troubleshooting" Tag="troubleshoot" Icon="Help" />
-                <NavigationViewItem Content="Glossary" Tag="glossary" Icon="Dictionary" />
-                <NavigationViewItem Content="About" Tag="about" Icon="ContactInfo" />
+                <NavigationViewItem Content="Library" Tag="library">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Library" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Setup Wizard" Tag="wizard">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Setting" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Settings" Tag="settings">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Manage" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Library Settings" Tag="library-settings">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="OpenLocal" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Quick Actions" Tag="commands">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Find" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Troubleshooting" Tag="troubleshoot">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Help" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Glossary" Tag="glossary">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Bookmarks" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="About" Tag="about">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="ContactInfo" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             <Frame x:Name="ContentFrame" />
         </NavigationView>
@@ -89,6 +122,7 @@
             Grid.RowSpan="3"
             GameTitle="{x:Bind ViewModel.LaunchGameTitle, Mode=OneWay}"
             CurrentStep="{x:Bind ViewModel.LaunchStep, Mode=OneWay}"
+            ProgressPercent="{x:Bind ViewModel.LaunchProgressPercent, Mode=OneWay}"
             IsOpen="{x:Bind ViewModel.ShowLaunchOverlay, Mode=OneWay}" />
     </Grid>
 </Page>

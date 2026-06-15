@@ -17,22 +17,13 @@ public sealed partial class LaunchProgressOverlay : UserControl
         DependencyProperty.Register(nameof(CurrentStep), typeof(string), typeof(LaunchProgressOverlay),
             new PropertyMetadata(string.Empty, OnCurrentStepChanged));
 
-    private static readonly string[] LaunchSteps =
-    [
-        "Checking launch readiness…",
-        "Ensuring preset cached…",
-        "Resolving game settings…",
-        "Selecting platform…",
-        "Checking trainer compatibility…",
-        "Applying 3D configs…",
-        "Applying display optimal defaults…",
-        "Starting game…"
-    ];
+    public static readonly DependencyProperty ProgressPercentProperty =
+        DependencyProperty.Register(nameof(ProgressPercent), typeof(double), typeof(LaunchProgressOverlay),
+            new PropertyMetadata(0d, OnProgressPercentChanged));
 
     public LaunchProgressOverlay()
     {
         InitializeComponent();
-        StepsRepeater.ItemsSource = LaunchSteps;
     }
 
     public bool IsOpen
@@ -51,6 +42,12 @@ public sealed partial class LaunchProgressOverlay : UserControl
     {
         get => (string)GetValue(CurrentStepProperty);
         set => SetValue(CurrentStepProperty, value);
+    }
+
+    public double ProgressPercent
+    {
+        get => (double)GetValue(ProgressPercentProperty);
+        set => SetValue(ProgressPercentProperty, value);
     }
 
     private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -75,5 +72,17 @@ public sealed partial class LaunchProgressOverlay : UserControl
         {
             overlay.StepBlock.Text = e.NewValue as string ?? "";
         }
+    }
+
+    private static void OnProgressPercentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not LaunchProgressOverlay overlay)
+        {
+            return;
+        }
+
+        var percent = e.NewValue is double value ? value : 0d;
+        overlay.LaunchProgressBar.IsIndeterminate = percent <= 0;
+        overlay.LaunchProgressBar.Value = Math.Clamp(percent, 0, 100);
     }
 }

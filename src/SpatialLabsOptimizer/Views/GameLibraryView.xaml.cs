@@ -1,3 +1,4 @@
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using SpatialLabsOptimizer.Infrastructure.Library;
@@ -37,6 +38,7 @@ public sealed partial class GameLibraryView : Page
             }
 
             _viewModel = vm;
+            DataContext = vm;
             _viewModel.LibraryUpdated += OnLibraryUpdated;
             await vm.LoadAsync();
             BindLibrary();
@@ -57,9 +59,29 @@ public sealed partial class GameLibraryView : Page
         FavoritesOnlyCheck.IsChecked = _viewModel.ShowFavoritesOnly;
         LocalOnlyCheck.IsChecked = _viewModel.ShowLocalOnly;
         WhyNotReadyCheck.IsChecked = _viewModel.ShowWhyNotReady;
+        SortCombo.SelectedIndex = _viewModel.SortMode switch
+        {
+            LibrarySortMode.PlayersOnline => 1,
+            LibrarySortMode.SteamReviews => 2,
+            LibrarySortMode.Name => 3,
+            LibrarySortMode.Genre => 4,
+            _ => 0
+        };
+        SmartCollectionCombo.SelectedIndex = _viewModel.SmartCollection switch
+        {
+            SmartCollectionMode.FavoritesAndTier => 1,
+            SmartCollectionMode.NeverPlayedIn3D => 2,
+            SmartCollectionMode.LocalOnly => 3,
+            _ => 0
+        };
+        if (!string.IsNullOrWhiteSpace(_viewModel.PlaylistName))
+        {
+            PlaylistNameBox.Text = _viewModel.PlaylistName;
+        }
         WhyNotReadyBlock.Text = _viewModel.WhyNotReadyHint;
         PresetFreshnessBlock.Text = _viewModel.SelectedPresetFreshness;
         CompatibilityNoteBox.Text = _viewModel.CompatibilityNote;
+        V2Panel.Visibility = _viewModel.V2Enabled ? Visibility.Visible : Visibility.Collapsed;
         RecentLaunchesList.ItemsSource = _viewModel.RecentLaunches;
         PlaylistCombo.Items.Clear();
         foreach (var name in _viewModel.PlaylistNames)
@@ -92,20 +114,6 @@ public sealed partial class GameLibraryView : Page
         }
     }
 
-    private async void Refresh_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        if (_viewModel is not null)
-        {
-            await _viewModel.LoadAsync();
-        }
-    }
-
-    private void Play_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => _viewModel?.PlayCommand.Execute(null);
-
-    private void PlayVr_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => _viewModel?.PlayVrCommand.Execute(null);
-
     private void PlayContext_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         if (_viewModel is null || sender is not MenuFlyoutItem item)
@@ -133,24 +141,6 @@ public sealed partial class GameLibraryView : Page
             _viewModel.PlayCommand.Execute(null);
         }
     }
-
-    private void Pin_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => _viewModel?.PinCommand.Execute(null);
-
-    private void Unpin_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => _viewModel?.UnpinCommand.Execute(null);
-
-    private void Queue_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => _viewModel?.QueueCommand.Execute(null);
-
-    private void PlayNext_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => _viewModel?.PlayNextCommand.Execute(null);
-
-    private void Favorite_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => _viewModel?.ToggleFavoriteCommand.Execute(null);
-
-    private void SaveOutput_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => _viewModel?.SaveOutputCommand.Execute(null);
 
     private void SavePlaylist_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
@@ -230,9 +220,6 @@ public sealed partial class GameLibraryView : Page
         _viewModel.CompatibilityNote = CompatibilityNoteBox.Text;
         _viewModel.SaveCompatibilityNoteCommand.Execute(null);
     }
-
-    private void RefreshPreset_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => _viewModel?.RefreshPresetCommand.Execute(null);
 
     private void OutputCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {

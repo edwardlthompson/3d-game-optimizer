@@ -98,6 +98,9 @@ if ($Sign) {
     & (Join-Path $Root "scripts/verify-product-signatures.ps1") @verifyArgs
 }
 
+& (Join-Path $Root "scripts/smoke-local-launch.ps1") -AppDir $stagingApp
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
 Write-Host "=== build-product-local complete ==="
 Write-Host "Zip:  $zipPath"
 if ($msiPath -and (Test-Path $msiPath)) { Write-Host "MSI:  $msiPath" }

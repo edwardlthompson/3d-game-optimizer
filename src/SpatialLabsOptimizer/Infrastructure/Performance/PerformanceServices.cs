@@ -76,6 +76,14 @@ public sealed class SystemSpecsScanner
             vramMb = 4096;
         }
 
+        _progressHub.Publish(new OperationProgressReport(
+            "specs-scan",
+            Application.Progress.OperationCategory.Scan,
+            "Scanning hardware",
+            "Hardware scan complete",
+            IsComplete: true,
+            PercentComplete: 100));
+
         return new HardwareProfile(cpuName, gpuName, vramMb, ramMb, displayName, driverVersion);
     }
 }

@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/assets/readme/app-icon.png" alt="3D Game Optimizer app icon" width="128" />
+
 # 3D Game Optimizer
 
 ![Windows 11](https://img.shields.io/badge/Windows-11%2B-0078D4?style=flat-square&logo=windows11&logoColor=white)
@@ -23,7 +25,7 @@ _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matc
 |---|---|
 | **Displays** | Acer SpatialLabs · Samsung Odyssey 3D · NVIDIA 3D Vision (legacy) · Manual fallback |
 | **Library** | Steam discovery hub — sort by players online, Wilson-weighted reviews, 3D tier |
-| **Launch** | **Play in 3D** — silent presets, no ReShade/UEVR config dialogs, rollback on failure |
+| **Launch** | **Play in 3D** — silent presets, no ReShade/UEVR config dialogs |
 | **Privacy** | Local-first · zero telemetry · optional Steam API key only · no cloud sync |
 
 ## Quick start
@@ -47,7 +49,7 @@ _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matc
 - Automatic platform routing: TrueGame, Odyssey 3D Hub, UEVR, ReShade
 - Pre-cached community presets — zero tool GUIs before play
 - Launch progress overlay with step-by-step readout
-- Config snapshot rollback on failure
+- Automatic config rollback on failure (restore UI coming soon)
 
 **Hardware & performance**
 - Quick system specs scan + optional benchmark mode
@@ -125,7 +127,7 @@ Run the app:
 dotnet run --project src/SpatialLabsOptimizer/SpatialLabsOptimizer.csproj
 ```
 
-**v2 features** (Epic/GOG scan, workshop importer, LAN export) are off by default. Enable locally:
+**v2 features** (Epic/GOG local install scan, workshop importer, LAN export, hybrid co-op) are off by default. Enable locally:
 
 ```powershell
 # Option A — helper script
@@ -160,7 +162,7 @@ In Visual Studio or Cursor, pick the **SpatialLabsOptimizer (v2)** profile from 
 | **v1.0** | WinUI hub, silent setup, discovery library, Play in 3D, multi-vendor displays |
 | **v1.0.1** | Incremental Steam scan, bulk preset cache, HDR watchdog |
 | **v1.1.0** | Local release (zip/MSIX/MSI), local game folders, About updates, PCVR/command palette, diagnostics |
-| **v2.0** | Epic/GOG stubs, workshop importer, co-op partner mode |
+| **v2.0** | Epic/GOG local install metadata, workshop importer, LAN export, hybrid co-op |
 
 Detail: [BUILD_PLAN.md](BUILD_PLAN.md)
 

@@ -17,6 +17,16 @@ pattern_in_tests() {
   fi
 }
 
+declare -A P1_MAP=(
+  ["Steam unavailable"]="P1_SteamUnavailable|LaunchPipeline_P0_SteamUnavailableFallbackStillLaunches|P0_OfflineSeed_SteamUnavailableLibraryStillLoads"
+  ["Offline mode with existing cache"]="P1_OfflineCache|OfflineCache_PresetExistsWithoutNetwork"
+  ["Incremental Steam scan true delta"]="IncrementalSteamScan_CountNewInstalls|CountNewInstalls"
+  ["HDR watchdog OS handoff"]="HdrWatchdog_ExposesOsHandoffInstructions|OsHandoffInstructions"
+  ["About update available UI"]="AboutUpdate_CachedResultEnablesApply|UpdateRestartPending"
+  ["Command palette search"]="CommandPalette_SearchFiltersByQuery|CommandPalette_Search"
+  ["Library favorites filter"]="LibraryFilters_FavoritesOnly|FavoritesFilter"
+)
+
 declare -A P0_MAP=(
   ["First launch with supported Acer display"]="DisplayAutoDetector|SetupWizard|Acer"
   ["First launch with unknown display"]="DisplayAutoDetector|generic|ManualDisplay"
@@ -39,6 +49,8 @@ declare -A V12_MAP=(
 declare -A V2_MAP=(
   ["Epic launcher absent"]="EpicGogScanner_ReturnsEmpty|ScanEpicInstalledGames"
   ["GOG launcher absent"]="EpicGogScanner_ReturnsEmpty|ScanGogInstalledGames"
+  ["Epic install metadata"]="EpicScanner_ParseManifest_ResolvesInstallPath|MultiStoreMerge_PersistsInstallMetadata"
+  ["GOG launch metadata"]="GogScanner_ParseInfo_ResolvesLaunchExe"
   ["Workshop preset import"]="WorkshopImporter_ImportsAllowlisted|ImportAllowlistedSources"
   ["LAN party export"]="LanPartyExport_WritesTitlePayload|ExportSessionAsync"
   ["Multi-store library merge"]="MultiStoreMerge_UsesParsedExternal|EpicScanner_ParseManifest"
@@ -82,6 +94,7 @@ check_map() {
 
 echo "=== check-qa-matrix-coverage ==="
 check_map "P0" P0_MAP
+check_map "P1" P1_MAP
 check_map "v1.1" V11_MAP
 check_map "v1.2" V12_MAP
 check_map "v2" V2_MAP

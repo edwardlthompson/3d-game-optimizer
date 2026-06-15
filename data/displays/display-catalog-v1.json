@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "updatedAt": "2026-06-14",
+  "updatedAt": "2026-06-15",
   "displays": [
     {
       "id": "acer-psv27-2",
@@ -12,7 +12,22 @@
         "EDID_PLACEHOLDER_ACER_PSV27_2_A",
         "EDID_PLACEHOLDER_ACER_PSV27_2_B"
       ],
-      "recommendedProfileId": "profile-acer-spatiallabs-balanced"
+      "recommendedProfileId": "profile-acer-spatiallabs-balanced",
+      "requiredToolIds": ["spatiallabs-runtime-platform", "uevr", "reshade"]
+    },
+    {
+      "id": "acer-asv15-1",
+      "vendor": "Acer",
+      "model": "ASV15-1",
+      "marketingName": "SpatialLabs View / View Pro 15.6\"",
+      "type": "glasses-free-3d-monitor",
+      "edidSignatures": [
+        "*ASV15*",
+        "*SpatialLabs View*",
+        "*Spatial Labs View*"
+      ],
+      "recommendedProfileId": "profile-acer-spatiallabs-view-15",
+      "requiredToolIds": ["spatiallabs-runtime-platform", "uevr", "reshade"]
     },
     {
       "id": "acer-spatiallabs-15",
@@ -21,9 +36,12 @@
       "marketingName": "SpatialLabs 15 Laptop Panel",
       "type": "integrated-display",
       "edidSignatures": [
-        "EDID_PLACEHOLDER_ACER_SL15_A"
+        "1022:*",
+        "*laptop*panel*",
+        "*spatiallabs*15*laptop*"
       ],
-      "recommendedProfileId": "profile-acer-spatiallabs-laptop"
+      "recommendedProfileId": "profile-acer-spatiallabs-laptop",
+      "requiredToolIds": ["spatiallabs-runtime-platform", "uevr", "reshade"]
     },
     {
       "id": "samsung-g90xf",
@@ -34,7 +52,8 @@
       "edidSignatures": [
         "EDID_PLACEHOLDER_SAMSUNG_G90XF_A"
       ],
-      "recommendedProfileId": "profile-samsung-odyssey-balanced"
+      "recommendedProfileId": "profile-samsung-odyssey-balanced",
+      "requiredToolIds": ["odyssey-hub", "uevr", "reshade"]
     },
     {
       "id": "nvidia-3d-vision-generic",
@@ -45,7 +64,8 @@
       "edidSignatures": [
         "EDID_PLACEHOLDER_NVIDIA_3DVISION_GENERIC"
       ],
-      "recommendedProfileId": "profile-nvidia-3dvision-safe"
+      "recommendedProfileId": "profile-nvidia-3dvision-safe",
+      "requiredToolIds": ["uevr", "reshade"]
     },
     {
       "id": "generic-manual",
@@ -56,7 +76,8 @@
       "edidSignatures": [
         "EDID_PLACEHOLDER_GENERIC_MANUAL"
       ],
-      "recommendedProfileId": "profile-generic-safe-default"
+      "recommendedProfileId": "profile-generic-safe-default",
+      "requiredToolIds": ["uevr", "reshade"]
     }
   ]
 }

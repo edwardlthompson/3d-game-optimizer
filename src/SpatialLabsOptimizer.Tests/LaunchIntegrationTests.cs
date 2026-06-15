@@ -57,7 +57,15 @@ public class LaunchIntegrationTests
             new TestHelperLocator(TestPaths.FindElevatedHelperBuildOutput()));
 
         var exitCode = await orchestrator.InstallToolAsync(
-            new ToolManifestEntry("reshade", "ReShade", "", "", "SILENT", [0], null));
+            new ToolManifestEntry(
+                "uevr",
+                "UEVR",
+                "",
+                "46050028BF817D74F06F94C252ACBD27F87AFB231184A9FB15322AB7713BF461",
+                "",
+                [0],
+                null,
+                "tools/fixtures/uevr-minimal.zip"));
 
         Assert.Equal(0, exitCode);
     }

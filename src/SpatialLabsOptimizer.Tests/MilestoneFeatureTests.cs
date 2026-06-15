@@ -31,7 +31,7 @@ public class MilestoneFeatureTests
         var compat = new Infrastructure.Compatibility.CompatibilityRepository(loader);
         var scanner = new Infrastructure.Steam.SteamVdfScanner();
         var hub = new Infrastructure.Progress.OperationProgressHub();
-        var detector = new Infrastructure.Displays.DisplayAutoDetector(loader);
+        var detector = TestPaths.CreateDisplayAutoDetector();
         var handler = new Infrastructure.Privacy.PrivacyGuardHttpHandler(
             new Infrastructure.Privacy.PrivacyGuard(Infrastructure.Privacy.PrivacyAllowlist.DefaultHosts))
         {
@@ -45,8 +45,13 @@ public class MilestoneFeatureTests
             hub);
         var presets = new PresetCacheService(loader, gateway);
         var readiness = new LaunchReadinessService(presets);
+        var external = new Infrastructure.Library.LibraryExternalGamesMerger(readiness, db);
+        var steamOwned = new Infrastructure.Library.LibrarySteamOwnedMerger(readiness, db);
+        var placeholders = new Infrastructure.Library.LibraryStorePlaceholderAssigner(db, hub);
+        var merger = new Infrastructure.Library.LibraryIndexMerger(external, steamOwned, placeholders);
+        var prefetch = new Infrastructure.Library.LibraryPrefetchService(db, artwork, hub);
         var indexer = new Infrastructure.Library.LibraryIndexer(
-            compat, scanner, readiness, db, artwork, hub, detector);
+            compat, scanner, readiness, db, hub, detector, merger, prefetch);
 
         var service = new IncrementalSteamScanService(scanner, db, indexer, hub);
         var delta = await service.ScanNewGamesAsync();

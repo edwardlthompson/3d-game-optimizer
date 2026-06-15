@@ -12,17 +12,21 @@
 
 ## Core Scenarios
 
-| Scenario | Expected Result | Priority |
-|---|---|---|
-| First launch with supported Acer display | recommended profile auto-selected | P0 |
-| First launch with unknown display | generic safe profile offered | P0 |
-| Apply preset then rollback | rollback restores prior values | P0 |
-| Steam unavailable | app remains usable via local seed data | P1 |
-| Tool silent install failure | classified error with next steps shown | P0 |
-| Offline mode with existing cache | no blocking network dependency | P1 |
-| Accessibility keyboard tab flow | setup wizard `CanProceed` gates each step | P0 |
-| PCVR launch without runtime | graceful failure, no crash | P1 |
-| Incremental Steam scan | non-negative delta, no full re-index | P1 |
+| Scenario | Expected Result | Priority | Test reference |
+|---|---|---|---|
+| First launch with supported Acer display | recommended profile auto-selected | P0 | `QaMatrixAutomationTests.P0_AcerDisplay_RecommendedProfileFromCatalog` |
+| First launch with unknown display | generic safe profile offered | P0 | `QaMatrixAutomationTests.P0_UnknownDisplay_GenericProfileAvailable` |
+| Apply preset then rollback | rollback restores prior values | P0 | `QaMatrixAutomationTests.P0_RollbackSnapshot_RestoresPriorState` |
+| Steam unavailable | app remains usable via local seed data | P1 | `Sprint43QaGateTests.P1_SteamUnavailable_LaunchFallbackStillSucceeds`; `QaMatrixAutomationTests.P0_OfflineSeed_SteamUnavailableLibraryStillLoads` |
+| Tool silent install failure | classified error with next steps shown | P0 | `QaMatrixAutomationTests.P0_SilentInstallFailure_ClassifiedWithRecoverySteps` |
+| Offline mode with existing cache | no blocking network dependency | P1 | `Sprint43QaGateTests.P1_OfflineCache_PresetExistsWithoutNetworkFetch` |
+| Accessibility keyboard tab flow | setup wizard `CanProceed` gates each step | P0 | `AccessibilitySmokeTests` |
+| PCVR launch without runtime | graceful failure, no crash | P1 | `MilestoneFeatureTests.PlayInVR_GracefulFail_WhenNoRuntime` |
+| Incremental Steam scan | true delta vs known installs, skip index when none | P1 | `Sprint43QaGateTests.IncrementalSteamScan_CountNewInstalls_IgnoresSeedOnlyTitles` |
+| HDR watchdog | registry disable or explicit OS handoff instructions | P1 | `Sprint43QaGateTests.HdrWatchdog_ExposesOsHandoffInstructions` |
+| About update status | cached/staged update renders apply affordance | P1 | `Sprint43QaGateTests.AboutUpdate_CachedResultEnablesApply`; `AboutUpdate_RetryPendingFlagRoundTrips` |
+| Command palette filter | search narrows quick actions | P1 | `Sprint43QaGateTests.CommandPalette_SearchFiltersByQuery` |
+| Library favorites filter | favorites-only subset from SQLite | P1 | `Sprint43QaGateTests.LibraryFilters_FavoritesOnly_ReturnsSubset` |
 
 ## v1.2 Scenarios (Sprint 29)
 
@@ -39,6 +43,8 @@
 |---|---|---|---|
 | Epic launcher absent | empty ID list, no error | P0 | `V2IntegrationTests.EpicGogScanner_ReturnsEmpty_WhenNotInstalled` |
 | GOG launcher absent | empty ID list, no error | P0 | same |
+| Epic install metadata | install dir + launch exe parsed and persisted | P1 | `V2IntegrationTests.EpicScanner_ParseManifest_ResolvesInstallPath`; `MultiStoreMerge_PersistsInstallMetadata` |
+| GOG launch metadata | playTasks/exe resolved to launch path | P1 | `V2IntegrationTests.GogScanner_ParseInfo_ResolvesLaunchExe` |
 | Workshop preset import | local cache only, allowlist URLs | P1 | `V2IntegrationTests.WorkshopImporter_ImportsAllowlistedSourceManifest` |
 | LAN party export | JSON export, no PII | P1 | `V2IntegrationTests.LanPartyExport_WritesTitlePayloadWithoutPii` |
 | Multi-store library merge | read-only scan, no silent install | P0 | `V2IntegrationTests.MultiStoreMerge_UsesParsedExternalTitles`; ADR-0004 |
@@ -99,3 +105,9 @@
 - Product tag `SpatialLabsOptimizer-v*` runs full pre-release gate including QA matrix coverage.
 - MSIX sideload package builds when `Assets/StoreLogo.png` is present (ADR-0003).
 - Optional Authenticode signing when `CODESIGN_*` secrets are configured.
+
+## Exit Criteria for Sprint 43 (P1 gate)
+
+- `P1_MAP` in `check-qa-matrix-coverage.sh` covers offline/Steam, incremental scan delta, HDR handoff, About update, palette search, and library filters.
+- P1 scenarios in the core table above reference automated tests (no `TBD`).
+- README UI previews regenerated via `scripts/generate-brand-assets.py`.

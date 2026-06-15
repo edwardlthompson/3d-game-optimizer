@@ -1,5 +1,7 @@
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media.Imaging;
+using SpatialLabsOptimizer.Infrastructure.Debug;
+using SpatialLabsOptimizer.Infrastructure.Media;
 
 namespace SpatialLabsOptimizer.Converters;
 
@@ -7,13 +9,35 @@ public sealed class CoverPathToImageConverter : IValueConverter
 {
     public object? Convert(object value, Type targetType, object parameter, string language)
     {
-        if (value is not string path || string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+        var raw = value as string;
+        var path = raw;
+        if (!string.IsNullOrWhiteSpace(raw))
         {
-            return null;
+            var pipe = raw.IndexOf('|');
+            if (pipe > 0)
+            {
+                path = raw[..pipe];
+            }
         }
 
-        return new BitmapImage(new Uri(path));
+        if (path is { Length: > 0 } coverPath && File.Exists(coverPath))
+        {
+            CoverArtDebugLog.LogConvert(coverPath, true, raw);
+            return new BitmapImage(LocalFileUriHelper.ToFileUri(coverPath));
+        }
+
+        var bundled = Path.Combine(AppContext.BaseDirectory, "Assets", "placeholder-cover.png");
+        if (File.Exists(bundled))
+        {
+            CoverArtDebugLog.LogConvert(bundled, true, raw);
+            return new BitmapImage(LocalFileUriHelper.ToFileUri(bundled));
+        }
+
+        CoverArtDebugLog.LogConvert(path, false, raw);
+        return null;
     }
+
+    internal static Uri ToFileUri(string path) => LocalFileUriHelper.ToFileUri(path);
 
     public object ConvertBack(object value, Type targetType, object parameter, string language)
         => throw new NotSupportedException();

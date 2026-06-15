@@ -10,9 +10,10 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "src" / "SpatialLabsOptimizer" / "Assets"
 README_ASSETS = ROOT / "docs" / "assets" / "readme"
 
-BG = (18, 24, 38)
-ACCENT = (56, 189, 248)
-PANEL = (30, 41, 59)
+BG = (18, 18, 18)
+ACCENT = (204, 85, 0)
+ACCENT_BRIGHT = (255, 140, 0)
+PANEL = (30, 30, 30)
 TEXT = (226, 232, 240)
 MUTED = (148, 163, 184)
 CARD = (51, 65, 85)
@@ -34,13 +35,36 @@ def draw_logo(size: int) -> Image.Image:
     draw.rounded_rectangle(
         (margin, margin, size - margin, size - margin),
         radius=max(4, size // 8),
-        fill=ACCENT + (255,),
+        fill=ACCENT_BRIGHT + (255,),
     )
     font = _font(max(10, size // 4))
     label = "3D"
     bbox = draw.textbbox((0, 0), label, font=font)
     tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
     draw.text(((size - tw) / 2, (size - th) / 2 - 2), label, fill=BG + (255,), font=font)
+    return img
+
+
+def draw_store_placeholder(label: str, accent: tuple[int, int, int], width: int = 600, height: int = 900) -> Image.Image:
+    img = Image.new("RGB", (width, height), (30, 30, 30))
+    draw = ImageDraw.Draw(img)
+    draw.rounded_rectangle((24, 24, width - 24, height - 24), radius=16, outline=accent, width=4)
+    font = _font(max(18, width // 18))
+    bbox = draw.textbbox((0, 0), label, font=font)
+    tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    draw.text(((width - tw) / 2, (height - th) / 2), label, fill=MUTED, font=font)
+    return img
+
+
+def draw_placeholder_cover(width: int = 600, height: int = 900) -> Image.Image:
+    img = Image.new("RGB", (width, height), (30, 30, 30))
+    draw = ImageDraw.Draw(img)
+    draw.rounded_rectangle((24, 24, width - 24, height - 24), radius=16, outline=ACCENT_BRIGHT, width=4)
+    font = _font(max(18, width // 18))
+    label = "No cover art"
+    bbox = draw.textbbox((0, 0), label, font=font)
+    tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    draw.text(((width - tw) / 2, (height - th) / 2), label, fill=MUTED, font=font)
     return img
 
 
@@ -92,9 +116,9 @@ def draw_launch_progress(width: int = 960, height: int = 540) -> Image.Image:
     _header(draw, "Launch Progress", "Play in 3D · preset cache · safe launch overlay", width)
     draw.rounded_rectangle((40, 130, width - 40, height - 40), radius=10, fill=PANEL)
     draw.text((60, 160), "Cyberpunk 2077", fill=TEXT, font=_font(22))
-    draw.text((60, 200), "Step 2 of 3 — Applying UEVR profile", fill=MUTED, font=_font(14))
+    draw.text((60, 200), "Step 4 of 12 — Applying optimal defaults", fill=MUTED, font=_font(14))
     draw.rounded_rectangle((60, 240, width - 60, 268), radius=6, fill=(15, 23, 42))
-    draw.rounded_rectangle((60, 240, width - 220, 268), radius=6, fill=ACCENT)
+    draw.rounded_rectangle((60, 240, width - 360, 268), radius=6, fill=ACCENT)
     draw.text((60, 290), "PCVR runtime: OpenXR:SteamVR", fill=ACCENT, font=_font(14))
     return img
 
@@ -120,6 +144,20 @@ def main() -> None:
 
     draw_logo(150).save(ASSETS / "StoreLogo.png")
     draw_logo(44).save(ASSETS / "Square44x44Logo.png")
+
+    ico_sizes = [16, 32, 48, 256]
+    ico_images = [draw_logo(size) for size in ico_sizes]
+    ico_images[0].save(
+        ASSETS / "AppIcon.ico",
+        format="ICO",
+        sizes=[(size, size) for size in ico_sizes],
+        append_images=ico_images[1:],
+    )
+    draw_logo(256).save(README_ASSETS / "app-icon.png")
+    draw_placeholder_cover(600, 900).save(ASSETS / "placeholder-cover.png")
+    draw_store_placeholder("Epic Games", (40, 40, 40)).save(ASSETS / "placeholder-epic.png")
+    draw_store_placeholder("GOG", (128, 0, 64)).save(ASSETS / "placeholder-gog.png")
+    draw_store_placeholder("Ubisoft", (0, 120, 180)).save(ASSETS / "placeholder-ubisoft.png")
 
     screens = [
         ("library-grid.png", draw_library_grid),

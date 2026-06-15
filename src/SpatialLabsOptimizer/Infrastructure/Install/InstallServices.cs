@@ -13,6 +13,9 @@ public sealed class InstallErrorCatalog
         [1] = ("3DGO-0101", "Tool ID not allowlisted", "Verify tool manifest entry"),
         [2] = ("3DGO-0102", "Download URL not allowlisted", "Check vendor download source"),
         [3] = ("3DGO-0103", "Installer hash mismatch", "Re-download toolchain package"),
+        [4] = ("3DGO-0106", "Download URL missing", "Add downloadUrl to tool manifest or install manually"),
+        [5] = ("3DGO-0107", "Download failed", "Check network and allowlisted source"),
+        [6] = ("3DGO-0108", "SHA256 required", "Add sha256 hash to tool manifest entry"),
         [-1] = ("3DGO-0104", "Elevated helper missing", "Reinstall SpatialLabs Optimizer"),
         [-2] = ("3DGO-0105", "Silent install failed", "Re-run setup wizard or install manually")
     };
@@ -60,15 +63,39 @@ public sealed class SilentInstallOrchestrator : IProgressReportingOperation
     public event EventHandler<OperationProgressReport>? ProgressChanged;
 
     public async Task ExecuteAsync(CancellationToken cancellationToken = default)
+        => await ExecuteAsync(null, cancellationToken);
+
+    public async Task ExecuteAsync(IReadOnlyList<string>? toolFilter, CancellationToken cancellationToken = default)
     {
         var manifest = await _loader.LoadAsync<ToolManifestDocument>("tools/tool-manifest-v1.json", cancellationToken);
         var tools = manifest?.Tools?.Select(t => t.ToEntry()).ToList() ?? [];
+        if (toolFilter is { Count: > 0 })
+        {
+            var filter = toolFilter.ToHashSet(StringComparer.OrdinalIgnoreCase);
+            tools = tools.Where(t => filter.Contains(t.Id)).ToList();
+        }
         var helperPath = _helperLocator.HelperPath;
         var helperMissing = !File.Exists(helperPath);
 
         for (var i = 0; i < tools.Count; i++)
         {
             var tool = tools[i];
+            if (string.IsNullOrWhiteSpace(tool.DownloadUrl) && string.IsNullOrWhiteSpace(tool.BundledPackage))
+            {
+                var skip = new OperationProgressReport(
+                    OperationId,
+                    Category,
+                    "Silent toolchain install",
+                    $"Skipped {tool.Name} — install manually from vendor site",
+                    StepIndex: i + 1,
+                    TotalSteps: tools.Count,
+                    PercentComplete: (i + 1) * 100.0 / tools.Count,
+                    DetailMessage: tool.SilentArgs);
+                ProgressChanged?.Invoke(this, skip);
+                _progressHub.Publish(skip);
+                continue;
+            }
+
             var report = new OperationProgressReport(
                 OperationId,
                 Category,
@@ -135,7 +162,7 @@ public sealed class SilentInstallOrchestrator : IProgressReportingOperation
         return tool.SuccessExitCodes.Contains(process.ExitCode) ? 0 : process.ExitCode;
     }
 
-    private static string BuildHelperArgs(ToolManifestEntry tool)
+    private string BuildHelperArgs(ToolManifestEntry tool)
     {
         var builder = new System.Text.StringBuilder();
         builder.Append("install --tool-id ").Append(tool.Id).Append(" --silent \"").Append(tool.SilentArgs).Append('"');
@@ -144,37 +171,18 @@ public sealed class SilentInstallOrchestrator : IProgressReportingOperation
             builder.Append(" --url \"").Append(tool.DownloadUrl).Append('"');
         }
 
+        if (!string.IsNullOrWhiteSpace(tool.BundledPackage))
+        {
+            var bundledPath = Path.GetFullPath(Path.Combine(_loader.DataRoot, tool.BundledPackage));
+            builder.Append(" --local-package \"").Append(bundledPath).Append('"');
+        }
+
         if (!string.IsNullOrWhiteSpace(tool.Sha256))
         {
             builder.Append(" --sha256 ").Append(tool.Sha256);
         }
 
         return builder.ToString();
-    }
-
-    private sealed class ToolManifestDocument
-    {
-        public List<ToolManifestEntryDto> Tools { get; set; } = [];
-    }
-
-    private sealed class ToolManifestEntryDto
-    {
-        public string Id { get; set; } = "";
-        public string Name { get; set; } = "";
-        public string DownloadUrl { get; set; } = "";
-        public string Sha256 { get; set; } = "";
-        public string SilentArgs { get; set; } = "";
-        public List<int> SuccessExitCodes { get; set; } = [0];
-        public string? PostInstallConfig { get; set; }
-
-        public ToolManifestEntry ToEntry() => new(
-            Id,
-            Name,
-            DownloadUrl,
-            Sha256,
-            SilentArgs,
-            SuccessExitCodes,
-            PostInstallConfig);
     }
 }
 
@@ -217,38 +225,43 @@ public sealed class OptimalDefaultsService
     public async Task ApplyForProfileAsync(string profileId, CancellationToken cancellationToken = default)
     {
         var defaults = await _loader.LoadAsync<OptimalDefaultsDocument>("defaults/optimal-displays-v1.json", cancellationToken);
-        if (defaults?.Profiles is null || !defaults.Profiles.TryGetValue(profileId, out var profile))
+        var entry = defaults?.Profiles?.FirstOrDefault(p =>
+            string.Equals(p.Id, profileId, StringComparison.OrdinalIgnoreCase));
+        if (entry?.Defaults is null)
         {
             return;
         }
 
-        if (profile.Global3D is not null)
-        {
-            var configPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "3d-game-optimizer", "config", "global-3d.ini");
-            await _configWriter.ApplyReShadeConfigAsync(
-                Path.GetDirectoryName(configPath) ?? "",
-                profile.Global3D.Depth,
-                profile.Global3D.Convergence,
-                cancellationToken);
-        }
+        var configPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "3d-game-optimizer", "config", "global-3d.ini");
+        await _configWriter.ApplyReShadeConfigAsync(
+            Path.GetDirectoryName(configPath) ?? "",
+            entry.Defaults.DepthScale,
+            entry.Defaults.ConvergenceOffset,
+            cancellationToken);
     }
 
     private sealed class OptimalDefaultsDocument
     {
-        public Dictionary<string, ProfileDefaults> Profiles { get; set; } = [];
+        public string Version { get; set; } = "";
+        public List<OptimalProfileEntry> Profiles { get; set; } = [];
     }
 
-    private sealed class ProfileDefaults
+    private sealed class OptimalProfileEntry
     {
-        public Global3DSettings? Global3D { get; set; }
+        public string Id { get; set; } = "";
+        public string Vendor { get; set; } = "";
+        public string DisplayId { get; set; } = "";
+        public string RecommendedPerformanceTier { get; set; } = "";
+        public OptimalDisplayDefaults? Defaults { get; set; }
     }
 
-    private sealed class Global3DSettings
+    private sealed class OptimalDisplayDefaults
     {
-        public double Depth { get; set; }
-        public double Convergence { get; set; }
-        public double Separation { get; set; }
+        public double DepthScale { get; set; }
+        public double ConvergenceOffset { get; set; }
+        public string ComfortMode { get; set; } = "";
+        public bool UiDepthCompensation { get; set; }
     }
 }

@@ -7,7 +7,8 @@ public sealed record DisplayProfile(
     string MarketingName,
     string Type,
     IReadOnlyList<string> EdidSignatures,
-    string RecommendedProfileId);
+    string RecommendedProfileId,
+    IReadOnlyList<string> RequiredToolIds);
 
 public sealed record GameCompatibilityEntry(
     string Id,
@@ -67,7 +68,8 @@ public sealed record ToolManifestEntry(
     string Sha256,
     string SilentArgs,
     IReadOnlyList<int> SuccessExitCodes,
-    string? PostInstallConfig);
+    string? PostInstallConfig,
+    string? BundledPackage = null);
 
 public sealed record LaunchStep(
     string Id,

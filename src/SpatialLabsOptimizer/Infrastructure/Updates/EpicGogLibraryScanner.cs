@@ -90,11 +90,15 @@ public sealed class EpicGogLibraryScanner
                     ? appProp.GetString()
                     : Path.GetFileNameWithoutExtension(path);
 
+            ResolveEpicInstallMetadata(root, out var installDir, out var launchExe);
+
             game = new ExternalStoreGame(
                 "Epic",
                 catalogId,
                 ExternalStoreIdMapper.StableAppId("Epic", catalogId),
-                string.IsNullOrWhiteSpace(title) ? "Epic game" : title);
+                string.IsNullOrWhiteSpace(title) ? "Epic game" : title,
+                installDir,
+                launchExe);
             return true;
         }
         catch (JsonException)
@@ -138,11 +142,15 @@ public sealed class EpicGogLibraryScanner
                 return false;
             }
 
+            ResolveGogInstallMetadata(root, path, out var installDir, out var launchExe);
+
             game = new ExternalStoreGame(
                 "GOG",
                 productId,
                 ExternalStoreIdMapper.StableAppId("GOG", productId),
-                title);
+                title,
+                installDir,
+                launchExe);
             return true;
         }
         catch (JsonException)
@@ -154,4 +162,125 @@ public sealed class EpicGogLibraryScanner
             return false;
         }
     }
+
+    internal static void ResolveEpicInstallMetadata(JsonElement root, out string? installDir, out string? launchExe)
+    {
+        installDir = null;
+        launchExe = null;
+
+        var installLocation = root.TryGetProperty("InstallLocation", out var installProp)
+            ? installProp.GetString()
+            : null;
+        if (string.IsNullOrWhiteSpace(installLocation) || !Directory.Exists(installLocation))
+        {
+            return;
+        }
+
+        installDir = installLocation;
+        var launchRelative = root.TryGetProperty("LaunchExecutable", out var launchProp)
+            ? launchProp.GetString()
+            : null;
+        if (!string.IsNullOrWhiteSpace(launchRelative))
+        {
+            var candidate = Path.Combine(
+                installLocation,
+                launchRelative.Replace('/', Path.DirectorySeparatorChar));
+            if (File.Exists(candidate))
+            {
+                launchExe = candidate;
+            }
+        }
+
+        launchExe ??= PickLaunchExecutable(installLocation);
+    }
+
+    internal static void ResolveGogInstallMetadata(JsonElement root, string infoFilePath, out string? installDir, out string? launchExe)
+    {
+        installDir = null;
+        launchExe = null;
+
+        var rootPath = root.TryGetProperty("rootPath", out var rootPathProp)
+            ? rootPathProp.GetString()
+            : root.TryGetProperty("path", out var pathProp)
+                ? pathProp.GetString()
+                : Path.GetDirectoryName(infoFilePath);
+
+        if (string.IsNullOrWhiteSpace(rootPath) || !Directory.Exists(rootPath))
+        {
+            return;
+        }
+
+        installDir = rootPath;
+        launchExe = ResolveGogPlayTaskExecutable(root, rootPath)
+            ?? ResolveGogExeProperty(root, rootPath)
+            ?? PickLaunchExecutable(rootPath);
+    }
+
+    private static string? ResolveGogPlayTaskExecutable(JsonElement root, string rootPath)
+    {
+        if (!root.TryGetProperty("playTasks", out var tasks) || tasks.ValueKind != JsonValueKind.Array)
+        {
+            return null;
+        }
+
+        string? fallback = null;
+        foreach (var task in tasks.EnumerateArray())
+        {
+            var relPath = task.TryGetProperty("path", out var pathProp) ? pathProp.GetString() : null;
+            if (string.IsNullOrWhiteSpace(relPath))
+            {
+                continue;
+            }
+
+            var candidate = Path.Combine(rootPath, relPath.Replace('/', Path.DirectorySeparatorChar));
+            if (!File.Exists(candidate))
+            {
+                continue;
+            }
+
+            var isPrimary = task.TryGetProperty("isPrimary", out var primaryProp) && primaryProp.GetBoolean();
+            var taskType = task.TryGetProperty("type", out var typeProp) ? typeProp.GetString() : null;
+            if (isPrimary || string.Equals(taskType, "launch", StringComparison.OrdinalIgnoreCase))
+            {
+                return candidate;
+            }
+
+            fallback ??= candidate;
+        }
+
+        return fallback;
+    }
+
+    private static string? ResolveGogExeProperty(JsonElement root, string rootPath)
+    {
+        var exe = root.TryGetProperty("exe", out var exeProp) ? exeProp.GetString() : null;
+        if (string.IsNullOrWhiteSpace(exe))
+        {
+            return null;
+        }
+
+        var candidate = Path.Combine(rootPath, exe.Replace('/', Path.DirectorySeparatorChar));
+        return File.Exists(candidate) ? candidate : null;
+    }
+
+    internal static string? PickLaunchExecutable(string installDir)
+    {
+        if (!Directory.Exists(installDir))
+        {
+            return null;
+        }
+
+        var candidates = Directory.EnumerateFiles(installDir, "*.exe", SearchOption.TopDirectoryOnly)
+            .Where(p => !IsExcludedExecutable(Path.GetFileName(p)))
+            .Select(p => new FileInfo(p))
+            .OrderByDescending(f => f.Length)
+            .ToList();
+
+        return candidates.FirstOrDefault()?.FullName;
+    }
+
+    private static bool IsExcludedExecutable(string fileName)
+        => fileName.StartsWith("unins", StringComparison.OrdinalIgnoreCase)
+           || fileName.StartsWith("setup", StringComparison.OrdinalIgnoreCase)
+           || fileName.Contains("redist", StringComparison.OrdinalIgnoreCase);
 }

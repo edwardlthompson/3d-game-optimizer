@@ -6,7 +6,20 @@ namespace SpatialLabsOptimizer.ViewModels;
 
 public abstract class ViewModelBase : INotifyPropertyChanged
 {
+    private readonly SynchronizationContext? _uiContext = SynchronizationContext.Current;
+
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected void RunOnUiThread(Action action)
+    {
+        if (_uiContext is not null)
+        {
+            _uiContext.Post(_ => action(), null);
+            return;
+        }
+
+        Infrastructure.UiThreadDispatcher.Run(action);
+    }
 
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null) =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

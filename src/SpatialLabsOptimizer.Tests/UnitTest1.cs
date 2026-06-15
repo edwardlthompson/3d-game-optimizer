@@ -75,7 +75,7 @@ public class InfrastructureTests
     public void LaunchPlatformRouter_UsesVendorPreferredPlatform()
     {
         var router = new LaunchPlatformRouter();
-        var profile = new DisplayProfile("acer-psv27-2", "Acer", "PSV27-2", "View 27", "monitor", [], "profile");
+        var profile = new DisplayProfile("acer-psv27-2", "Acer", "PSV27-2", "View 27", "monitor", [], "profile", []);
         var adapter = new AcerSpatialLabsAdapter(profile);
 
         var platform = router.Route(CompatibilityTier.Optimized, adapter);

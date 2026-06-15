@@ -18,12 +18,18 @@ internal sealed class StubMessageHandler : HttpMessageHandler
 
 internal static class TestPaths
 {
+    public static Infrastructure.Displays.DisplayAutoDetector CreateDisplayAutoDetector()
+    {
+        var loader = new Infrastructure.Data.JsonDataLoader(FindDataRoot());
+        return new Infrastructure.Displays.DisplayAutoDetector(loader, new Infrastructure.Displays.WmiDisplayEdidProbe());
+    }
+
     public static string FindElevatedHelperBuildOutput()
     {
         var dir = new DirectoryInfo(Directory.GetCurrentDirectory());
         while (dir is not null)
         {
-            foreach (var config in new[] { "Debug", "Release" })
+            foreach (var config in new[] { "Release", "Debug" })
             {
                 var candidate = Path.Combine(
                     dir.FullName,

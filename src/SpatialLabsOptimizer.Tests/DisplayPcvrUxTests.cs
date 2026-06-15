@@ -2,6 +2,7 @@ using SpatialLabsOptimizer.Infrastructure.Data;
 using SpatialLabsOptimizer.Infrastructure.Displays;
 using SpatialLabsOptimizer.Infrastructure.Pcvr;
 using SpatialLabsOptimizer.Infrastructure.Settings;
+using Windows.System;
 
 namespace SpatialLabsOptimizer.Tests;
 
@@ -46,17 +47,17 @@ public class DisplayPcvrUxTests
     [Fact]
     public async Task MultiMonitorLaunchPicker_PersistsSelection()
     {
-        WmiDisplayEdidProbe.TestSnapshotProvider = () =>
+        var probe = new FakeDisplayEdidProbe(() =>
         [
             new DisplayEdidSnapshot("display-a", "sig-a", "3D Panel"),
             new DisplayEdidSnapshot("display-b", "sig-b", "Secondary")
-        ];
+        ]);
 
         var path = Path.Combine(Path.GetTempPath(), $"3dgo-display-{Guid.NewGuid()}.db");
         await using var store = new SqliteSettingsStore(path);
         await store.InitializeAsync();
         var prefs = new UserPreferencesService(store);
-        var picker = new MultiMonitorLaunchPicker(new WmiDisplayEdidProbe(), prefs);
+        var picker = new MultiMonitorLaunchPicker(probe, prefs);
 
         await picker.SetSelectedTargetAsync("display-b");
         var selected = await picker.GetSelectedTargetAsync();
@@ -64,8 +65,6 @@ public class DisplayPcvrUxTests
         Assert.NotNull(selected);
         Assert.Equal("display-b", selected!.DeviceId);
         Assert.Equal("Secondary", selected.FriendlyName);
-
-        WmiDisplayEdidProbe.TestSnapshotProvider = null;
     }
 
     [Fact]
@@ -99,6 +98,43 @@ public class DisplayPcvrUxTests
         Assert.True(bundles.Count >= 2);
         Assert.Contains(bundles, b => b.Hotkeys.Any(h => h.Hotkey == "Ctrl+Shift+3"));
         Assert.Contains("Ctrl+Shift+3", service.FormatBundleForDisplay(bundles[0]), StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void StreamerHotkeyService_RegistersBindingsAndHandlesKeys()
+    {
+        var service = new StreamerHotkeyService(new StreamFriendlyProfileService());
+        Assert.Contains(service.Bindings, b => b.ActionId == "toggle-safe-launch" && b.DisplayLabel == "Ctrl+Shift+S");
+
+        string? invoked = null;
+        var handled = service.TryHandle(
+            VirtualKey.S,
+            ctrl: true,
+            shift: true,
+            alt: false,
+            new StreamerHotkeyHandler
+            {
+                ExecuteCommandAsync = id =>
+                {
+                    invoked = id;
+                    return Task.CompletedTask;
+                },
+                SetPreferredOutputAsync = _ => Task.CompletedTask,
+                NavigateToSettings = () => { }
+            });
+
+        Assert.True(handled);
+        Assert.Equal("toggle-safe-launch", invoked);
+    }
+
+    [Fact]
+    public async Task GlossarySeed_LoadsEntries()
+    {
+        var loader = new JsonDataLoader(TestPaths.FindDataRoot());
+        var doc = await loader.LoadAsync<GlossaryDocument>("glossary/glossary-v1.json");
+
+        Assert.True(doc.Entries.Count >= 9);
+        Assert.Contains(doc.Entries, e => e.Term.Contains("SBS", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -139,17 +175,5 @@ public class DisplayPcvrUxTests
         };
 
         Assert.False(DisplayChangeMonitor.HasSnapshotChanged(previous, current));
-    }
-
-    private sealed class FakeDisplayEdidProbe : IDisplayEdidProbe
-    {
-        private readonly Func<IReadOnlyList<DisplayEdidSnapshot>> _provider;
-
-        public FakeDisplayEdidProbe(Func<IReadOnlyList<DisplayEdidSnapshot>> provider)
-        {
-            _provider = provider;
-        }
-
-        public IReadOnlyList<DisplayEdidSnapshot> GetCurrentSnapshots() => _provider();
     }
 }

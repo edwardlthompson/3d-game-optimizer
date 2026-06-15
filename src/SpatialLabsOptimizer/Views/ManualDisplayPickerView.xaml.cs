@@ -14,6 +14,8 @@ public sealed partial class ManualDisplayPickerView : UserControl
 
     public DisplayProfile? SelectedDisplay { get; private set; }
 
+    public event EventHandler? SelectionChanged;
+
     public void SetCatalog(IReadOnlyList<DisplayProfile> catalog)
     {
         _catalog = catalog;
@@ -29,11 +31,25 @@ public sealed partial class ManualDisplayPickerView : UserControl
         }
     }
 
+    public void SelectProfileById(string profileId)
+    {
+        for (var i = 0; i < _catalog.Count; i++)
+        {
+            if (string.Equals(_catalog[i].Id, profileId, StringComparison.OrdinalIgnoreCase))
+            {
+                DisplayCombo.SelectedIndex = i;
+                SelectedDisplay = _catalog[i];
+                return;
+            }
+        }
+    }
+
     private void DisplayCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (DisplayCombo.SelectedIndex >= 0 && DisplayCombo.SelectedIndex < _catalog.Count)
         {
             SelectedDisplay = _catalog[DisplayCombo.SelectedIndex];
+            SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

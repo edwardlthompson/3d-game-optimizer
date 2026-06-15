@@ -10,6 +10,7 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <UseWinUI>true</UseWinUI>
     <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
     <EnableMsixTooling>false</EnableMsixTooling>
     <Version>1.1.0</Version>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
@@ -19,7 +20,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+    <GeneratePriFile>true</GeneratePriFile>
+    <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+    <WindowsAppSdkUndockedRegFreeWinrtInitialize>true</WindowsAppSdkUndockedRegFreeWinrtInitialize>
   </PropertyGroup>
+
+  <Target Name="CopyAppPriToPublish" AfterTargets="Publish">
+    <Copy
+      Condition="Exists('$(OutDir)SpatialLabsOptimizer.pri')"
+      SourceFiles="$(OutDir)SpatialLabsOptimizer.pri"
+      DestinationFolder="$(PublishDir)"
+      SkipUnchangedFiles="true" />
+  </Target>
 
   <PropertyGroup Condition="'$(BuildMsix)' == 'true'">
     <WindowsPackageType>MSIX</WindowsPackageType>
@@ -30,6 +42,11 @@
   <ItemGroup>
     <Content Include="..\..\data\**\*" Link="data\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="product-version.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\placeholder-cover.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\placeholder-epic.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\placeholder-gog.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\placeholder-ubisoft.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\AppIcon.ico" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

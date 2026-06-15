@@ -3,82 +3,111 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:views="using:SpatialLabsOptimizer.Views">
-    <ScrollViewer Padding="24">
-        <StackPanel Spacing="16" MaxWidth="640">
-            <TextBlock Text="Global 3D Settings" FontSize="28" FontWeight="SemiBold" />
-            <TextBlock Text="Edit global depth and convergence defaults. Reset to Optimal restores curated profile values." TextWrapping="Wrap" Opacity="0.8" />
-            <Slider x:Name="DepthSlider" Header="Depth" Minimum="0" Maximum="1" Value="0.65" StepFrequency="0.05" />
-            <Slider x:Name="ConvergenceSlider" Header="Convergence" Minimum="0" Maximum="1" Value="0.5" StepFrequency="0.05" />
-            <Button x:Name="BulkPresetButton" Content="Cache top presets" Click="BulkPreset_Click" Style="{StaticResource AppButtonStyle}" />
-            <TextBlock x:Name="BulkPresetStatus" Opacity="0.7" />
-            <Button x:Name="LibrarySettingsButton" Content="Local game folders" Click="LibrarySettings_Click" Style="{StaticResource AppButtonStyle}" />
-            <ToggleSwitch x:Name="SimpleModeToggle" Header="Simple mode" OffContent="Off" OnContent="On" Toggled="Preference_Toggled" />
-            <ComboBox x:Name="ThemeCombo" Header="Theme" SelectionChanged="ThemeCombo_SelectionChanged" Width="240">
-                <ComboBoxItem Content="System" Tag="system" />
-                <ComboBoxItem Content="Light" Tag="light" />
-                <ComboBoxItem Content="Dark" Tag="dark" />
-            </ComboBox>
+    <ScrollViewer Padding="24,24,24,24">
+        <StackPanel Spacing="12" HorizontalAlignment="Stretch">
+            <TextBlock Text="Settings" FontSize="28" FontWeight="SemiBold" />
+            <TextBlock Text="Grouped global 3D, launch, and session preferences." TextWrapping="Wrap" Opacity="0.8" />
 
-            <StackPanel x:Name="DisplayLaunchPanel" Spacing="8" Margin="0,16,0,0">
-                <TextBlock Text="Display &amp; PCVR" FontSize="20" FontWeight="SemiBold" />
-                <ComboBox x:Name="LaunchDisplayCombo" Header="Launch target display" SelectionChanged="LaunchDisplayCombo_SelectionChanged" Width="360" />
-                <TextBlock x:Name="LaunchDisplayStatus" Opacity="0.7" TextWrapping="Wrap" />
-                <ComboBox x:Name="OpenXrRuntimeCombo" Header="OpenXR runtime override" SelectionChanged="OpenXrRuntimeCombo_SelectionChanged" Width="360" />
-                <TextBlock x:Name="OpenXrRuntimeStatus" Opacity="0.7" TextWrapping="Wrap" />
-                <Button x:Name="ViewingDistanceCoachButton" Content="Viewing distance coach…" Click="ViewingDistanceCoach_Click" Style="{StaticResource AppButtonStyle}" />
-                <views:ViewingDistanceCoachView x:Name="ViewingDistanceCoachPanel" Visibility="Collapsed" />
-            </StackPanel>
+            <Expander Header="Display &amp; depth" IsExpanded="True" Style="{StaticResource SettingsExpanderStyle}">
+                <StackPanel Style="{StaticResource SettingsSectionContentStyle}">
+                    <Slider x:Name="DepthSlider" Header="Depth" Minimum="0" Maximum="1" Value="0.65" StepFrequency="0.05" HorizontalAlignment="Stretch" />
+                    <Slider x:Name="ConvergenceSlider" Header="Convergence" Minimum="0" Maximum="1" Value="0.5" StepFrequency="0.05" HorizontalAlignment="Stretch" />
+                    <ComboBox x:Name="ThemeCombo" Header="Theme" SelectionChanged="ThemeCombo_SelectionChanged" HorizontalAlignment="Stretch" MaxWidth="480">
+                        <ComboBoxItem Content="System" Tag="system" />
+                        <ComboBoxItem Content="Light" Tag="light" />
+                        <ComboBoxItem Content="Dark" Tag="dark" />
+                    </ComboBox>
+                    <Button x:Name="ViewingDistanceCoachButton" Content="Viewing distance coach…" Click="ViewingDistanceCoach_Click" Style="{StaticResource AppButtonStyle}" />
+                    <views:ViewingDistanceCoachView x:Name="ViewingDistanceCoachPanel" Visibility="Collapsed" />
+                </StackPanel>
+            </Expander>
 
-            <StackPanel x:Name="V2Panel" Spacing="8" Margin="0,16,0,0" Visibility="Collapsed">
-                <TextBlock Text="Experimental v2 features" FontSize="20" FontWeight="SemiBold" />
-                <TextBlock Text="Enable v2 services (LAN export, hybrid sessions, Epic/GOG scan). Restart required after toggle." TextWrapping="Wrap" Opacity="0.8" />
-                <ToggleSwitch x:Name="V2ExperimentalToggle" Header="Enable v2 experimental" OffContent="Off" OnContent="On" Toggled="V2Experimental_Toggled" />
-                <TextBlock x:Name="V2RestartNotice" TextWrapping="Wrap" Opacity="0.85" Visibility="Collapsed" />
-            </StackPanel>
+            <Expander Header="3D Display settings" IsExpanded="True" Style="{StaticResource SettingsExpanderStyle}">
+                <StackPanel Style="{StaticResource SettingsSectionContentStyle}">
+                    <ComboBox x:Name="LaunchDisplayCombo" Header="Launch target display" DisplayMemberPath="FriendlyName" SelectionChanged="LaunchDisplayCombo_SelectionChanged" HorizontalAlignment="Stretch" MaxWidth="480" />
+                    <TextBlock x:Name="LaunchDisplayStatus" Opacity="0.7" TextWrapping="Wrap" />
+                    <ComboBox x:Name="OpenXrRuntimeCombo" Header="OpenXR runtime override" DisplayMemberPath="Label" SelectionChanged="OpenXrRuntimeCombo_SelectionChanged" HorizontalAlignment="Stretch" MaxWidth="480" />
+                    <TextBlock x:Name="OpenXrRuntimeStatus" Opacity="0.7" TextWrapping="Wrap" />
+                    <TextBlock Text="Launch target and OpenXR override apply to 3D and PCVR sessions." TextWrapping="Wrap" Opacity="0.65" FontSize="12" />
+                </StackPanel>
+            </Expander>
 
-            <StackPanel x:Name="OverridePanel" Spacing="8" Margin="0,16,0,0">
-                <TextBlock Text="Per-game overrides" FontSize="20" FontWeight="SemiBold" />
-                <TextBox x:Name="OverrideAppIdBox" Header="Steam App ID" PlaceholderText="570" Width="240" />
-                <Slider x:Name="OverrideDepthSlider" Header="Override depth" Minimum="0" Maximum="1" Value="0.65" StepFrequency="0.05" />
-                <Slider x:Name="OverrideConvergenceSlider" Header="Override convergence" Minimum="0" Maximum="1" Value="0.5" StepFrequency="0.05" />
-                <ComboBox x:Name="OverridePlatformCombo" Header="Platform override" Width="240">
-                    <ComboBoxItem Content="Auto" Tag="" />
-                    <ComboBoxItem Content="UEVR" Tag="Uevr" />
-                    <ComboBoxItem Content="ReShade" Tag="ReShade" />
-                    <ComboBoxItem Content="TrueGame" Tag="TrueGame" />
-                </ComboBox>
-                <Button x:Name="SaveOverrideButton" Content="Save override" Click="SaveOverride_Click" Style="{StaticResource AppButtonStyle}" />
-                <TextBlock x:Name="OverrideStatus" Opacity="0.7" TextWrapping="Wrap" />
-            </StackPanel>
+            <Expander Header="Launch safety" IsExpanded="True" Style="{StaticResource SettingsExpanderStyle}">
+                <StackPanel Style="{StaticResource SettingsSectionContentStyle}">
+                    <ToggleSwitch x:Name="SafeLaunchToggle" Header="Safe launch (no injectors)" OffContent="Off" OnContent="On" Toggled="LaunchSafety_Toggled" />
+                    <ToggleSwitch x:Name="TrainerToggle" Header="I use game trainers (WeMod, Wand, etc.)" OffContent="Off" OnContent="On" Toggled="LaunchSafety_Toggled" />
+                    <ToggleSwitch x:Name="ModManagerToggle" Header="I use a mod manager (Vortex, Mod Organizer)" OffContent="Off" OnContent="On" Toggled="LaunchSafety_Toggled" />
+                    <ToggleSwitch x:Name="SimpleModeToggle" Header="Simple mode UI" OffContent="Off" OnContent="On" Toggled="LaunchSafety_Toggled" />
+                    <TextBlock x:Name="DetectedToolsText" Text="Detected external tools: none" Opacity="0.7" TextWrapping="Wrap" FontSize="12" />
+                    <Button Content="Refresh detected tools" Style="{StaticResource AppButtonStyle}" Click="RefreshDetectedTools_Click" />
+                </StackPanel>
+            </Expander>
 
-            <StackPanel x:Name="HdrPanel" Spacing="8" Margin="0,16,0,0" Visibility="Collapsed">
-                <TextBlock Text="HDR handoff" FontSize="20" FontWeight="SemiBold" />
-                <TextBlock x:Name="HdrNoticeBlock" TextWrapping="Wrap" Opacity="0.8" />
-                <Button x:Name="DisableHdrButton" Content="Disable HDR for 3D session" Click="DisableHdr_Click" Style="{StaticResource AppButtonStyle}" />
-            </StackPanel>
+            <Expander x:Name="SessionExpander" Header="Session profiles" IsExpanded="False" Style="{StaticResource SettingsExpanderStyle}">
+                <StackPanel x:Name="SessionToolsPanel" Style="{StaticResource SettingsSectionContentStyle}" Visibility="Collapsed">
+                    <TextBlock x:Name="StreamerHotkeyBlock" TextWrapping="Wrap" Opacity="0.8" />
+                    <TextBlock x:Name="StreamFriendlyBlock" TextWrapping="Wrap" Opacity="0.8" />
+                    <TextBox x:Name="SessionProfileNameBox" Header="Save current depth settings as…" PlaceholderText="LAN night profile" HorizontalAlignment="Stretch" MaxWidth="480" />
+                    <ComboBox x:Name="SessionProfileCombo" Header="Load saved session…" HorizontalAlignment="Stretch" MaxWidth="480" SelectionChanged="SessionProfileCombo_SelectionChanged" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="SaveSessionProfileButton" Content="Save profile" Click="SaveSessionProfile_Click" Style="{StaticResource AppButtonStyle}" />
+                        <Button x:Name="LoadSessionProfileButton" Content="Load profile" Click="LoadSessionProfile_Click" Style="{StaticResource AppButtonStyle}" />
+                    </StackPanel>
+                    <TextBlock x:Name="SessionProfileStatus" Opacity="0.7" TextWrapping="Wrap" />
+                </StackPanel>
+            </Expander>
 
-            <StackPanel x:Name="SnapshotPanel" Spacing="8" Margin="0,16,0,0">
-                <TextBlock Text="Config snapshots" FontSize="20" FontWeight="SemiBold" />
-                <TextBlock Text="Saved launch configuration snapshots (newest first)." TextWrapping="Wrap" Opacity="0.8" />
-                <ListView x:Name="SnapshotList" MinHeight="120" SelectionChanged="SnapshotList_SelectionChanged" />
-                <Button x:Name="RestoreSnapshotButton" Content="Restore selected snapshot" Click="RestoreSnapshot_Click" IsEnabled="False" Style="{StaticResource AppButtonStyle}" />
-                <TextBlock x:Name="SnapshotStatus" Opacity="0.7" TextWrapping="Wrap" />
-            </StackPanel>
+            <Expander x:Name="IntegrationsExpander" Header="Integrations" IsExpanded="False" Style="{StaticResource SettingsExpanderStyle}">
+                <StackPanel x:Name="V2Panel" Style="{StaticResource SettingsSectionContentStyle}" Visibility="Collapsed">
+                    <TextBlock Text="Enable optional integrations. Restart required after changes." TextWrapping="Wrap" Opacity="0.8" />
+                    <CheckBox x:Name="V2LanCheck" Content="LAN session export" Checked="V2Feature_Changed" Unchecked="V2Feature_Changed" />
+                    <CheckBox x:Name="V2HybridCheck" Content="Hybrid desktop + VR sessions" Checked="V2Feature_Changed" Unchecked="V2Feature_Changed" />
+                    <CheckBox x:Name="V2EpicGogCheck" Content="Epic / GOG library scan" Checked="V2Feature_Changed" Unchecked="V2Feature_Changed" />
+                    <TextBlock x:Name="V2RestartNotice" TextWrapping="Wrap" Opacity="0.85" Visibility="Collapsed" Foreground="{StaticResource Brush.Accent}" />
+                </StackPanel>
+            </Expander>
 
-            <TextBlock Text="Hardware &amp; Benchmark" FontSize="20" FontWeight="SemiBold" Margin="0,16,0,0" />
-            <TextBlock Text="Optional benchmark refines performance tier (40% specs + 60% benchmark score)." TextWrapping="Wrap" Opacity="0.8" />
-            <Button x:Name="BenchmarkButton" Content="Run benchmark" Click="Benchmark_Click" Style="{StaticResource AppButtonStyle}" />
-            <TextBlock x:Name="BenchmarkResult" Opacity="0.7" />
-            <StackPanel x:Name="SessionToolsPanel" Spacing="8" Margin="0,16,0,0" Visibility="Collapsed">
-                <TextBlock Text="Session tools (v1.1)" FontSize="20" FontWeight="SemiBold" />
-                <TextBlock x:Name="StreamerHotkeyBlock" TextWrapping="Wrap" Opacity="0.8" />
-                <TextBlock x:Name="StreamFriendlyBlock" TextWrapping="Wrap" Opacity="0.8" />
-                <TextBox x:Name="SessionProfileNameBox" Header="Session profile name" PlaceholderText="LAN night profile" Width="320" />
-                <ComboBox x:Name="SessionProfileCombo" Header="Load session profile" Width="320" SelectionChanged="SessionProfileCombo_SelectionChanged" />
-                <Button x:Name="SaveSessionProfileButton" Content="Save session profile" Click="SaveSessionProfile_Click" Style="{StaticResource AppButtonStyle}" />
-                <Button x:Name="LoadSessionProfileButton" Content="Load selected profile" Click="LoadSessionProfile_Click" Style="{StaticResource AppButtonStyle}" />
-                <TextBlock x:Name="SessionProfileStatus" Opacity="0.7" TextWrapping="Wrap" />
-            </StackPanel>
+            <Expander Header="Advanced" IsExpanded="False" Style="{StaticResource SettingsExpanderStyle}">
+                <StackPanel Style="{StaticResource SettingsSectionContentStyle}">
+                    <Button x:Name="BulkPresetButton" Content="Cache top presets" Click="BulkPreset_Click" Style="{StaticResource AppButtonStyle}" />
+                    <TextBlock x:Name="BulkPresetStatus" Opacity="0.7" />
+                    <Button x:Name="LibrarySettingsButton" Content="Library Settings" Click="LibrarySettings_Click" Style="{StaticResource AppButtonStyle}" />
+                    <StackPanel x:Name="OverridePanel" Spacing="8">
+                        <TextBlock Text="Per-game overrides" FontWeight="SemiBold" />
+                        <TextBox x:Name="OverrideAppIdBox" Header="Steam App ID" PlaceholderText="570" HorizontalAlignment="Stretch" MaxWidth="480" />
+                        <Slider x:Name="OverrideDepthSlider" Header="Override depth" Minimum="0" Maximum="1" Value="0.65" StepFrequency="0.05" HorizontalAlignment="Stretch" />
+                        <Slider x:Name="OverrideConvergenceSlider" Header="Override convergence" Minimum="0" Maximum="1" Value="0.5" StepFrequency="0.05" HorizontalAlignment="Stretch" />
+                        <ComboBox x:Name="OverridePlatformCombo" Header="Platform override" HorizontalAlignment="Stretch" MaxWidth="480">
+                            <ComboBoxItem Content="Auto" Tag="" />
+                            <ComboBoxItem Content="UEVR" Tag="Uevr" />
+                            <ComboBoxItem Content="ReShade" Tag="ReShade" />
+                            <ComboBoxItem Content="TrueGame" Tag="TrueGame" />
+                        </ComboBox>
+                        <Button x:Name="SaveOverrideButton" Content="Save override" Click="SaveOverride_Click" Style="{StaticResource AppButtonStyle}" />
+                        <TextBlock x:Name="OverrideStatus" Opacity="0.7" TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel x:Name="SnapshotPanel" Spacing="8">
+                        <TextBlock Text="Config snapshots" FontWeight="SemiBold" />
+                        <TextBlock Text="Restore per-game override settings captured before Play in 3D." TextWrapping="Wrap" Opacity="0.75" FontSize="12" />
+                        <TextBox x:Name="SnapshotFilterAppIdBox" Header="Filter by Steam App ID (optional)" PlaceholderText="570" HorizontalAlignment="Stretch" MaxWidth="480" />
+                        <ComboBox x:Name="SnapshotCombo" Header="Saved snapshots" HorizontalAlignment="Stretch" MaxWidth="480" DisplayMemberPath="Label" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Name="RefreshSnapshotsButton" Content="Refresh list" Click="RefreshSnapshots_Click" Style="{StaticResource AppButtonStyle}" />
+                            <Button x:Name="RestoreSnapshotButton" Content="Restore selected" Click="RestoreSnapshot_Click" Style="{StaticResource AppButtonStyle}" />
+                        </StackPanel>
+                        <TextBlock x:Name="SnapshotStatus" Opacity="0.7" TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel x:Name="HdrPanel" Spacing="8" Visibility="Collapsed">
+                        <TextBlock Text="HDR handoff" FontWeight="SemiBold" />
+                        <TextBlock x:Name="HdrNoticeBlock" TextWrapping="Wrap" Opacity="0.8" />
+                        <Button x:Name="DisableHdrButton" Content="Disable HDR for 3D session" Click="DisableHdr_Click" Style="{StaticResource AppButtonStyle}" />
+                    </StackPanel>
+                    <TextBlock Text="Hardware benchmark" FontWeight="SemiBold" />
+                    <TextBlock Text="Optional ~30 second CPU benchmark refines performance tier." TextWrapping="Wrap" Opacity="0.8" />
+                    <Button x:Name="BenchmarkButton" Content="Run benchmark" Click="Benchmark_Click" Style="{StaticResource AppButtonStyle}" />
+                    <TextBlock x:Name="BenchmarkResult" Opacity="0.7" />
+                </StackPanel>
+            </Expander>
         </StackPanel>
     </ScrollViewer>
 </Page>

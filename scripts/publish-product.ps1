@@ -19,7 +19,15 @@ New-Item -ItemType Directory -Force -Path $PublishApp, $PublishHelper | Out-Null
 
 Write-Host "=== publish-product ($Configuration) ==="
 
-dotnet publish $AppProj -c $Configuration -r win-x64 --self-contained true -p:PublishSingleFile=false -o $PublishApp
+# Framework-dependent .NET + Windows App SDK 2.2 (must be installed on the machine).
+dotnet publish $AppProj -c $Configuration -r win-x64 --self-contained false -p:PublishSingleFile=false -p:WindowsAppSDKSelfContained=false -o $PublishApp
+
+$AppPri = Join-Path $PublishApp "SpatialLabsOptimizer.pri"
+if (-not (Test-Path $AppPri)) {
+    throw "SpatialLabsOptimizer.pri missing from publish output. WinUI XAML will not load."
+}
+Write-Host "App PRI present: $AppPri ($((Get-Item $AppPri).Length) bytes)"
+Write-Host "Prerequisites: .NET 8 Desktop Runtime + Windows App Runtime 2.2"
 dotnet publish $HelperProj -c $Configuration -r win-x64 --self-contained true -p:PublishSingleFile=true -o $PublishHelper
 
 $HelperExe = Join-Path $PublishHelper "SpatialLabsOptimizer.ElevatedHelper.exe"

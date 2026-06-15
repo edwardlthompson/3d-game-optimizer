@@ -1,12 +1,18 @@
 using System.Diagnostics;
+using Microsoft.UI.Input;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using SpatialLabsOptimizer.Infrastructure;
 using SpatialLabsOptimizer.Infrastructure.Launch;
+using SpatialLabsOptimizer.Infrastructure.Pcvr;
 using SpatialLabsOptimizer.Infrastructure.Progress;
 using SpatialLabsOptimizer.Infrastructure.Responsive;
 using SpatialLabsOptimizer.Infrastructure.Settings;
 using SpatialLabsOptimizer.ViewModels;
+using Windows.System;
+using Windows.UI.Core;
 
 namespace SpatialLabsOptimizer.Views;
 
@@ -48,9 +54,9 @@ public sealed partial class ShellPage : Page
     private async void ShellPage_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         Current = this;
-        if (App.Current is App app && app.MainWindow is not null)
+        if (App.Current is App app && app.PrimaryWindow is not null)
         {
-            _responsive.AttachToWindow(app.MainWindow);
+            _responsive.AttachToWindow(app.PrimaryWindow);
         }
 
         ViewModel.StartDisplayMonitoring();
@@ -111,7 +117,7 @@ public sealed partial class ShellPage : Page
                 await ToggleSafeLaunchAsync();
                 break;
             case "safe-launch":
-                NavigateToTag("health");
+                NavigateToTag("settings");
                 break;
             case "diagnostic-bundle":
                 NavigateToTag("troubleshoot");
@@ -161,6 +167,56 @@ public sealed partial class ShellPage : Page
     private void UpdateAvailable_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         => NavigateToTag("about");
 
+    private void NavView_KeyDown(object sender, KeyRoutedEventArgs e)
+    {
+        if (FeatureFlags.V11Enabled &&
+            App.Services.GetService<StreamerHotkeyService>() is { } hotkeys &&
+            TryHandleStreamerHotkey(e, hotkeys))
+        {
+            e.Handled = true;
+            return;
+        }
+
+        if (e.Key is VirtualKey.K &&
+            InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control)
+                .HasFlag(CoreVirtualKeyStates.Down))
+        {
+            NavigateToTag("commands");
+            e.Handled = true;
+        }
+    }
+
+    private bool TryHandleStreamerHotkey(KeyRoutedEventArgs e, StreamerHotkeyService hotkeys)
+    {
+        var ctrl = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control)
+            .HasFlag(CoreVirtualKeyStates.Down);
+        var shift = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Shift)
+            .HasFlag(CoreVirtualKeyStates.Down);
+        var alt = InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Menu)
+            .HasFlag(CoreVirtualKeyStates.Down);
+
+        return hotkeys.TryHandle(e.Key, ctrl, shift, alt, new StreamerHotkeyHandler
+        {
+            ExecuteCommandAsync = ExecuteCommandAsync,
+            NavigateToSettings = () => NavigateToTag("settings"),
+            SetPreferredOutputAsync = SetPreferredOutputFromHotkeyAsync
+        });
+    }
+
+    private async Task SetPreferredOutputFromHotkeyAsync(string output)
+    {
+        if (_libraryViewModel.SelectedGame is null)
+        {
+            ViewModel.Status = "Select a game in the library first.";
+            return;
+        }
+
+        _libraryViewModel.PreferredOutput = output;
+        _libraryViewModel.SaveOutputCommand.Execute(null);
+        ViewModel.Status = $"Preferred output set to {output} for selected game.";
+        await Task.CompletedTask;
+    }
+
     private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (args.SelectedItem is not NavigationViewItem item || item.Tag is not string tag)
@@ -179,7 +235,6 @@ public sealed partial class ShellPage : Page
             "wizard" => typeof(SetupWizardView),
             "settings" => typeof(Global3DSettingsView),
             "library-settings" => typeof(LibrarySettingsView),
-            "health" => typeof(ToolchainHealthView),
             "troubleshoot" => typeof(TroubleshootingView),
             "glossary" => typeof(GlossaryView),
             "about" => typeof(AboutView),
