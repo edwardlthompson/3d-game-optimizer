@@ -27,7 +27,7 @@
 | Item | Status |
 |------|--------|
 | WinGet PR [#387878](https://github.com/microsoft/winget-pkgs/pull/387878) (v1.0.1) | CLA queued |
-| WinGet v1.1.0 manifest PR | Manifest at `packaging/winget-product/multifile/1.1.0`; `prepare-winget-submission.ps1 -OpenPr` (fork fix) |
+| WinGet v1.1.0 manifest PR | [#388074](https://github.com/microsoft/winget-pkgs/pull/388074) — CLA/validation pending |
 | EV Authenticode cert | Optional [HUMAN] |
 | Cover art hardware confirmation | [HUMAN] — `SLO_COVER_ART_DEBUG=1` |
 | SpatialLabs 15" / ASV15 EDID on physical panel | [HUMAN] |

@@ -29,7 +29,7 @@ Filter open: `grep '^- ⬜' BUILD_PLAN.md`
 ### Distribution
 
 - ⬜ [HUMAN] WinGet **1.0.1** — [microsoft/winget-pkgs#387878](https://github.com/microsoft/winget-pkgs/pull/387878) (CLA queued)
-- ⬜ [HUMAN] WinGet **1.1.0** — sign CLA if needed, then: `pwsh scripts/prepare-winget-submission.ps1 -OpenPr`
+- ⬜ [HUMAN] WinGet **1.1.0** — [microsoft/winget-pkgs#388074](https://github.com/microsoft/winget-pkgs/pull/388074) (CLA if required)
 - ⬜ [HUMAN] EV Authenticode cert — optional; sideload via `scripts/codesign-common.ps1`
 
 ### Release ops (optional)
