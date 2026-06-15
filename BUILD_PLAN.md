@@ -47,8 +47,8 @@ pwsh scripts/ship-sprint39-gate.ps1 -ApproveRemote -Merge -DispatchRelease
 Requires `gh auth login`. Bash: `bash scripts/ship-sprint39-gate.sh -ApproveRemote -Merge -DispatchRelease`
 
 - ✅ [HUMAN] Single commit/PR to `main` (workflows + product + scripts + docs) — PR #2 merged
-- ⬜ [AUTO] Verify CI green on `main` — `.github/workflows/ci.yml` (post-merge flake: snapshot filename collision; fix pushed)
-- ✅ [AUTO] Dispatch `product-release.yml` for `SpatialLabsOptimizer-v1.1.0` — run 27547509122 (waiting on CI)
+- ✅ [AUTO] Verify CI green on `main` — `.github/workflows/ci.yml`
+- ✅ [AUTO] Dispatch `product-release.yml` for `SpatialLabsOptimizer-v1.1.0`
 - ⬜ [AUTO] Test count matches CI on remote (not hand-counted)
 - ⬜ [AUTO] `product-release.yml` dispatchable from remote
 - ✅ [AGENT] Legal consistency script — `scripts/check-legal-consistency.sh`
@@ -58,7 +58,7 @@ Requires `gh auth login`. Bash: `bash scripts/ship-sprint39-gate.sh -ApproveRemo
 
 **Exit criteria:**
 
-- ⬜ `main` CI green (fix snapshot collision; re-run CI after push)
+- ✅ `main` CI green
 - ✅ Release workflow dispatchable from remote
 - ✅ Local validation gates pass (`run-post-sprint-validation.ps1`)
 
@@ -97,7 +97,7 @@ Requires `gh auth login`. Bash: `bash scripts/ship-sprint39-gate.sh -ApproveRemo
 
 | Gate | Status | Notes |
 |------|--------|-------|
-| CI + tests (`ci.yml`) | ⬜ | Post-merge snapshot flake; fix f633eb1 pushed |
+| CI + tests (`ci.yml`) | ✅ | Green on `main` @ 8d61bd8 |
 | QA matrix P0–v1.5 | ✅ | Local — `check-qa-matrix-coverage.sh` |
 | QA matrix P1 offline/Steam | ✅ | Local — Sprint 43 |
 | Compatibility seed | ✅ | Local |
@@ -107,8 +107,8 @@ Requires `gh auth login`. Bash: `bash scripts/ship-sprint39-gate.sh -ApproveRemo
 | Sprint 39 ship gate | ✅ | PR #2 merged 2026-06-15 |
 | README UI previews | ✅ | Local — `generate-brand-assets.py` |
 | Release credentials | ⬜ | `check-release-credentials.sh` |
-| Product pre-release gate | ⬜ | Run 27547509122 — re-dispatch after CI green |
-| Product zip + MSI + MSIX + signing | ⬜ | After product-release completes |
+| Product pre-release gate | ✅ | Run 27548631008 succeeded |
+| Product zip + MSI + MSIX + signing | ✅ | [SpatialLabsOptimizer-v1.1.0](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.1.0) |
 | Template release (`release.yml`) | ⬜ | On `v*` tag |
 | Quarterly maintenance | ⬜ | Scheduled workflow |
 
