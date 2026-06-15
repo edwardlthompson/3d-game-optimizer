@@ -16,8 +16,10 @@ public sealed class ShellViewModel : ViewModelBase
     private readonly ResponsiveStateService _responsive;
     private readonly SystemSpecsScanner _specsScanner;
     private readonly LibraryIndexer _indexer;
+    private readonly IncrementalSteamScanService? _incrementalScan;
     private readonly SqliteSettingsStore _settings;
     private readonly UpdateScheduler _updateScheduler;
+    private readonly CatalogUpdateScheduler _catalogScheduler;
     private readonly DisplayChangeMonitor _displayChangeMonitor;
     private readonly UserPreferencesService _prefs;
 
@@ -33,7 +35,7 @@ public sealed class ShellViewModel : ViewModelBase
     private bool _updateAvailable;
     private bool _showDisplayChangePrompt;
     private string _displayChangeMessage = "";
-    private bool _pendingSetupWizardRerun;
+    private bool _pendingToolchainSettings;
 
     public ShellViewModel(
         OperationProgressHub progressHub,
@@ -42,15 +44,19 @@ public sealed class ShellViewModel : ViewModelBase
         LibraryIndexer indexer,
         SqliteSettingsStore settings,
         UpdateScheduler updateScheduler,
+        CatalogUpdateScheduler catalogScheduler,
         DisplayChangeMonitor displayChangeMonitor,
-        UserPreferencesService prefs)
+        UserPreferencesService prefs,
+        IncrementalSteamScanService? incrementalScan = null)
     {
         _progressHub = progressHub;
         _responsive = responsive;
         _specsScanner = specsScanner;
         _indexer = indexer;
+        _incrementalScan = incrementalScan;
         _settings = settings;
         _updateScheduler = updateScheduler;
+        _catalogScheduler = catalogScheduler;
         _displayChangeMonitor = displayChangeMonitor;
         _prefs = prefs;
         _progressHub.ProgressPublished += OnProgressPublished;
@@ -130,10 +136,10 @@ public sealed class ShellViewModel : ViewModelBase
         set => SetProperty(ref _displayChangeMessage, value);
     }
 
-    public bool PendingSetupWizardRerun
+    public bool PendingToolchainSettings
     {
-        get => _pendingSetupWizardRerun;
-        private set => SetProperty(ref _pendingSetupWizardRerun, value);
+        get => _pendingToolchainSettings;
+        private set => SetProperty(ref _pendingToolchainSettings, value);
     }
 
     public int CurrentColumns => _responsive.CurrentColumns;
@@ -142,23 +148,40 @@ public sealed class ShellViewModel : ViewModelBase
 
     public void AcknowledgeDisplayChange() => ShowDisplayChangePrompt = false;
 
-    public void RequestSetupWizardRerun()
+    public void RequestToolchainSettings()
     {
         ShowDisplayChangePrompt = false;
-        PendingSetupWizardRerun = true;
-        Status = "Display changed — re-run setup wizard to refresh EDID profile.";
+        PendingToolchainSettings = true;
+        Status = "Display changed — open toolchain settings to refresh your profile.";
     }
 
-    public void ClearSetupWizardRerunRequest() => PendingSetupWizardRerun = false;
+    public void ClearToolchainSettingsRequest() => PendingToolchainSettings = false;
+
+    public async Task<bool> IsSetupCompleteAsync()
+        => await _settings.GetSetupCompletedAtAsync() is not null;
 
     public async Task InitializeAsync()
     {
         await _settings.InitializeAsync();
         Status = "Scanning hardware…";
         await _specsScanner.ScanAsync();
-        Status = "Indexing library…";
-        await _indexer.IndexAsync();
+        if (await _indexer.ShouldRunFullIndexAsync())
+        {
+            Status = "Indexing 3D catalog…";
+            await _indexer.IndexAsync();
+            await _indexer.MarkFullIndexCompletedAsync();
+        }
+        else
+        {
+            Status = "Library cache warm — skipping full index";
+        }
+
+        if (_incrementalScan is not null)
+        {
+            await _incrementalScan.ScanNewGamesAsync(force: false);
+        }
         await _updateScheduler.RunIfDueAsync();
+        await _catalogScheduler.RunIfDueAsync();
         await ClearUpdateRestartPendingIfAppliedAsync();
         UpdateAvailable = _updateScheduler.IsUpdateAvailable;
         Status = "Ready";
@@ -210,7 +233,7 @@ public sealed class ShellViewModel : ViewModelBase
         {
             var names = string.Join(", ", e.Current.Select(s => s.FriendlyName));
             DisplayChangeMessage =
-                $"Display configuration changed ({names}). Re-run the setup wizard to refresh your EDID profile.";
+                $"Display configuration changed ({names}). Open toolchain settings to refresh your EDID profile.";
             ShowDisplayChangePrompt = true;
             Status = "Display hot-plug detected";
         });

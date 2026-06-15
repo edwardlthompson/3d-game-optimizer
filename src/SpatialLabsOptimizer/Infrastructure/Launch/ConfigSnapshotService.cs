@@ -1,65 +1,8 @@
+using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using SpatialLabsOptimizer.Domain;
 
 namespace SpatialLabsOptimizer.Infrastructure.Launch;
-
-public sealed record ConfigSnapshotEntry(int AppId, string Path, DateTimeOffset CreatedAt);
-
-public sealed class ConfigSnapshotPayload
-{
-    public int AppId { get; init; }
-    public DateTimeOffset CreatedAt { get; init; }
-    public SnapshotOverrideData? Override { get; init; }
-
-    public static ConfigSnapshotPayload FromOverride(int appId, GameOverride? entry) => new()
-    {
-        AppId = appId,
-        CreatedAt = DateTimeOffset.UtcNow,
-        Override = entry is null ? null : SnapshotOverrideData.From(entry)
-    };
-
-    public GameOverride? ToOverride()
-    {
-        if (Override is null)
-        {
-            return null;
-        }
-
-        LaunchPlatform? platform = null;
-        if (!string.IsNullOrWhiteSpace(Override.PlatformOverride) &&
-            Enum.TryParse<LaunchPlatform>(Override.PlatformOverride, out var parsed))
-        {
-            platform = parsed;
-        }
-
-        return new GameOverride(
-            AppId,
-            Override.Depth,
-            Override.Convergence,
-            platform,
-            Override.SafeLaunch,
-            Override.PreferredOutput ?? "Auto");
-    }
-}
-
-public sealed class SnapshotOverrideData
-{
-    public double? Depth { get; init; }
-    public double? Convergence { get; init; }
-    public string? PlatformOverride { get; init; }
-    public bool SafeLaunch { get; init; }
-    public string? PreferredOutput { get; init; }
-
-    public static SnapshotOverrideData From(GameOverride entry) => new()
-    {
-        Depth = entry.Depth,
-        Convergence = entry.Convergence,
-        PlatformOverride = entry.PlatformOverride?.ToString(),
-        SafeLaunch = entry.SafeLaunch,
-        PreferredOutput = entry.PreferredOutput
-    };
-}
 
 public sealed class ConfigSnapshotService
 {
@@ -73,11 +16,13 @@ public sealed class ConfigSnapshotService
     private readonly GameOverrideRepository _overrides;
     private readonly string _snapshotDir;
 
-    public ConfigSnapshotService(GameOverrideRepository overrides)
+    public ConfigSnapshotService(GameOverrideRepository overrides, string? snapshotDirectory = null)
     {
         _overrides = overrides;
-        var appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        _snapshotDir = Path.Combine(appData, "3d-game-optimizer", "snapshots");
+        _snapshotDir = snapshotDirectory ?? Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "3d-game-optimizer",
+            "snapshots");
         Directory.CreateDirectory(_snapshotDir);
     }
 
@@ -105,8 +50,9 @@ public sealed class ConfigSnapshotService
                 var name = Path.GetFileNameWithoutExtension(path);
                 var dash = name.IndexOf('-', StringComparison.Ordinal);
                 var parsedAppId = dash > 0 && int.TryParse(name[..dash], out var id) ? id : 0;
-                var created = File.GetCreationTimeUtc(path);
-                return new ConfigSnapshotEntry(parsedAppId, path, new DateTimeOffset(created, TimeSpan.Zero));
+                var created = ConfigSnapshotFilename.TryParseTimestamp(name)
+                    ?? new DateTimeOffset(File.GetCreationTimeUtc(path), TimeSpan.Zero);
+                return new ConfigSnapshotEntry(parsedAppId, path, created);
             })
             .Where(entry => appId is null || entry.AppId == appId)
             .OrderByDescending(entry => entry.CreatedAt)
@@ -140,5 +86,33 @@ public sealed class ConfigSnapshotService
         }
 
         await _overrides.SaveAsync(restored, cancellationToken);
+    }
+}
+
+internal static class ConfigSnapshotFilename
+{
+    internal static DateTimeOffset? TryParseTimestamp(string fileNameWithoutExtension)
+    {
+        var firstDash = fileNameWithoutExtension.IndexOf('-', StringComparison.Ordinal);
+        if (firstDash < 0)
+        {
+            return null;
+        }
+
+        var secondDash = fileNameWithoutExtension.IndexOf('-', firstDash + 1);
+        if (secondDash < 0)
+        {
+            return null;
+        }
+
+        var token = fileNameWithoutExtension[(firstDash + 1)..secondDash];
+        return DateTimeOffset.TryParseExact(
+            token,
+            "yyyyMMddHHmmssfff",
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+            out var parsed)
+            ? parsed
+            : null;
     }
 }

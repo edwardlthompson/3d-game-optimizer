@@ -37,24 +37,13 @@ public sealed partial class GameDatabase
                 review_descriptor TEXT,
                 cover_cache_path TEXT,
                 is_favorite INTEGER DEFAULT 0,
-                last_played_3d TEXT
+                last_played_3d TEXT,
+                is_catalog_title INTEGER NOT NULL DEFAULT 0
             );
             CREATE INDEX IF NOT EXISTS idx_games_tier ON games(tier);
             CREATE INDEX IF NOT EXISTS idx_games_readiness ON games(launch_readiness);
             CREATE INDEX IF NOT EXISTS idx_games_review_sort ON games(review_sort_score);
             CREATE INDEX IF NOT EXISTS idx_games_current_players ON games(current_players);
-
-            CREATE VIEW IF NOT EXISTS v_ready_to_play AS
-                SELECT * FROM games
-                WHERE is_installed = 1 AND launch_readiness IN (0, 1) AND tier <= 4;
-
-            CREATE VIEW IF NOT EXISTS v_one_click_ready AS
-                SELECT * FROM games
-                WHERE is_installed = 1 AND launch_readiness = 0 AND tier <= 4;
-
-            CREATE VIEW IF NOT EXISTS v_multiplayer_active AS
-                SELECT * FROM games
-                WHERE current_players >= 500;
 
             CREATE TABLE IF NOT EXISTS local_game_installs (
                 stable_app_id INTEGER PRIMARY KEY,
@@ -76,6 +65,7 @@ public sealed partial class GameDatabase
             CREATE INDEX IF NOT EXISTS idx_recent_launches_time ON recent_launches(launched_at DESC);
             """;
         await cmd.ExecuteNonQueryAsync(cancellationToken);
+        await MigrateSchemaAsync(cancellationToken);
     }
 
     private async Task EnsureOpenAsync(CancellationToken cancellationToken)

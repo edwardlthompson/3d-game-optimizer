@@ -15,12 +15,20 @@ public sealed partial class GameLibraryViewModel
         _showFavoritesOnly = prefs.ShowFavoritesOnly;
         _showLocalOnly = prefs.ShowLocalOnly;
         _showWhyNotReady = prefs.ShowWhyNotReady;
+        _filterUltraNative = prefs.FilterUltraNative;
+        _filterTrueGame = prefs.FilterTrueGame;
+        _filterUevr = prefs.FilterUevr;
+        _filter3DVision = prefs.Filter3DVision;
         _playlistName = prefs.LastPlaylistName;
         OnPropertyChanged(nameof(SortMode));
         OnPropertyChanged(nameof(SmartCollection));
         OnPropertyChanged(nameof(ShowFavoritesOnly));
         OnPropertyChanged(nameof(ShowLocalOnly));
         OnPropertyChanged(nameof(ShowWhyNotReady));
+        OnPropertyChanged(nameof(FilterUltraNative));
+        OnPropertyChanged(nameof(FilterTrueGame));
+        OnPropertyChanged(nameof(FilterUevr));
+        OnPropertyChanged(nameof(Filter3DVision));
         OnPropertyChanged(nameof(PlaylistName));
     }
 
@@ -45,6 +53,10 @@ public sealed partial class GameLibraryViewModel
                     ShowFavoritesOnly: ShowFavoritesOnly,
                     ShowLocalOnly: ShowLocalOnly,
                     ShowWhyNotReady: ShowWhyNotReady,
+                    FilterUltraNative: FilterUltraNative,
+                    FilterTrueGame: FilterTrueGame,
+                    FilterUevr: FilterUevr,
+                    Filter3DVision: Filter3DVision,
                     LastPlaylistName: PlaylistName));
             }
             catch (OperationCanceledException)

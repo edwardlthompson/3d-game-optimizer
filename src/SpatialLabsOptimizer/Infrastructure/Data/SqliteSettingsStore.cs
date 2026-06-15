@@ -2,7 +2,7 @@ using Microsoft.Data.Sqlite;
 
 namespace SpatialLabsOptimizer.Infrastructure.Data;
 
-public sealed class SqliteSettingsStore : IAsyncDisposable
+public sealed partial class SqliteSettingsStore : IAsyncDisposable
 {
     private readonly string _dbPath;
     private SqliteConnection? _connection;

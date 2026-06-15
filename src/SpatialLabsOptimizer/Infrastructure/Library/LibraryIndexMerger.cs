@@ -24,7 +24,6 @@ public sealed class LibraryIndexMerger
         CancellationToken cancellationToken)
     {
         await _external.MergeAsync(steamInstalled, adapter, cancellationToken);
-        await _steamOwned.MergeOwnedGamesAsync(steamInstalled, adapter, cancellationToken);
         await _placeholders.AssignAsync(cancellationToken);
     }
 }

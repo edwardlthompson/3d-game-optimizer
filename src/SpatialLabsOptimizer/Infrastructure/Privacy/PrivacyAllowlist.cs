@@ -20,6 +20,7 @@ public static class PrivacyAllowlist
         "objects.githubusercontent.com",
         "www.steamgriddb.com",
         "steamgriddb.com",
-        "api.github.com"
+        "api.github.com",
+        "edwardlthompson.github.io"
     ];
 }

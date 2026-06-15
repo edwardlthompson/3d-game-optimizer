@@ -1,0 +1,49 @@
+<UserControl
+    x:Class="SpatialLabsOptimizer.Views.ToolchainSetupPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:SpatialLabsOptimizer.Converters"
+    xmlns:viewmodels="using:SpatialLabsOptimizer.ViewModels"
+    xmlns:views="using:SpatialLabsOptimizer.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </UserControl.Resources>
+    <StackPanel Spacing="12">
+        <TextBlock Text="Pick your 3D display, then install required toolchain components." TextWrapping="Wrap" Opacity="0.85" />
+        <CheckBox x:Name="DisclaimerCheck" AutomationProperties.AutomationId="Toolchain_DisclaimerCheck" Content="I accept the toolchain EULA and legal disclaimers" Checked="DisclaimerCheck_Changed" Unchecked="DisclaimerCheck_Changed" />
+        <views:ManualDisplayPickerView x:Name="DisplayPicker" />
+        <TextBlock x:Name="ViewingDistanceBlock" TextWrapping="Wrap" Opacity="0.85" />
+        <TextBlock x:Name="SpatialLabsNoteBlock" TextWrapping="Wrap" Opacity="0.65" FontSize="12" />
+        <TextBlock Text="Required toolchain" FontWeight="SemiBold" />
+        <ItemsControl x:Name="RequiredToolsPanel">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:ToolInstallItemViewModel">
+                    <Grid ColumnSpacing="12" Padding="0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="28" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{x:Bind StatusGlyph}" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" />
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock Text="{x:Bind Name}" FontWeight="SemiBold" />
+                            <TextBlock Text="{x:Bind StatusLabel}" FontSize="12" Opacity="0.75" TextWrapping="Wrap" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button Content="Install" Click="ToolInstall_Click" Style="{StaticResource AppButtonStyle}" Visibility="{x:Bind ShowInstallButton, Converter={StaticResource BoolToVisibility}}" />
+                                <HyperlinkButton Content="Get help" Click="ToolGuide_Click" />
+                                <Button Content="Locate on disk" Click="ToolLocate_Click" Style="{StaticResource AppButtonStyle}" Visibility="{x:Bind ShowActions, Converter={StaticResource BoolToVisibility}}" />
+                                <Button Content="Verify" Click="ToolVerify_Click" Style="{StaticResource AppButtonStyle}" Visibility="{x:Bind ShowActions, Converter={StaticResource BoolToVisibility}}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Button x:Name="InstallAllButton" Content="Install all missing" Click="InstallAll_Click" Style="{StaticResource AppButtonStyle}" HorizontalAlignment="Left" />
+        <ProgressBar x:Name="InstallProgressBar" Minimum="0" Maximum="100" Visibility="Collapsed" />
+        <ListView x:Name="InstallLogList" MaxHeight="140" Visibility="Collapsed" />
+        <TextBlock x:Name="StatusBlock" TextWrapping="Wrap" />
+    </StackPanel>
+</UserControl>

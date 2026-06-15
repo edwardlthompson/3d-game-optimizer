@@ -7,4 +7,8 @@ public sealed record LibraryUiPrefs(
     bool ShowFavoritesOnly = false,
     bool ShowLocalOnly = false,
     bool ShowWhyNotReady = false,
+    bool FilterUltraNative = false,
+    bool FilterTrueGame = false,
+    bool FilterUevr = false,
+    bool Filter3DVision = false,
     string LastPlaylistName = "");

@@ -49,7 +49,10 @@ public sealed class Sprint48Tests
     public async Task ToolInstallDetector_ReturnsFalse_ForUnknownTool()
     {
         var dataRoot = FindDataRoot();
-        var detector = new ToolInstallDetector(new JsonDataLoader(dataRoot), new ToolPathResolver());
+        var settingsPath = Path.Combine(Path.GetTempPath(), $"3dgo-tool-{Guid.NewGuid()}.db");
+        await using var settings = new SqliteSettingsStore(settingsPath);
+        await settings.InitializeAsync();
+        var detector = new ToolInstallDetector(new JsonDataLoader(dataRoot), new ToolPathResolver(), settings);
         Assert.False(await detector.IsInstalledAsync("nonexistent-tool-id-xyz"));
     }
 

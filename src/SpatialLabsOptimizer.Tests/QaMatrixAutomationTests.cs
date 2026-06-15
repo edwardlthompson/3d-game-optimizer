@@ -33,22 +33,33 @@ public class QaMatrixAutomationTests
     public async Task P0_RollbackSnapshot_RestoresPriorState()
     {
         var dbPath = Path.Combine(Path.GetTempPath(), $"3dgo-snap-{Guid.NewGuid()}.db");
-        var store = new Infrastructure.Data.SqliteSettingsStore(dbPath);
-        await store.InitializeAsync();
-        var overrides = new GameOverrideRepository(store);
-        await overrides.SaveAsync(new GameOverride(570, 0.7, 0.5, LaunchPlatform.Uevr, false, "Auto"));
-        var snapshots = new ConfigSnapshotService(overrides);
-        var snapshotPath = await snapshots.SnapshotAsync(570);
-        Assert.True(File.Exists(snapshotPath));
+        var snapDir = Path.Combine(Path.GetTempPath(), $"3dgo-snapdir-{Guid.NewGuid():N}");
+        try
+        {
+            var store = new Infrastructure.Data.SqliteSettingsStore(dbPath);
+            await store.InitializeAsync();
+            var overrides = new GameOverrideRepository(store);
+            await overrides.SaveAsync(new GameOverride(570, 0.7, 0.5, LaunchPlatform.Uevr, false, "Auto"));
+            var snapshots = new ConfigSnapshotService(overrides, snapDir);
+            var snapshotPath = await snapshots.SnapshotAsync(570);
+            Assert.True(File.Exists(snapshotPath));
 
-        await overrides.SaveAsync(new GameOverride(570, 0.2, 0.2, LaunchPlatform.ReShade, true, "Headset"));
-        await snapshots.RollbackAsync(snapshotPath);
+            await overrides.SaveAsync(new GameOverride(570, 0.2, 0.2, LaunchPlatform.ReShade, true, "Headset"));
+            await snapshots.RollbackAsync(snapshotPath);
 
-        var restored = await overrides.GetAsync(570);
-        Assert.NotNull(restored);
-        Assert.Equal(0.7, restored!.Depth);
-        Assert.Equal("Auto", restored.PreferredOutput);
-        await store.DisposeAsync();
+            var restored = await overrides.GetAsync(570);
+            Assert.NotNull(restored);
+            Assert.Equal(0.7, restored!.Depth);
+            Assert.Equal("Auto", restored.PreferredOutput);
+            await store.DisposeAsync();
+        }
+        finally
+        {
+            if (Directory.Exists(snapDir))
+            {
+                Directory.Delete(snapDir, recursive: true);
+            }
+        }
     }
 
     [Fact]

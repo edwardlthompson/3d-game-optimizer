@@ -6,6 +6,7 @@ using SpatialLabsOptimizer.Infrastructure.Progress;
 
 namespace SpatialLabsOptimizer.Tests;
 
+[Collection(ElevatedHelperInstallCollection.Name)]
 public sealed class Sprint50Tests
 {
     [Fact]
@@ -54,6 +55,8 @@ public sealed class Sprint50Tests
     [Fact]
     public async Task ElevatedHelper_InstallsBundledReShadeFixture()
     {
+        ElevatedHelperInstallFixture.CleanupTool("reshade");
+
         var dataRoot = TestPaths.FindDataRoot();
         var bundledPath = Path.GetFullPath(Path.Combine(dataRoot, "tools/fixtures/reshade-minimal.zip"));
         Assert.True(File.Exists(bundledPath));
@@ -78,11 +81,7 @@ public sealed class Sprint50Tests
 
         Assert.Equal(0, exitCode);
 
-        var installRoot = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "3d-game-optimizer",
-            "tools",
-            "reshade");
+        var installRoot = ElevatedHelperInstallFixture.ToolInstallRoot("reshade");
         Assert.True(File.Exists(Path.Combine(installRoot, "ReShade.ini")));
     }
 

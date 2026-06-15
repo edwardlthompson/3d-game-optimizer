@@ -1,28 +1,26 @@
-using System.Text.Json;
-using Microsoft.Win32;
 using SpatialLabsOptimizer.Infrastructure.Data;
 using SpatialLabsOptimizer.Infrastructure.Launch;
 
 namespace SpatialLabsOptimizer.Infrastructure.Install;
 
-public sealed class ToolInstallDetector
+public sealed partial class ToolInstallDetector
 {
-    private const int ProgramFilesSubdirScanLimit = 8;
-
     private readonly JsonDataLoader _loader;
     private readonly ToolPathResolver _toolPaths;
+    private readonly SqliteSettingsStore _settings;
     private ToolManifestDocument? _cachedManifest;
 
-    public ToolInstallDetector(JsonDataLoader loader, ToolPathResolver toolPaths)
+    public ToolInstallDetector(JsonDataLoader loader, ToolPathResolver toolPaths, SqliteSettingsStore settings)
     {
         _loader = loader;
         _toolPaths = toolPaths;
+        _settings = settings;
     }
 
     public async Task<bool> IsInstalledAsync(string toolId, CancellationToken cancellationToken = default)
     {
         var manifest = await LoadManifestAsync(cancellationToken);
-        return IsInstalled(toolId, manifest);
+        return await IsInstalledAsync(toolId, manifest, cancellationToken);
     }
 
     public async Task<IReadOnlyList<ToolInstallStatus>> GetStatusesAsync(
@@ -39,27 +37,66 @@ public sealed class ToolInstallDetector
             results.Add(new ToolInstallStatus(
                 toolId,
                 names.TryGetValue(toolId, out var name) ? name : toolId,
-                IsInstalled(toolId, manifest)));
+                await IsInstalledAsync(toolId, manifest, cancellationToken)));
         }
 
         return results;
     }
 
-    private async Task<ToolManifestDocument?> LoadManifestAsync(CancellationToken cancellationToken)
+    public async Task<string?> GetDetectionNoteAsync(string toolId, CancellationToken cancellationToken = default)
     {
-        if (_cachedManifest is not null)
+        if (!string.Equals(toolId, "spatiallabs-runtime-platform", StringComparison.OrdinalIgnoreCase))
         {
-            return _cachedManifest;
+            return null;
         }
 
-        _cachedManifest = await _loader.LoadAsync<ToolManifestDocument>(
-            "tools/tool-manifest-v1.json",
-            cancellationToken);
-        return _cachedManifest;
+        var manifest = await LoadManifestAsync(cancellationToken);
+        var tool = manifest?.Tools?.FirstOrDefault(t =>
+            string.Equals(t.Id, toolId, StringComparison.OrdinalIgnoreCase));
+        if (tool?.Verification is null)
+        {
+            return null;
+        }
+
+        if (IsRegistryKeyPresent(tool.Verification.PathHint))
+        {
+            return "Runtime registry";
+        }
+
+        if (IsExperienceCenterPresent())
+        {
+            return "Experience Center";
+        }
+
+        if (await HasCustomInstallPathAsync(toolId, cancellationToken))
+        {
+            return "Custom path";
+        }
+
+        return null;
     }
 
-    private bool IsInstalled(string toolId, ToolManifestDocument? manifest)
+    private async Task<bool> HasCustomInstallPathAsync(string toolId, CancellationToken cancellationToken = default)
     {
+        var path = await _settings.GetToolInstallPathAsync(toolId, cancellationToken);
+        return !string.IsNullOrWhiteSpace(path) && Directory.Exists(path);
+    }
+
+    private async Task<bool> IsInstalledAsync(
+        string toolId,
+        ToolManifestDocument? manifest,
+        CancellationToken cancellationToken = default)
+    {
+        if (await HasCustomInstallPathAsync(toolId, cancellationToken))
+        {
+            return true;
+        }
+
+        if (string.Equals(toolId, "spatiallabs-runtime-platform", StringComparison.OrdinalIgnoreCase))
+        {
+            return IsSpatialLabsRuntimeInstalled(manifest);
+        }
+
         var tool = manifest?.Tools?.FirstOrDefault(t =>
             string.Equals(t.Id, toolId, StringComparison.OrdinalIgnoreCase));
         if (tool?.Verification is null)
@@ -76,102 +113,17 @@ public sealed class ToolInstallDetector
         };
     }
 
-    private bool IsFilePresent(string toolId, string? pathHint)
+    private async Task<ToolManifestDocument?> LoadManifestAsync(CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(pathHint))
+        if (_cachedManifest is not null)
         {
-            return false;
+            return _cachedManifest;
         }
 
-        return _toolPaths.ResolveExecutable(toolId, pathHint) is not null
-            || _toolPaths.ResolveExecutable(toolId, pathHint, $"bin/{pathHint}") is not null;
-    }
-
-    private static bool IsRegistryKeyPresent(string? pathHint)
-    {
-        if (string.IsNullOrWhiteSpace(pathHint))
-        {
-            return false;
-        }
-
-        try
-        {
-            var parts = pathHint.Split('\\', 2, StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length < 2)
-            {
-                return false;
-            }
-
-            var hive = parts[0].ToUpperInvariant() switch
-            {
-                "HKLM" => RegistryHive.LocalMachine,
-                "HKCU" => RegistryHive.CurrentUser,
-                _ => RegistryHive.LocalMachine
-            };
-            using var baseKey = RegistryKey.OpenBaseKey(hive, RegistryView.Registry64);
-            using var key = baseKey.OpenSubKey(parts[1]);
-            return key is not null;
-        }
-        catch (Exception)
-        {
-            return false;
-        }
-    }
-
-    private bool IsProcessOrFilePresent(string toolId, string? pathHint)
-    {
-        if (string.IsNullOrWhiteSpace(pathHint))
-        {
-            return false;
-        }
-
-        if (IsFilePresent(toolId, pathHint))
-        {
-            return true;
-        }
-
-        var localTools = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "3d-game-optimizer",
-            "tools",
-            toolId);
-        if (Directory.Exists(localTools) &&
-            Directory.EnumerateFiles(localTools, pathHint, SearchOption.AllDirectories).Any())
-        {
-            return true;
-        }
-
-        var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-        if (!Directory.Exists(programFiles))
-        {
-            return false;
-        }
-
-        try
-        {
-            return Directory.EnumerateFiles(programFiles, pathHint, SearchOption.TopDirectoryOnly).Any()
-                || Directory.EnumerateDirectories(programFiles)
-                    .Take(ProgramFilesSubdirScanLimit)
-                    .Any(dir => Directory.EnumerateFiles(dir, pathHint, SearchOption.TopDirectoryOnly).Any());
-        }
-        catch (UnauthorizedAccessException)
-        {
-            return false;
-        }
-        catch (IOException)
-        {
-            return false;
-        }
-    }
-
-    private static bool IsToolDirectoryPresent(string toolId)
-    {
-        var path = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "3d-game-optimizer",
-            "tools",
-            toolId);
-        return Directory.Exists(path) && Directory.EnumerateFileSystemEntries(path).Any();
+        _cachedManifest = await _loader.LoadAsync<ToolManifestDocument>(
+            "tools/tool-manifest-v1.json",
+            cancellationToken);
+        return _cachedManifest;
     }
 }
 

@@ -2,7 +2,8 @@
 param(
     [string]$Version = "",
     [switch]$OpenPr,
-    [switch]$DryRun
+    [switch]$DryRun,
+    [switch]$SignCla
 )
 
 $ErrorActionPreference = "Stop"
@@ -26,6 +27,9 @@ if (-not $installer) {
 & $bash scripts/generate-winget-multifile.sh "$Version" "$installer" "$installerType"
 $src = Join-Path $Root "packaging/winget-product/multifile/$Version"
 if (-not (Test-Path $src)) { throw "Multifile manifest not generated at $src" }
+
+& $bash scripts/validate-winget-manifest.sh $src
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host "=== prepare-winget-submission (v$Version) ==="
 Write-Host "Manifest triplet: $src"
@@ -66,10 +70,15 @@ Copy-Item -Path (Join-Path $src "*") -Destination $destRel -Force
 git add $destRel
 git commit -m "New version: edwardlthompson.SpatialLabsOptimizer $Version"
 git push -u origin HEAD
-gh pr create --repo microsoft/winget-pkgs `
+$prUrl = gh pr create --repo microsoft/winget-pkgs `
     --head "${forkOwner}:${branch}" `
     --title "New version: edwardlthompson.SpatialLabsOptimizer $Version" `
     --body "Automated submission from 3d-game-optimizer v$Version.`n`nRelease: https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v$Version"
 Pop-Location
+
+if ($SignCla -and $prUrl) {
+    gh pr comment $prUrl --body "@microsoft-github-policy-service agree"
+    Write-Host "Posted CLA agreement comment on $prUrl"
+}
 
 Write-Host "prepare-winget-submission complete"

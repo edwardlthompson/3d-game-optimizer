@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using SpatialLabsOptimizer.Infrastructure.Displays;
 
 namespace SpatialLabsOptimizer.Views;
@@ -11,18 +10,17 @@ public sealed partial class ViewingDistanceCoachView : Microsoft.UI.Xaml.Control
     public ViewingDistanceCoachView()
     {
         InitializeComponent();
-        Loaded += ViewingDistanceCoachView_Loaded;
+    }
+
+    public void Initialize(ViewingDistanceCoach coach)
+    {
+        _coach = coach;
+        RefreshGuide();
     }
 
     public void SetProfile(string profileId)
     {
         _profileId = profileId;
-        RefreshGuide();
-    }
-
-    private void ViewingDistanceCoachView_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        _coach ??= App.Services.GetRequiredService<ViewingDistanceCoach>();
         RefreshGuide();
     }
 

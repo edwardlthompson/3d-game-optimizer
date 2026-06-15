@@ -2,7 +2,13 @@
     x:Class="SpatialLabsOptimizer.Views.GlossaryView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:viewmodels="using:SpatialLabsOptimizer.ViewModels">
+    xmlns:converters="using:SpatialLabsOptimizer.Converters"
+    xmlns:viewmodels="using:SpatialLabsOptimizer.ViewModels"
+    xmlns:views="using:SpatialLabsOptimizer.Views"
+    x:DataType="views:GlossaryView">
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </Page.Resources>
     <ScrollViewer Padding="24">
         <StackPanel Spacing="16" MaxWidth="720">
             <TextBlock Text="Glossary" FontSize="28" FontWeight="SemiBold" />
@@ -10,8 +16,12 @@
                 Text="Plain-language definitions for 3D gaming and compatibility terms used in this app."
                 TextWrapping="Wrap"
                 Opacity="0.8" />
-            <TextBlock x:Name="LoadErrorBlock" TextWrapping="Wrap" Foreground="{StaticResource Brush.Accent}" />
-            <ItemsControl x:Name="GlossaryItems">
+            <TextBlock
+                Text="{x:Bind ViewModel.LoadError, Mode=OneWay}"
+                TextWrapping="Wrap"
+                Foreground="{StaticResource Brush.Accent}"
+                Visibility="{x:Bind ViewModel.HasLoadError, Mode=OneWay, Converter={StaticResource BoolToVisibility}}" />
+            <ItemsControl ItemsSource="{x:Bind ViewModel.Entries, Mode=OneWay}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="viewmodels:GlossaryEntryViewModel">
                         <StackPanel Spacing="4" Margin="0,0,0,12">

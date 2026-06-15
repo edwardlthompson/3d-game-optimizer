@@ -1,45 +1,28 @@
-using Microsoft.Extensions.DependencyInjection;
-using SpatialLabsOptimizer.Infrastructure.Launch.Coexistence;
-using SpatialLabsOptimizer.Infrastructure.Settings;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
+using SpatialLabsOptimizer.ViewModels;
 
 namespace SpatialLabsOptimizer.Views;
 
-public sealed partial class ToolchainHealthView : Microsoft.UI.Xaml.Controls.Page
+public sealed partial class ToolchainHealthView : Page
 {
+    public ToolchainHealthViewModel ViewModel { get; private set; } = null!;
+
     public ToolchainHealthView()
     {
         InitializeComponent();
-        Loaded += ToolchainHealthView_Loaded;
     }
 
-    private async void ToolchainHealthView_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
-        var prefs = App.Services.GetRequiredService<UserPreferencesService>();
-        SafeLaunchToggle.IsOn = await prefs.GetSafeLaunchAsync();
-        TrainerToggle.IsOn = await prefs.GetTrainerCoexistenceAsync();
-        ModManagerToggle.IsOn = await prefs.GetModManagerCoexistenceAsync();
-        SimpleModeToggle.IsOn = await prefs.GetSimpleModeAsync();
-        RefreshDetectedTools();
-    }
+        base.OnNavigatedTo(e);
+        if (e.Parameter is not ToolchainHealthViewModel vm)
+        {
+            return;
+        }
 
-    private async void Preference_Toggled(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-    {
-        var prefs = App.Services.GetRequiredService<UserPreferencesService>();
-        await prefs.SetSafeLaunchAsync(SafeLaunchToggle.IsOn);
-        await prefs.SetTrainerCoexistenceAsync(TrainerToggle.IsOn);
-        await prefs.SetModManagerCoexistenceAsync(ModManagerToggle.IsOn);
-        await prefs.SetSimpleModeAsync(SimpleModeToggle.IsOn);
-    }
-
-    private void RefreshDetectedTools_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => RefreshDetectedTools();
-
-    private void RefreshDetectedTools()
-    {
-        var coexistence = App.Services.GetRequiredService<ExternalToolCoexistenceService>();
-        var detected = coexistence.GetAllRunningExternalTools();
-        DetectedToolsText.Text = detected.Count == 0
-            ? "Detected external tools: none"
-            : $"Detected external tools: {string.Join(", ", detected)}";
+        ViewModel = vm;
+        Bindings.Update();
+        await vm.LoadAsync();
     }
 }

@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using SpatialLabsOptimizer.Infrastructure;
@@ -22,7 +21,16 @@ public sealed partial class ShellPage : Page
 
     private readonly ResponsiveStateService _responsive;
     private readonly GameLibraryViewModel _libraryViewModel;
-    private readonly SetupWizardViewModel _wizardViewModel;
+    private readonly Global3DSettingsViewModel _settingsViewModel;
+    private readonly LibrarySettingsViewModel _librarySettingsViewModel;
+    private readonly AboutViewModel _aboutViewModel;
+    private readonly GlossaryViewModel _glossaryViewModel;
+    private readonly TroubleshootingViewModel _troubleshootingViewModel;
+    private readonly CommandPaletteViewModel _commandPaletteViewModel;
+    private readonly PresetCacheService _presets;
+    private readonly OperationProgressHub _progressHub;
+    private readonly UserPreferencesService _prefs;
+    private readonly StreamerHotkeyService? _streamerHotkey;
 
     public ShellViewModel ViewModel { get; }
 
@@ -30,12 +38,30 @@ public sealed partial class ShellPage : Page
         ShellViewModel viewModel,
         ResponsiveStateService responsive,
         GameLibraryViewModel libraryViewModel,
-        SetupWizardViewModel wizardViewModel)
+        Global3DSettingsViewModel settingsViewModel,
+        LibrarySettingsViewModel librarySettingsViewModel,
+        AboutViewModel aboutViewModel,
+        GlossaryViewModel glossaryViewModel,
+        TroubleshootingViewModel troubleshootingViewModel,
+        CommandPaletteViewModel commandPaletteViewModel,
+        PresetCacheService presets,
+        OperationProgressHub progressHub,
+        UserPreferencesService prefs,
+        StreamerHotkeyService? streamerHotkey = null)
     {
         ViewModel = viewModel;
         _responsive = responsive;
         _libraryViewModel = libraryViewModel;
-        _wizardViewModel = wizardViewModel;
+        _settingsViewModel = settingsViewModel;
+        _librarySettingsViewModel = librarySettingsViewModel;
+        _aboutViewModel = aboutViewModel;
+        _glossaryViewModel = glossaryViewModel;
+        _troubleshootingViewModel = troubleshootingViewModel;
+        _commandPaletteViewModel = commandPaletteViewModel;
+        _presets = presets;
+        _progressHub = progressHub;
+        _prefs = prefs;
+        _streamerHotkey = streamerHotkey;
         InitializeComponent();
         Loaded += ShellPage_Loaded;
         Unloaded += (_, _) => Current = null;
@@ -44,10 +70,11 @@ public sealed partial class ShellPage : Page
 
     private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(ShellViewModel.PendingSetupWizardRerun) && ViewModel.PendingSetupWizardRerun)
+        if (e.PropertyName == nameof(ShellViewModel.PendingToolchainSettings) && ViewModel.PendingToolchainSettings)
         {
-            NavigateToTag("wizard");
-            ViewModel.ClearSetupWizardRerunRequest();
+            _settingsViewModel.ExpandToolchain = true;
+            NavigateToTag("settings");
+            ViewModel.ClearToolchainSettingsRequest();
         }
     }
 
@@ -63,6 +90,12 @@ public sealed partial class ShellPage : Page
         await ViewModel.InitializeAsync();
         NavView.SelectedItem = NavView.MenuItems[0];
         ContentFrame.Navigate(typeof(GameLibraryView), _libraryViewModel);
+
+        if (!await ViewModel.IsSetupCompleteAsync())
+        {
+            _settingsViewModel.ExpandToolchain = true;
+            NavigateToTag("settings");
+        }
 
         if (App.PendingProtocolAppId is int protocolAppId)
         {
@@ -86,80 +119,8 @@ public sealed partial class ShellPage : Page
         NavigateContent(tag);
     }
 
-    public async Task ExecuteCommandAsync(string commandId)
-    {
-        switch (commandId)
-        {
-            case "setup-wizard":
-                NavigateToTag("wizard");
-                break;
-            case "play-3d":
-                NavigateToTag("library");
-                _libraryViewModel.PlayCommand.Execute(null);
-                break;
-            case "play-vr":
-                NavigateToTag("library");
-                _libraryViewModel.PlayVrCommand.Execute(null);
-                break;
-            case "refresh-metadata":
-            case "rescan-library":
-                NavigateToTag("library");
-                await _libraryViewModel.LoadAsync();
-                ViewModel.Status = "Library re-indexed.";
-                break;
-            case "cache-presets":
-                await CacheTopPresetsAsync();
-                break;
-            case "open-logs":
-                OpenLogsFolder();
-                break;
-            case "toggle-safe-launch":
-                await ToggleSafeLaunchAsync();
-                break;
-            case "safe-launch":
-                NavigateToTag("settings");
-                break;
-            case "diagnostic-bundle":
-                NavigateToTag("troubleshoot");
-                break;
-            case "command-palette":
-                NavigateToTag("commands");
-                break;
-        }
-    }
-
-    private async Task CacheTopPresetsAsync()
-    {
-        var presets = App.Services.GetRequiredService<PresetCacheService>();
-        var hub = App.Services.GetRequiredService<OperationProgressHub>();
-        ViewModel.Status = "Caching top presets…";
-        await presets.BulkCacheTopPresetsAsync(50, hub);
-        ViewModel.Status = "Top presets cached.";
-    }
-
-    private static void OpenLogsFolder()
-    {
-        var logDir = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "3d-game-optimizer", "logs");
-        Directory.CreateDirectory(logDir);
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = logDir,
-            UseShellExecute = true
-        });
-    }
-
-    private async Task ToggleSafeLaunchAsync()
-    {
-        var prefs = App.Services.GetRequiredService<UserPreferencesService>();
-        var enabled = await prefs.GetSafeLaunchAsync();
-        await prefs.SetSafeLaunchAsync(!enabled);
-        ViewModel.Status = !enabled ? "Safe launch enabled." : "Safe launch disabled.";
-    }
-
     private void DisplayChangeRerun_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        => ViewModel.RequestSetupWizardRerun();
+        => ViewModel.RequestToolchainSettings();
 
     private void DisplayChangeInfoBar_Closed(InfoBar sender, InfoBarClosedEventArgs args)
         => ViewModel.AcknowledgeDisplayChange();
@@ -170,7 +131,7 @@ public sealed partial class ShellPage : Page
     private void NavView_KeyDown(object sender, KeyRoutedEventArgs e)
     {
         if (FeatureFlags.V11Enabled &&
-            App.Services.GetService<StreamerHotkeyService>() is { } hotkeys &&
+            _streamerHotkey is { } hotkeys &&
             TryHandleStreamerHotkey(e, hotkeys))
         {
             e.Handled = true;
@@ -232,7 +193,6 @@ public sealed partial class ShellPage : Page
         var pageType = tag switch
         {
             "library" => typeof(GameLibraryView),
-            "wizard" => typeof(SetupWizardView),
             "settings" => typeof(Global3DSettingsView),
             "library-settings" => typeof(LibrarySettingsView),
             "troubleshoot" => typeof(TroubleshootingView),
@@ -245,7 +205,12 @@ public sealed partial class ShellPage : Page
         var parameter = tag switch
         {
             "library" => (object)_libraryViewModel,
-            "wizard" => _wizardViewModel,
+            "settings" => _settingsViewModel,
+            "library-settings" => _librarySettingsViewModel,
+            "troubleshoot" => _troubleshootingViewModel,
+            "glossary" => _glossaryViewModel,
+            "about" => _aboutViewModel,
+            "commands" => _commandPaletteViewModel,
             _ => null!
         };
 

@@ -18,6 +18,7 @@ public sealed class LibraryIndexer
     private readonly DisplayAutoDetector _displayDetector;
     private readonly LibraryIndexMerger _merger;
     private readonly LibraryPrefetchService _prefetch;
+    private readonly SqliteSettingsStore _settings;
 
     public LibraryIndexer(
         CompatibilityRepository compatibility,
@@ -27,7 +28,8 @@ public sealed class LibraryIndexer
         OperationProgressHub progressHub,
         DisplayAutoDetector displayDetector,
         LibraryIndexMerger merger,
-        LibraryPrefetchService prefetch)
+        LibraryPrefetchService prefetch,
+        SqliteSettingsStore settings)
     {
         _compatibility = compatibility;
         _vdfScanner = vdfScanner;
@@ -37,6 +39,7 @@ public sealed class LibraryIndexer
         _displayDetector = displayDetector;
         _merger = merger;
         _prefetch = prefetch;
+        _settings = settings;
     }
 
     public async Task IndexAsync(CancellationToken cancellationToken = default)
@@ -69,7 +72,8 @@ public sealed class LibraryIndexer
                 entry.ReviewSortScore,
                 cover,
                 entry.SteamTags.FirstOrDefault(),
-                false), cancellationToken);
+                false,
+                true), cancellationToken);
 
             _progressHub.Publish(new OperationProgressReport(
                 "library-index",
@@ -91,9 +95,38 @@ public sealed class LibraryIndexer
             IsComplete: true,
             PercentComplete: 100));
 
-        var allGames = await _database.GetAllGamesAsync(cancellationToken);
-        var steamAppIds = allGames.Where(g => g.SteamAppId > 0).Select(g => g.SteamAppId).Distinct().ToList();
-        _ = _prefetch.PrefetchArtworkAsync(steamAppIds);
-        _ = _prefetch.PrefetchMetadataAsync(steamAppIds);
+        var catalogIds = entries.Select(e => e.SteamAppId).Distinct().ToList();
+        _ = _prefetch.PrefetchMissingArtworkAsync(catalogIds);
+        _ = _prefetch.PrefetchMissingMetadataAsync(catalogIds);
+    }
+
+    public const string LastFullIndexUtcKey = "last_full_index_utc";
+    public static readonly TimeSpan FullIndexThrottle = TimeSpan.FromHours(24);
+
+    public async Task<bool> ShouldRunFullIndexAsync(CancellationToken cancellationToken = default)
+    {
+        await _database.InitializeAsync(cancellationToken);
+        if (await _database.CountCatalogTitlesAsync(cancellationToken) == 0)
+        {
+            return true;
+        }
+
+        var last = await _settings.GetAsync(LastFullIndexUtcKey, cancellationToken);
+        if (string.IsNullOrWhiteSpace(last))
+        {
+            return true;
+        }
+
+        return !DateTimeOffset.TryParse(last, out var parsed)
+            || DateTimeOffset.UtcNow - parsed > FullIndexThrottle;
+    }
+
+    public async Task MarkFullIndexCompletedAsync(CancellationToken cancellationToken = default)
+    {
+        await _settings.InitializeAsync(cancellationToken);
+        await _settings.SetAsync(
+            LastFullIndexUtcKey,
+            DateTimeOffset.UtcNow.ToString("O"),
+            cancellationToken);
     }
 }

@@ -24,9 +24,11 @@ if (-not $SkipDotnet) {
 if (-not $SkipBash) {
     $bash = & (Join-Path $Root "scripts/resolve-bash.ps1")
     $scripts = @(
+        "scripts/check-file-limits.sh",
         "scripts/check-local-release-scripts.sh",
         "scripts/check-qa-matrix-coverage.sh",
-        "scripts/check-compatibility-seed.sh"
+        "scripts/check-compatibility-seed.sh",
+        "scripts/build-verification-gate.sh --quick --skip-dotnet --skip-pre-commit"
     )
     foreach ($script in $scripts) {
         & $bash $script

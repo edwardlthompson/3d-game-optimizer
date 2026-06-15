@@ -4,6 +4,11 @@ namespace SpatialLabsOptimizer.Infrastructure.Data;
 
 public sealed class JsonDataLoader
 {
+    public static string UserCatalogDirectory => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "3d-game-optimizer",
+        "catalog");
+
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true
@@ -34,7 +39,7 @@ public sealed class JsonDataLoader
 
     public async Task<T?> LoadAsync<T>(string relativePath, CancellationToken cancellationToken = default)
     {
-        var fullPath = Path.GetFullPath(Path.Combine(_dataRoot, relativePath));
+        var fullPath = ResolvePath(relativePath);
         if (!File.Exists(fullPath))
         {
             return default;
@@ -46,7 +51,7 @@ public sealed class JsonDataLoader
 
     public T? Load<T>(string relativePath)
     {
-        var fullPath = Path.GetFullPath(Path.Combine(_dataRoot, relativePath));
+        var fullPath = ResolvePath(relativePath);
         if (!File.Exists(fullPath))
         {
             return default;
@@ -54,5 +59,19 @@ public sealed class JsonDataLoader
 
         var json = File.ReadAllText(fullPath);
         return JsonSerializer.Deserialize<T>(json, JsonOptions);
+    }
+
+    private string ResolvePath(string relativePath)
+    {
+        if (string.Equals(relativePath, "compatibility/catalog-v2.json", StringComparison.OrdinalIgnoreCase))
+        {
+            var userCatalog = Path.Combine(UserCatalogDirectory, "catalog-v2.json");
+            if (File.Exists(userCatalog))
+            {
+                return userCatalog;
+            }
+        }
+
+        return Path.GetFullPath(Path.Combine(_dataRoot, relativePath));
     }
 }

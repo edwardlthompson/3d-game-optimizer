@@ -555,7 +555,21 @@ public sealed partial class Global3DSettingsView
 
 
 def main() -> None:
-    split_future_services()
+    import sys
+
+    if "--force" not in sys.argv:
+        print(
+            "ERROR: sprint44-split-files.py has stale line ranges and references removed sources.\n"
+            "Re-running without --force may corrupt the tree. Split files manually or regenerate ranges.\n"
+            "Pass --force to run anyway (not recommended)."
+        )
+        sys.exit(1)
+
+    if not (ROOT / "Infrastructure/Updates/FutureServices.cs").exists():
+        print("SKIP split_future_services — FutureServices.cs already split")
+
+    else:
+        split_future_services()
     split_use_cases()
     split_launch_services()
     split_game_database()

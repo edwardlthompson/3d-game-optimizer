@@ -10,28 +10,35 @@ public sealed class AboutViewModel : ViewModelBase
     private readonly UserPreferencesService _prefs;
     private readonly InstallArtifactDetector _detector;
     private readonly UpdateScheduler _scheduler;
+    private readonly CatalogUpdateScheduler _catalogScheduler;
     private readonly UpdateApplyService _apply;
 
     private UpdateCheckResult? _lastResult;
     private string _versionText = "";
     private string _installTypeText = "";
     private string _updateStatusText = "No update information yet.";
+    private string _catalogStatusText = "Catalog sync is opt-in and disabled by default.";
     private bool _isApplyEnabled;
     private bool _isRetryOpen;
     private bool _showReleaseNotes;
+    private bool _isLoading;
+    private int _installTypeOverrideIndex;
 
     public AboutViewModel(
         UserPreferencesService prefs,
         InstallArtifactDetector detector,
         UpdateScheduler scheduler,
+        CatalogUpdateScheduler catalogScheduler,
         UpdateApplyService apply)
     {
         _prefs = prefs;
         _detector = detector;
         _scheduler = scheduler;
+        _catalogScheduler = catalogScheduler;
         _apply = apply;
 
         CheckUpdateCommand = new RelayCommand(async () => await CheckForUpdatesAsync());
+        CheckCatalogCommand = new RelayCommand(async () => await CheckCatalogAsync());
         ApplyUpdateCommand = new RelayCommand(async () => await ApplyUpdateAsync(), () => _isApplyEnabled);
         RetryUpdateCommand = new RelayCommand(async () => await ApplyUpdateAsync(), () => _lastResult is not null);
         OpenReleaseNotesCommand = new RelayCommand(async () => await OpenReleaseNotesAsync(), () => _showReleaseNotes);
@@ -87,13 +94,91 @@ public sealed class AboutViewModel : ViewModelBase
 
     public UpdateCheckInterval UpdateInterval { get; private set; } = UpdateCheckInterval.Weekly;
 
+    public UpdateCheckInterval CatalogInterval { get; private set; } = UpdateCheckInterval.Off;
+
+    public int CatalogIntervalIndex
+    {
+        get => CatalogInterval switch
+        {
+            UpdateCheckInterval.Off => 0,
+            UpdateCheckInterval.Startup => 1,
+            UpdateCheckInterval.Daily => 2,
+            _ => 3
+        };
+        set
+        {
+            if (_isLoading)
+            {
+                return;
+            }
+
+            var interval = value switch
+            {
+                0 => UpdateCheckInterval.Off,
+                1 => UpdateCheckInterval.Startup,
+                2 => UpdateCheckInterval.Daily,
+                _ => UpdateCheckInterval.Weekly
+            };
+            _ = SetCatalogIntervalAsync(interval);
+        }
+    }
+
+    public string CatalogStatusText
+    {
+        get => _catalogStatusText;
+        private set => SetProperty(ref _catalogStatusText, value);
+    }
+
+    public int UpdateIntervalIndex
+    {
+        get => UpdateInterval switch
+        {
+            UpdateCheckInterval.Off => 0,
+            UpdateCheckInterval.Startup => 1,
+            UpdateCheckInterval.Daily => 2,
+            _ => 3
+        };
+        set
+        {
+            if (_isLoading)
+            {
+                return;
+            }
+
+            var interval = value switch
+            {
+                0 => UpdateCheckInterval.Off,
+                1 => UpdateCheckInterval.Startup,
+                2 => UpdateCheckInterval.Daily,
+                _ => UpdateCheckInterval.Weekly
+            };
+            _ = SetUpdateIntervalAsync(interval);
+        }
+    }
+
+    public int InstallTypeOverrideIndex
+    {
+        get => _installTypeOverrideIndex;
+        set
+        {
+            if (_isLoading)
+            {
+                return;
+            }
+
+            _ = ApplyInstallTypeOverrideIndexAsync(value);
+        }
+    }
+
     public ICommand CheckUpdateCommand { get; }
+    public ICommand CheckCatalogCommand { get; }
     public ICommand ApplyUpdateCommand { get; }
     public ICommand RetryUpdateCommand { get; }
     public ICommand OpenReleaseNotesCommand { get; }
 
     public async Task LoadAsync()
     {
+        _isLoading = true;
         VersionText = $"Version {ProductVersionReader.ReadCurrentVersion()}";
         var artifactType = await _prefs.GetInstallArtifactTypeAsync(_detector);
         InstallTypeText = $"Installed as: {DescribeInstallType(artifactType)}";
@@ -101,12 +186,56 @@ public sealed class AboutViewModel : ViewModelBase
         _lastResult = await _prefs.GetCachedUpdateResultAsync();
         IsRetryOpen = await _prefs.GetUpdateRestartPendingAsync();
         RenderUpdateStatus(_lastResult);
+        CatalogInterval = await _prefs.GetCatalogCheckIntervalAsync();
+        if (_catalogScheduler.LastResult is not null)
+        {
+            CatalogStatusText = _catalogScheduler.LastResult.Message;
+        }
+
+        _installTypeOverrideIndex = 0;
+        OnPropertyChanged(nameof(UpdateIntervalIndex));
+        OnPropertyChanged(nameof(CatalogIntervalIndex));
+        OnPropertyChanged(nameof(InstallTypeOverrideIndex));
+        _isLoading = false;
+    }
+
+    public async Task SetCatalogIntervalAsync(UpdateCheckInterval interval)
+    {
+        CatalogInterval = interval;
+        OnPropertyChanged(nameof(CatalogIntervalIndex));
+        await _prefs.SetCatalogCheckIntervalAsync(interval);
+    }
+
+    public async Task CheckCatalogAsync()
+    {
+        CatalogStatusText = "Checking catalog…";
+        var result = await _catalogScheduler.CheckNowAsync();
+        CatalogStatusText = result.Message;
     }
 
     public async Task SetUpdateIntervalAsync(UpdateCheckInterval interval)
     {
         UpdateInterval = interval;
+        OnPropertyChanged(nameof(UpdateIntervalIndex));
         await _prefs.SetUpdateCheckIntervalAsync(interval);
+    }
+
+    private async Task ApplyInstallTypeOverrideIndexAsync(int index)
+    {
+        _installTypeOverrideIndex = index;
+        if (index == 0)
+        {
+            await SetInstallTypeOverrideAsync(null);
+            return;
+        }
+
+        var type = index switch
+        {
+            1 => InstallArtifactType.Zip,
+            2 => InstallArtifactType.Msix,
+            _ => InstallArtifactType.Msi
+        };
+        await SetInstallTypeOverrideAsync(type);
     }
 
     public async Task SetInstallTypeOverrideAsync(InstallArtifactType? type)

@@ -34,14 +34,29 @@ public sealed class GlossaryViewModel : ViewModelBase
     public string LoadError
     {
         get => _loadError;
-        private set => SetProperty(ref _loadError, value);
+        private set
+        {
+            if (SetProperty(ref _loadError, value))
+            {
+                OnPropertyChanged(nameof(HasLoadError));
+            }
+        }
     }
+
+    public bool HasLoadError => !string.IsNullOrWhiteSpace(LoadError);
 
     public async Task LoadAsync(CancellationToken cancellationToken = default)
     {
         try
         {
             var doc = await _loader.LoadAsync<GlossaryDocument>("glossary/glossary-v1.json", cancellationToken);
+            if (doc is null)
+            {
+                Entries = [];
+                LoadError = "No glossary entries found in seed data.";
+                return;
+            }
+
             Entries = doc.Entries
                 .Where(e => !string.IsNullOrWhiteSpace(e.Term))
                 .Select(e => new GlossaryEntryViewModel(e.Term, e.Definition))

@@ -35,7 +35,8 @@
       "category": "vendor-runtime",
       "required": true,
       "installMode": "manual",
-      "manualInstallGuide": "Install from Acer SpatialLabs support site or preinstalled OEM driver bundle. Registry probe: HKLM\\Software\\SpatialLabsRuntime",
+      "vendorUrl": "https://www.acer.com/us-en/support/spatiallabs",
+      "manualInstallGuide": "Install SpatialLabs Runtime Platform from Acer support or your OEM driver bundle (often bundled with SpatialLabs Experience Center). Experience Center is the user-facing app; Runtime Platform is the underlying driver this app checks via HKLM\\Software\\SpatialLabsRuntime. Either may satisfy the requirement on SpatialLabs hardware.",
       "silentArgs": "",
       "verification": {
         "type": "registryKey",
@@ -53,6 +54,47 @@
       "verification": {
         "type": "processOrFile",
         "pathHint": "OdysseyHub.exe"
+      }
+    },
+    {
+      "id": "vrto3d",
+      "name": "VRto3D",
+      "category": "bridge",
+      "required": false,
+      "installMode": "manual",
+      "vendorUrl": "https://github.com/VRto3D/VRto3D",
+      "manualInstallGuide": "Optional bridge for VR-first titles on glasses-free 3D displays. Install from the VRto3D project page and register the install folder in Settings.",
+      "silentArgs": "",
+      "verification": {
+        "type": "fileExists",
+        "pathHint": "VRto3D.exe"
+      }
+    },
+    {
+      "id": "nvidia-3d-vision-manual",
+      "name": "NVIDIA 3D Vision (legacy)",
+      "category": "legacy-stereo",
+      "required": false,
+      "installMode": "manual",
+      "vendorUrl": "https://www.nvidia.com/en-us/geforce/technologies/3d-vision/",
+      "manualInstallGuide": "Legacy stereoscopic stack for 3D Vision Ready titles. Requires compatible GeForce drivers, 120 Hz display, and 3D Vision glasses or 3DTV Play. Deprecated on modern Windows — use only if you still run a supported driver branch.",
+      "silentArgs": "",
+      "verification": {
+        "type": "registryKey",
+        "pathHint": "HKLM\\Software\\NVIDIA Corporation\\Global\\Stereo3D"
+      }
+    },
+    {
+      "id": "openxr-bridge",
+      "name": "OpenXR / PCVR bridge",
+      "category": "bridge",
+      "required": false,
+      "installMode": "manual",
+      "manualInstallGuide": "Install your OpenXR runtime (SteamVR, Virtual Desktop, etc.) when launching UEVR or native VR titles through a headset path.",
+      "silentArgs": "",
+      "verification": {
+        "type": "processOrFile",
+        "pathHint": "vrserver.exe"
       }
     }
   ]

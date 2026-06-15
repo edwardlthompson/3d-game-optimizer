@@ -10,6 +10,13 @@ public sealed record DisplayProfile(
     string RecommendedProfileId,
     IReadOnlyList<string> RequiredToolIds);
 
+public sealed record CatalogGameMetadata(
+    string BestLevel,
+    IReadOnlyList<string> Platforms,
+    IReadOnlyList<string> SourceIds,
+    string? TrueGameLabel,
+    bool IsNvidia3DVisionLegacy);
+
 public sealed record GameCompatibilityEntry(
     string Id,
     string Title,
@@ -24,7 +31,8 @@ public sealed record GameCompatibilityEntry(
     int? CurrentPlayers = null,
     string? CoverCachePath = null,
     VrCapability VrCapability = VrCapability.None,
-    string? SteamVrLaunchOptions = null);
+    string? SteamVrLaunchOptions = null,
+    CatalogGameMetadata? Catalog = null);
 
 public sealed record GameCatalogItem(
     int SteamAppId,
@@ -38,7 +46,8 @@ public sealed record GameCatalogItem(
     double? ReviewSortScore,
     string? CoverCachePath,
     string? ReviewDescriptor,
-    bool IsFavorite);
+    bool IsFavorite,
+    bool IsCatalogTitle = false);
 
 public sealed record HardwareProfile(
     string CpuName,

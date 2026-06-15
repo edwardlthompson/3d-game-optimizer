@@ -8,7 +8,7 @@ cd "$ROOT"
 ERRORS=0
 
 LEGAL="docs/LEGAL.md"
-UI_SOURCES=(src/SpatialLabsOptimizer/Views/SetupWizardView.xaml)
+UI_SOURCES=(src/SpatialLabsOptimizer/Views/Global3DSettingsView.xaml src/SpatialLabsOptimizer/Views/ToolchainSetupPanel.xaml)
 
 if [ ! -d src/SpatialLabsOptimizer/ViewModels ]; then
   echo "FAIL missing ViewModels directory"

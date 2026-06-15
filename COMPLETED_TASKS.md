@@ -2,6 +2,67 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Living 3D catalog — Phases 3–6 (archived 2026-06-15)
+
+### Phase 3 — CI sync scripts
+
+- [x] [AGENT] `scrape-pcgw-3dvision.py`, `enrich-steam-stats.py`, `scrape-external.py` (Playwright stub + LKG fallback)
+- [x] [AGENT] `compute-catalog-hash.py` → `catalog-v2.sha256` on Pages
+- [x] [AGENT] Extended `catalog-sync.yml` pipeline (scrape → merge → enrich → hash → validate)
+
+### Phase 4 — Desktop library & sync
+
+- [x] [AGENT] Library filters (3D Ultra/Native, TrueGame, UEVR, 3D Vision) + source badges + catalog site link
+- [x] [AGENT] `CatalogUpdateService` opt-in + SHA256 verify + user cache overlay in `JsonDataLoader`
+- [x] [AGENT] Fixed duplicate preset badge (`Needs preset` vs misleading `Preset cached`)
+
+### Phase 5 — Toolchain expansion
+
+- [x] [AGENT] Extended `tool-manifest-v1.json` (VRto3D, OpenXR bridge, NVIDIA 3D Vision manual)
+- [x] [AGENT] `CatalogToolHints` per-game recommended stack in library detail panel
+
+### Phase 6 — Tests & ship
+
+- [x] [AGENT] `CatalogFeatureTests` (filters, badges, allowlist, tool hints)
+- [x] [AUTO] **191/191** tests green; catalog validate (37 games, 27 with 3D Vision)
+
+## Settings toolchain & library performance (archived 2026-06-15)
+
+### Library cache and 3D-only picker
+
+- [x] [AGENT] **Index throttle on startup** — skip full `LibraryIndexer` when catalog warm (24h); throttled incremental scan (no forced scan every launch)
+- [x] [AGENT] **Cache-first prefetch** — `PrefetchMissingMetadataAsync`; prefetch only compatibility catalog app IDs missing cover/metadata
+- [x] [AGENT] **3D-only library** — `is_catalog_title` + `GetCompatible3DAsync` / `v_compatible_3d`; default picker shows catalog installs only
+- [x] [AGENT] **Disable Steam bulk merge** — removed `MergeOwnedGamesAsync` from default index path
+
+### Settings toolchain (replaced Setup nav)
+
+- [x] [AGENT] **ToolchainSetupViewModel** — display pick, per-tool silent install, locate/verify, verbose install log
+- [x] [AGENT] **ToolchainSetupPanel in Settings** — top expander in `Global3DSettingsView`; Setup nav removed
+- [x] [AGENT] **First-run + display-change routing** — deep-link to Settings toolchain expander
+- [x] [AUTO] **185/185** tests green
+
+## Library & Setup UX (archived 2026-06-15)
+
+User-reported: cover art not updating after prefetch; library rescans on every visit; setup wizard missing persistence and manual-tool guidance.
+
+- [x] [AGENT] **Warm start without rescan on every nav** — `LoadFromCacheAsync` vs `RefreshLibraryAsync`; 15 min incremental Steam scan throttle; skip scan on `GameLibraryView` revisit; startup forced scan in `ShellViewModel`
+- [x] [AGENT] **Cover art hydrate + sync** — `HydrateCoverTilesAsync` reconciles disk cache ↔ DB ↔ tiles; prefetch completion hooks refresh tiles
+- [x] [AGENT] **Refresh cover art button** — `PrefetchMissingArtworkAsync` for titles missing covers only; separate **Refresh library** command
+- [x] [AGENT] **Persist display + setup completion** — `active_display` table + `setup_completed_at`; dashboard shows selected display
+- [x] [AGENT] **Dashboard vs setup flow** — post-completion info tab; **Re-run setup** via `ResetWizard()`
+- [x] [AGENT] **Clickable missing tools** — manual install guide, vendor link, folder picker locate, verify install
+- [x] [AGENT] **SpatialLabs Runtime detection** — registry **or** Experience Center exe; in-app `SpatialLabsNote` explanation
+- [x] [AGENT] **Unit tests** — scan throttle, cover cache miss, display/setup persistence, `CountNewInstalls`
+- [x] [AUTO] **183/183** tests green
+
+## Code review follow-up (archived 2026-06-15)
+
+- [x] [AGENT] **P0** — `check-file-limits.sh` WinUI/C#; guard `sprint44-split-files.py`; `ConfigSnapshotService` test isolation + unit tests
+- [x] [AGENT] **P1** — `Global3DSettingsView` partials; `GameLibraryView` `x:Bind`; CS8602 fixes; ElevatedHelper test bootstrap; narrow `.gitignore` Debug/
+- [x] [AGENT] **P2** — post-sprint file-limit gate; WinGet `-SignCla`; snapshot filename timestamps; **Global3DSettings MVVM**; split all oversize C# files (`file-limit-exemptions.txt` empty); Linux post-sprint skip banner
+- [x] [AUTO] **173/173** tests green; all C# within 150/250 line budgets
+
 ## Sprint 39 — Ship gate v1.1.0 (archived 2026-06-15)
 
 - [x] [HUMAN] Single PR to `main` — [#2](https://github.com/edwardlthompson/3d-game-optimizer/pull/2) squash-merged
@@ -22,12 +83,12 @@
 - [x] [AGENT] Split `LaunchServices.cs` — `LaunchReadinessService`, `PresetCacheService`, `LaunchPlatformRouter`, `ResolveGameSettings`, `GameOverrideRepository`, `LaunchErrorCatalog`, `SafeLaunchService`
 - [x] [AGENT] Split `GameDatabase.cs` — core + `LocalInstalls` + `RecentLaunches` + `Games` partials + `Records`
 - [x] [AGENT] Split `UserPreferencesService.cs` — core + `Updates` + `Display` partials
-- [x] [AGENT] Split `Global3DSettingsView.xaml.cs` — `Snapshots`, `SessionProfiles`, `DisplayLaunch` partials
+- [x] [AGENT] Split `Global3DSettingsView` — ViewModel partials + `x:Bind` (2026-06-15); legacy view partials superseded by MVVM pass
 - [x] [AGENT] Extract `CommandPaletteService` from `PcvrServices.cs`
 - [x] [AGENT] Residual splits — `PlayIn3D` partials; `PcvrRuntimeConnector` + `DiagnosticBundleService`
 - [x] [AUTO] 168/168 tests green after modularization
 
-> **Residual:** `PlayIn3D.cs` (~155 lines) slightly above logic budget; further split optional.
+> **Residual:** `PlayIn3D` split across partials; all files now under line budget (2026-06-15).
 
 ## Sprint 43 — QA gate hardening (archived 2026-06-15)
 
@@ -583,4 +644,24 @@
 - [x] [AUTO] Regression tests: zero failures
 - [x] [AUTO] Static analysis and vulnerability scans clean
 - [x] [AUTO] `scripts/pre-release-gate.sh` passes before release tag (M0)
+
+---
+
+## Code review pass 2 (archived 2026-06-15)
+
+Post-MVVM / file-split follow-up from BUILD_PLAN pass 2.
+
+- [x] [AGENT] **`ElevatedHelper_InstallsBundledReShadeFixture` flake** — `ElevatedHelperInstallCollection` serializes helper install tests; pre-test cleanup of `%LocalAppData%\3d-game-optimizer\tools\{reshade,uevr}`
+- [x] [AGENT] **`LibrarySettingsViewModel.RunIndexAsync` service locator** — inject `LibraryIndexer`; instance-scoped `RunIndexAsync`
+- [x] [AGENT] **Migrate `LibrarySettingsView` to `x:Bind`** — `OnNavigatedTo` + navigation param from `ShellPage`
+- [x] [AGENT] **Unify page navigation DI** — `AboutView`, `GlossaryView`, `TroubleshootingView`, `LibrarySettingsView` receive singleton VMs via `ShellPage.NavigateContent`
+- [x] [AGENT] **`Global3DSettingsViewModel` persistence tests** — `Global3DSettingsPersistenceTests` (stereoscopy, launch safety, OpenXR prefs); VM in WinUI assembly not referenced by test project
+- [x] [AGENT] **Persist depth/convergence sliders** — `UserPreferencesService.Stereoscopy.cs`; auto-save from `Global3DSettingsViewModel`
+- [x] [AGENT] **Wire `build-verification-gate.sh` into post-sprint** — `run-post-sprint-validation.ps1` / `.sh` with `--quick --skip-dotnet --skip-pre-commit`
+- [x] [AGENT] **WinGet manifest schema lint** — `scripts/validate-winget-manifest.sh`; called from `prepare-winget-submission.ps1`
+- [x] [AGENT] **Migrate `AboutView` / `TroubleshootingView` to `x:Bind`** — commands and TwoWay bindings; `OnNavigatedTo` pattern
+
+**Evidence:** 178/178 tests local (Release); build 0 warnings.
+
+- [x] [AGENT] **Remove remaining `App.Services` in views** — `ShellPage` ctor-injects `StreamerHotkeyService`, `PresetCacheService`, `OperationProgressHub`, `UserPreferencesService`; `CommandPaletteViewModel` + `ToolchainHealthViewModel`; `ViewingDistanceCoachView.Initialize()` from parent VMs
 

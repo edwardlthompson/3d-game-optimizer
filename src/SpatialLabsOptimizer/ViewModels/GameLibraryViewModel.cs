@@ -1,5 +1,7 @@
 using System.Windows.Input;
+using SpatialLabsOptimizer.Infrastructure.Artwork;
 using SpatialLabsOptimizer.Application.UseCases;
+using SpatialLabsOptimizer.Infrastructure.Compatibility;
 using SpatialLabsOptimizer.Infrastructure.Data;
 using SpatialLabsOptimizer.Infrastructure.Launch;
 using SpatialLabsOptimizer.Infrastructure.Library;
@@ -44,6 +46,10 @@ public sealed partial class GameLibraryViewModel : ViewModelBase
     private readonly PresetCacheService _presets;
     private readonly OperationProgressHub _progressHub;
     private readonly UserPreferencesService _preferences;
+    private readonly LibraryPrefetchService _prefetch;
+    private readonly CoverArtCache _coverCache;
+    private readonly LibraryIndexer _indexer;
+    private readonly CompatibilityRepository _compatibility;
 
     private IReadOnlyList<GameLibraryItemViewModel> _games = Array.Empty<GameLibraryItemViewModel>();
     private IReadOnlyList<string> _playlistNames = Array.Empty<string>();
@@ -56,9 +62,14 @@ public sealed partial class GameLibraryViewModel : ViewModelBase
     private string _compatibilityNote = "";
     private string _selectedPresetFreshness = "";
     private string _whyNotReadyHint = "";
+    private string _selectedRecommendedTools = "";
     private bool _showFavoritesOnly;
     private bool _showLocalOnly;
     private bool _showWhyNotReady;
+    private bool _filterUltraNative;
+    private bool _filterTrueGame;
+    private bool _filterUevr;
+    private bool _filter3DVision;
     private bool _libraryPrefsLoaded;
     private CancellationTokenSource? _prefsSaveCts;
 
@@ -77,6 +88,10 @@ public sealed partial class GameLibraryViewModel : ViewModelBase
         PresetCacheService presets,
         OperationProgressHub progressHub,
         UserPreferencesService preferences,
+        LibraryPrefetchService prefetch,
+        CoverArtCache coverCache,
+        LibraryIndexer indexer,
+        CompatibilityRepository compatibility,
         IncrementalSteamScanService? incrementalScan = null,
         HdrWatchdogService? hdrWatchdog = null,
         WorkshopPresetImporter? workshopImporter = null,
@@ -98,12 +113,18 @@ public sealed partial class GameLibraryViewModel : ViewModelBase
         _presets = presets;
         _progressHub = progressHub;
         _preferences = preferences;
+        _prefetch = prefetch;
+        _coverCache = coverCache;
+        _indexer = indexer;
+        _compatibility = compatibility;
         _incrementalScan = incrementalScan;
         _hdrWatchdog = hdrWatchdog;
 
         PlayCommand = new RelayCommand(async () => await PlaySelectedAsync());
         PlayVrCommand = new RelayCommand(async () => await PlayVrSelectedAsync());
-        RefreshCommand = new RelayCommand(async () => await LoadAsync());
+        RefreshLibraryCommand = new RelayCommand(async () => await RefreshLibraryAsync());
+        RefreshCoverArtCommand = new RelayCommand(async () => await RefreshCoverArtAsync());
+        RefreshCommand = RefreshLibraryCommand;
         PinCommand = new RelayCommand(async () => await PinSelectedAsync());
         UnpinCommand = new RelayCommand(async () => await UnpinSelectedAsync());
         QueueCommand = new RelayCommand(async () => await EnqueueSelectedAsync());
@@ -114,6 +135,7 @@ public sealed partial class GameLibraryViewModel : ViewModelBase
         SaveOutputCommand = new RelayCommand(async () => await SavePreferredOutputAsync());
         SaveCompatibilityNoteCommand = new RelayCommand(async () => await SaveCompatibilityNoteAsync());
         RefreshPresetCommand = new RelayCommand(async () => await RefreshSelectedPresetAsync());
+        OpenCatalogCommand = new RelayCommand(async () => await OpenCatalogSiteAsync());
         _workshopImporter = workshopImporter;
         _lanExport = lanExport;
         _hybridSession = hybridSession;

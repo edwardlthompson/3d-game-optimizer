@@ -1,5 +1,7 @@
+using SpatialLabsOptimizer.Infrastructure.Artwork;
+using SpatialLabsOptimizer.Infrastructure.Data;
+using SpatialLabsOptimizer.Infrastructure.Library;
 using SpatialLabsOptimizer.Infrastructure.Progress;
-
 namespace SpatialLabsOptimizer.ViewModels;
 
 public sealed partial class GameLibraryViewModel
@@ -18,11 +20,11 @@ public sealed partial class GameLibraryViewModel
 
         if ((report.OperationId == "artwork-prefetch" || report.OperationId == "metadata-prefetch") && report.IsComplete)
         {
-            RunOnUiThread(() => _ = RefreshAllCoverTilesAsync());
+            RunOnUiThread(() => _ = HydrateCoverTilesAsync());
         }
     }
 
-    private async Task RefreshAllCoverTilesAsync()
+    private async Task HydrateCoverTilesAsync()
     {
         if (Games.Count == 0)
         {
@@ -31,15 +33,49 @@ public sealed partial class GameLibraryViewModel
 
         foreach (var item in Games)
         {
-            var game = await _database.GetGameAsync(item.SteamAppId);
-            if (game?.CoverCachePath is not null)
-            {
-                item.UpdateCover(game.CoverCachePath);
-            }
+            await HydrateCoverTileAsync(item);
         }
 
         LibraryUpdated?.Invoke(this, EventArgs.Empty);
     }
+
+    private async Task HydrateCoverTileAsync(GameLibraryItemViewModel item)
+    {
+        if (item.SteamAppId <= 0)
+        {
+            return;
+        }
+
+        var path = item.CoverPath;
+        if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
+        {
+            return;
+        }
+
+        if (_coverCache.TryGetCached(item.SteamAppId, out var cached))
+        {
+            item.UpdateCover(cached);
+            await SyncCoverPathToDatabaseAsync(item.SteamAppId, cached);
+            return;
+        }
+
+        var game = await _database.GetGameAsync(item.SteamAppId);
+        if (!string.IsNullOrWhiteSpace(game?.CoverCachePath) && File.Exists(game.CoverCachePath))
+        {
+            item.UpdateCover(game.CoverCachePath);
+        }
+    }
+
+    private async Task SyncCoverPathToDatabaseAsync(int appId, string coverPath)
+    {
+        var game = await _database.GetGameAsync(appId);
+        if (game is not null && !string.Equals(game.CoverCachePath, coverPath, StringComparison.OrdinalIgnoreCase))
+        {
+            await _database.UpsertGameAsync(game with { CoverCachePath = coverPath });
+        }
+    }
+
+    private async Task RefreshAllCoverTilesAsync() => await HydrateCoverTilesAsync();
 
     private static bool TryParseCoverAppId(string operationId, out int appId)
     {
@@ -60,12 +96,6 @@ public sealed partial class GameLibraryViewModel
             return;
         }
 
-        var game = await _database.GetGameAsync(appId);
-        if (game is null || string.IsNullOrWhiteSpace(game.CoverCachePath))
-        {
-            return;
-        }
-
         var index = -1;
         for (var i = 0; i < Games.Count; i++)
         {
@@ -81,7 +111,7 @@ public sealed partial class GameLibraryViewModel
             return;
         }
 
-        Games[index].UpdateCover(game.CoverCachePath);
+        await HydrateCoverTileAsync(Games[index]);
         LibraryUpdated?.Invoke(this, EventArgs.Empty);
     }
 }

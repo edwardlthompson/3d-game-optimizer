@@ -13,8 +13,10 @@ obj/
 *.user
 *.suo
 .vs/
-[Dd]ebug/
-[Rr]elease/
+**/bin/[Dd]ebug/
+**/obj/[Dd]ebug/
+**/bin/[Rr]elease/
+**/obj/[Rr]elease/
 *.dll
 *.exe
 *.pdb

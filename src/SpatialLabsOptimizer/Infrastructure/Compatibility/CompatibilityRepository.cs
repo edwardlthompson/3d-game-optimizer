@@ -8,13 +8,18 @@ public sealed class CompatibilityRepository
 {
     private readonly JsonDataLoader _loader;
     private IReadOnlyList<GameCompatibilityEntry>? _cache;
+    private IReadOnlyDictionary<int, CatalogGameMetadata>? _catalogByAppId;
 
     public CompatibilityRepository(JsonDataLoader loader)
     {
         _loader = loader;
     }
 
-    public void InvalidateCache() => _cache = null;
+    public void InvalidateCache()
+    {
+        _cache = null;
+        _catalogByAppId = null;
+    }
 
     public async Task<IReadOnlyList<GameCompatibilityEntry>> GetAllAsync(CancellationToken cancellationToken = default)
     {
@@ -26,7 +31,8 @@ public sealed class CompatibilityRepository
         var catalog = await TryLoadCatalogV2Async(cancellationToken);
         if (catalog is not null)
         {
-            _cache = catalog;
+            _cache = catalog.Entries;
+            _catalogByAppId = catalog.ByAppId;
             return _cache;
         }
 
@@ -45,6 +51,16 @@ public sealed class CompatibilityRepository
     {
         var all = await GetAllAsync(cancellationToken);
         return all.FirstOrDefault(g => g.SteamAppId == appId);
+    }
+
+    public async Task<CatalogGameMetadata?> GetCatalogMetadataByAppIdAsync(
+        int appId,
+        CancellationToken cancellationToken = default)
+    {
+        await GetAllAsync(cancellationToken);
+        return _catalogByAppId is not null && _catalogByAppId.TryGetValue(appId, out var meta)
+            ? meta
+            : null;
     }
 
     public CompatibilityTier MapTier(string tierValue) => tierValue switch
@@ -70,7 +86,7 @@ public sealed class CompatibilityRepository
             : CompatibilityTier.Unsupported;
     }
 
-    private async Task<IReadOnlyList<GameCompatibilityEntry>?> TryLoadCatalogV2Async(CancellationToken cancellationToken)
+    private async Task<CatalogLoadResult?> TryLoadCatalogV2Async(CancellationToken cancellationToken)
     {
         var document = await _loader.LoadAsync<CatalogV2Document>("compatibility/catalog-v2.json", cancellationToken);
         if (document?.Games is null || document.Games.Count == 0)
@@ -78,11 +94,27 @@ public sealed class CompatibilityRepository
             return null;
         }
 
-        return document.Games
+        var byAppId = new Dictionary<int, CatalogGameMetadata>();
+        var entries = document.Games
             .Where(g => g.BestLevel != "unsupported2d")
-            .Select(MapCatalogGame)
+            .Select(g =>
+            {
+                var entry = MapCatalogGame(g);
+                if (entry.Catalog is not null && entry.SteamAppId > 0)
+                {
+                    byAppId[entry.SteamAppId] = entry.Catalog;
+                }
+
+                return entry;
+            })
             .ToList();
+
+        return new CatalogLoadResult(entries, byAppId);
     }
+
+    private sealed record CatalogLoadResult(
+        IReadOnlyList<GameCompatibilityEntry> Entries,
+        IReadOnlyDictionary<int, CatalogGameMetadata> ByAppId);
 
     private static GameCompatibilityEntry MapSeedGame(SeedGame g) => new(
         g.Id,
@@ -117,7 +149,32 @@ public sealed class CompatibilityRepository
             PeakPlayers: g.SteamStats?.PeakPlayers,
             CurrentPlayers: g.SteamStats?.CurrentPlayers,
             VrCapability: MapVrCapability(g.VrCapability),
-            SteamVrLaunchOptions: g.SteamVrLaunchOptions);
+            SteamVrLaunchOptions: g.SteamVrLaunchOptions,
+            Catalog: BuildCatalogMetadata(g));
+    }
+
+    private static CatalogGameMetadata? BuildCatalogMetadata(CatalogV2Game g)
+    {
+        if (string.IsNullOrWhiteSpace(g.BestLevel))
+        {
+            return null;
+        }
+
+        var sourceIds = g.Sources?
+            .Select(s => s.SourceId)
+            .Where(id => !string.IsNullOrWhiteSpace(id))
+            .ToList() ?? [];
+        var trueGame = g.Sources?.FirstOrDefault(s => s.SourceId == "acer-truegame");
+        var isLegacy = g.Sources?.Any(s =>
+            s.SourceId == "nvidia-3d-vision"
+            && string.Equals(s.SupportStatus, "legacy", StringComparison.OrdinalIgnoreCase)) == true;
+
+        return new CatalogGameMetadata(
+            g.BestLevel,
+            g.Platforms ?? [],
+            sourceIds,
+            g.TrueGameLabel ?? trueGame?.Label,
+            isLegacy);
     }
 
     private static VrCapability MapVrCapability(string? value) => value switch
@@ -165,11 +222,21 @@ public sealed class CompatibilityRepository
         public int? SteamAppId { get; set; }
         public List<string>? SteamTags { get; set; }
         public string BestLevel { get; set; } = "";
+        public List<string>? Platforms { get; set; }
+        public List<CatalogSourceDto>? Sources { get; set; }
+        public string? TrueGameLabel { get; set; }
         public Dictionary<string, string> TiersByVendor { get; set; } = [];
         public string? ReviewSummary { get; set; }
         public CatalogSteamStats? SteamStats { get; set; }
         public string? VrCapability { get; set; }
         public string? SteamVrLaunchOptions { get; set; }
+    }
+
+    private sealed class CatalogSourceDto
+    {
+        public string SourceId { get; set; } = "";
+        public string? Label { get; set; }
+        public string? SupportStatus { get; set; }
     }
 
     private sealed class CatalogSteamStats

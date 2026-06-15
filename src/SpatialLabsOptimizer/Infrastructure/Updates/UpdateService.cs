@@ -5,7 +5,7 @@ using SpatialLabsOptimizer.Infrastructure.Settings;
 
 namespace SpatialLabsOptimizer.Infrastructure.Updates;
 
-public sealed class UpdateService
+public sealed partial class UpdateService
 {
     private const string ReleasesUrl =
         "https://api.github.com/repos/edwardlthompson/3d-game-optimizer/releases";
@@ -25,34 +25,6 @@ public sealed class UpdateService
         _progressHub = progressHub;
         _prefs = prefs;
         _artifactDetector = artifactDetector;
-    }
-
-    public async Task<bool> IsCheckDueAsync(CancellationToken cancellationToken = default)
-    {
-        var interval = await _prefs.GetUpdateCheckIntervalAsync(cancellationToken);
-        if (interval == UpdateCheckInterval.Off)
-        {
-            return false;
-        }
-
-        if (interval == UpdateCheckInterval.Startup)
-        {
-            return true;
-        }
-
-        var lastCheck = await _prefs.GetLastUpdateCheckUtcAsync(cancellationToken);
-        if (lastCheck is null)
-        {
-            return true;
-        }
-
-        var elapsed = DateTimeOffset.UtcNow - lastCheck.Value;
-        return interval switch
-        {
-            UpdateCheckInterval.Daily => elapsed >= TimeSpan.FromHours(24),
-            UpdateCheckInterval.Weekly => elapsed >= TimeSpan.FromDays(7),
-            _ => false
-        };
     }
 
     public async Task<UpdateCheckResult> CheckForUpdateAsync(
@@ -111,7 +83,7 @@ public sealed class UpdateService
                     ? urlElement.GetString()
                     : null;
 
-                var assetMatch = ResolveAsset(release, version, artifactType);
+                var assetMatch = UpdateAssetResolver.ResolveAsset(release, version, artifactType);
                 var isUpdateAvailable = SemverComparer.IsNewer(version, current);
                 var result = new UpdateCheckResult(
                     current,
@@ -141,54 +113,6 @@ public sealed class UpdateService
 
             return new UpdateCheckResult(current, null, false, null, null, null, null, ex.Message);
         }
-    }
-
-    private static (string? DownloadUrl, InstallArtifactType ArtifactType, string AssetName)? ResolveAsset(
-        JsonElement release,
-        string version,
-        InstallArtifactType artifactType)
-    {
-        if (!release.TryGetProperty("assets", out var assets) || assets.ValueKind != JsonValueKind.Array)
-        {
-            return null;
-        }
-
-        var preferredName = $"SpatialLabsOptimizer-{version}-win-x64{InstallArtifactDetector.GetExtension(artifactType)}";
-        string? fallbackUrl = null;
-        string? fallbackName = null;
-
-        foreach (var asset in assets.EnumerateArray())
-        {
-            if (!asset.TryGetProperty("name", out var nameElement) ||
-                !asset.TryGetProperty("browser_download_url", out var urlElement))
-            {
-                continue;
-            }
-
-            var name = nameElement.GetString();
-            var url = urlElement.GetString();
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(url))
-            {
-                continue;
-            }
-
-            if (!InstallArtifactDetector.MatchesExtension(name, artifactType))
-            {
-                continue;
-            }
-
-            if (string.Equals(name, preferredName, StringComparison.OrdinalIgnoreCase))
-            {
-                return (url, artifactType, name);
-            }
-
-            fallbackUrl ??= url;
-            fallbackName ??= name;
-        }
-
-        return fallbackUrl is null || fallbackName is null
-            ? null
-            : (fallbackUrl, artifactType, fallbackName);
     }
 
     private async Task<UpdateCheckResult> CacheAndReturnAsync(

@@ -26,6 +26,24 @@ internal static class TestPaths
 
     public static string FindElevatedHelperBuildOutput()
     {
+        var found = TryFindElevatedHelperBuildOutput();
+        if (found is not null)
+        {
+            return found;
+        }
+
+        BuildElevatedHelperIfNeeded();
+        found = TryFindElevatedHelperBuildOutput();
+        if (found is not null)
+        {
+            return found;
+        }
+
+        throw new InvalidOperationException("ElevatedHelper.exe not found — run dotnet build SpatialLabsOptimizer.sln");
+    }
+
+    private static string? TryFindElevatedHelperBuildOutput()
+    {
         var dir = new DirectoryInfo(Directory.GetCurrentDirectory());
         while (dir is not null)
         {
@@ -48,7 +66,50 @@ internal static class TestPaths
             dir = dir.Parent;
         }
 
-        throw new InvalidOperationException("ElevatedHelper.exe not found — run dotnet build first");
+        return null;
+    }
+
+    private static void BuildElevatedHelperIfNeeded()
+    {
+        var root = FindRepoRoot();
+        var project = Path.Combine(root, "src", "SpatialLabsOptimizer.ElevatedHelper", "SpatialLabsOptimizer.ElevatedHelper.csproj");
+        if (!File.Exists(project))
+        {
+            return;
+        }
+
+        var psi = new System.Diagnostics.ProcessStartInfo
+        {
+            FileName = "dotnet",
+            Arguments = $"build \"{project}\" -c Release --verbosity quiet",
+            WorkingDirectory = root,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false
+        };
+        using var process = System.Diagnostics.Process.Start(psi)
+            ?? throw new InvalidOperationException("Failed to start dotnet build for ElevatedHelper");
+        process.WaitForExit();
+        if (process.ExitCode != 0)
+        {
+            throw new InvalidOperationException("dotnet build ElevatedHelper failed — build SpatialLabsOptimizer.sln first");
+        }
+    }
+
+    private static string FindRepoRoot()
+    {
+        var dir = new DirectoryInfo(Directory.GetCurrentDirectory());
+        while (dir is not null)
+        {
+            if (File.Exists(Path.Combine(dir.FullName, "SpatialLabsOptimizer.sln")))
+            {
+                return dir.FullName;
+            }
+
+            dir = dir.Parent;
+        }
+
+        throw new InvalidOperationException("SpatialLabsOptimizer.sln not found");
     }
 
     public static string FindDataRoot()

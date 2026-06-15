@@ -126,7 +126,7 @@ public sealed class LibraryIntelligenceService
 
         if (readiness == LaunchReadinessState.NeedsPresetCache)
         {
-            return "Preset cached";
+            return "Needs preset";
         }
 
         return tier switch

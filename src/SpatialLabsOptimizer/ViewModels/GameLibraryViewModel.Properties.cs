@@ -33,10 +33,31 @@ public sealed partial class GameLibraryViewModel
         {
             if (SetProperty(ref _sortMode, value))
             {
+                OnPropertyChanged(nameof(SortModeIndex));
                 ApplySort();
                 ScheduleSaveLibraryPrefs();
             }
         }
+    }
+
+    public int SortModeIndex
+    {
+        get => SortMode switch
+        {
+            LibrarySortMode.PlayersOnline => 1,
+            LibrarySortMode.SteamReviews => 2,
+            LibrarySortMode.Name => 3,
+            LibrarySortMode.Genre => 4,
+            _ => 0
+        };
+        set => SortMode = value switch
+        {
+            1 => LibrarySortMode.PlayersOnline,
+            2 => LibrarySortMode.SteamReviews,
+            3 => LibrarySortMode.Name,
+            4 => LibrarySortMode.Genre,
+            _ => LibrarySortMode.Quality
+        };
     }
 
     public SmartCollectionMode SmartCollection
@@ -46,10 +67,29 @@ public sealed partial class GameLibraryViewModel
         {
             if (SetProperty(ref _smartCollection, value))
             {
+                OnPropertyChanged(nameof(SmartCollectionIndex));
                 _ = LoadAsync();
                 ScheduleSaveLibraryPrefs();
             }
         }
+    }
+
+    public int SmartCollectionIndex
+    {
+        get => SmartCollection switch
+        {
+            SmartCollectionMode.FavoritesAndTier => 1,
+            SmartCollectionMode.NeverPlayedIn3D => 2,
+            SmartCollectionMode.LocalOnly => 3,
+            _ => 0
+        };
+        set => SmartCollection = value switch
+        {
+            1 => SmartCollectionMode.FavoritesAndTier,
+            2 => SmartCollectionMode.NeverPlayedIn3D,
+            3 => SmartCollectionMode.LocalOnly,
+            _ => SmartCollectionMode.None
+        };
     }
 
     public string WarmStartStatus
@@ -86,6 +126,12 @@ public sealed partial class GameLibraryViewModel
     {
         get => _whyNotReadyHint;
         set => SetProperty(ref _whyNotReadyHint, value);
+    }
+
+    public string SelectedRecommendedTools
+    {
+        get => _selectedRecommendedTools;
+        set => SetProperty(ref _selectedRecommendedTools, value);
     }
 
     public bool ShowFavoritesOnly
@@ -129,11 +175,33 @@ public sealed partial class GameLibraryViewModel
 
     public int GridColumns => _responsive.CurrentColumns;
 
-    public GameLibraryItemViewModel? SelectedGame { get; set; }
+    private GameLibraryItemViewModel? _selectedGame;
+
+    public GameLibraryItemViewModel? SelectedGame
+    {
+        get => _selectedGame;
+        set
+        {
+            if (!SetProperty(ref _selectedGame, value))
+            {
+                return;
+            }
+
+            OnPropertyChanged(nameof(SelectedGameTitle));
+            OnPropertyChanged(nameof(HasSelectedGame));
+            _ = RefreshSelectedGameDetailsAsync();
+        }
+    }
+
+    public string SelectedGameTitle => SelectedGame?.Title ?? string.Empty;
+
+    public bool HasSelectedGame => SelectedGame is not null;
 
     public ICommand PlayCommand { get; }
     public ICommand PlayVrCommand { get; }
     public ICommand RefreshCommand { get; }
+    public ICommand RefreshLibraryCommand { get; }
+    public ICommand RefreshCoverArtCommand { get; }
     public ICommand PinCommand { get; }
     public ICommand UnpinCommand { get; }
     public ICommand QueueCommand { get; }

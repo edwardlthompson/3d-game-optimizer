@@ -34,7 +34,8 @@ public sealed class GameLibraryItemViewModel : INotifyPropertyChanged
         GameCatalogItem item,
         bool isPinned = false,
         string? compatibilityBadge = null,
-        string? presetFreshness = null)
+        string? presetFreshness = null,
+        string? sourceBadges = null)
     {
         SteamAppId = item.SteamAppId;
         Title = item.Title;
@@ -45,13 +46,13 @@ public sealed class GameLibraryItemViewModel : INotifyPropertyChanged
         IsPinned = isPinned;
         IsLocal = string.Equals(item.ReviewDescriptor, "Local", StringComparison.OrdinalIgnoreCase);
         CompatibilityBadge = compatibilityBadge ?? LibraryIntelligenceService.GetCompatibilityBadge(item.Tier, item.Readiness, IsLocal);
+        SourceBadges = sourceBadges ?? "";
         PresetFreshness = presetFreshness ?? "";
         StatusDisplay = string.Join(" · ", new[]
         {
             IsLocal ? "Local" : null,
             item.IsFavorite ? "Favorite" : null,
             isPinned ? "Pinned" : null,
-            CompatibilityBadge
         }.Where(s => s is not null));
         ReviewDisplay = item.ReviewScorePercent.HasValue
             ? $"{item.ReviewScorePercent}% ({item.ReviewCount ?? 0} reviews)"
@@ -70,6 +71,7 @@ public sealed class GameLibraryItemViewModel : INotifyPropertyChanged
     public bool IsPinned { get; }
     public bool IsLocal { get; }
     public string CompatibilityBadge { get; }
+    public string SourceBadges { get; }
     public string PresetFreshness { get; }
     public string StatusDisplay { get; }
     public string ReviewDisplay { get; }

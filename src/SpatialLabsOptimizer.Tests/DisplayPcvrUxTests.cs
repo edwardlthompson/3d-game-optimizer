@@ -132,8 +132,8 @@ public class DisplayPcvrUxTests
     {
         var loader = new JsonDataLoader(TestPaths.FindDataRoot());
         var doc = await loader.LoadAsync<GlossaryDocument>("glossary/glossary-v1.json");
-
-        Assert.True(doc.Entries.Count >= 9);
+        Assert.NotNull(doc);
+        Assert.True(doc!.Entries.Count >= 9);
         Assert.Contains(doc.Entries, e => e.Term.Contains("SBS", StringComparison.OrdinalIgnoreCase));
     }
 

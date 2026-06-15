@@ -72,11 +72,11 @@ public class DiagnosticsTests
         var audit = new LaunchAuditService();
         var detector = TestPaths.CreateDisplayAutoDetector();
         var toolPaths = new ToolPathResolver(Path.Combine(Path.GetTempPath(), $"3dgo-tools-{Guid.NewGuid()}"));
-        var toolDetector = new ToolInstallDetector(loader, toolPaths);
-        var coexistence = new ExternalToolCoexistenceService(new FakeRunningProcessProbe([]));
         var settingsPath = Path.Combine(Path.GetTempPath(), $"3dgo-bundle-{Guid.NewGuid()}.db");
         await using var settings = new SqliteSettingsStore(settingsPath);
         await settings.InitializeAsync();
+        var toolDetector = new ToolInstallDetector(loader, toolPaths, settings);
+        var coexistence = new ExternalToolCoexistenceService(new FakeRunningProcessProbe([]));
         var prefs = new UserPreferencesService(settings);
         var detectorArtifact = new InstallArtifactDetector(new FakePackageProbe(false), new FakeMsiProbe(false));
         var service = new DiagnosticBundleService(
@@ -119,7 +119,7 @@ public class DiagnosticsTests
         var prefs = new UserPreferencesService(settings);
         var detector = TestPaths.CreateDisplayAutoDetector();
         var toolPaths = new ToolPathResolver(Path.Combine(Path.GetTempPath(), $"3dgo-seed-tools-{Guid.NewGuid()}"));
-        var toolDetector = new ToolInstallDetector(loader, toolPaths);
+        var toolDetector = new ToolInstallDetector(loader, toolPaths, settings);
         var presets = new PresetCacheService(loader, new ExternalDataGateway(
             new PrivacyGuardHttpHandler(new PrivacyGuard(PrivacyAllowlist.DefaultHosts)) { InnerHandler = new StubMessageHandler() },
             new OperationProgressHub()));
@@ -149,7 +149,7 @@ public class DiagnosticsTests
         await using var settings = new SqliteSettingsStore(settingsPath);
         await settings.InitializeAsync();
         var toolPaths = new ToolPathResolver(Path.Combine(Path.GetTempPath(), $"3dgo-ready-tools-{Guid.NewGuid()}"));
-        var toolDetector = new ToolInstallDetector(loader, toolPaths);
+        var toolDetector = new ToolInstallDetector(loader, toolPaths, settings);
         var presets = new PresetCacheService(loader, new ExternalDataGateway(
             new PrivacyGuardHttpHandler(new PrivacyGuard(PrivacyAllowlist.DefaultHosts)) { InnerHandler = new StubMessageHandler() },
             new OperationProgressHub()));
@@ -173,7 +173,7 @@ public class DiagnosticsTests
         await settings.InitializeAsync();
         await settings.SetAsync("offline_onboarding", "true");
         var toolPaths = new ToolPathResolver(Path.Combine(Path.GetTempPath(), $"3dgo-offline-tools-{Guid.NewGuid()}"));
-        var toolDetector = new ToolInstallDetector(loader, toolPaths);
+        var toolDetector = new ToolInstallDetector(loader, toolPaths, settings);
         var presets = new PresetCacheService(loader, new ExternalDataGateway(
             new PrivacyGuardHttpHandler(new PrivacyGuard(PrivacyAllowlist.DefaultHosts)) { InnerHandler = new StubMessageHandler() },
             new OperationProgressHub()));

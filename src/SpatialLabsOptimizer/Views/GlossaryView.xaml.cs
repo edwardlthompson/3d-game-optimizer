@@ -1,25 +1,28 @@
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 using SpatialLabsOptimizer.ViewModels;
 
 namespace SpatialLabsOptimizer.Views;
 
-public sealed partial class GlossaryView : Microsoft.UI.Xaml.Controls.Page
+public sealed partial class GlossaryView : Page
 {
+    public GlossaryViewModel ViewModel { get; private set; } = null!;
+
     public GlossaryView()
     {
         InitializeComponent();
-        Loaded += GlossaryView_Loaded;
     }
 
-    private async void GlossaryView_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
-        var viewModel = App.Services.GetRequiredService<GlossaryViewModel>();
-        DataContext = viewModel;
-        await viewModel.LoadAsync();
-        GlossaryItems.ItemsSource = viewModel.Entries;
-        LoadErrorBlock.Text = viewModel.LoadError;
-        LoadErrorBlock.Visibility = string.IsNullOrWhiteSpace(viewModel.LoadError)
-            ? Microsoft.UI.Xaml.Visibility.Collapsed
-            : Microsoft.UI.Xaml.Visibility.Visible;
+        base.OnNavigatedTo(e);
+        if (e.Parameter is not GlossaryViewModel vm)
+        {
+            return;
+        }
+
+        ViewModel = vm;
+        Bindings.Update();
+        await vm.LoadAsync();
     }
 }

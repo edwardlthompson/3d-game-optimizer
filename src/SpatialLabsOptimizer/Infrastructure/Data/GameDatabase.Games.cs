@@ -13,10 +13,10 @@ public sealed partial class GameDatabase
             INSERT INTO games (
                 steam_app_id, title, tier, launch_readiness, is_installed,
                 current_players, review_score_percent, review_count, review_sort_score,
-                review_descriptor, cover_cache_path, is_favorite)
+                review_descriptor, cover_cache_path, is_favorite, is_catalog_title)
             VALUES ($id, $title, $tier, $readiness, $installed,
                 $players, $reviewPct, $reviewCount, $reviewSort,
-                $descriptor, $cover, $favorite)
+                $descriptor, $cover, $favorite, $catalog)
             ON CONFLICT(steam_app_id) DO UPDATE SET
                 title = excluded.title,
                 tier = excluded.tier,
@@ -27,7 +27,8 @@ public sealed partial class GameDatabase
                 review_count = excluded.review_count,
                 review_sort_score = excluded.review_sort_score,
                 review_descriptor = excluded.review_descriptor,
-                cover_cache_path = excluded.cover_cache_path
+                cover_cache_path = excluded.cover_cache_path,
+                is_catalog_title = CASE WHEN excluded.is_catalog_title = 1 THEN 1 ELSE games.is_catalog_title END
             """;
         cmd.Parameters.AddWithValue("$id", item.SteamAppId);
         cmd.Parameters.AddWithValue("$title", item.Title);
@@ -41,6 +42,7 @@ public sealed partial class GameDatabase
         cmd.Parameters.AddWithValue("$descriptor", item.ReviewDescriptor ?? (object)DBNull.Value);
         cmd.Parameters.AddWithValue("$cover", item.CoverCachePath ?? (object)DBNull.Value);
         cmd.Parameters.AddWithValue("$favorite", item.IsFavorite ? 1 : 0);
+        cmd.Parameters.AddWithValue("$catalog", item.IsCatalogTitle ? 1 : 0);
         await cmd.ExecuteNonQueryAsync(cancellationToken);
     }
 
@@ -72,12 +74,41 @@ public sealed partial class GameDatabase
         return await ReadGamesAsync(cmd, cancellationToken);
     }
 
+    public async Task<IReadOnlyList<GameCatalogItem>> GetCompatible3DAsync(CancellationToken cancellationToken = default)
+    {
+        await EnsureOpenAsync(cancellationToken);
+        await using var cmd = _connection!.CreateCommand();
+        cmd.CommandText = "SELECT * FROM v_compatible_3d ORDER BY tier ASC, review_sort_score DESC";
+        return await ReadGamesAsync(cmd, cancellationToken);
+    }
+
+    public async Task<IReadOnlyList<GameCatalogItem>> GetCatalogInstalledAsync(CancellationToken cancellationToken = default)
+    {
+        await EnsureOpenAsync(cancellationToken);
+        await using var cmd = _connection!.CreateCommand();
+        cmd.CommandText = """
+            SELECT * FROM games
+            WHERE is_catalog_title = 1 AND is_installed = 1
+            ORDER BY tier ASC, title ASC
+            """;
+        return await ReadGamesAsync(cmd, cancellationToken);
+    }
+
     public async Task<IReadOnlyList<GameCatalogItem>> GetAllGamesAsync(CancellationToken cancellationToken = default)
     {
         await EnsureOpenAsync(cancellationToken);
         await using var cmd = _connection!.CreateCommand();
         cmd.CommandText = "SELECT * FROM games ORDER BY title ASC";
         return await ReadGamesAsync(cmd, cancellationToken);
+    }
+
+    public async Task<int> CountCatalogTitlesAsync(CancellationToken cancellationToken = default)
+    {
+        await EnsureOpenAsync(cancellationToken);
+        await using var cmd = _connection!.CreateCommand();
+        cmd.CommandText = "SELECT COUNT(*) FROM games WHERE is_catalog_title = 1";
+        var result = await cmd.ExecuteScalarAsync(cancellationToken);
+        return Convert.ToInt32(result);
     }
 
     public async Task<int> CountGamesAsync(CancellationToken cancellationToken = default)
@@ -124,7 +155,8 @@ public sealed partial class GameDatabase
                 reader.IsDBNull(9) ? null : reader.GetDouble(9),
                 reader.IsDBNull(11) ? null : reader.GetString(11),
                 reader.IsDBNull(10) ? null : reader.GetString(10),
-                reader.GetInt32(12) == 1));
+                reader.GetInt32(12) == 1,
+                reader.FieldCount > 13 && !reader.IsDBNull(13) && reader.GetInt32(13) == 1));
         }
 
         return items;

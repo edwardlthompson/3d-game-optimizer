@@ -16,11 +16,9 @@ public class AccessibilitySmokeTests
     }
 
     [Fact]
-    public void AccessibilityIds_SetupWizardControlsAreDefined()
+    public void AccessibilityIds_ToolchainControlsAreDefined()
     {
-        Assert.Equal("SetupWizard_DisclaimerCheck", AccessibilityIds.SetupWizardDisclaimer);
-        Assert.Equal("SetupWizard_Continue", AccessibilityIds.SetupWizardContinue);
-        Assert.Equal("SetupWizard_Benchmark", AccessibilityIds.SetupWizardBenchmark);
+        Assert.Equal("Toolchain_DisclaimerCheck", AccessibilityIds.ToolchainDisclaimer);
         Assert.False(string.IsNullOrWhiteSpace(AccessibilityIds.CommandPaletteSearch));
     }
 }

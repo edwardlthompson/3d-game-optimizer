@@ -7,6 +7,7 @@ using SpatialLabsOptimizer.Infrastructure.Progress;
 
 namespace SpatialLabsOptimizer.Tests;
 
+[Collection(ElevatedHelperInstallCollection.Name)]
 public class LaunchIntegrationTests
 {
     [Fact]
@@ -48,6 +49,8 @@ public class LaunchIntegrationTests
     [Fact]
     public async Task SilentInstallOrchestrator_InstallToolAsync_UsesHelperWhenPresent()
     {
+        ElevatedHelperInstallFixture.CleanupTool("uevr");
+
         var loader = new JsonDataLoader(TestPaths.FindDataRoot());
         var hub = new OperationProgressHub();
         var orchestrator = new SilentInstallOrchestrator(

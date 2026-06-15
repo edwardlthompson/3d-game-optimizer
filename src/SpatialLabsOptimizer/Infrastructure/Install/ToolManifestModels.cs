@@ -15,6 +15,7 @@ public sealed class ToolManifestEntryDto
     public string SilentArgs { get; set; } = "";
     public string InstallMode { get; set; } = "";
     public string? ManualInstallGuide { get; set; }
+    public string? VendorUrl { get; set; }
     public string? BundledPackage { get; set; }
     public List<int> SuccessExitCodes { get; set; } = [0];
     public string? PostInstallConfig { get; set; }
