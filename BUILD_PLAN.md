@@ -97,18 +97,18 @@ Requires `gh auth login`. Bash: `bash scripts/ship-sprint39-gate.sh -ApproveRemo
 
 | Gate | Status | Notes |
 |------|--------|-------|
-| CI + tests (`ci.yml`) | ⬜ | Requires push to `main` |
+| CI + tests (`ci.yml`) | ⬜ | Post-merge snapshot flake; fix f633eb1 pushed |
 | QA matrix P0–v1.5 | ✅ | Local — `check-qa-matrix-coverage.sh` |
 | QA matrix P1 offline/Steam | ✅ | Local — Sprint 43 |
 | Compatibility seed | ✅ | Local |
 | Legal consistency | ✅ | Local |
 | Local release scripts | ✅ | Local |
 | Post-sprint validation | ✅ | Local — Sprint 44 |
-| Sprint 39 ship gate | ⬜ | `scripts/ship-sprint39-gate.ps1 -ApproveRemote` |
+| Sprint 39 ship gate | ✅ | PR #2 merged 2026-06-15 |
 | README UI previews | ✅ | Local — `generate-brand-assets.py` |
 | Release credentials | ⬜ | `check-release-credentials.sh` |
-| Product pre-release gate | ⬜ | `product-release.yml` on remote |
-| Product zip + MSI + MSIX + signing | ⬜ | After ship PR |
+| Product pre-release gate | ⬜ | Run 27547509122 — re-dispatch after CI green |
+| Product zip + MSI + MSIX + signing | ⬜ | After product-release completes |
 | Template release (`release.yml`) | ⬜ | On `v*` tag |
 | Quarterly maintenance | ⬜ | Scheduled workflow |
 
