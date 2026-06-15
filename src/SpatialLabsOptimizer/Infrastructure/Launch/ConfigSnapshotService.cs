@@ -85,7 +85,9 @@ public sealed class ConfigSnapshotService
     {
         var existing = await _overrides.GetAsync(appId, cancellationToken);
         var payload = ConfigSnapshotPayload.FromOverride(appId, existing);
-        var path = Path.Combine(_snapshotDir, $"{appId}-{DateTimeOffset.UtcNow:yyyyMMddHHmmss}.json");
+        var path = Path.Combine(
+            _snapshotDir,
+            $"{appId}-{DateTimeOffset.UtcNow:yyyyMMddHHmmssfff}-{Guid.NewGuid():N}.json");
         await File.WriteAllTextAsync(path, JsonSerializer.Serialize(payload, JsonOptions), cancellationToken);
         return path;
     }

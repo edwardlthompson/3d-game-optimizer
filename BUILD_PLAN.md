@@ -23,7 +23,7 @@ Filter: `grep '\[AGENT\]' BUILD_PLAN.md` · Count open: `grep -c '^- ⬜' BUILD_
 - ✅ **Product sprints** — Sprints 32–52 and 40–44 shipped locally ([archive](COMPLETED_TASKS.md))
 - ✅ **Tests** — 168/168 green; `run-post-sprint-validation.ps1` passed locally
 - ✅ **Local release** — framework-dependent publish — [docs/LOCAL_RELEASE.md](docs/LOCAL_RELEASE.md)
-- ⬜ **Blocking release** — Sprint 39 ship gate (single PR to `main` + remote CI)
+- ✅ **Blocking release** — Sprint 39 ship gate merged to `main` (PR #2); Product Release dispatched
 
 ---
 
@@ -46,9 +46,9 @@ pwsh scripts/ship-sprint39-gate.ps1 -ApproveRemote -Merge -DispatchRelease
 
 Requires `gh auth login`. Bash: `bash scripts/ship-sprint39-gate.sh -ApproveRemote -Merge -DispatchRelease`
 
-- ⬜ [HUMAN] Single commit/PR to `main` (workflows + product + scripts + docs)
-- ⬜ [AUTO] Verify CI green on `main` — `.github/workflows/ci.yml`
-- ⬜ [AUTO] Dispatch `product-release.yml` for `SpatialLabsOptimizer-v1.1.0`
+- ✅ [HUMAN] Single commit/PR to `main` (workflows + product + scripts + docs) — PR #2 merged
+- ⬜ [AUTO] Verify CI green on `main` — `.github/workflows/ci.yml` (post-merge flake: snapshot filename collision; fix pushed)
+- ✅ [AUTO] Dispatch `product-release.yml` for `SpatialLabsOptimizer-v1.1.0` — run 27547509122 (waiting on CI)
 - ⬜ [AUTO] Test count matches CI on remote (not hand-counted)
 - ⬜ [AUTO] `product-release.yml` dispatchable from remote
 - ✅ [AGENT] Legal consistency script — `scripts/check-legal-consistency.sh`
@@ -58,15 +58,15 @@ Requires `gh auth login`. Bash: `bash scripts/ship-sprint39-gate.sh -ApproveRemo
 
 **Exit criteria:**
 
-- ⬜ `main` CI green
-- ⬜ Release workflow dispatchable from remote
+- ⬜ `main` CI green (fix snapshot collision; re-run CI after push)
+- ✅ Release workflow dispatchable from remote
 - ✅ Local validation gates pass (`run-post-sprint-validation.ps1`)
 
 ---
 
 ## Open follow-ups `[HUMAN]`
 
-- ⬜ Sprint 39 ship gate — approve PR of Sprints 32–52 + 40–44 + automation to `main`
+- ✅ Sprint 39 ship gate — PR #2 merged to `main` (2026-06-15)
 - ⬜ WinGet merge — [PR #387878](https://github.com/microsoft/winget-pkgs/pull/387878) CLA/validation pending
 - ⬜ WinGet v1.1.0 manifest — after merge: `scripts/prepare-winget-submission.ps1 -OpenPr`
 - ⬜ EV Authenticode cert — optional; sideload signing via `scripts/codesign-common.ps1`
