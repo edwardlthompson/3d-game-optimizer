@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://3d-game-optimizer.local/schema/compatibility/v2",
+  "title": "3D Game Compatibility Catalog Schema v2",
+  "type": "object",
+  "required": ["version", "meta", "games"],
+  "properties": {
+    "version": { "type": "string", "pattern": "^v2$" },
+    "meta": { "$ref": "#/$defs/meta" },
+    "games": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/game" }
+    }
+  },
+  "$defs": {
+    "supportLevel": {
+      "type": "string",
+      "enum": [
+        "ultra3d",
+        "native3d",
+        "optimized3d",
+        "playable3d",
+        "experimental3d",
+        "unsupported2d"
+      ]
+    },
+    "legacyTier": {
+      "type": "string",
+      "enum": ["unsupported", "experimental", "playable", "optimized"]
+    },
+    "meta": {
+      "type": "object",
+      "required": ["mergedAt", "syncStatus"],
+      "properties": {
+        "mergedAt": { "type": "string", "format": "date-time" },
+        "syncStatus": { "type": "string", "enum": ["ok", "degraded", "partial"] },
+        "gameCount": { "type": "integer", "minimum": 1 },
+        "sources": { "type": "object", "additionalProperties": true }
+      },
+      "additionalProperties": false
+    },
+    "sourceEntry": {
+      "type": "object",
+      "required": ["sourceId", "level", "label", "syncedAt"],
+      "properties": {
+        "sourceId": { "type": "string", "minLength": 2 },
+        "level": { "$ref": "#/$defs/supportLevel" },
+        "label": { "type": "string" },
+        "syncedAt": { "type": "string", "format": "date" },
+        "profileUrl": { "type": "string", "format": "uri" },
+        "pcgwUrl": { "type": "string", "format": "uri" },
+        "supportType": { "type": "string" },
+        "supportStatus": { "type": "string" },
+        "communityRating": { "type": "number" }
+      },
+      "additionalProperties": true
+    },
+    "hardwareRequirements": {
+      "type": "object",
+      "required": ["displays", "exclusiveTo"],
+      "properties": {
+        "displays": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "exclusiveTo": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "gpu": { "type": "array", "items": { "type": "string" } },
+        "accessories": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" },
+        "needsHumanReview": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "steamStats": {
+      "type": "object",
+      "properties": {
+        "releaseDate": { "type": "string" },
+        "currentPlayers": { "type": "integer", "minimum": 0 },
+        "peakPlayers": { "type": "integer", "minimum": 0 },
+        "reviewPercent": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "reviewCount": { "type": "integer", "minimum": 0 },
+        "priceUsd": { "type": "number", "minimum": 0 },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "game": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "sources",
+        "bestLevel",
+        "platforms",
+        "hardwareRequirements",
+        "tiersByVendor"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "title": { "type": "string", "minLength": 2 },
+        "steamAppId": { "type": "integer", "minimum": 1 },
+        "steamMatchConfidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/sourceEntry" }
+        },
+        "bestLevel": { "$ref": "#/$defs/supportLevel" },
+        "trueGameLabel": { "type": "string" },
+        "platforms": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "hardwareRequirements": { "$ref": "#/$defs/hardwareRequirements" },
+        "steamStats": { "$ref": "#/$defs/steamStats" },
+        "steamTags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tiersByVendor": {
+          "type": "object",
+          "required": ["acer", "samsung", "nvidia", "generic"],
+          "properties": {
+            "acer": { "$ref": "#/$defs/legacyTier" },
+            "samsung": { "$ref": "#/$defs/legacyTier" },
+            "nvidia": { "$ref": "#/$defs/legacyTier" },
+            "generic": { "$ref": "#/$defs/legacyTier" }
+          },
+          "additionalProperties": false
+        },
+        "reviewSummary": { "type": "string" },
+        "vrCapability": {
+          "type": "string",
+          "enum": ["none", "nativeVr", "uevrCompatible"]
+        },
+        "steamVrLaunchOptions": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

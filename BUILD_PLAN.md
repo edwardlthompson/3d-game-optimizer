@@ -10,17 +10,56 @@
 | `HUMAN` | One-time actions scripts cannot perform |
 | `AUTO` | CI / scripts / bots |
 
-**Status key:** ✅ done · ⬜ open
-
-Filter open: `grep '^- ⬜' BUILD_PLAN.md`
+**Status key:** ✅ done · 🔄 in progress · ⬜ open
 
 ---
 
 ## Status (2026-06-15)
 
-- ✅ **v1.1.0 shipped** — [PR #2](https://github.com/edwardlthompson/3d-game-optimizer/pull/2) merged; [Product Release](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.1.0) run 27548631008
-- ✅ **Remote CI** — 168/168 tests on `main` (run 27548154375)
-- ✅ **Local gates** — `dotnet test`, `run-post-sprint-validation.ps1`
+- ✅ **Settings toolchain + library performance** — archived to [COMPLETED_TASKS.md](COMPLETED_TASKS.md#settings-toolchain--library-performance-archived-2026-06-15)
+- ✅ **185/185** tests local
+- 🔄 **Living 3D catalog + GitHub Pages browser** — Phases 1–2 shipped locally; Phases 3–6 open
+- ✅ **186/186** tests local
+
+---
+
+## Sequential lane — Living 3D catalog
+
+> Full design: mitigations in plan `.cursor/plans/living_3d_catalog_2994d8d7.plan.md` · Public URL target: `https://<user>.github.io/3d-game-optimizer/catalog/`
+
+### Phase 1 — Schema & bootstrap data
+
+- ✅ [AGENT] `schema-v2.json`, `sources/registry-v1.json`, `catalog-v2.json` (37 titles, 27 with 3D Vision)
+- ✅ [AGENT] `merge-catalog.py` + `check-compatibility-catalog.py` + unit tests
+- ✅ [AGENT] Extend `CompatibilityRepository` — load v2, fallback seed-v1
+
+### Phase 2 — GitHub Pages catalog site
+
+- ✅ [AGENT] `site/catalog/` — sortable table (Steam Store + 3D Ultra/hardware columns)
+- ✅ [AGENT] Unified [`.github/workflows/pages.yml`](.github/workflows/pages.yml) → `dist/catalog/`
+- ⬜ [HUMAN] Confirm GitHub Pages source = **GitHub Actions** ([docs/WEB_PROJECT_LAYOUT.md](docs/WEB_PROJECT_LAYOUT.md))
+
+### Phase 3 — CI sync scripts
+
+- ✅ [AGENT] [`.github/workflows/catalog-sync.yml`](.github/workflows/catalog-sync.yml) merge + validate (weekly + manual)
+- ⬜ [AGENT] `scripts/sync-catalog/` — PCGW 3D Vision scrape, Steam enrich
+- ⬜ [AGENT] Playwright scrapers (TrueGame, UEVR) + LKG fallback
+
+### Phase 4 — Desktop library & sync
+
+- ⬜ [AGENT] Library filters (Ultra / UEVR / TrueGame / 3D Vision), badges, catalog site link
+- ⬜ [AGENT] `CatalogUpdateService` opt-in + SHA256 verify
+- ⬜ [AGENT] Fix duplicate preset line on library tiles
+
+### Phase 5 — Toolchain expansion
+
+- ⬜ [AGENT] Extend `tool-manifest-v1.json` (VRto3D, bridges, 3D Vision manual)
+- ⬜ [AGENT] Per-game recommended stack install in Settings
+
+### Phase 6 — Tests & ship
+
+- ⬜ [AGENT] Mitigation tests (confidence, LKG, hash verify, legal gate)
+- ⬜ [AGENT] Archive to COMPLETED_TASKS when green
 
 ---
 
@@ -28,35 +67,17 @@ Filter open: `grep '^- ⬜' BUILD_PLAN.md`
 
 ### Distribution
 
-- ⬜ [HUMAN] WinGet **1.0.1** — [microsoft/winget-pkgs#387878](https://github.com/microsoft/winget-pkgs/pull/387878) (CLA queued)
-- ⬜ [HUMAN] WinGet **1.1.0** — [microsoft/winget-pkgs#388074](https://github.com/microsoft/winget-pkgs/pull/388074) (CLA if required)
-- ⬜ [HUMAN] EV Authenticode cert — optional; sideload via `scripts/codesign-common.ps1`
-
-### Release ops (optional)
-
-- ⬜ [HUMAN] `bash scripts/setup-release-credentials.sh owner/repo`
-- ⬜ [HUMAN] `bash scripts/check-release-credentials.sh owner/repo`
-- ⬜ [HUMAN] GitHub Actions **Release Credentials Setup** workflow_dispatch
-- ⬜ [HUMAN] Org admin for GHAS — only if API returns 403 on security settings
+- ⬜ [HUMAN] WinGet **1.0.1** — [microsoft/winget-pkgs#387878](https://github.com/microsoft/winget-pkgs/pull/387878)
+- ⬜ [HUMAN] WinGet **1.1.0** — [microsoft/winget-pkgs#388074](https://github.com/microsoft/winget-pkgs/pull/388074)
+- ⬜ [HUMAN] EV Authenticode cert — optional
+- ⬜ [HUMAN] Optional `AIRTABLE_PAT` secret for MTBS3D community 3D Vision ratings in CI
 
 ### Hardware & manual QA
 
-- ⬜ [HUMAN] Cover art on user hardware — Sprint 50 build; `SLO_COVER_ART_DEBUG=1` → `%LocalAppData%\3d-game-optimizer\logs\debug-2ca1ae.log` if tiles blank
-- ⬜ [HUMAN] ASV15 EDID capture — confirm `5986:PROD` on SpatialLabs View / View Pro 15.6"
-- ⬜ [HUMAN] SpatialLabs 15" laptop EDID — tighten catalog wildcards after panel capture
+- ⬜ [HUMAN] Cover art on user hardware — `SLO_COVER_ART_DEBUG=1`
+- ⬜ [HUMAN] ASV15 EDID capture — confirm `5986:PROD`
+- ⬜ [HUMAN] SpatialLabs 15" laptop EDID — tighten catalog wildcards
 - ⬜ [HUMAN] ADR-0002 PCVR manual QA — [docs/HARDWARE_QA_OUT_OF_BAND.md](docs/HARDWARE_QA_OUT_OF_BAND.md)
-
----
-
-## Release sign-off (open items)
-
-| Gate | Status | Notes |
-|------|--------|-------|
-| Release credentials | ⬜ | `check-release-credentials.sh` |
-| Template `release.yml` | — | Skipped for `SpatialLabsOptimizer-v*` tags; product uses `product-release.yml` |
-| WinGet public listing | ⬜ | Blocked on winget-pkgs PR merge |
-
-All other v1.1.0 gates (CI, QA matrix, legal, post-sprint, product zip/MSI/MSIX) are ✅ — see [COMPLETED_TASKS.md](COMPLETED_TASKS.md) Sprint 39 ship gate.
 
 ---
 
@@ -64,7 +85,6 @@ All other v1.1.0 gates (CI, QA matrix, legal, post-sprint, product zip/MSI/MSIX)
 
 | Topic | Location |
 |-------|----------|
-| Ship automation (done) | `scripts/ship-sprint39-gate.ps1` |
+| Catalog maintenance | [docs/SEED_MAINTENANCE.md](docs/SEED_MAINTENANCE.md) |
 | Local release | [docs/LOCAL_RELEASE.md](docs/LOCAL_RELEASE.md) |
-| Completed sprints 28–52 | [COMPLETED_TASKS.md](COMPLETED_TASKS.md) |
-| Ongoing CI (AUTO) | `ci.yml` on PR; scheduled `health-check.yml`, `scorecard.yml`, `license-audit.yml`, `quarterly-maintenance.yml` |
+| Completed work | [COMPLETED_TASKS.md](COMPLETED_TASKS.md) |

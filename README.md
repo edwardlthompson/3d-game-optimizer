@@ -15,7 +15,7 @@ _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matc
 
 **One-click glasses-free 3D PC gaming** — discovery library, silent toolchain setup, zero-friction launch.
 
-[Releases](https://github.com/edwardlthompson/3d-game-optimizer/releases) · [Build from source](#build-from-source) · [Documentation](#documentation)
+[Releases](https://github.com/edwardlthompson/3d-game-optimizer/releases) · [**3D Game Catalog**](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) · [Build from source](#build-from-source) · [Documentation](#documentation)
 
 </div>
 
@@ -25,6 +25,7 @@ _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matc
 |---|---|
 | **Displays** | Acer SpatialLabs · Samsung Odyssey 3D · NVIDIA 3D Vision (legacy) · Manual fallback |
 | **Library** | Steam discovery hub — sort by players online, Wilson-weighted reviews, 3D tier |
+| **Catalog site** | Public [3D Game Catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) — browse all known 3D titles in your browser |
 | **Launch** | **Play in 3D** — silent presets, no ReShade/UEVR config dialogs |
 | **Privacy** | Local-first · zero telemetry · optional Steam API key only · no cloud sync |
 
@@ -36,12 +37,37 @@ _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matc
 
 > **Requires:** Windows 11, .NET 8 runtime, a supported glasses-free 3D display (or manual generic profile).
 
+## 3D Game Catalog (web)
+
+Browse the living multi-source 3D compatibility database in your browser — no install required:
+
+**https://edwardlthompson.github.io/3d-game-optimizer/catalog/**
+
+The catalog merges curated seed data with vendor and community lists (Acer TrueGame, UEVR, NVIDIA 3D Vision Ready, and more). Sort and filter like a lightweight SteamDB view, plus 3D-specific columns:
+
+| Column | What it shows |
+|--------|----------------|
+| **3D level** | 3D Ultra · 3D · Optimized · Experimental |
+| **TrueGame / UEVR / 3D Vision** | Source-specific badges and ratings |
+| **Platforms** | TrueGame, UEVR, NVIDIA 3D Vision, manual curated, … |
+| **Hardware** | Required display stack (SpatialLabs, Odyssey 3D, legacy 3D Vision, generic stereo) |
+| **Steam Store** | Reviews, players, release date, price (when enriched) |
+
+- No cookies or analytics — static GitHub Pages site
+- Same `catalog-v2.json` the desktop app can opt into syncing later
+- Deep link a game: `?appId=1174180` (Steam app ID)
+
+Data maintenance: [docs/SEED_MAINTENANCE.md](docs/SEED_MAINTENANCE.md) · Site source: [`site/catalog/`](site/catalog/)
+
+> **Note:** The site publishes on push to `main` via GitHub Actions. Enable **Pages → Build and deployment → GitHub Actions** in repo settings if the link 404s until the first deploy completes.
+
 <details>
 <summary><b>✨ Features</b></summary>
 
 **Library & discovery**
 - Launcher-style box cover art from Steam Store API + CDN cache
-- Default **Ready to Play** view for 700+ Steam titles
+- **3D-only library** — installed titles that appear in the merged catalog (not your full Steam library)
+- Public **[3D Game Catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/)** webpage — sort/filter all known 3D titles
 - Sort by 3D quality, players online, confidence-weighted Steam reviews, discovery score
 - Pinned shelf, queue enqueue, favorites, session playlists, local game folder watch list
 
@@ -194,6 +220,8 @@ No. Outbound HTTP is limited to Steam APIs, Steam CDN, signed GitHub release man
 | Doc | Topic |
 |-----|--------|
 | [BUILD_PLAN.md](BUILD_PLAN.md) | Sprint task board |
+| [docs/SEED_MAINTENANCE.md](docs/SEED_MAINTENANCE.md) | Catalog v2 merge & validation |
+| [site/catalog/README.md](site/catalog/README.md) | GitHub Pages catalog browser |
 | [docs/DISPLAY_VENDORS.md](docs/DISPLAY_VENDORS.md) | Display catalog & hubs |
 | [docs/STEAM_INTEGRATION.md](docs/STEAM_INTEGRATION.md) | API-first data policy |
 | [docs/TOOL_AUTOMATION.md](docs/TOOL_AUTOMATION.md) | Silent install contracts |

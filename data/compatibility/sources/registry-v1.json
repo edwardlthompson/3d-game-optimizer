@@ -1,0 +1,48 @@
+{
+  "version": "v1",
+  "updatedAt": "2026-06-15",
+  "sources": [
+    {
+      "sourceId": "manual-curated",
+      "name": "Curated seed",
+      "origin": "data/compatibility/seed-v1.json",
+      "syncMethod": "manual",
+      "platformKey": "manual"
+    },
+    {
+      "sourceId": "acer-truegame",
+      "name": "Acer TrueGame",
+      "origin": "https://spatiallabs.acer.com/truegame/list",
+      "syncMethod": "playwright",
+      "platformKey": "truegame"
+    },
+    {
+      "sourceId": "uevr-profiles",
+      "name": "UEVR Profiles",
+      "origin": "https://uevr-profiles.com/",
+      "syncMethod": "playwright",
+      "platformKey": "uevr"
+    },
+    {
+      "sourceId": "nvidia-3d-vision",
+      "name": "NVIDIA 3D Vision",
+      "origin": "PCGamingWiki + official Ready list",
+      "syncMethod": "scrape-import",
+      "platformKey": "nvidia-3d-vision"
+    },
+    {
+      "sourceId": "samsung-odyssey-hub",
+      "name": "Samsung Odyssey Hub",
+      "origin": "Manual stub",
+      "syncMethod": "manual",
+      "platformKey": "odyssey-hub"
+    },
+    {
+      "sourceId": "asus-spatial-vision",
+      "name": "ASUS Spatial Vision",
+      "origin": "Manual stub",
+      "syncMethod": "manual",
+      "platformKey": "asus-spatial-vision"
+    }
+  ]
+}

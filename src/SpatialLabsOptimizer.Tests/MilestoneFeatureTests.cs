@@ -50,10 +50,13 @@ public class MilestoneFeatureTests
         var placeholders = new Infrastructure.Library.LibraryStorePlaceholderAssigner(db, hub);
         var merger = new Infrastructure.Library.LibraryIndexMerger(external, steamOwned, placeholders);
         var prefetch = new Infrastructure.Library.LibraryPrefetchService(db, artwork, hub);
+        var settingsPath = Path.Combine(Path.GetTempPath(), $"3dgo-incr-settings-{Guid.NewGuid()}.db");
+        await using var settings = new Infrastructure.Data.SqliteSettingsStore(settingsPath);
+        await settings.InitializeAsync();
         var indexer = new Infrastructure.Library.LibraryIndexer(
-            compat, scanner, readiness, db, hub, detector, merger, prefetch);
+            compat, scanner, readiness, db, hub, detector, merger, prefetch, settings);
 
-        var service = new IncrementalSteamScanService(scanner, db, indexer, hub);
+        var service = new IncrementalSteamScanService(scanner, db, indexer, hub, settings);
         var delta = await service.ScanNewGamesAsync();
         Assert.True(delta >= 0);
         await db.DisposeAsync();
@@ -141,6 +144,19 @@ public class MilestoneFeatureTests
         var repo = new Infrastructure.Compatibility.CompatibilityRepository(loader);
         var all = await repo.GetAllAsync();
         Assert.True(all.Count >= 10);
+    }
+
+    [Fact]
+    public async Task CompatibilityRepository_LoadsCatalogV2WhenPresent()
+    {
+        var dataRoot = TestPaths.FindDataRoot();
+        var loader = new Infrastructure.Data.JsonDataLoader(dataRoot);
+        var repo = new Infrastructure.Compatibility.CompatibilityRepository(loader);
+        var all = await repo.GetAllAsync();
+        Assert.True(all.Count >= 30, "catalog-v2 should expand beyond seed-v1 minimum");
+        var portal = all.FirstOrDefault(g => g.SteamAppId == 620);
+        Assert.NotNull(portal);
+        Assert.Equal("optimized", portal!.TiersByVendor["nvidia"]);
     }
 
     [Fact]

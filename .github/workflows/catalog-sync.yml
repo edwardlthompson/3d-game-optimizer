@@ -1,0 +1,35 @@
+name: Catalog sync
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  merge-validate:
+    name: Merge sources and validate catalog v2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Merge catalog from committed sources
+        run: python3 scripts/sync-catalog/merge-catalog.py
+
+      - name: Validate catalog v2
+        run: python3 scripts/check-compatibility-catalog.py
+
+      - name: Run merge unit tests
+        run: python3 scripts/sync-catalog/test_merge_catalog.py
+
+      - name: Upload catalog artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-v2
+          path: data/compatibility/catalog-v2.json

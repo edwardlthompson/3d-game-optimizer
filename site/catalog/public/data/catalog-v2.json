@@ -1,0 +1,1563 @@
+{
+  "version": "v2",
+  "meta": {
+    "mergedAt": "2026-06-15T16:35:08Z",
+    "syncStatus": "ok",
+    "gameCount": 37,
+    "sources": {
+      "nvidia-3d-vision": "ok"
+    }
+  },
+  "games": [
+    {
+      "id": "assassin-s-creed-brotherhood",
+      "title": "Assassin's Creed Brotherhood",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 48190,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "assassin-s-creed-ii",
+      "title": "Assassin's Creed II",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 33230,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "baldurs-gate-3",
+      "title": "Baldur's Gate 3",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "playable3d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        }
+      ],
+      "bestLevel": "playable3d",
+      "platforms": [
+        "manual"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual"
+        ],
+        "exclusiveTo": [],
+        "notes": ""
+      },
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "playable",
+        "nvidia": "experimental",
+        "generic": "unsupported"
+      },
+      "steamAppId": 1086940,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "RPG",
+        "Turn-Based",
+        "Story Rich",
+        "Co-op"
+      ],
+      "reviewSummary": "Playable with tuned presets; UI depth artifacts still present in some dialogue scenes."
+    },
+    {
+      "id": "batman-arkham-asylum-game-of-the-year-edition",
+      "title": "Batman: Arkham Asylum Game of the Year Edition",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 35140,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "batman-arkham-city",
+      "title": "Batman: Arkham City",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 200260,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "beat-saber",
+      "title": "Beat Saber",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "unsupported2d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        }
+      ],
+      "bestLevel": "unsupported2d",
+      "platforms": [
+        "manual"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual"
+        ],
+        "exclusiveTo": [],
+        "notes": ""
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "unsupported",
+        "generic": "unsupported"
+      },
+      "steamAppId": 620980,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "VR",
+        "Rhythm",
+        "Music",
+        "Arcade"
+      ],
+      "reviewSummary": "Native VR rhythm game; launch via SteamVR when runtime is available.",
+      "vrCapability": "nativeVr",
+      "steamVrLaunchOptions": "-vr"
+    },
+    {
+      "id": "bioshock-2-remastered",
+      "title": "BioShock 2 Remastered",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 409720,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "bioshock-infinite",
+      "title": "BioShock Infinite",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 8870,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "bioshock-remastered",
+      "title": "BioShock Remastered",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 409710,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "borderlands-2",
+      "title": "Borderlands 2",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 49520,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "crysis",
+      "title": "Crysis",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 17300,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "crysis-2-maximum-edition",
+      "title": "Crysis 2 Maximum Edition",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 108800,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "cyberpunk-2077",
+      "title": "Cyberpunk 2077",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "native3d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "manual"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual"
+        ],
+        "exclusiveTo": [],
+        "notes": ""
+      },
+      "tiersByVendor": {
+        "acer": "optimized",
+        "samsung": "playable",
+        "nvidia": "experimental",
+        "generic": "experimental"
+      },
+      "steamAppId": 1091500,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "Open World",
+        "RPG",
+        "Sci-fi",
+        "Singleplayer"
+      ],
+      "reviewSummary": "Excellent depth separation on Acer profile, but requires conservative convergence for long sessions.",
+      "vrCapability": "uevrCompatible",
+      "steamVrLaunchOptions": "-vr"
+    },
+    {
+      "id": "dead-space",
+      "title": "Dead Space",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 17470,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "dead-space-2",
+      "title": "Dead Space 2",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 47780,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "dirt-3-complete-edition",
+      "title": "DiRT 3 Complete Edition",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 321040,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "dirt-showdown",
+      "title": "DiRT Showdown",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 201700,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "elden-ring",
+      "title": "Elden Ring",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "playable3d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        }
+      ],
+      "bestLevel": "playable3d",
+      "platforms": [
+        "manual"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual"
+        ],
+        "exclusiveTo": [],
+        "notes": ""
+      },
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "playable",
+        "nvidia": "experimental",
+        "generic": "experimental"
+      },
+      "steamAppId": 1245620,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "Souls-like",
+        "Open World",
+        "RPG",
+        "Dark Fantasy"
+      ],
+      "reviewSummary": "Strong parallax in open areas; fast camera motion can induce discomfort without reduced depth."
+    },
+    {
+      "id": "forza-horizon-5",
+      "title": "Forza Horizon 5",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "native3d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "manual"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual"
+        ],
+        "exclusiveTo": [],
+        "notes": ""
+      },
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "optimized",
+        "nvidia": "playable",
+        "generic": "experimental"
+      },
+      "steamAppId": 1551360,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "Racing",
+        "Open World",
+        "Driving",
+        "Multiplayer"
+      ],
+      "reviewSummary": "Stable 3D effect across varied lighting; Samsung profile has best default clarity."
+    },
+    {
+      "id": "half-life-2",
+      "title": "Half-Life 2",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 220,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "half-life-alyx",
+      "title": "Half-Life: Alyx",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "unsupported2d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        }
+      ],
+      "bestLevel": "unsupported2d",
+      "platforms": [
+        "manual"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual"
+        ],
+        "exclusiveTo": [],
+        "notes": ""
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "unsupported",
+        "generic": "unsupported"
+      },
+      "steamAppId": 546560,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "VR",
+        "FPS",
+        "Story Rich",
+        "Sci-fi"
+      ],
+      "reviewSummary": "Native VR title; use Play in VR rather than 3D display profiles.",
+      "vrCapability": "nativeVr",
+      "steamVrLaunchOptions": "-vr"
+    },
+    {
+      "id": "hogwarts-legacy",
+      "title": "Hogwarts Legacy",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "playable3d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        }
+      ],
+      "bestLevel": "playable3d",
+      "platforms": [
+        "manual"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual"
+        ],
+        "exclusiveTo": [],
+        "notes": ""
+      },
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "experimental",
+        "nvidia": "experimental",
+        "generic": "unsupported"
+      },
+      "steamAppId": 990080,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "Open World",
+        "Magic",
+        "RPG",
+        "Singleplayer"
+      ],
+      "reviewSummary": "Interior scenes show strong depth; performance spikes on generic profiles.",
+      "vrCapability": "uevrCompatible"
+    },
+    {
+      "id": "just-cause-2",
+      "title": "Just Cause 2",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 8190,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "left-4-dead-2",
+      "title": "Left 4 Dead 2",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 550,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "lost-planet-2",
+      "title": "Lost Planet 2",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 65730,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "mafia-ii-definitive-edition",
+      "title": "Mafia II: Definitive Edition",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 1030840,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "metro-2033",
+      "title": "Metro 2033",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 43110,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "metro-last-light-complete-edition",
+      "title": "Metro: Last Light Complete Edition",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 287390,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "portal-2",
+      "title": "Portal 2",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "playable3d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        },
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "manual",
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual",
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "playable",
+        "nvidia": "optimized",
+        "generic": "experimental"
+      },
+      "steamAppId": 620,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "Puzzle",
+        "Co-op",
+        "Sci-fi",
+        "Comedy"
+      ],
+      "reviewSummary": "Clean geometry makes it a strong 3D showcase; co-op split-screen not validated."
+    },
+    {
+      "id": "red-dead-redemption-2",
+      "title": "Red Dead Redemption 2",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "playable3d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        }
+      ],
+      "bestLevel": "playable3d",
+      "platforms": [
+        "manual"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual"
+        ],
+        "exclusiveTo": [],
+        "notes": ""
+      },
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "playable",
+        "nvidia": "experimental",
+        "generic": "experimental"
+      },
+      "steamAppId": 1174180,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "Open World",
+        "Western",
+        "Story Rich",
+        "Multiplayer"
+      ],
+      "reviewSummary": "Cinematic landscapes benefit from moderate depth; cutscenes need UI depth compensation.",
+      "vrCapability": "uevrCompatible"
+    },
+    {
+      "id": "star-wars-the-force-unleashed-ultimate-sith-edition",
+      "title": "Star Wars: The Force Unleashed - Ultimate Sith Edition",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 32440,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "star-wars-the-force-unleashed-ii",
+      "title": "Star Wars: The Force Unleashed II",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 32500,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "starfield",
+      "title": "Starfield",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "experimental3d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        }
+      ],
+      "bestLevel": "experimental3d",
+      "platforms": [
+        "manual"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual"
+        ],
+        "exclusiveTo": [],
+        "notes": ""
+      },
+      "tiersByVendor": {
+        "acer": "experimental",
+        "samsung": "experimental",
+        "nvidia": "unsupported",
+        "generic": "unsupported"
+      },
+      "steamAppId": 1716740,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "Open World",
+        "RPG",
+        "Sci-fi",
+        "Space"
+      ],
+      "reviewSummary": "Experimental only; cockpit UI and space transitions need manual tuning."
+    },
+    {
+      "id": "skyrim-se",
+      "title": "The Elder Scrolls V: Skyrim Special Edition",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "playable3d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        },
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "manual",
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual",
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "playable",
+        "samsung": "playable",
+        "nvidia": "optimized",
+        "generic": "experimental"
+      },
+      "steamAppId": 489830,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "Open World",
+        "RPG",
+        "Fantasy",
+        "Moddable"
+      ],
+      "reviewSummary": "Well-understood UEVR target; mod load order can affect injector stability.",
+      "vrCapability": "uevrCompatible"
+    },
+    {
+      "id": "the-witcher-2-assassins-of-kings-enhanced-edition",
+      "title": "The Witcher 2: Assassins of Kings Enhanced Edition",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 20920,
+      "steamMatchConfidence": 0.95
+    },
+    {
+      "id": "the-witcher-3",
+      "title": "The Witcher 3: Wild Hunt",
+      "sources": [
+        {
+          "sourceId": "manual-curated",
+          "level": "native3d",
+          "label": "Curated seed",
+          "syncedAt": "2026-06-15"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "manual"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "generic-manual"
+        ],
+        "exclusiveTo": [],
+        "notes": ""
+      },
+      "tiersByVendor": {
+        "acer": "optimized",
+        "samsung": "playable",
+        "nvidia": "playable",
+        "generic": "experimental"
+      },
+      "steamAppId": 292030,
+      "steamMatchConfidence": 1.0,
+      "steamTags": [
+        "Open World",
+        "RPG",
+        "Story Rich",
+        "Fantasy"
+      ],
+      "reviewSummary": "Mature title for 3D profiles; foliage-heavy scenes need conservative convergence defaults.",
+      "vrCapability": "uevrCompatible"
+    },
+    {
+      "id": "wolfenstein",
+      "title": "Wolfenstein",
+      "sources": [
+        {
+          "sourceId": "nvidia-3d-vision",
+          "level": "native3d",
+          "label": "3D Vision Ready",
+          "syncedAt": "2026-06-15",
+          "supportType": "official",
+          "supportStatus": "legacy"
+        }
+      ],
+      "bestLevel": "native3d",
+      "platforms": [
+        "nvidia-3d-vision"
+      ],
+      "hardwareRequirements": {
+        "displays": [
+          "nvidia-3d-vision-generic"
+        ],
+        "exclusiveTo": [
+          "nvidia-3d-vision-generic"
+        ],
+        "notes": "Legacy NVIDIA 3D Vision stack; stereoscopic driver deprecated on modern Windows.",
+        "gpu": [
+          "nvidia-geforce"
+        ],
+        "accessories": [
+          "3d-vision-glasses-or-3dtv-play",
+          "120hz-monitor"
+        ]
+      },
+      "tiersByVendor": {
+        "acer": "unsupported",
+        "samsung": "unsupported",
+        "nvidia": "optimized",
+        "generic": "unsupported"
+      },
+      "steamAppId": 14100,
+      "steamMatchConfidence": 0.95
+    }
+  ]
+}
