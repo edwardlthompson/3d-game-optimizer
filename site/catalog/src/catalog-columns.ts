@@ -4,6 +4,7 @@ import {
 } from "@tanstack/table-core";
 import {
   buyBucket,
+  gameRankBucket,
   hardwareSummary,
   playerBucket,
   playMethodKeysForGame,
@@ -11,12 +12,11 @@ import {
   rank3DBucket,
   releaseYearBucket,
   reviewBucket,
-  steamRankBucket,
 } from "./filters/buckets";
 import { matchesCheckboxFilter } from "./filters/checkbox-filter";
 import { playMethodsForGame, playMethodsText } from "./game-accessors";
+import { compareGameRank, gameRankScore, GAME_RANK_TOOLTIP } from "./game-ranking";
 import { rank3DForGame, rank3DScore } from "./rank-3d";
-import { weightedReviewScore } from "./steam-ranking";
 import type { CatalogGame } from "./types";
 import { displayTitle, escapeHtml } from "./utils";
 
@@ -69,6 +69,19 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
         return `<span class="title-cell" title="${escapeHtml(title)}">${escapeHtml(title)}</span>`;
       },
     }),
+    columnHelper.accessor((g) => gameRankScore(g), {
+      id: "gameRank",
+      header: "Game Rank",
+      meta: { tooltip: GAME_RANK_TOOLTIP },
+      sortingFn: (a, b) => compareGameRank(a.original, b.original),
+      filterFn: (row, _id, value) =>
+        matchesCheckboxFilter(gameRankBucket(gameRankScore(row.original)), value),
+      cell: (info) => {
+        const score = gameRankScore(info.row.original);
+        if (score == null) return "—";
+        return `<span class="game-rank-value" title="${escapeHtml(GAME_RANK_TOOLTIP)}">${score.toFixed(1)}</span>`;
+      },
+    }),
     columnHelper.accessor((g) => rank3DScore(g), {
       id: "rank3d",
       header: "3D Rank",
@@ -112,25 +125,6 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
         const count = info.row.original.steamStats?.reviewCount;
         if (review == null) return "—";
         return count ? `${review}% (${count.toLocaleString()})` : `${review}%`;
-      },
-    }),
-    columnHelper.accessor((g) => weightedReviewScore(g.steamStats), {
-      id: "weightedReview",
-      header: "Steam Rank",
-      meta: { steam: true },
-      sortingFn: (a, b) => {
-        const av = weightedReviewScore(a.original.steamStats) ?? -1;
-        const bv = weightedReviewScore(b.original.steamStats) ?? -1;
-        return av - bv;
-      },
-      filterFn: (row, _id, value) =>
-        matchesCheckboxFilter(
-          steamRankBucket(weightedReviewScore(row.original.steamStats)),
-          value,
-        ),
-      cell: (info) => {
-        const score = weightedReviewScore(info.row.original.steamStats);
-        return score != null ? score.toFixed(1) : "—";
       },
     }),
     columnHelper.accessor((g) => g.steamStats?.currentPlayers ?? null, {

@@ -71,10 +71,10 @@ export interface CatalogDocument {
 
 export type SortKey =
   | "title"
+  | "gameRank"
   | "rank3d"
   | "releaseDate"
   | "reviewPercent"
-  | "weightedReview"
   | "currentPlayers"
   | "priceUsd";
 

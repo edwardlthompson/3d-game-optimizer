@@ -190,8 +190,9 @@ export class CatalogGrid {
 
     for (const header of this.table.getHeaderGroups()[0]?.headers ?? []) {
       const th = document.createElement("th");
-      const meta = header.column.columnDef.meta as { steam?: boolean } | undefined;
+      const meta = header.column.columnDef.meta as { steam?: boolean; tooltip?: string } | undefined;
       if (meta?.steam) th.dataset.source = "steam-store";
+      if (meta?.tooltip) th.title = meta.tooltip;
       if (header.column.getCanSort()) {
         th.addEventListener("click", (event) => {
           header.column.toggleSorting(undefined, event.shiftKey);

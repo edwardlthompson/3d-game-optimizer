@@ -107,7 +107,7 @@ function shell(): void {
     <footer class="site-footer">
       <details class="footer-details">
         <summary class="footer-summary">
-          <span>3D Rank = top path score · Steam Rank = weighted reviews · local wishlist/library</span>
+          <span>Game Rank = Steam + 3D · local wishlist/library</span>
           <span class="footer-summary-actions">
             <a href="${escapeHtml(DONATE_URL)}" target="_blank" rel="noopener noreferrer">Support on Venmo</a>
             <span class="footer-expand-hint">Details ▾</span>

@@ -56,11 +56,11 @@ export function buildRank3DBucketOptions(): string[] {
   return buildScoreBucketOptions();
 }
 
-export function steamRankBucket(score: number | null | undefined): string {
+export function gameRankBucket(score: number | null | undefined): string {
   return scoreBucket(score);
 }
 
-export function buildSteamRankBucketOptions(): string[] {
+export function buildGameRankBucketOptions(): string[] {
   return buildScoreBucketOptions();
 }
 
@@ -118,7 +118,7 @@ export function collectUniqueValues(games: CatalogGame[]): Record<string, string
   const sort = (s: Set<string>) => [...s].sort((a, b) => a.localeCompare(b));
   return {
     rank3d: buildRank3DBucketOptions(),
-    weightedReview: buildSteamRankBucketOptions(),
+    gameRank: buildGameRankBucketOptions(),
     playMethods: sort(playMethods),
     hardware: sort(hardware),
     releaseDate: sort(release),

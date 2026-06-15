@@ -97,16 +97,16 @@ td {
 
 td[data-col="library"],
 td[data-col="wishlist"],
+td[data-col="gameRank"],
 td[data-col="reviewPercent"],
-td[data-col="weightedReview"],
 td[data-col="currentPlayers"],
 td[data-col="releaseDate"],
 td[data-col="priceUsd"],
 td[data-col="buy"],
 th[data-col="library"],
 th[data-col="wishlist"],
+th[data-col="gameRank"],
 th[data-col="reviewPercent"],
-th[data-col="weightedReview"],
 th[data-col="currentPlayers"],
 th[data-col="releaseDate"],
 th[data-col="priceUsd"],
@@ -335,7 +335,17 @@ footer ul {
   color: var(--muted);
 }
 
-.filter-btn,
+.game-rank-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: help;
+  border-bottom: 1px dotted var(--muted);
+}
+
+th[data-col="gameRank"] {
+  cursor: help;
+}
+
 .price-btn,
 .wish-btn,
 .library-btn,
