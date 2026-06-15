@@ -30,7 +30,7 @@
 - ✅ [AGENT] Text wrap on title / play methods / hardware; drop TrueGame + 3D Vision columns
 - ✅ [AGENT] Left-align filter popover checkboxes
 - ✅ [AGENT] Buy on Steam → `target="_blank"` + `steam://store/{appId}` handoff
-- ⬜ [AUTO] Push → GitHub Pages redeploy
+- ✅ [AUTO] Push → GitHub Pages redeploy (`f8d93ed`)
 
 ---
 
