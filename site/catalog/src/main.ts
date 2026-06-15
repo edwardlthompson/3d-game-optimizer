@@ -29,6 +29,11 @@ const DISPLAY_LABEL: Record<string, string> = {
   "generic-manual": "Generic stereo",
 };
 
+const appRoot = document.querySelector<HTMLDivElement>("#app");
+if (!appRoot) {
+  throw new Error("Missing #app root");
+}
+
 const state = {
   catalog: null as CatalogDocument | null,
   sortKey: "title" as SortKey,
@@ -39,13 +44,8 @@ const state = {
     platforms: new Set<string>(),
     hardware: new Set<string>(),
     visionCertifiedOnly: false,
-  } satisfies CatalogFilters,
+  } as CatalogFilters,
 };
-
-const app = document.querySelector<HTMLDivElement>("#app");
-if (!app) {
-  throw new Error("Missing #app root");
-}
 
 function formatLevel(level: string): string {
   return LEVEL_LABEL[level] ?? level;
@@ -169,8 +169,8 @@ function render(): void {
   if (!state.catalog) return;
 
   const filtered = state.catalog.games.filter(matchesFilters).sort(compareGames);
-  const tbody = app.querySelector("tbody");
-  const status = app.querySelector(".status");
+  const tbody = appRoot.querySelector("tbody");
+  const status = appRoot.querySelector(".status");
   if (tbody) tbody.innerHTML = renderRows(filtered);
   if (status) {
     status.textContent = `${filtered.length} of ${state.catalog.meta.gameCount} titles · sync ${state.catalog.meta.syncStatus} · merged ${state.catalog.meta.mergedAt}`;
@@ -178,7 +178,7 @@ function render(): void {
 }
 
 function bindSortHeaders(): void {
-  app.querySelectorAll<HTMLTableCellElement>("th[data-sort]").forEach((th) => {
+  appRoot.querySelectorAll<HTMLTableCellElement>("th[data-sort]").forEach((th) => {
     th.addEventListener("click", (event) => {
       const key = th.dataset.sort as SortKey;
       if (state.sortKey === key) {
@@ -193,23 +193,23 @@ function bindSortHeaders(): void {
 }
 
 function bindFilters(): void {
-  const search = app.querySelector<HTMLInputElement>("#search");
+  const search = appRoot.querySelector<HTMLInputElement>("#search");
   search?.addEventListener("input", () => {
     state.filters.query = search.value;
     render();
   });
 
-  app.querySelector<HTMLInputElement>("#ultra-only")?.addEventListener("change", (e) => {
+  appRoot.querySelector<HTMLInputElement>("#ultra-only")?.addEventListener("change", (e) => {
     state.filters.ultraOnly = (e.target as HTMLInputElement).checked;
     render();
   });
 
-  app.querySelector<HTMLInputElement>("#vision-certified")?.addEventListener("change", (e) => {
+  appRoot.querySelector<HTMLInputElement>("#vision-certified")?.addEventListener("change", (e) => {
     state.filters.visionCertifiedOnly = (e.target as HTMLInputElement).checked;
     render();
   });
 
-  app.querySelectorAll<HTMLInputElement>("input[data-platform]").forEach((input) => {
+  appRoot.querySelectorAll<HTMLInputElement>("input[data-platform]").forEach((input) => {
     input.addEventListener("change", () => {
       if (input.checked) state.filters.platforms.add(input.dataset.platform!);
       else state.filters.platforms.delete(input.dataset.platform!);
@@ -217,7 +217,7 @@ function bindFilters(): void {
     });
   });
 
-  app.querySelectorAll<HTMLInputElement>("input[data-hardware]").forEach((input) => {
+  appRoot.querySelectorAll<HTMLInputElement>("input[data-hardware]").forEach((input) => {
     input.addEventListener("change", () => {
       if (input.checked) state.filters.hardware.add(input.dataset.hardware!);
       else state.filters.hardware.delete(input.dataset.hardware!);
@@ -227,7 +227,7 @@ function bindFilters(): void {
 }
 
 function shell(): void {
-  app.innerHTML = `
+  appRoot.innerHTML = `
     <header>
       <h1>3D Game Catalog</h1>
       <p>Multi-source 3D compatibility — TrueGame, UEVR, NVIDIA 3D Vision, and curated seed data.</p>
@@ -284,12 +284,12 @@ async function loadCatalog(): Promise<void> {
   const appId = params.get("appId");
   if (appId) {
     state.filters.query = appId;
-    const search = app.querySelector<HTMLInputElement>("#search");
+    const search = appRoot.querySelector<HTMLInputElement>("#search");
     if (search) search.value = appId;
     render();
   }
 }
 
 loadCatalog().catch((error: unknown) => {
-  app.innerHTML = `<div class="empty">Could not load catalog: ${escapeHtml(String(error))}</div>`;
+  appRoot.innerHTML = `<div class="empty">Could not load catalog: ${escapeHtml(String(error))}</div>`;
 });
