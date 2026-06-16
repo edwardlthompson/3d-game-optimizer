@@ -55,7 +55,9 @@ public static partial class ServiceCollectionExtensions
             sp.GetRequiredService<OperationProgressHub>(),
             sp.GetRequiredService<PlatformConnectionRepository>(),
             sp.GetRequiredService<SteamAppReviewsClient>(),
-            sp.GetRequiredService<PlayerCountService>()));
+            sp.GetRequiredService<PlayerCountService>(),
+            sp.GetRequiredService<PresetCacheService>(),
+            sp.GetRequiredService<LaunchReadinessService>()));
         services.AddSingleton<LibraryIndexer>(sp => new LibraryIndexer(
             sp.GetRequiredService<CompatibilityRepository>(),
             sp.GetRequiredService<SteamVdfScanner>(),

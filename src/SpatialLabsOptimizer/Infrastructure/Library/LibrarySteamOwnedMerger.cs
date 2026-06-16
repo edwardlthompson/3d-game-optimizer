@@ -11,6 +11,7 @@ namespace SpatialLabsOptimizer.Infrastructure.Library;
 
 public sealed class LibrarySteamOwnedMerger
 {
+    private const int StoreFetchConcurrency = 3;
     private readonly LaunchReadinessService _readiness;
     private readonly GameDatabase _database;
     private readonly PlatformConnectionRepository? _connections;
@@ -58,6 +59,7 @@ public sealed class LibrarySteamOwnedMerger
             return;
         }
 
+        var missing = new List<int>();
         foreach (var appId in owned)
         {
             var existing = await _database.GetGameAsync(appId, cancellationToken);
@@ -71,33 +73,64 @@ public sealed class LibrarySteamOwnedMerger
                 continue;
             }
 
-            var title = $"Steam App {appId}";
-            if (_storeClient is not null)
+            missing.Add(appId);
+        }
+
+        if (missing.Count == 0 || _storeClient is null)
+        {
+            foreach (var appId in missing)
             {
+                await UpsertPlaceholderAsync(appId, $"Steam App {appId}", steamInstalled, cancellationToken);
+            }
+
+            return;
+        }
+
+        using var gate = new SemaphoreSlim(StoreFetchConcurrency);
+        var tasks = missing.Select(async appId =>
+        {
+            await gate.WaitAsync(cancellationToken);
+            try
+            {
+                var title = $"Steam App {appId}";
                 var details = await _storeClient.GetAppDetailsAsync(appId, cancellationToken);
                 if (!string.IsNullOrWhiteSpace(details?.Name))
                 {
                     title = details.Name;
                 }
-            }
 
-            var tier = CompatibilityTier.Experimental;
-            var isInstalled = steamInstalled.Contains(appId);
-            var readiness = await _readiness.EvaluateAsync(appId, isInstalled, tier, cancellationToken);
-            await _database.UpsertGameAsync(new GameCatalogItem(
-                appId,
-                title,
-                tier,
-                readiness,
-                isInstalled,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                false), cancellationToken);
-        }
+                await UpsertPlaceholderAsync(appId, title, steamInstalled, cancellationToken);
+            }
+            finally
+            {
+                gate.Release();
+            }
+        });
+        await Task.WhenAll(tasks);
+    }
+
+    private async Task UpsertPlaceholderAsync(
+        int appId,
+        string title,
+        HashSet<int> steamInstalled,
+        CancellationToken cancellationToken)
+    {
+        var tier = CompatibilityTier.Experimental;
+        var isInstalled = steamInstalled.Contains(appId);
+        var readiness = await _readiness.EvaluateAsync(appId, isInstalled, tier, cancellationToken);
+        await _database.UpsertGameAsync(new GameCatalogItem(
+            appId,
+            title,
+            tier,
+            readiness,
+            isInstalled,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false), cancellationToken);
     }
 }
 

@@ -88,14 +88,19 @@ public sealed partial class ShellPage : Page
 
         ViewModel.StartDisplayMonitoring();
         await ViewModel.InitializeAsync();
-        NavView.SelectedItem = NavView.MenuItems[0];
-        ContentFrame.Navigate(typeof(GameLibraryView), _libraryViewModel);
 
+        var navTag = "library";
         if (!await ViewModel.IsSetupCompleteAsync())
         {
             _settingsViewModel.ExpandToolchain = true;
-            NavigateToTag("settings");
+            navTag = "settings";
         }
+        else
+        {
+            navTag = await _prefs.GetLastNavTagAsync() ?? "library";
+        }
+
+        NavigateToTag(navTag);
 
         if (App.PendingProtocolAppId is int protocolAppId)
         {
@@ -215,5 +220,6 @@ public sealed partial class ShellPage : Page
         };
 
         ContentFrame.Navigate(pageType, parameter);
+        _ = _prefs.SetLastNavTagAsync(tag);
     }
 }

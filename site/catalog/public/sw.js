@@ -1,4 +1,5 @@
-const CACHE = "3d-catalog-v1";
+const CACHE = "3d-catalog-v2";
+const CATALOG_DATA = /\/data\/catalog-v2\.json$/;
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();
@@ -16,16 +17,36 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
-  event.respondWith(
-    caches.open(CACHE).then(async (cache) => {
-      const cached = await cache.match(event.request);
-      try {
-        const response = await fetch(event.request);
-        if (response.ok) cache.put(event.request, response.clone());
-        return response;
-      } catch {
-        return cached ?? Response.error();
-      }
-    }),
-  );
+  const url = new URL(event.request.url);
+  if (CATALOG_DATA.test(url.pathname)) {
+    event.respondWith(networkFirstCatalog(event.request));
+    return;
+  }
+  event.respondWith(staleWhileRevalidate(event.request));
 });
+
+async function networkFirstCatalog(request) {
+  try {
+    const response = await fetch(request);
+    if (response.ok) {
+      const cache = await caches.open(CACHE);
+      cache.put(request, response.clone());
+    }
+    return response;
+  } catch {
+    const cached = await caches.match(request);
+    return cached ?? Response.error();
+  }
+}
+
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(CACHE);
+  const cached = await cache.match(request);
+  const network = fetch(request)
+    .then((response) => {
+      if (response.ok) cache.put(request, response.clone());
+      return response;
+    })
+    .catch(() => null);
+  return cached ?? network ?? Response.error();
+}

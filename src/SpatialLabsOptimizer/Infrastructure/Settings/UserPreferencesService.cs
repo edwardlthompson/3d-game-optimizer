@@ -6,6 +6,7 @@ public sealed partial class UserPreferencesService
 {
     internal const string V2ExperimentalKey = "v2_experimental";
     internal const string LibraryUiPrefsKey = "library_ui_prefs";
+    internal const string LastNavTagKey = "last_nav_tag";
 
     private readonly SqliteSettingsStore _settings;
 
@@ -79,4 +80,10 @@ public sealed partial class UserPreferencesService
     {
         await _settings.SetAsync("theme", theme, cancellationToken);
     }
+
+    public async Task<string?> GetLastNavTagAsync(CancellationToken cancellationToken = default)
+        => await _settings.GetAsync(LastNavTagKey, cancellationToken);
+
+    public async Task SetLastNavTagAsync(string tag, CancellationToken cancellationToken = default)
+        => await _settings.SetAsync(LastNavTagKey, tag, cancellationToken);
 }

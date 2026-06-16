@@ -15,6 +15,17 @@ namespace SpatialLabsOptimizer.Tests;
 public class InfrastructureTests
 {
     [Fact]
+    public async Task PrivacyGuardHttpHandler_HasDefaultInnerHandler()
+    {
+        using var handler = new PrivacyGuardHttpHandler(new PrivacyGuard(PrivacyAllowlist.DefaultHosts));
+        Assert.NotNull(handler.InnerHandler);
+
+        using var client = new HttpClient(handler);
+        await Assert.ThrowsAsync<HttpRequestException>(() =>
+            client.GetAsync("https://example.com"));
+    }
+
+    [Fact]
     public async Task PrivacyGuardHttpHandler_BlocksNonAllowlistedHost()
     {
         var guard = new PrivacyGuard(PrivacyAllowlist.DefaultHosts);
@@ -123,6 +134,26 @@ public class InfrastructureTests
         };
         var sorted = service.Sort(games, LibrarySortMode.SteamReviews);
         Assert.Equal(2, sorted[0].SteamAppId);
+    }
+
+    [Fact]
+    public void LibrarySortService_SortsByGameRank()
+    {
+        var service = new LibrarySortService();
+        var games = new List<Domain.GameCatalogItem>
+        {
+            new(1, "Low", CompatibilityTier.Playable, LaunchReadinessState.Ready, true, 50, 80, 100, null, null, null, false),
+            new(2, "High", CompatibilityTier.Playable, LaunchReadinessState.Ready, true, 5000, 95, 8000, null, null, null, false),
+            new(3, "Mid", CompatibilityTier.Playable, LaunchReadinessState.Ready, true, 200, 88, 500, null, null, null, false),
+        };
+        var gameRankScores = new Dictionary<int, double> { [1] = 42.1, [2] = 88.4, [3] = 58.2 };
+        var rank3DScores = new Dictionary<int, int> { [1] = 42, [2] = 88, [3] = 58 };
+
+        var sorted = service.SortByGameRank(games, gameRankScores, rank3DScores);
+
+        Assert.Equal(2, sorted[0].SteamAppId);
+        Assert.Equal(3, sorted[1].SteamAppId);
+        Assert.Equal(1, sorted[2].SteamAppId);
     }
 
     [Fact]

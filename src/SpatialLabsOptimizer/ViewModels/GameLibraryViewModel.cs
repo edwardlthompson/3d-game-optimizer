@@ -48,13 +48,14 @@ public sealed partial class GameLibraryViewModel : ViewModelBase
     private readonly UserPreferencesService _preferences;
     private readonly LibraryPrefetchService _prefetch;
     private readonly CoverArtCache _coverCache;
+    private readonly GameArtworkService _artwork;
     private readonly LibraryIndexer _indexer;
     private readonly CompatibilityRepository _compatibility;
 
     private IReadOnlyList<GameLibraryItemViewModel> _games = Array.Empty<GameLibraryItemViewModel>();
     private IReadOnlyList<string> _playlistNames = Array.Empty<string>();
     private IReadOnlyList<RecentLaunchItemViewModel> _recentLaunches = Array.Empty<RecentLaunchItemViewModel>();
-    private LibrarySortMode _sortMode = LibrarySortMode.Quality;
+    private LibrarySortMode _sortMode = LibrarySortMode.GameRank;
     private SmartCollectionMode _smartCollection = SmartCollectionMode.None;
     private string _warmStartStatus = "";
     private string _preferredOutput = "Auto";
@@ -63,6 +64,7 @@ public sealed partial class GameLibraryViewModel : ViewModelBase
     private string _selectedPresetFreshness = "";
     private string _whyNotReadyHint = "";
     private string _selectedRecommendedTools = "";
+    private string _selectedRank3DDisplay = "";
     private bool _showFavoritesOnly;
     private bool _showLocalOnly;
     private bool _showWhyNotReady;
@@ -70,6 +72,7 @@ public sealed partial class GameLibraryViewModel : ViewModelBase
     private bool _filterTrueGame;
     private bool _filterUevr;
     private bool _filter3DVision;
+    private int _minRank3DScore;
     private bool _libraryPrefsLoaded;
     private CancellationTokenSource? _prefsSaveCts;
 
@@ -90,6 +93,7 @@ public sealed partial class GameLibraryViewModel : ViewModelBase
         UserPreferencesService preferences,
         LibraryPrefetchService prefetch,
         CoverArtCache coverCache,
+        GameArtworkService artwork,
         LibraryIndexer indexer,
         CompatibilityRepository compatibility,
         IncrementalSteamScanService? incrementalScan = null,
@@ -115,6 +119,7 @@ public sealed partial class GameLibraryViewModel : ViewModelBase
         _preferences = preferences;
         _prefetch = prefetch;
         _coverCache = coverCache;
+        _artwork = artwork;
         _indexer = indexer;
         _compatibility = compatibility;
         _incrementalScan = incrementalScan;

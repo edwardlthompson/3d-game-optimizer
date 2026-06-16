@@ -141,3 +141,37 @@ jobs:
       - name: Install ripgrep
         run: sudo apt-get update && sudo apt-get install -y ripgrep
       - run: bash scripts/run-post-sprint-validation.sh
+
+  catalog-site:
+    name: Catalog site - build and smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/catalog/package-lock.json
+      - name: Build and smoke test catalog
+        working-directory: site/catalog
+        run: |
+          npm ci
+          npm run build
+          npm run smoke
+
+  steam-library-worker:
+    name: Steam library worker - typecheck and test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: workers/steam-library
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: workers/steam-library/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test

@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using System.Text.Json;
 using SpatialLabsOptimizer.Infrastructure.Artwork;
 using SpatialLabsOptimizer.Infrastructure.Data;
@@ -17,7 +18,8 @@ public sealed class SteamGridDbClient
 
     public async Task<string?> ResolveCoverAsync(int appId, CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("STEAMGRIDDB_API_KEY")))
+        var apiKey = Environment.GetEnvironmentVariable("STEAMGRIDDB_API_KEY");
+        if (string.IsNullOrWhiteSpace(apiKey))
         {
             return null;
         }
@@ -28,7 +30,11 @@ public sealed class SteamGridDbClient
         }
 
         var url = $"https://www.steamgriddb.com/api/v2/grids/game/{appId}";
-        var (json, statusCode) = await _gateway.TryGetStringAsync(url, $"steamgrid-{appId}", cancellationToken);
+        var (json, statusCode) = await _gateway.TryGetStringAsync(
+            url,
+            $"steamgrid-{appId}",
+            cancellationToken,
+            bearerToken: apiKey);
         if (string.IsNullOrWhiteSpace(json) || statusCode >= 400)
         {
             return null;

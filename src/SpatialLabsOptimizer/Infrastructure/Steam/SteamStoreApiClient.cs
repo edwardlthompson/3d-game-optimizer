@@ -5,8 +5,10 @@ namespace SpatialLabsOptimizer.Infrastructure.Steam;
 
 public sealed class SteamStoreApiClient
 {
+    private const int MaxCacheEntries = 500;
     private readonly ExternalDataGateway _gateway;
     private readonly Dictionary<int, SteamAppDetails> _cache = new();
+    private readonly Queue<int> _cacheOrder = new();
 
     public SteamStoreApiClient(ExternalDataGateway gateway)
     {
@@ -63,8 +65,24 @@ public sealed class SteamStoreApiClient
             }
         }
 
-        _cache[appId] = details;
+        Remember(appId, details);
         return details;
+    }
+
+    private void Remember(int appId, SteamAppDetails details)
+    {
+        if (_cache.ContainsKey(appId))
+        {
+            return;
+        }
+
+        while (_cache.Count >= MaxCacheEntries && _cacheOrder.Count > 0)
+        {
+            _cache.Remove(_cacheOrder.Dequeue());
+        }
+
+        _cache[appId] = details;
+        _cacheOrder.Enqueue(appId);
     }
 }
 

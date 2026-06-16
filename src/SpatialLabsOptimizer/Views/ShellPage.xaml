@@ -94,6 +94,15 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
+            <NavigationView.PaneFooter>
+                <TextBlock
+                    Text="{x:Bind ViewModel.VersionLabel, Mode=OneWay}"
+                    Margin="12,8"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left"
+                    FontSize="12"
+                    Opacity="0.65" />
+            </NavigationView.PaneFooter>
             <Frame x:Name="ContentFrame" />
         </NavigationView>
 

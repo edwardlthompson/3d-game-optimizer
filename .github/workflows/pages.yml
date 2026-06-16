@@ -42,10 +42,16 @@ jobs:
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
 
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/catalog/package-lock.json
+
       - name: Build site/catalog browser
         working-directory: site/catalog
         run: |
-          npm install
+          npm ci
           npm run build
           npm run smoke
         env:

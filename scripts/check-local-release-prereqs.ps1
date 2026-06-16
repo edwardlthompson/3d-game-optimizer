@@ -14,7 +14,7 @@ $fail = 0
 function Test-CommandPresent {
     param([string]$Name, [string]$Hint)
     if (-not (Get-Command $Name -ErrorAction SilentlyContinue)) {
-        Write-Host "FAIL missing $Name — $Hint"
+        Write-Host "FAIL missing $Name - $Hint"
         $script:fail = 1
         return $false
     }
@@ -29,7 +29,7 @@ Test-CommandPresent "pwsh" "Install PowerShell 7+" | Out-Null
 
 $bash = Get-Command bash -ErrorAction SilentlyContinue
 if (-not $bash -and -not (Test-Path "C:\Program Files\Git\bin\bash.exe")) {
-    Write-Host "FAIL missing bash — install Git for Windows for gate/winget scripts"
+    Write-Host "FAIL missing bash - install Git for Windows for gate/winget scripts"
     $fail = 1
 } else {
     Write-Host "OK   bash"
@@ -52,7 +52,7 @@ if ($RequireSign) {
     } elseif ($IsWindows -or ($env:OS -match "Windows")) {
         Write-Host "OK   signing (PowerShell Set-AuthenticodeSignature fallback; signtool optional)"
     } else {
-        Write-Host "FAIL missing signtool — Install Windows SDK Signing Tools"
+        Write-Host "FAIL missing signtool - Install Windows SDK Signing Tools"
         $fail = 1
     }
 }
@@ -68,7 +68,7 @@ if ($RequireMsi) {
 
 if ($RequireMsix) {
     if (-not (Test-Path "src/SpatialLabsOptimizer/Assets/StoreLogo.png")) {
-        Write-Host "WARN MSIX assets missing — builds will skip MSIX until StoreLogo.png is added"
+        Write-Host "WARN MSIX assets missing - builds will skip MSIX until StoreLogo.png is added"
     } else {
         Write-Host "OK   MSIX StoreLogo.png"
     }

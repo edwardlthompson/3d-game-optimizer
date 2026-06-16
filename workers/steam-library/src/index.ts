@@ -1,15 +1,18 @@
+import { isAllowedOrigin } from "./security";
+
 export interface Env {
   SYNC_KV: KVNamespace;
   STEAM_WEB_API_KEY: string;
   ALLOWED_ORIGIN: string;
   CATALOG_RETURN_URL: string;
+  /** Set to "true" in local dev only — enables POST /sync/owned with user API keys */
+  ENABLE_USER_KEY_SYNC?: string;
 }
 
 interface SyncPayload {
   appIds: number[];
   steamId: string;
   emptyLibrary: boolean;
-  consumed?: boolean;
 }
 
 const TOKEN_TTL = 300;
@@ -45,13 +48,16 @@ export default {
       if (url.pathname === "/sync/exchange" && request.method === "POST") {
         const limited = await rateLimited(env, ip, "exchange");
         if (limited) return limited;
-        return exchangeToken(request, env);
+        return exchangeToken(request, env, origin);
       }
 
       if (url.pathname === "/sync/owned" && request.method === "POST") {
+        if (env.ENABLE_USER_KEY_SYNC !== "true") {
+          return cors(json({ error: "Disabled" }, 404), env, origin);
+        }
         const limited = await rateLimited(env, ip, "owned");
         if (limited) return limited;
-        return syncOwnedWithUserKey(request, env);
+        return syncOwnedWithUserKey(request, env, origin);
       }
 
       if (url.pathname === "/health" && request.method === "GET") {
@@ -135,9 +141,12 @@ async function fetchOwnedGames(apiKey: string, steamId: string): Promise<number[
   return (data.response?.games ?? []).map((g) => g.appid);
 }
 
-async function exchangeToken(request: Request, env: Env): Promise<Response> {
-  const origin = request.headers.get("Origin");
-  if (origin && origin !== env.ALLOWED_ORIGIN) {
+async function exchangeToken(
+  request: Request,
+  env: Env,
+  origin: string | null,
+): Promise<Response> {
+  if (!isAllowedOrigin(origin, env)) {
     return cors(json({ error: "Forbidden origin" }, 403), env, origin);
   }
 
@@ -151,7 +160,6 @@ async function exchangeToken(request: Request, env: Env): Promise<Response> {
 
   await env.SYNC_KV.delete(key);
   const payload = JSON.parse(raw) as SyncPayload;
-  if (payload.consumed) return cors(json({ error: "Token already used" }, 410), env, origin);
 
   return cors(
     json({
@@ -166,10 +174,13 @@ async function exchangeToken(request: Request, env: Env): Promise<Response> {
   );
 }
 
-async function syncOwnedWithUserKey(request: Request, env: Env): Promise<Response> {
-  const origin = request.headers.get("Origin");
-  if (!origin || origin !== env.ALLOWED_ORIGIN) {
-    return cors(json({ error: "Forbidden origin" }, 403), env, origin ?? env.ALLOWED_ORIGIN);
+async function syncOwnedWithUserKey(
+  request: Request,
+  env: Env,
+  origin: string | null,
+): Promise<Response> {
+  if (!isAllowedOrigin(origin, env)) {
+    return cors(json({ error: "Forbidden origin" }, 403), env, origin);
   }
 
   const body = (await request.json()) as { steamId?: string; apiKey?: string };

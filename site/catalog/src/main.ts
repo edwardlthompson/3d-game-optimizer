@@ -1,20 +1,19 @@
 import "./style.css";
+import { checkCatalogSync, verifyCatalogIntegrity } from "./catalog-integrity";
 import { DATA_COVERAGE_GAPS, DONATE_URL } from "./data-coverage";
 import { CatalogGrid, type GridOptions } from "./grid";
-import { checkCatalogSync, loadPriceHistory, type PriceHistoryDocument } from "./price-chart";
+import { loadPriceHistory, type PriceHistoryDocument } from "./price-chart";
 import type { ListFilterMode } from "./list-filter";
+import { exportLibrary, importLibrary, loadLibrary } from "./library";
 import type { CatalogDocument } from "./types";
 import {
   disconnectSteam,
   handleSteamSyncReturn,
   isSteamSyncEnabled,
-  loadSteamApiKey,
   loadSteamMeta,
-  retrySteamSyncWithUserKey,
-  saveSteamApiKey,
   startSteamConnect,
-  type SteamSyncStats,
 } from "./steam-library-sync";
+import { showSteamBanner, type SteamUiContext } from "./steam-ui";
 import { escapeHtml } from "./utils";
 import { exportWishlist, importWishlist, loadWishlist } from "./wishlist";
 
@@ -47,68 +46,13 @@ function libraryMergeMode(): "merge" | "replace" {
   return appRoot.querySelector<HTMLInputElement>("#replace-library")?.checked ? "replace" : "merge";
 }
 
-function showSteamBanner(
-  stats: SteamSyncStats | null,
-  error: string | null,
-  emptyLibrary: boolean,
-): void {
-  const banner = appRoot.querySelector<HTMLDivElement>("#steam-sync-banner");
-  if (!banner) return;
-
-  if (error) {
-    banner.hidden = false;
-    banner.className = "banner steam-sync-banner error";
-    banner.innerHTML = escapeHtml(error);
-    return;
-  }
-
-  if (emptyLibrary && !stats) {
-    banner.hidden = false;
-    banner.className = "banner steam-sync-banner warn";
-    banner.innerHTML = `
-      <strong>Steam returned no owned games.</strong>
-      Set <a href="https://steamcommunity.com/my/edit/settings" target="_blank" rel="noopener noreferrer">Game details</a>
-      to Public and retry, or use your Steam Web API key below.
-      <div class="steam-sync-advanced">
-        <label>Steam Web API key <input type="password" id="steam-api-key" autocomplete="off" placeholder="From steamcommunity.com/dev/apikey" /></label>
-        <button type="button" id="steam-retry-key">Sync with API key</button>
-      </div>`;
-    bindSteamAdvanced();
-    return;
-  }
-
-  if (stats) {
-    banner.hidden = false;
-    banner.className = "banner steam-sync-banner success";
-    banner.innerHTML = `
-      <strong>Steam library synced.</strong>
-      ${stats.catalogMatched} catalog titles matched ·
-      ${stats.ownedTotal} owned on Steam ·
-      ${stats.ownedUnmatched} owned games not in this 3D catalog.
-      <span class="muted">(${stats.catalogNoSteamLink} catalog titles have no Steam link.)</span>`;
-    return;
-  }
-
-  banner.hidden = true;
-  banner.textContent = "";
-}
-
-function bindSteamAdvanced(): void {
-  const keyInput = appRoot.querySelector<HTMLInputElement>("#steam-api-key");
-  if (keyInput && !keyInput.value) keyInput.value = loadSteamApiKey();
-  appRoot.querySelector<HTMLButtonElement>("#steam-retry-key")?.addEventListener("click", () => {
-    void runUserKeySync();
-  });
-}
-
-async function runUserKeySync(): Promise<void> {
-  if (!catalog || !grid) return;
-  const keyInput = appRoot.querySelector<HTMLInputElement>("#steam-api-key");
-  const apiKey = keyInput?.value.trim() ?? "";
-  if (apiKey) saveSteamApiKey(apiKey);
-  const result = await retrySteamSyncWithUserKey(catalog.games, libraryMergeMode());
-  showSteamBanner(result.stats, result.error, result.emptyLibrary);
-  grid.refreshLibrary();
+function steamCtx(): SteamUiContext {
+  return {
+    appRoot,
+    getGames: () => catalog?.games ?? [],
+    getMergeMode: libraryMergeMode,
+    refreshGrid: () => grid?.refreshLibrary(),
+  };
 }
 
 function bindToolbar(): void {
@@ -146,6 +90,23 @@ function bindToolbar(): void {
     file.text().then((text) => {
       importWishlist(text);
       grid?.setOptions({ ...gridOptions });
+    });
+  });
+  appRoot.querySelector<HTMLButtonElement>("#export-library")?.addEventListener("click", () => {
+    const blob = new Blob([exportLibrary(loadLibrary())], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "3d-catalog-library.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+  appRoot.querySelector<HTMLInputElement>("#import-library")?.addEventListener("change", (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    file.text().then((text) => {
+      importLibrary(text);
+      grid?.refreshLibrary();
     });
   });
   appRoot.querySelector<HTMLButtonElement>("#connect-steam")?.addEventListener("click", () => {
@@ -197,7 +158,9 @@ function shell(): void {
       <label><input id="ultra-only" type="checkbox" /> 3D Ultra / native only</label>
       <label><input id="vision-certified" type="checkbox" /> 3D Vision certified</label>
       <button type="button" id="export-wishlist">Export wishlist</button>
-      <label class="import-label">Import <input id="import-wishlist" type="file" accept="application/json" hidden /></label>
+      <label class="import-label">Import wishlist <input id="import-wishlist" type="file" accept="application/json" hidden /></label>
+      <button type="button" id="export-library">Export library</button>
+      <label class="import-label">Import library <input id="import-library" type="file" accept="application/json" hidden /></label>
     </div>
     <div class="banner" id="sync-banner" hidden></div>
     <div class="banner steam-sync-banner" id="steam-sync-banner" hidden></div>
@@ -221,23 +184,24 @@ function shell(): void {
 
 function registerServiceWorker(base: string): void {
   if (!("serviceWorker" in navigator)) return;
-  const swUrl = `${base}sw.js`;
-  navigator.serviceWorker.register(swUrl, { scope: base }).catch(() => undefined);
+  navigator.serviceWorker.register(`${base}sw.js`, { scope: base }).catch(() => undefined);
 }
 
 async function loadCatalog(): Promise<void> {
   const base = import.meta.env.BASE_URL;
   registerServiceWorker(base);
-  const [catalogRes, history] = await Promise.all([
-    fetch(`${base}data/catalog-v2.json`),
-    loadPriceHistory(base),
-  ]);
+  const catalogRes = await fetch(`${base}data/catalog-v2.json`);
   if (!catalogRes.ok) throw new Error(`Failed to load catalog: ${catalogRes.status}`);
-  catalog = (await catalogRes.json()) as CatalogDocument;
-  priceHistory = history;
+  const catalogText = await catalogRes.text();
+  const integrity = await verifyCatalogIntegrity(base, catalogText);
+  if (!integrity.ok) {
+    throw new Error("Catalog integrity check failed — data may be corrupted.");
+  }
+  catalog = JSON.parse(catalogText) as CatalogDocument;
+  priceHistory = await loadPriceHistory(base);
 
   shell();
-  checkCatalogSync(catalog.meta.mergedAt, () => {
+  checkCatalogSync(catalog.meta.mergedAt, integrity.hash, () => {
     const banner = appRoot.querySelector<HTMLDivElement>("#sync-banner");
     if (banner) {
       banner.hidden = false;
@@ -256,7 +220,7 @@ async function loadCatalog(): Promise<void> {
   });
 
   const steamResult = await handleSteamSyncReturn(catalog.games, libraryMergeMode());
-  showSteamBanner(steamResult.stats, steamResult.error, steamResult.emptyLibrary);
+  showSteamBanner(steamCtx(), steamResult.stats, steamResult.error, steamResult.emptyLibrary);
   if (steamResult.stats) {
     grid.refreshLibrary();
     const steamStatus = appRoot.querySelector<HTMLSpanElement>("#steam-connected-status");

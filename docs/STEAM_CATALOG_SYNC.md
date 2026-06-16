@@ -7,7 +7,7 @@ Connect the [3D Game Catalog](https://edwardlthompson.github.io/3d-game-optimize
 1. Click **Connect Steam** (visible only when the worker URL is configured at build time).
 2. Sign in on Steam; the worker fetches owned games and redirects back with a one-time token.
 3. The catalog exchanges the token, marks matching titles in your library, and shows a summary banner.
-4. If the library is empty (private **Game details**), follow the privacy help or use **Advanced → Steam Web API key** (stored on this device only).
+4. If the library is empty (private **Game details**), set [Game details](https://steamcommunity.com/my/edit/settings) to **Public** and connect again.
 
 ## Operator checklist `[HUMAN]`
 
@@ -68,7 +68,8 @@ VITE_STEAM_SYNC_URL=http://127.0.0.1:8787 npm run dev
 
 - Opt-in only; no sync until the user clicks **Connect Steam**.
 - Worker stores tokens in KV for **5 minutes** only; App ID lists are not logged.
-- User API keys are kept in `localStorage` on the device and forwarded per request only.
+- Production worker rejects requests without a matching `Origin` header.
+- User API keys are **not** stored in the catalog browser; `/sync/owned` is disabled in production.
 - Library checkmarks remain in `localStorage` (`3d-catalog-library-v1`).
 
 ## Architecture

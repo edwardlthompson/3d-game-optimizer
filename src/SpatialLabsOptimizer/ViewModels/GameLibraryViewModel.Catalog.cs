@@ -1,3 +1,4 @@
+using System.Windows.Input;
 using SpatialLabsOptimizer.Domain;
 using SpatialLabsOptimizer.Infrastructure.Compatibility;
 using SpatialLabsOptimizer.Infrastructure.Updates;
@@ -63,6 +64,43 @@ public sealed partial class GameLibraryViewModel
         }
     }
 
+    /// <summary>Minimum 3D Rank score (0–100). Matches site/catalog rank-3d.ts tiers.</summary>
+    public int MinRank3DScore
+    {
+        get => _minRank3DScore;
+        set
+        {
+            if (SetProperty(ref _minRank3DScore, value))
+            {
+                OnPropertyChanged(nameof(MinRank3DScoreIndex));
+                _ = LoadAsync();
+                ScheduleSaveLibraryPrefs();
+            }
+        }
+    }
+
+    public int MinRank3DScoreIndex
+    {
+        get => _minRank3DScore switch
+        {
+            >= 88 => 5,
+            >= 72 => 4,
+            >= 58 => 3,
+            >= 42 => 2,
+            >= 26 => 1,
+            _ => 0
+        };
+        set => MinRank3DScore = value switch
+        {
+            5 => 88,
+            4 => 72,
+            3 => 58,
+            2 => 42,
+            1 => 26,
+            _ => 0
+        };
+    }
+
     public async Task OpenCatalogSiteAsync()
     {
         await Launcher.LaunchUriAsync(new Uri(CatalogSiteUrl));
@@ -71,7 +109,7 @@ public sealed partial class GameLibraryViewModel
     private async Task<IReadOnlyList<GameCatalogItem>> ApplyCatalogFiltersAsync(
         IReadOnlyList<GameCatalogItem> items)
     {
-        if (!FilterUltraNative && !FilterTrueGame && !FilterUevr && !Filter3DVision)
+        if (!FilterUltraNative && !FilterTrueGame && !FilterUevr && !Filter3DVision && MinRank3DScore <= 0)
         {
             return items;
         }
@@ -96,6 +134,11 @@ public sealed partial class GameLibraryViewModel
             }
 
             if (Filter3DVision && !CatalogFilterHelper.Matches3DVision(catalog))
+            {
+                continue;
+            }
+
+            if (!CatalogFilterHelper.MatchesMinRank3D(catalog, MinRank3DScore))
             {
                 continue;
             }

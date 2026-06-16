@@ -1,5 +1,6 @@
 using SpatialLabsOptimizer.Infrastructure.Artwork;
 using SpatialLabsOptimizer.Infrastructure.Data;
+using SpatialLabsOptimizer.Infrastructure.Launch;
 using SpatialLabsOptimizer.Infrastructure.Progress;
 using SpatialLabsOptimizer.Infrastructure.Steam;
 
@@ -13,6 +14,8 @@ public sealed partial class LibraryPrefetchService
     private readonly PlatformConnectionRepository? _connections;
     private readonly SteamAppReviewsClient? _reviewsClient;
     private readonly PlayerCountService? _playerCounts;
+    private readonly PresetCacheService? _presets;
+    private readonly LaunchReadinessService? _readiness;
     private readonly CoverArtCache _coverCache = new();
 
     public LibraryPrefetchService(
@@ -21,7 +24,9 @@ public sealed partial class LibraryPrefetchService
         OperationProgressHub progressHub,
         PlatformConnectionRepository? connections = null,
         SteamAppReviewsClient? reviewsClient = null,
-        PlayerCountService? playerCounts = null)
+        PlayerCountService? playerCounts = null,
+        PresetCacheService? presets = null,
+        LaunchReadinessService? readiness = null)
     {
         _database = database;
         _artwork = artwork;
@@ -29,6 +34,8 @@ public sealed partial class LibraryPrefetchService
         _connections = connections;
         _reviewsClient = reviewsClient;
         _playerCounts = playerCounts;
+        _presets = presets;
+        _readiness = readiness;
     }
 
     public Task PrefetchArtworkAsync(IReadOnlyList<int> appIds) =>
@@ -51,6 +58,11 @@ public sealed partial class LibraryPrefetchService
             }
 
             var game = await _database.GetGameAsync(appId);
+            if (!SteamCoverArtPolicy.IsEligible(game))
+            {
+                continue;
+            }
+
             if (!string.IsNullOrWhiteSpace(game?.CoverCachePath) && File.Exists(game.CoverCachePath))
             {
                 continue;
@@ -66,6 +78,7 @@ public sealed partial class LibraryPrefetchService
 
         if (missing.Count == 0)
         {
+            await CoverArtCacheSync.SyncMissingPathsAsync(_database, _coverCache);
             _progressHub.Publish(new OperationProgressReport(
                 "artwork-prefetch",
                 Application.Progress.OperationCategory.Index,
@@ -130,5 +143,7 @@ public sealed partial class LibraryPrefetchService
                 : $"Cover art prefetch complete ({errorCount} errors — see artwork-prefetch.log)",
             IsComplete: true,
             PercentComplete: 100));
+
+        await CoverArtCacheSync.SyncMissingPathsAsync(_database, _coverCache);
     }
 }

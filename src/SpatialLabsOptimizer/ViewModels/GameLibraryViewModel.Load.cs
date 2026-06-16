@@ -1,5 +1,6 @@
 using SpatialLabsOptimizer.Domain;
 using SpatialLabsOptimizer.Infrastructure;
+using SpatialLabsOptimizer.Infrastructure.Artwork;
 using SpatialLabsOptimizer.Infrastructure.Compatibility;
 using SpatialLabsOptimizer.Infrastructure.Library;
 namespace SpatialLabsOptimizer.ViewModels;
@@ -25,16 +26,26 @@ public sealed partial class GameLibraryViewModel
     public async Task RefreshCoverArtAsync()
     {
         await _database.InitializeAsync();
-        var appIds = Games.Select(g => g.SteamAppId).Where(id => id > 0).Distinct().ToList();
+        var appIds = Games
+            .Where(g => SteamCoverArtPolicy.IsEligible(g.Source))
+            .Select(g => g.SteamAppId)
+            .Where(id => id > 0)
+            .Distinct()
+            .ToList();
         if (appIds.Count == 0)
         {
             var cached = await _database.GetCompatible3DAsync();
-            appIds = cached.Select(g => g.SteamAppId).Where(id => id > 0).Distinct().ToList();
+            appIds = cached
+                .Where(SteamCoverArtPolicy.IsEligible)
+                .Select(g => g.SteamAppId)
+                .Where(id => id > 0)
+                .Distinct()
+                .ToList();
         }
 
         if (appIds.Count > 0)
         {
-            await _prefetch.PrefetchMissingArtworkAsync(appIds);
+            await _prefetch.PrefetchArtworkAsync(appIds);
         }
 
         await HydrateCoverTilesAsync();
@@ -54,6 +65,7 @@ public sealed partial class GameLibraryViewModel
         }
 
         await _database.InitializeAsync();
+        await CoverArtCacheSync.SyncMissingPathsAsync(_database, _coverCache);
         var cached = ShowWhyNotReady
             ? await _database.GetCatalogInstalledAsync()
             : await _database.GetCompatible3DAsync();
@@ -100,6 +112,9 @@ public sealed partial class GameLibraryViewModel
         SelectedPresetFreshness = await _intelligence.GetPresetFreshnessLabelAsync(item.SteamAppId);
         var catalog = await _compatibility.GetCatalogMetadataByAppIdAsync(item.SteamAppId);
         SelectedRecommendedTools = CatalogToolHints.DescribeRecommendedStack(catalog);
+        SelectedRank3DDisplay = catalog is { Rank3DScore: > 0 }
+            ? $"3D Rank {catalog.Rank3DScore} — {catalog.Rank3DLabel}"
+            : "3D Rank —";
         WhyNotReadyHint = BuildWhyNotReadyHint(item.Source);
     }
 
@@ -132,7 +147,7 @@ public sealed partial class GameLibraryViewModel
     private static string BuildWhyNotReadyHint(GameCatalogItem item) => item.Readiness switch
     {
         LaunchReadinessState.NeedsInstall => "Install the game or add its folder under Library Settings.",
-        LaunchReadinessState.NeedsPresetCache => "Cache a preset using Refresh preset or run setup bulk cache.",
+        LaunchReadinessState.NeedsPresetCache => "Preset download in progress — refresh library if this persists.",
         LaunchReadinessState.NeedsToolchain => "Open Settings → Toolchain & display to install required 3D tools.",
         LaunchReadinessState.Blocked => "Compatibility tier blocks launch — review notes or try Safe launch.",
         _ => "Ready to play in 3D."
@@ -145,32 +160,56 @@ public sealed partial class GameLibraryViewModel
             return;
         }
 
+        var existing = Games.ToDictionary(g => g.SteamAppId);
         var pinned = Games.Where(g => g.IsPinned).Select(g => g.SteamAppId).ToHashSet();
-        var sorted = _sortService.Sort(Games.Select(g => g.Source).ToList(), SortMode);
-        Games = sorted.Select(g => new GameLibraryItemViewModel(
-            g,
-            pinned.Contains(g.SteamAppId),
-            LibraryIntelligenceService.GetCompatibilityBadge(
-                g.Tier,
-                g.Readiness,
-                string.Equals(g.ReviewDescriptor, "Local", StringComparison.OrdinalIgnoreCase)),
-            null,
-            null)).ToList();
+        var sources = Games.Select(g => g.Source).ToList();
+        var sorted = SortMode == LibrarySortMode.GameRank
+            ? _sortService.SortByGameRank(
+                sources,
+                existing.ToDictionary(kv => kv.Key, kv => kv.Value.GameRankScore ?? double.NegativeInfinity),
+                existing.ToDictionary(kv => kv.Key, kv => kv.Value.Rank3DScore))
+            : _sortService.Sort(sources, SortMode);
+        Games = sorted.Select(g => CreateLibraryItemViewModel(g, existing.GetValueOrDefault(g.SteamAppId), pinned)).ToList();
         LibraryUpdated?.Invoke(this, EventArgs.Empty);
     }
+
+    private static GameLibraryItemViewModel CreateLibraryItemViewModel(
+        GameCatalogItem item,
+        GameLibraryItemViewModel? previous,
+        IReadOnlySet<int> pinned)
+    {
+        var isLocal = string.Equals(item.ReviewDescriptor, "Local", StringComparison.OrdinalIgnoreCase);
+        return new GameLibraryItemViewModel(
+            item,
+            pinned.Contains(item.SteamAppId),
+            previous?.CompatibilityBadge ?? LibraryIntelligenceService.GetCompatibilityBadge(item.Tier, item.Readiness, isLocal),
+            previous?.PresetFreshness,
+            previous?.SourceBadges,
+            previous?.Rank3DScore ?? 0,
+            previous?.Rank3DLabel,
+            previous?.GameRankScore);
+    }
+
+    private static double? ComputeGameRankScore(GameCatalogItem item, int rank3DScore) =>
+        CatalogGameRankScorer.ScoreFromCatalogItem(
+            item.ReviewScorePercent,
+            item.ReviewCount,
+            item.CurrentPlayers,
+            rank3DScore);
 
     private async Task<IReadOnlyList<GameLibraryItemViewModel>> MapAndSortAsync(
         IReadOnlyList<GameCatalogItem> items,
         IReadOnlyList<int> pinnedIds)
     {
         var pinned = pinnedIds.ToHashSet();
-        var sorted = _sortService.Sort(items, SortMode);
+        var sorted = await SortCatalogItemsAsync(items);
         var viewModels = new List<GameLibraryItemViewModel>();
         foreach (var g in sorted)
         {
             var freshness = await _intelligence.GetPresetFreshnessLabelAsync(g.SteamAppId);
             var catalog = await _compatibility.GetCatalogMetadataByAppIdAsync(g.SteamAppId);
             var sourceBadges = CatalogFilterHelper.BuildSourceBadges(catalog);
+            var rank3DScore = catalog?.Rank3DScore ?? 0;
             viewModels.Add(new GameLibraryItemViewModel(
                 g,
                 pinned.Contains(g.SteamAppId),
@@ -179,9 +218,33 @@ public sealed partial class GameLibraryViewModel
                     g.Readiness,
                     string.Equals(g.ReviewDescriptor, "Local", StringComparison.OrdinalIgnoreCase)),
                 freshness,
-                sourceBadges));
+                sourceBadges,
+                rank3DScore,
+                catalog?.Rank3DLabel,
+                ComputeGameRankScore(g, rank3DScore)));
         }
 
         return viewModels;
+    }
+
+    private async Task<IReadOnlyList<GameCatalogItem>> SortCatalogItemsAsync(IReadOnlyList<GameCatalogItem> items)
+    {
+        if (SortMode != LibrarySortMode.GameRank)
+        {
+            return _sortService.Sort(items, SortMode);
+        }
+
+        var gameRankScores = new Dictionary<int, double>();
+        var rank3DScores = new Dictionary<int, int>();
+        foreach (var item in items)
+        {
+            var catalog = await _compatibility.GetCatalogMetadataByAppIdAsync(item.SteamAppId);
+            var rank3DScore = catalog?.Rank3DScore ?? 0;
+            rank3DScores[item.SteamAppId] = rank3DScore;
+            gameRankScores[item.SteamAppId] = ComputeGameRankScore(item, rank3DScore)
+                ?? double.NegativeInfinity;
+        }
+
+        return _sortService.SortByGameRank(items, gameRankScores, rank3DScores);
     }
 }

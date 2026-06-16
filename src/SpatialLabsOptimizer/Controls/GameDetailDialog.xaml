@@ -1,0 +1,47 @@
+<ContentDialog
+    x:Class="SpatialLabsOptimizer.Controls.GameDetailDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:SpatialLabsOptimizer.Controls"
+    xmlns:converters="using:SpatialLabsOptimizer.Converters"
+    x:DataType="controls:GameDetailDialog"
+    CloseButtonText="Close"
+    DefaultButton="Close">
+    <ContentDialog.Resources>
+        <converters:CoverPathToImageConverter x:Key="CoverConverter" />
+    </ContentDialog.Resources>
+    <Grid MinWidth="420" MaxWidth="520" ColumnSpacing="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Height="220" Background="{StaticResource Brush.Surface}" CornerRadius="4">
+            <Image
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Source="{x:Bind ViewModel.SelectedGame.CoverImageKey, Mode=OneWay, Converter={StaticResource CoverConverter}}"
+                Stretch="Uniform" />
+        </Grid>
+        <StackPanel Grid.Column="1" Spacing="8">
+            <TextBlock FontSize="20" FontWeight="SemiBold" Text="{x:Bind ViewModel.SelectedGameTitle, Mode=OneWay}" TextWrapping="Wrap" />
+            <TextBlock FontWeight="SemiBold" Opacity="0.9" Text="{x:Bind ViewModel.SelectedRank3DDisplay, Mode=OneWay}" />
+            <TextBlock FontWeight="SemiBold" Opacity="0.85" Text="{x:Bind ViewModel.SelectedGame.CompatibilityBadge, Mode=OneWay}" />
+            <TextBlock Opacity="0.8" Text="{x:Bind ViewModel.SelectedGame.SourceBadges, Mode=OneWay}" TextWrapping="Wrap" />
+            <TextBlock Opacity="0.8" Text="{x:Bind ViewModel.SelectedGame.ReviewDisplay, Mode=OneWay}" />
+            <TextBlock Opacity="0.8" Text="{x:Bind ViewModel.SelectedGame.PlayersDisplay, Mode=OneWay}" />
+            <TextBlock Opacity="0.8" Text="{x:Bind ViewModel.SelectedPresetFreshness, Mode=OneWay}" />
+            <TextBlock Opacity="0.8" Text="{x:Bind ViewModel.WhyNotReadyHint, Mode=OneWay}" TextWrapping="Wrap" />
+            <TextBlock Opacity="0.75" Text="{x:Bind ViewModel.SelectedRecommendedTools, Mode=OneWay}" TextWrapping="Wrap" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Command="{x:Bind ViewModel.PlayCommand}" Content="Play in 3D" Style="{StaticResource AppButtonStyle}" />
+                <Button Command="{x:Bind ViewModel.PlayVrCommand}" Content="Play in VR" Style="{StaticResource AppButtonStyle}" />
+                <Button Command="{x:Bind ViewModel.RefreshPresetCommand}" Content="Refresh preset" Style="{StaticResource AppButtonStyle}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Command="{x:Bind ViewModel.PinCommand}" Content="Pin" Style="{StaticResource AppButtonStyle}" />
+                <Button Command="{x:Bind ViewModel.UnpinCommand}" Content="Unpin" Style="{StaticResource AppButtonStyle}" />
+                <Button Command="{x:Bind ViewModel.ToggleFavoriteCommand}" Content="Favorite" Style="{StaticResource AppButtonStyle}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

@@ -8,7 +8,7 @@
 ![MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 ![WinUI 3](https://img.shields.io/badge/UI-WinUI%203-68217A?style=flat-square)
 ![.NET 8](https://img.shields.io/badge/.NET-8-512BD4?style=flat-square&logo=dotnet&logoColor=white)
-![Product](https://img.shields.io/badge/product-v1.1.0-68217A?style=flat-square)
+![Product](https://img.shields.io/badge/product-v1.2.0-68217A?style=flat-square)
 ![Template](https://img.shields.io/badge/template-v0.7.1-656d76?style=flat-square)
 
 _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matching `.template-version`._
@@ -24,7 +24,7 @@ _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matc
 | | |
 |---|---|
 | **Displays** | Acer SpatialLabs · Samsung Odyssey 3D · NVIDIA 3D Vision (legacy) · Manual fallback |
-| **Library** | Steam discovery hub — sort by players online, Wilson-weighted reviews, 3D tier |
+| **Library** | Steam discovery hub — sort by **Game Rank** (Steam + 3D), players online, Wilson reviews; filter by **Min 3D quality** |
 | **Catalog site** | Public [3D Game Catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) — browse all known 3D titles in your browser |
 | **Launch** | **Play in 3D** — silent presets, no ReShade/UEVR config dialogs |
 | **Privacy** | Local-first · zero telemetry · optional Steam API key only · no cloud sync |
@@ -70,7 +70,11 @@ Data maintenance: [docs/SEED_MAINTENANCE.md](docs/SEED_MAINTENANCE.md) · Site s
 - Launcher-style box cover art from Steam Store API + CDN cache
 - **3D-only library** — installed titles that appear in the merged catalog (not your full Steam library)
 - Public **[3D Game Catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/)** webpage — sort/filter all known 3D titles
-- Sort by 3D quality, players online, confidence-weighted Steam reviews, discovery score
+- Sort by **Game Rank** (72% weighted Steam popularity + 28% best 3D path), players online, Steam reviews, name, genre
+- **Min 3D quality** filter — Any through Ultra (26–88+), matching the catalog site tiers
+- Condensed library toolbar; game metadata in a detail popup on thumbnail click
+- Resizable **Recent launches** panel with drag grip
+- Cover art prefetch fixes; letterboxed thumbnails (no crop); auto preset cache on discovery
 - Pinned shelf, queue enqueue, favorites, session playlists, local game folder watch list
 
 **One-click launch**
@@ -190,6 +194,7 @@ In Visual Studio or Cursor, pick the **SpatialLabsOptimizer (v2)** profile from 
 | **v1.0** | WinUI hub, silent setup, discovery library, Play in 3D, multi-vendor displays |
 | **v1.0.1** | Incremental Steam scan, bulk preset cache, HDR watchdog |
 | **v1.1.0** | Local release (zip/MSIX/MSI), local game folders, About updates, PCVR/command palette, diagnostics |
+| **v1.2.0** | Game Rank library sort, Min 3D quality filter, cover art & preset prefetch, condensed library UX |
 | **v2.0** | Epic/GOG local install metadata, workshop importer, LAN export, hybrid co-op |
 
 Detail: [BUILD_PLAN.md](BUILD_PLAN.md)

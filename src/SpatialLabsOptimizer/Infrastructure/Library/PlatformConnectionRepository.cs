@@ -22,10 +22,22 @@ public sealed class PlatformConnectionRepository
     }
 
     public async Task<string?> GetSteamIdAsync(CancellationToken cancellationToken = default)
-        => await _settings.GetAsync(SteamIdKey, cancellationToken);
+    {
+        var stored = await _settings.GetAsync(SteamIdKey, cancellationToken);
+        if (string.IsNullOrWhiteSpace(stored))
+        {
+            return null;
+        }
+
+        var decrypted = _secrets.Unprotect(stored);
+        return string.IsNullOrWhiteSpace(decrypted) ? stored : decrypted;
+    }
 
     public async Task SetSteamIdAsync(string? steamId, CancellationToken cancellationToken = default)
-        => await _settings.SetAsync(SteamIdKey, steamId ?? string.Empty, cancellationToken);
+    {
+        var protectedValue = _secrets.Protect(steamId);
+        await _settings.SetAsync(SteamIdKey, protectedValue ?? string.Empty, cancellationToken);
+    }
 
     public async Task<string?> GetSteamApiKeyAsync(CancellationToken cancellationToken = default)
     {

@@ -96,8 +96,10 @@ public sealed class LibraryIndexer
             PercentComplete: 100));
 
         var catalogIds = entries.Select(e => e.SteamAppId).Distinct().ToList();
+        var presetIds = catalogIds.Concat(installed).Where(id => id > 0).Distinct().ToList();
         _ = _prefetch.PrefetchMissingArtworkAsync(catalogIds);
         _ = _prefetch.PrefetchMissingMetadataAsync(catalogIds);
+        _ = _prefetch.PrefetchMissingPresetsAsync(presetIds);
     }
 
     public const string LastFullIndexUtcKey = "last_full_index_utc";

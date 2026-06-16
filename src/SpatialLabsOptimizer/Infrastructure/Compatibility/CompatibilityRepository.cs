@@ -169,13 +169,50 @@ public sealed class CompatibilityRepository
             s.SourceId == "nvidia-3d-vision"
             && string.Equals(s.SupportStatus, "legacy", StringComparison.OrdinalIgnoreCase)) == true;
 
+        var rankInput = new CatalogRank3DInput(
+            g.BestLevel,
+            MapRankPath(g.BestExperience),
+            MapRankPaths(g.PlatformSupport));
+        var rank = CatalogRank3DScorer.Rank(rankInput);
+
         return new CatalogGameMetadata(
             g.BestLevel,
             g.Platforms ?? [],
             sourceIds,
             g.TrueGameLabel ?? trueGame?.Label,
-            isLegacy);
+            isLegacy,
+            rank.Score,
+            rank.Label);
     }
+
+    private static CatalogRank3DPath? MapRankPath(CatalogPlatformSupportDto? dto)
+        => dto is null || string.IsNullOrWhiteSpace(dto.PlatformKey)
+            ? null
+            : new CatalogRank3DPath(dto.PlatformKey, dto.Label ?? "", dto.Level ?? "");
+
+    private static IReadOnlyList<CatalogRank3DPath> MapRankPaths(IEnumerable<CatalogPlatformSupportDto>? items)
+    {
+        if (items is null)
+        {
+            return [];
+        }
+
+        var paths = new List<CatalogRank3DPath>();
+        foreach (var dto in items)
+        {
+            if (MapRankPath(dto) is { } path)
+            {
+                paths.Add(path);
+            }
+        }
+
+        return paths;
+    }
+
+    private static CatalogRank3DPath? MapRankPath(CatalogBestExperienceDto? dto)
+        => dto is null || string.IsNullOrWhiteSpace(dto.PlatformKey)
+            ? null
+            : new CatalogRank3DPath(dto.PlatformKey, dto.Label ?? "", dto.Level ?? "");
 
     private static VrCapability MapVrCapability(string? value) => value switch
     {
@@ -224,6 +261,8 @@ public sealed class CompatibilityRepository
         public string BestLevel { get; set; } = "";
         public List<string>? Platforms { get; set; }
         public List<CatalogSourceDto>? Sources { get; set; }
+        public CatalogBestExperienceDto? BestExperience { get; set; }
+        public List<CatalogPlatformSupportDto>? PlatformSupport { get; set; }
         public string? TrueGameLabel { get; set; }
         public Dictionary<string, string> TiersByVendor { get; set; } = [];
         public string? ReviewSummary { get; set; }
@@ -237,6 +276,20 @@ public sealed class CompatibilityRepository
         public string SourceId { get; set; } = "";
         public string? Label { get; set; }
         public string? SupportStatus { get; set; }
+    }
+
+    private sealed class CatalogBestExperienceDto
+    {
+        public string PlatformKey { get; set; } = "";
+        public string? Label { get; set; }
+        public string Level { get; set; } = "";
+    }
+
+    private sealed class CatalogPlatformSupportDto
+    {
+        public string PlatformKey { get; set; } = "";
+        public string? Label { get; set; }
+        public string Level { get; set; } = "";
     }
 
     private sealed class CatalogSteamStats

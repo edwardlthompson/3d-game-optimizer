@@ -1,6 +1,6 @@
 # Winget manifest stub — customize before submitting to microsoft/winget-pkgs
 PackageIdentifier: edwardlthompson.SpatialLabsOptimizer
-PackageVersion: 1.1.0
+PackageVersion: 1.2.0
 PackageLocale: en-US
 Publisher: Edward Thompson
 PackageName: 3D Game Optimizer
@@ -9,7 +9,7 @@ ShortDescription: One-click glasses-free 3D PC gaming hub for SpatialLabs and Od
 Installers:
   - Architecture: x64
     InstallerType: msi
-    InstallerUrl: https://github.com/edwardlthompson/3d-game-optimizer/releases/download/SpatialLabsOptimizer-v1.1.0/SpatialLabsOptimizer-1.1.0-win-x64.msi
-    InstallerSha256: 45d3f506d74c596b2d647efe6e3d62d556786f71b1195109d251e6f3eb72bad5
+    InstallerUrl: https://github.com/edwardlthompson/3d-game-optimizer/releases/download/SpatialLabsOptimizer-v1.2.0/SpatialLabsOptimizer-1.2.0-win-x64.msi
+    InstallerSha256: 7ba85a486e608afd1af20922e5eceddf71cf50cce6e9fc0290f9a5f66bf59ced
 ManifestType: singleton
 ManifestVersion: 1.6.0

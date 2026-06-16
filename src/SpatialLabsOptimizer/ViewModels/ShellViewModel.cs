@@ -70,6 +70,8 @@ public sealed class ShellViewModel : ViewModelBase
         set => SetProperty(ref _title, value);
     }
 
+    public string VersionLabel { get; } = $"v{ProductVersionReader.ReadCurrentVersion()}";
+
     public string Status
     {
         get => _status;

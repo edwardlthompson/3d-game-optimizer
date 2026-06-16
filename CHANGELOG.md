@@ -1,23 +1,52 @@
 # Changelog
 
-
-
-
-
-All notable changes to this template will be documented in this file.
-
-
-
-
+All notable changes to **3D Game Optimizer** (SpatialLabs Optimizer) are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-
-
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+Product releases use tags `SpatialLabsOptimizer-v*`. Template bootstrap history is retained below.
 
+## [1.2.0] - 2026-06-16
 
+### Added
 
+- **Game Rank** library sort — 72% weighted Steam popularity + 28% best 3D path (matches catalog site)
+- **Min 3D quality** filter (Any / Experimental 26+ through Ultra 88+)
+- `CatalogGameRankScorer`, `CatalogSteamRanking`, `CatalogRank3DScorer` — C# ports of catalog ranking logic
+- Game detail popup on library thumbnail click (`GameDetailDialog`)
+- Resizable recent launches panel with drag grip
+- Cover art on-demand resolve and disk cache sync (`CoverArtCacheSync`, `SteamCoverArtPolicy`)
+- Auto preset prefetch during library indexing (`LibraryPrefetchService.Presets`)
+- Last navigation screen persistence across sessions
+- Cover art and game rank unit/smoke tests
+
+### Changed
+
+- Condensed library toolbar (removed inline selected-game panel, playlist/LAN/hybrid clutter from main view)
+- Default library sort is **Game Rank** (descending)
+- Cover thumbnails use `Uniform` stretch (letterbox, no crop)
+- README updated for v1.2.0 features and roadmap
+
+### Fixed
+
+- Cover art prefetch HTTP handler missing `InnerHandler` (`PrivacyGuardHttpHandler`)
+- Library re-sort falling back to compatibility tier instead of rank scores
+- Recent launches panel cropping multi-line entries (taller default + resize)
+
+## [1.1.0] - 2026-06-15
+
+### Added
+
+- Local signed release pipeline (zip, MSI, MSIX)
+- Local game folder watch list
+- In-app updates (About → Check now / Update and restart)
+- PCVR launch path and command palette
+- Diagnostic bundle export and `3dgo://` protocol handler
+
+---
+
+## Template bootstrap history
 
 ## [0.7.1](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v0.7.0...v0.7.1) (2026-06-13)
 

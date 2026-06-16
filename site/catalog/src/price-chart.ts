@@ -78,14 +78,6 @@ export function showPriceChart(
   root.append(overlay);
 }
 
-const SYNC_KEY = "3d-catalog-last-sync";
-
-export function checkCatalogSync(mergedAt: string, onUpdate: () => void): void {
-  const prior = localStorage.getItem(SYNC_KEY);
-  if (prior && prior !== mergedAt) onUpdate();
-  localStorage.setItem(SYNC_KEY, mergedAt);
-}
-
 export async function loadPriceHistory(baseUrl: string): Promise<PriceHistoryDocument | null> {
   try {
     const response = await fetch(`${baseUrl}data/price-history-v1.json`);

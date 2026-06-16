@@ -72,7 +72,7 @@ if (-not $SkipMsix) {
             Write-Warning "MSIX build skipped: $_"
         }
     } else {
-        Write-Host "Skipping MSIX — add src/SpatialLabsOptimizer/Assets/StoreLogo.png"
+        Write-Host "Skipping MSIX - add src/SpatialLabsOptimizer/Assets/StoreLogo.png"
     }
 }
 

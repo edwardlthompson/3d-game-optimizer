@@ -21,15 +21,16 @@ jobs:
 
       - name: Install Playwright
         run: |
-          python3 -m pip install playwright
+          python3 -m pip install -r scripts/sync-catalog/requirements-catalog.txt
           python3 -m playwright install chromium
 
       - name: Scrape lenticular 3D sources
+        continue-on-error: true
         run: |
-          python3 scripts/sync-catalog/scrape-truegame.py
-          python3 scripts/sync-catalog/scrape-uevr-profiles.py
-          python3 scripts/sync-catalog/scrape-vrto3d-wiki.py
-          python3 scripts/sync-catalog/scrape-pcgw-3dvision.py
+          python3 scripts/sync-catalog/scrape-truegame.py || true
+          python3 scripts/sync-catalog/scrape-uevr-profiles.py || true
+          python3 scripts/sync-catalog/scrape-vrto3d-wiki.py || true
+          python3 scripts/sync-catalog/scrape-pcgw-3dvision.py || true
 
       - name: Merge and enrich catalog
         run: |
@@ -47,6 +48,7 @@ jobs:
         run: |
           python3 scripts/sync-catalog/test_merge_catalog.py
           python3 scripts/sync-catalog/test_enrich_steam_stats.py
+          python3 scripts/sync-catalog/test_resolve_steam_appids.py
 
       - name: Upload catalog artifact
         uses: actions/upload-artifact@v4
@@ -57,3 +59,38 @@ jobs:
             data/compatibility/catalog-v2.sha256
             data/compatibility/price-history-v1.json
             docs/compatibility/LENTICULAR_GAMES.md
+
+  open-pr:
+    name: Open catalog update PR
+    needs: merge-validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: catalog-v2
+          path: artifact
+
+      - name: Copy catalog outputs into workspace
+        run: |
+          cp artifact/data/compatibility/catalog-v2.json data/compatibility/catalog-v2.json
+          cp artifact/data/compatibility/catalog-v2.sha256 data/compatibility/catalog-v2.sha256
+          cp artifact/data/compatibility/price-history-v1.json data/compatibility/price-history-v1.json
+          cp artifact/docs/compatibility/LENTICULAR_GAMES.md docs/compatibility/LENTICULAR_GAMES.md
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@a5a78063c14323536a7a0855aae3562b2b96cf58
+        with:
+          commit-message: "chore(catalog): weekly sync update"
+          title: "chore(catalog): weekly sync update"
+          body: |
+            Automated catalog merge from scheduled sync workflow.
+            Review game count, Steam stats, and `syncStatus` before merge.
+          branch: auto/catalog-sync
+          delete-branch: true

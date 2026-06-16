@@ -16,13 +16,15 @@ import { matchesCheckboxFilter } from "./filters/checkbox-filter";
 import { playMethodsForGame, playMethodsText } from "./game-accessors";
 import { compareGameRank, gameRankScore, GAME_RANK_TOOLTIP } from "./game-ranking";
 import { rank3DForGame, rank3DScore } from "./rank-3d";
+import { isLinkableSteamApp } from "./steam-constants";
 import type { CatalogGame } from "./types";
 import { displayTitle, escapeHtml } from "./utils";
 
 function titleCell(game: CatalogGame, title: string): string {
-  const appId = game.steamAppId;
-  if (appId) {
-    return `<a href="steam://store/${appId}" class="title-cell title-steam-link" aria-label="Open in Steam: ${escapeHtml(title)}">${escapeHtml(title)}</a>`;
+  if (isLinkableSteamApp(game.steamAppId, game.steamMatchConfidence)) {
+    const appId = game.steamAppId;
+    const storeUrl = `https://store.steampowered.com/app/${appId}/`;
+    return `<a href="${storeUrl}" class="title-cell title-steam-link" target="_blank" rel="noopener noreferrer" data-steam-app="${appId}" aria-label="Open Steam store: ${escapeHtml(title)}">${escapeHtml(title)}</a>`;
   }
   return `<span class="title-cell" title="${escapeHtml(title)}">${escapeHtml(title)}</span>`;
 }

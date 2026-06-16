@@ -17,6 +17,9 @@ public static class CatalogFilterHelper
     public static bool Matches3DVision(CatalogGameMetadata? catalog)
         => catalog?.SourceIds.Contains("nvidia-3d-vision") == true;
 
+    public static bool MatchesMinRank3D(CatalogGameMetadata? catalog, int minScore)
+        => minScore <= 0 || (catalog?.Rank3DScore ?? 0) >= minScore;
+
     public static string BuildSourceBadges(CatalogGameMetadata? catalog)
     {
         if (catalog is null)

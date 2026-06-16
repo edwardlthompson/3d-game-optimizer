@@ -8,7 +8,11 @@ public sealed partial class GameLibraryViewModel
     private async Task LoadLibraryPrefsAsync()
     {
         var prefs = await _preferences.GetLibraryUiPrefsAsync();
-        _sortMode = Enum.TryParse<LibrarySortMode>(prefs.SortMode, true, out var sort) ? sort : LibrarySortMode.Quality;
+        _sortMode = prefs.SortMode switch
+        {
+            "Quality" or "Rank3D" or "GameRank" => LibrarySortMode.GameRank,
+            _ => Enum.TryParse<LibrarySortMode>(prefs.SortMode, true, out var sort) ? sort : LibrarySortMode.GameRank
+        };
         _smartCollection = Enum.TryParse<SmartCollectionMode>(prefs.SmartCollection, true, out var smart)
             ? smart
             : SmartCollectionMode.None;
@@ -19,6 +23,7 @@ public sealed partial class GameLibraryViewModel
         _filterTrueGame = prefs.FilterTrueGame;
         _filterUevr = prefs.FilterUevr;
         _filter3DVision = prefs.Filter3DVision;
+        _minRank3DScore = prefs.MinRank3DScore;
         _playlistName = prefs.LastPlaylistName;
         OnPropertyChanged(nameof(SortMode));
         OnPropertyChanged(nameof(SmartCollection));
@@ -29,6 +34,8 @@ public sealed partial class GameLibraryViewModel
         OnPropertyChanged(nameof(FilterTrueGame));
         OnPropertyChanged(nameof(FilterUevr));
         OnPropertyChanged(nameof(Filter3DVision));
+        OnPropertyChanged(nameof(MinRank3DScore));
+        OnPropertyChanged(nameof(MinRank3DScoreIndex));
         OnPropertyChanged(nameof(PlaylistName));
     }
 
@@ -57,6 +64,7 @@ public sealed partial class GameLibraryViewModel
                     FilterTrueGame: FilterTrueGame,
                     FilterUevr: FilterUevr,
                     Filter3DVision: Filter3DVision,
+                    MinRank3DScore: MinRank3DScore,
                     LastPlaylistName: PlaylistName));
             }
             catch (OperationCanceledException)

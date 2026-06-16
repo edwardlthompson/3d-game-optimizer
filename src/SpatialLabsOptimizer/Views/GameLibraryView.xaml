@@ -12,146 +12,148 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:CoverPathToImageConverter x:Key="CoverConverter" />
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
     </Page.Resources>
-    <Grid Padding="16" RowSpacing="12">
+    <Grid Padding="16" RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Spacing="8">
-            <TextBlock Text="Ready to Play" FontSize="24" FontWeight="SemiBold" VerticalAlignment="Center" />
-            <Button Content="Refresh library" Command="{x:Bind ViewModel.RefreshLibraryCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Re-check Steam installs and reload from cache" />
-            <Button Content="Refresh cover art" Command="{x:Bind ViewModel.RefreshCoverArtCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Download missing cover images only" />
-            <Button Content="Play in 3D" Command="{x:Bind ViewModel.PlayCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch selected game in 3D" />
-            <Button Content="Play in VR" Command="{x:Bind ViewModel.PlayVrCommand}" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch selected game in VR" />
-            <Button Content="Pin" Command="{x:Bind ViewModel.PinCommand}" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Unpin" Command="{x:Bind ViewModel.UnpinCommand}" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Queue" Command="{x:Bind ViewModel.QueueCommand}" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Play next" Command="{x:Bind ViewModel.PlayNextCommand}" Style="{StaticResource AppButtonStyle}" />
-            <Button Content="Favorite" Command="{x:Bind ViewModel.ToggleFavoriteCommand}" Style="{StaticResource AppButtonStyle}" />
+            <TextBlock VerticalAlignment="Center" FontSize="22" FontWeight="SemiBold" Text="Library" />
+            <Button Command="{x:Bind ViewModel.RefreshLibraryCommand}" Content="Refresh library" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Re-check Steam installs and reload from cache" />
+            <Button Command="{x:Bind ViewModel.RefreshCoverArtCommand}" Content="Refresh cover art" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Download missing cover images only" />
+            <Button Command="{x:Bind ViewModel.OpenCatalogCommand}" Content="Browse catalog" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Center" />
+            <TextBlock VerticalAlignment="Center" Opacity="0.7" Text="{x:Bind ViewModel.WarmStartStatus, Mode=OneWay}" />
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="12">
-            <ComboBox Header="Sort by" SelectedIndex="{x:Bind ViewModel.SortModeIndex, Mode=TwoWay}" Width="200">
-                <ComboBoxItem Content="3D Quality" />
-                <ComboBoxItem Content="Players Online" />
-                <ComboBoxItem Content="Steam Reviews" />
-                <ComboBoxItem Content="Name" />
-                <ComboBoxItem Content="Genre" />
-            </ComboBox>
-            <ComboBox Header="Preferred output" SelectedValue="{x:Bind ViewModel.PreferredOutput, Mode=TwoWay}" SelectedValuePath="Tag" Width="180">
-                <ComboBoxItem Content="Auto" Tag="Auto" />
-                <ComboBoxItem Content="Monitor" Tag="Monitor" />
-                <ComboBoxItem Content="Headset" Tag="Headset" />
-            </ComboBox>
-            <Button Content="Save output" Command="{x:Bind ViewModel.SaveOutputCommand}" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Bottom" />
-            <CheckBox Content="Favorites only" IsChecked="{x:Bind ViewModel.ShowFavoritesOnly, Mode=TwoWay}" VerticalAlignment="Bottom" />
-            <CheckBox Content="Local installs" IsChecked="{x:Bind ViewModel.ShowLocalOnly, Mode=TwoWay}" VerticalAlignment="Bottom" />
-            <CheckBox Content="Why not ready?" IsChecked="{x:Bind ViewModel.ShowWhyNotReady, Mode=TwoWay}" VerticalAlignment="Bottom" />
-            <Button Content="Browse catalog" Command="{x:Bind ViewModel.OpenCatalogCommand}" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Bottom" />
-            <TextBlock Text="{x:Bind ViewModel.WarmStartStatus, Mode=OneWay}" VerticalAlignment="Bottom" Opacity="0.7" />
-        </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="12">
-            <CheckBox Content="3D Ultra / Native" IsChecked="{x:Bind ViewModel.FilterUltraNative, Mode=TwoWay}" VerticalAlignment="Bottom" />
-            <CheckBox Content="TrueGame" IsChecked="{x:Bind ViewModel.FilterTrueGame, Mode=TwoWay}" VerticalAlignment="Bottom" />
-            <CheckBox Content="UEVR" IsChecked="{x:Bind ViewModel.FilterUevr, Mode=TwoWay}" VerticalAlignment="Bottom" />
-            <CheckBox Content="3D Vision" IsChecked="{x:Bind ViewModel.Filter3DVision, Mode=TwoWay}" VerticalAlignment="Bottom" />
-        </StackPanel>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="8">
-            <ComboBox Header="Smart collection" SelectedIndex="{x:Bind ViewModel.SmartCollectionIndex, Mode=TwoWay}" Width="220" VerticalAlignment="Bottom">
-                <ComboBoxItem Content="None" />
-                <ComboBoxItem Content="Favorites + tier" />
-                <ComboBoxItem Content="Never played in 3D" />
-                <ComboBoxItem Content="Local only" />
-            </ComboBox>
-            <TextBox Header="Playlist name" Width="180" PlaceholderText="My session list" Text="{x:Bind ViewModel.PlaylistName, Mode=TwoWay}" />
-            <Button Content="Save playlist" Command="{x:Bind ViewModel.SavePlaylistCommand}" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Bottom" />
-            <Button Content="Load playlist" Command="{x:Bind ViewModel.LoadPlaylistCommand}" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Bottom" />
-            <ComboBox Header="Saved playlists" ItemsSource="{x:Bind ViewModel.PlaylistNames, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.PlaylistName, Mode=TwoWay}" Width="200" VerticalAlignment="Bottom" />
-        </StackPanel>
-        <StackPanel Grid.Row="4" Spacing="8" Visibility="{x:Bind ViewModel.V2Enabled, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
-            <TextBlock Text="Community and co-op (v2)" FontWeight="SemiBold" />
-            <TextBlock Text="Export selected titles for LAN parties, import allowlisted workshop presets, or start a hybrid co-op session." TextWrapping="Wrap" Opacity="0.8" />
-            <StackPanel Orientation="Horizontal" Spacing="8">
-                <Button Content="Import workshop presets" Command="{x:Bind ViewModel.V2WorkshopImportCommand}" Style="{StaticResource AppButtonStyle}" />
-                <Button Content="Export LAN party list" Command="{x:Bind ViewModel.V2LanExportCommand}" Style="{StaticResource AppButtonStyle}" />
-                <Button Content="Start hybrid co-op" Command="{x:Bind ViewModel.V2HybridSessionCommand}" Style="{StaticResource AppButtonStyle}" />
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <ComboBox Width="180" Header="Sort by" SelectedIndex="{x:Bind ViewModel.SortModeIndex, Mode=TwoWay}">
+                    <ComboBoxItem Content="Game Rank" />
+                    <ComboBoxItem Content="Players Online" />
+                    <ComboBoxItem Content="Steam Reviews" />
+                    <ComboBoxItem Content="Name" />
+                    <ComboBoxItem Content="Genre" />
+                </ComboBox>
+                <ComboBox Width="200" Header="Min 3D quality" SelectedIndex="{x:Bind ViewModel.MinRank3DScoreIndex, Mode=TwoWay}" VerticalAlignment="Bottom">
+                    <ComboBoxItem Content="Any" />
+                    <ComboBoxItem Content="Experimental (26+)" />
+                    <ComboBoxItem Content="Playable (42+)" />
+                    <ComboBoxItem Content="Optimized (58+)" />
+                    <ComboBoxItem Content="Native (72+)" />
+                    <ComboBoxItem Content="Ultra (88+)" />
+                </ComboBox>
+                <ComboBox Width="200" Header="Smart collection" SelectedIndex="{x:Bind ViewModel.SmartCollectionIndex, Mode=TwoWay}" VerticalAlignment="Bottom">
+                    <ComboBoxItem Content="None" />
+                    <ComboBoxItem Content="Favorites + tier" />
+                    <ComboBoxItem Content="Never played in 3D" />
+                    <ComboBoxItem Content="Local only" />
+                </ComboBox>
+                <ComboBox Width="160" Header="Preferred output" SelectedValue="{x:Bind ViewModel.PreferredOutput, Mode=TwoWay}" SelectedValuePath="Tag" VerticalAlignment="Bottom">
+                    <ComboBoxItem Content="Auto" Tag="Auto" />
+                    <ComboBoxItem Content="Monitor" Tag="Monitor" />
+                    <ComboBoxItem Content="Headset" Tag="Headset" />
+                </ComboBox>
+                <Button VerticalAlignment="Bottom" Command="{x:Bind ViewModel.SaveOutputCommand}" Content="Save output" Style="{StaticResource AppButtonStyle}" />
+                <CheckBox VerticalAlignment="Bottom" Content="Favorites" IsChecked="{x:Bind ViewModel.ShowFavoritesOnly, Mode=TwoWay}" />
+                <CheckBox VerticalAlignment="Bottom" Content="Local" IsChecked="{x:Bind ViewModel.ShowLocalOnly, Mode=TwoWay}" />
+                <CheckBox VerticalAlignment="Bottom" Content="Why not ready?" IsChecked="{x:Bind ViewModel.ShowWhyNotReady, Mode=TwoWay}" />
+                <CheckBox VerticalAlignment="Bottom" Content="3D Ultra / Native" IsChecked="{x:Bind ViewModel.FilterUltraNative, Mode=TwoWay}" />
+                <CheckBox VerticalAlignment="Bottom" Content="TrueGame" IsChecked="{x:Bind ViewModel.FilterTrueGame, Mode=TwoWay}" />
+                <CheckBox VerticalAlignment="Bottom" Content="UEVR" IsChecked="{x:Bind ViewModel.FilterUevr, Mode=TwoWay}" />
+                <CheckBox VerticalAlignment="Bottom" Content="3D Vision" IsChecked="{x:Bind ViewModel.Filter3DVision, Mode=TwoWay}" />
             </StackPanel>
-            <TextBlock Text="{x:Bind ViewModel.V2StatusText, Mode=OneWay}" TextWrapping="Wrap" Opacity="0.7" />
-        </StackPanel>
-        <StackPanel Grid.Row="5" Spacing="6">
-            <StackPanel Spacing="8" Visibility="{x:Bind ViewModel.HasSelectedGame, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
-                <TextBlock Text="{x:Bind ViewModel.SelectedGameTitle, Mode=OneWay}" FontWeight="SemiBold" FontSize="16" />
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Button Content="Play in 3D" Command="{x:Bind ViewModel.PlayCommand}" Style="{StaticResource AppButtonStyle}" />
-                    <Button Content="Play in VR" Command="{x:Bind ViewModel.PlayVrCommand}" Style="{StaticResource AppButtonStyle}" />
-                </StackPanel>
-            </StackPanel>
-            <TextBlock Text="{x:Bind ViewModel.WhyNotReadyHint, Mode=OneWay}" TextWrapping="Wrap" Opacity="0.8" />
-            <TextBlock Text="{x:Bind ViewModel.SelectedRecommendedTools, Mode=OneWay}" TextWrapping="Wrap" Opacity="0.75" />
-            <StackPanel Orientation="Horizontal" Spacing="8">
-                <TextBlock Text="{x:Bind ViewModel.SelectedPresetFreshness, Mode=OneWay}" VerticalAlignment="Center" Opacity="0.8" />
-                <Button Content="Refresh preset" Command="{x:Bind ViewModel.RefreshPresetCommand}" Style="{StaticResource AppButtonStyle}" />
-            </StackPanel>
-            <TextBox Header="Compatibility note (local only)" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="60" Text="{x:Bind ViewModel.CompatibilityNote, Mode=TwoWay}" />
-            <Button Content="Save note" Command="{x:Bind ViewModel.SaveCompatibilityNoteCommand}" Style="{StaticResource AppButtonStyle}" HorizontalAlignment="Left" />
-        </StackPanel>
-        <GridView
-            x:Name="GamesGrid"
-            Grid.Row="6"
-            AutomationProperties.AutomationId="GameLibrary_Grid"
-            IsItemClickEnabled="True"
-            ItemsSource="{x:Bind ViewModel.Games, Mode=OneWay}"
-            SelectedItem="{x:Bind ViewModel.SelectedGame, Mode=TwoWay}"
-            SelectionMode="Single">
-            <GridView.ItemContainerStyle>
-                <Style TargetType="GridViewItem">
-                    <Setter Property="ContextFlyout">
-                        <Setter.Value>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Click="PlayContext_Click" Tag="3d" Text="Play in 3D" />
-                                <MenuFlyoutItem Click="PlayContext_Click" Tag="vr" Text="Play in VR" />
-                            </MenuFlyout>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </GridView.ItemContainerStyle>
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="library:GameLibraryItemViewModel">
-                    <Grid Width="180" Height="310" Background="{StaticResource Brush.SurfaceAlt}" CornerRadius="8" Padding="8">
-                        <StackPanel Spacing="6">
-                            <Image Height="200" Source="{x:Bind CoverImageKey, Converter={StaticResource CoverConverter}}" Stretch="UniformToFill" />
-                            <TextBlock FontWeight="SemiBold" Text="{x:Bind Title}" TextTrimming="CharacterEllipsis" />
-                            <TextBlock FontSize="11" Opacity="0.7" Text="{x:Bind StatusDisplay}" />
-                            <TextBlock FontSize="11" FontWeight="SemiBold" Text="{x:Bind CompatibilityBadge}" />
-                            <TextBlock FontSize="11" Opacity="0.75" Text="{x:Bind SourceBadges}" TextTrimming="CharacterEllipsis" />
-                            <TextBlock FontSize="11" Opacity="0.7" Text="{x:Bind PresetFreshness}" />
-                            <TextBlock FontSize="11" Opacity="0.7" Text="{x:Bind ReviewDisplay}" />
-                            <TextBlock FontSize="11" Opacity="0.7" Text="{x:Bind PlayersDisplay}" />
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
-        <StackPanel Grid.Row="7" Spacing="4">
-            <TextBlock FontWeight="SemiBold" Text="Recent launches" />
-            <ListView MinHeight="80" MaxHeight="120" ItemsSource="{x:Bind ViewModel.RecentLaunches, Mode=OneWay}">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="viewmodels:RecentLaunchItemViewModel">
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <TextBlock FontWeight="SemiBold" Text="{x:Bind Title}" />
-                            <TextBlock Opacity="0.7" Text="{x:Bind LaunchedAtDisplay}" />
-                            <TextBlock Opacity="0.7" Text="{x:Bind ResultDisplay}" />
-                        </StackPanel>
+        </ScrollViewer>
+        <Grid x:Name="LibraryContentGrid" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="160" Height="*" />
+                <RowDefinition Height="8" />
+                <RowDefinition MinHeight="80" MaxHeight="480" Height="180" />
+            </Grid.RowDefinitions>
+            <GridView
+                x:Name="GamesGrid"
+                AutomationProperties.AutomationId="GameLibrary_Grid"
+                IsItemClickEnabled="True"
+                ItemClick="GamesGrid_ItemClick"
+                ItemsSource="{x:Bind ViewModel.Games, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.SelectedGame, Mode=TwoWay}"
+                SelectionMode="Single">
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="ContextFlyout">
+                            <Setter.Value>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Click="PlayContext_Click" Tag="3d" Text="Play in 3D" />
+                                    <MenuFlyoutItem Click="PlayContext_Click" Tag="vr" Text="Play in VR" />
+                                    <MenuFlyoutItem Click="OpenDetailContext_Click" Text="Details…" />
+                                </MenuFlyout>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </GridView.ItemContainerStyle>
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="library:GameLibraryItemViewModel">
+                        <Grid Width="180" Height="280" Padding="8" Background="{StaticResource Brush.SurfaceAlt}" CornerRadius="8">
+                            <StackPanel Spacing="4">
+                                <Grid Height="200" Background="{StaticResource Brush.Surface}" CornerRadius="4">
+                                    <Image
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Source="{x:Bind CoverImageKey, Converter={StaticResource CoverConverter}}"
+                                        Stretch="Uniform" />
+                                </Grid>
+                                <TextBlock FontWeight="SemiBold" Text="{x:Bind Title}" TextTrimming="CharacterEllipsis" />
+                                <TextBlock FontSize="11" Opacity="0.7" Text="{x:Bind StatusDisplay}" />
+                                <TextBlock FontSize="11" FontWeight="SemiBold" Text="{x:Bind CompatibilityBadge}" />
+                                <TextBlock FontSize="11" Opacity="0.85" Text="{x:Bind GameRankDisplay}" />
+                                <TextBlock FontSize="11" Opacity="0.75" Text="{x:Bind SourceBadges}" TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                        </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+                </GridView.ItemTemplate>
+            </GridView>
+            <Border
+                Grid.Row="1"
+                Height="8"
+                HorizontalAlignment="Stretch"
+                Background="{StaticResource Brush.SurfaceAlt}"
+                ManipulationMode="TranslateY"
+                PointerMoved="RecentLaunchGrip_PointerMoved"
+                PointerPressed="RecentLaunchGrip_PointerPressed"
+                PointerReleased="RecentLaunchGrip_PointerReleased"
+                ToolTipService.ToolTip="Drag to resize recent launches" />
+            <Grid
+                Grid.Row="2"
+                Padding="0,8,0,0"
+                Background="{StaticResource Brush.SurfaceAlt}"
+                CornerRadius="8"
+                RowSpacing="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock FontWeight="SemiBold" Opacity="0.85" Text="Recent launches" />
+                <ListView
+                    Grid.Row="1"
+                    ItemsSource="{x:Bind ViewModel.RecentLaunches, Mode=OneWay}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:RecentLaunchItemViewModel">
+                            <Grid MinHeight="36" Padding="4,6" ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock VerticalAlignment="Center" FontWeight="SemiBold" Text="{x:Bind Title}" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" Opacity="0.7" Text="{x:Bind LaunchedAtDisplay}" />
+                                <TextBlock Grid.Column="2" VerticalAlignment="Center" Opacity="0.7" Text="{x:Bind ResultDisplay}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

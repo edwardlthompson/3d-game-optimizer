@@ -1,15 +1,12 @@
 import {
   clearSteamCredentials,
-  loadSteamApiKey,
   loadSteamMeta,
   mergeLibraryFromCatalogIds,
-  saveSteamApiKey,
   saveSteamMeta,
   type LibraryMergeMode,
 } from "./library";
+import { MIN_STEAM_MATCH_CONFIDENCE } from "./steam-constants";
 import type { CatalogGame } from "./types";
-
-const MIN_STEAM_CONFIDENCE = 0.92;
 
 export interface SteamSyncStats {
   catalogMatched: number;
@@ -23,7 +20,7 @@ export interface SteamExchangeResult {
   steamId: string;
   steamIdTruncated: string;
   emptyLibrary: boolean;
-  source: "openid" | "user_key";
+  source: "openid";
 }
 
 export function steamSyncWorkerUrl(): string {
@@ -52,7 +49,7 @@ export function mapOwnedAppIdsToCatalogIds(
   for (const game of games) {
     const appId = game.steamAppId;
     const confidence = game.steamMatchConfidence ?? 0;
-    if (!appId || confidence < MIN_STEAM_CONFIDENCE) continue;
+    if (!appId || confidence < MIN_STEAM_MATCH_CONFIDENCE) continue;
     linkableAppIds.add(appId);
     if (owned.has(appId)) matchedIds.push(game.id);
   }
@@ -64,7 +61,7 @@ export function mapOwnedAppIdsToCatalogIds(
 
   const catalogNoSteamLink = games.filter((game) => {
     const confidence = game.steamMatchConfidence ?? 0;
-    return !game.steamAppId || confidence < MIN_STEAM_CONFIDENCE;
+    return !game.steamAppId || confidence < MIN_STEAM_MATCH_CONFIDENCE;
   }).length;
 
   return {
@@ -87,22 +84,6 @@ export async function exchangeSyncToken(token: string): Promise<SteamExchangeRes
   });
   if (!resp.ok) {
     throw new Error(`Sync exchange failed (${resp.status})`);
-  }
-  return (await resp.json()) as SteamExchangeResult;
-}
-
-export async function fetchOwnedWithUserKey(
-  steamId: string,
-  apiKey: string,
-): Promise<SteamExchangeResult> {
-  const base = steamSyncWorkerUrl();
-  const resp = await fetch(`${base}/sync/owned`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ steamId, apiKey }),
-  });
-  if (!resp.ok) {
-    throw new Error(`Steam library fetch failed (${resp.status})`);
   }
   return (await resp.json()) as SteamExchangeResult;
 }
@@ -145,26 +126,8 @@ export async function handleSteamSyncReturn(
   }
 }
 
-export async function retrySteamSyncWithUserKey(
-  games: CatalogGame[],
-  mode: LibraryMergeMode,
-): Promise<{ stats: SteamSyncStats | null; error: string | null; emptyLibrary: boolean }> {
-  const meta = loadSteamMeta();
-  const apiKey = loadSteamApiKey();
-  if (!meta.steamId || !apiKey) {
-    return { stats: null, error: "Steam ID and API key required.", emptyLibrary: false };
-  }
-  try {
-    const result = await fetchOwnedWithUserKey(meta.steamId, apiKey);
-    const stats = applySteamSyncToLibrary(games, result, mode);
-    return { stats, error: null, emptyLibrary: result.emptyLibrary };
-  } catch {
-    return { stats: null, error: "Steam API key sync failed.", emptyLibrary: false };
-  }
-}
-
 export function disconnectSteam(): void {
   clearSteamCredentials();
 }
 
-export { saveSteamApiKey, loadSteamApiKey, loadSteamMeta };
+export { loadSteamMeta };

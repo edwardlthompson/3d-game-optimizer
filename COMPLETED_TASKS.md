@@ -665,3 +665,33 @@ Post-MVVM / file-split follow-up from BUILD_PLAN pass 2.
 
 - [x] [AGENT] **Remove remaining `App.Services` in views** — `ShellPage` ctor-injects `StreamerHotkeyService`, `PresetCacheService`, `OperationProgressHub`, `UserPreferencesService`; `CommandPaletteViewModel` + `ToolchainHealthViewModel`; `ViewingDistanceCoachView.Initialize()` from parent VMs
 
+---
+
+## Catalog site — UX v2, layout, Game Rank (archived 2026-06-15)
+
+- [x] [AGENT] Spreadsheet filters, play methods, wishlist PWA, price history (`865d739`)
+- [x] [AGENT] Text wrap, column trim, filter popover polish, collapsible footer
+- [x] [AGENT] Game Rank (72% Steam + 28% 3D); default sort descending; 3D Rank column
+- [x] [AGENT] Title → HTTPS Steam store (confidence ≥ 0.92); Buy column removed (`fa4eec0`)
+
+## Steam library sync — AGENT lane (archived 2026-06-15)
+
+- [x] [AGENT] Cloudflare Worker — OpenID, `GetOwnedGames`, KV tokens, rate limits, Origin gate
+- [x] [AGENT] Catalog client — Connect Steam, library merge, sync banners
+- [x] [AGENT] CI — `steam-library-worker.yml`, catalog + worker in main `ci.yml`, `VITE_STEAM_SYNC_URL`
+- [x] [AGENT] Docs — [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md)
+
+> **Ship gate:** `[HUMAN]` Cloudflare deploy + `STEAM_SYNC_WORKER_URL` — tracked in [BUILD_PLAN.md](BUILD_PLAN.md).
+
+## Full-stack code review (archived 2026-06-15)
+
+Security, CI, catalog, pipeline, and desktop Steam hardening from BUILD_PLAN review lane.
+
+- [x] [AGENT] Worker Origin enforcement; `/sync/owned` dev-gated; no catalog API key persistence
+- [x] [AGENT] Catalog SHA-256 verify; network-first SW for `catalog-v2.json`; library export/import
+- [x] [AGENT] Weekly catalog auto-PR; `test_resolve_steam_appids.py`; pinned Playwright
+- [x] [AGENT] `libraryfolders.vdf` scan + tests; DPAPI Steam ID; `SteamApiUrls`; merger concurrency; GridDB Bearer; store cache cap
+- [x] [AGENT] Refactors — `steam-ui.ts`, `catalog-integrity.ts`, `grid-layout.ts`
+
+**Evidence:** catalog build + smoke; worker vitest (4); `SteamVdfScannerTests` (2); `test_resolve_steam_appids.py` (3).
+

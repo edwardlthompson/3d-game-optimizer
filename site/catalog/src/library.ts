@@ -1,6 +1,5 @@
 const LIBRARY_KEY = "3d-catalog-library-v1";
 export const STEAM_META_KEY = "3d-catalog-steam-meta-v1";
-export const STEAM_API_KEY_STORAGE = "3d-catalog-steam-api-key-v1";
 
 export type LibraryMergeMode = "merge" | "replace";
 
@@ -39,6 +38,17 @@ export function mergeLibraryFromCatalogIds(ids: string[], mode: LibraryMergeMode
   return next;
 }
 
+export function exportLibrary(ids: Set<string>): string {
+  return JSON.stringify([...ids], null, 2);
+}
+
+export function importLibrary(json: string): Set<string> {
+  const parsed = JSON.parse(json) as string[];
+  const next = new Set(Array.isArray(parsed) ? parsed : []);
+  saveLibrary(next);
+  return next;
+}
+
 export function loadSteamMeta(): SteamSyncMeta {
   try {
     const raw = localStorage.getItem(STEAM_META_KEY);
@@ -53,16 +63,6 @@ export function saveSteamMeta(meta: SteamSyncMeta): void {
   localStorage.setItem(STEAM_META_KEY, JSON.stringify(meta));
 }
 
-export function loadSteamApiKey(): string {
-  return localStorage.getItem(STEAM_API_KEY_STORAGE) ?? "";
-}
-
-export function saveSteamApiKey(apiKey: string): void {
-  if (apiKey) localStorage.setItem(STEAM_API_KEY_STORAGE, apiKey);
-  else localStorage.removeItem(STEAM_API_KEY_STORAGE);
-}
-
 export function clearSteamCredentials(): void {
   localStorage.removeItem(STEAM_META_KEY);
-  localStorage.removeItem(STEAM_API_KEY_STORAGE);
 }

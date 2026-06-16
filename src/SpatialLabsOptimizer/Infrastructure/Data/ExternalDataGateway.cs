@@ -37,7 +37,8 @@ public sealed class ExternalDataGateway
         string url,
         string operationId,
         CancellationToken cancellationToken = default,
-        string? userMessage = null)
+        string? userMessage = null,
+        string? bearerToken = null)
     {
         await _rateLimiter.WaitAsync(cancellationToken);
         try
@@ -57,7 +58,13 @@ public sealed class ExternalDataGateway
                 PercentComplete: null));
 
             _lastRequest = DateTimeOffset.UtcNow;
-            var response = await _httpClient.GetAsync(url, cancellationToken);
+            using var request = new HttpRequestMessage(HttpMethod.Get, url);
+            if (!string.IsNullOrWhiteSpace(bearerToken))
+            {
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            }
+
+            var response = await _httpClient.SendAsync(request, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 return (null, (int)response.StatusCode);

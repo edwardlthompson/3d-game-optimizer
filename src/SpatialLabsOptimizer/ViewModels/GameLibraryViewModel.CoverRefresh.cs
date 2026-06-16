@@ -18,6 +18,12 @@ public sealed partial class GameLibraryViewModel
             return;
         }
 
+        if (report.OperationId == "preset-prefetch" && report.IsComplete)
+        {
+            RunOnUiThread(() => _ = LoadFromCacheAsync());
+            return;
+        }
+
         if ((report.OperationId == "artwork-prefetch" || report.OperationId == "metadata-prefetch") && report.IsComplete)
         {
             RunOnUiThread(() => _ = HydrateCoverTilesAsync());
@@ -63,6 +69,26 @@ public sealed partial class GameLibraryViewModel
         if (!string.IsNullOrWhiteSpace(game?.CoverCachePath) && File.Exists(game.CoverCachePath))
         {
             item.UpdateCover(game.CoverCachePath);
+            return;
+        }
+
+        if (!SteamCoverArtPolicy.IsEligible(game))
+        {
+            return;
+        }
+
+        try
+        {
+            var resolved = await _artwork.ResolveCoverPathAsync(item.SteamAppId);
+            if (!string.IsNullOrWhiteSpace(resolved) && File.Exists(resolved))
+            {
+                item.UpdateCover(resolved);
+                await SyncCoverPathToDatabaseAsync(item.SteamAppId, resolved);
+            }
+        }
+        catch
+        {
+            // Prefetch log captures bulk failures; per-tile resolve is best-effort.
         }
     }
 

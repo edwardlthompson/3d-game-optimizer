@@ -9,10 +9,10 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
 } from "@tanstack/table-core";
-import { PAGE_SIZES } from "./constants";
 import { createColumns } from "./catalog-columns";
 import { collectUniqueValues } from "./filters/buckets";
 import { ColumnFilterPopover, formatPlayMethodOption } from "./filters/ColumnFilterPopover";
+import { fitColumnWidths, renderPager } from "./grid-layout";
 import type { PriceHistoryDocument } from "./price-chart";
 import { showPriceChart } from "./price-chart";
 import { rank3DLabel } from "./rank-3d";
@@ -209,7 +209,7 @@ export class CatalogGrid {
 
       const filterTh = document.createElement("th");
       if (header.column.getCanFilter()) {
-        const options = this.filterOptions[header.column.id] ?? ["Has Steam link", "No link"];
+        const options = this.filterOptions[header.column.id] ?? [];
         const format =
           header.column.id === "playMethods" ? formatPlayMethodOption : (v: string) => v;
         const popover = new ColumnFilterPopover(
@@ -290,71 +290,10 @@ export class CatalogGrid {
       page: this.pagination.pageIndex + 1,
       pageCount: this.table.getPageCount(),
     });
-    this.fitColumnWidths();
-  }
-
-  /** Measure visible rows in auto layout, then lock column widths for this page. */
-  private fitColumnWidths(): void {
-    const table = this.tableWrap.querySelector("table")!;
-    table.style.tableLayout = "auto";
-    table.querySelector("colgroup")?.remove();
-
-    requestAnimationFrame(() => {
-      const thead = table.querySelector("thead")!;
-      const headerRow = thead.querySelector("tr:first-child");
-      if (!headerRow) return;
-
-      const bodyRows = [...this.tbody.querySelectorAll("tr")].filter(
-        (row) => !row.querySelector(".empty"),
-      );
-      const colCount = headerRow.children.length;
-      if (colCount === 0 || bodyRows.length === 0) return;
-
-      const widths: number[] = [];
-      for (let i = 0; i < colCount; i += 1) {
-        let max = (headerRow.children[i] as HTMLElement).offsetWidth;
-        for (const row of bodyRows) {
-          const cell = row.children[i] as HTMLElement | undefined;
-          if (cell) max = Math.max(max, cell.offsetWidth);
-        }
-        widths.push(max);
-      }
-
-      const colgroup = document.createElement("colgroup");
-      colgroup.replaceChildren(
-        ...widths.map((width) => {
-          const col = document.createElement("col");
-          col.style.width = `${width}px`;
-          return col;
-        }),
-      );
-      table.insertBefore(colgroup, thead);
-      table.style.tableLayout = "fixed";
-    });
+    fitColumnWidths(this.tableWrap, this.tbody);
   }
 
   private renderPager(): void {
-    const { pageIndex, pageSize } = this.pagination;
-    const pageCount = this.table.getPageCount();
-    this.pager.innerHTML = `
-      <button type="button" data-nav="first" ${pageIndex === 0 ? "disabled" : ""}>First</button>
-      <button type="button" data-nav="prev" ${pageIndex === 0 ? "disabled" : ""}>Prev</button>
-      <span>Page ${pageIndex + 1} of ${Math.max(pageCount, 1)}</span>
-      <button type="button" data-nav="next" ${pageIndex >= pageCount - 1 ? "disabled" : ""}>Next</button>
-      <button type="button" data-nav="last" ${pageIndex >= pageCount - 1 ? "disabled" : ""}>Last</button>
-      <label>Rows <select data-page-size>${PAGE_SIZES.map((n) => `<option value="${n}" ${n === pageSize ? "selected" : ""}>${n}</option>`).join("")}</select></label>
-    `;
-    this.pager.querySelectorAll<HTMLButtonElement>("button[data-nav]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const nav = btn.dataset.nav;
-        if (nav === "first") this.table.setPageIndex(0);
-        if (nav === "prev") this.table.previousPage();
-        if (nav === "next") this.table.nextPage();
-        if (nav === "last") this.table.setPageIndex(Math.max(pageCount - 1, 0));
-      });
-    });
-    this.pager.querySelector<HTMLSelectElement>("select[data-page-size]")?.addEventListener("change", (e) => {
-      this.table.setPageSize(Number((e.target as HTMLSelectElement).value));
-    });
+    renderPager(this.pager, this.table, this.pagination);
   }
 }

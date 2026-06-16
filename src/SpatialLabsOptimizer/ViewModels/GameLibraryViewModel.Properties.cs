@@ -56,7 +56,7 @@ public sealed partial class GameLibraryViewModel
             2 => LibrarySortMode.SteamReviews,
             3 => LibrarySortMode.Name,
             4 => LibrarySortMode.Genre,
-            _ => LibrarySortMode.Quality
+            _ => LibrarySortMode.GameRank
         };
     }
 
@@ -132,6 +132,12 @@ public sealed partial class GameLibraryViewModel
     {
         get => _selectedRecommendedTools;
         set => SetProperty(ref _selectedRecommendedTools, value);
+    }
+
+    public string SelectedRank3DDisplay
+    {
+        get => _selectedRank3DDisplay;
+        set => SetProperty(ref _selectedRank3DDisplay, value);
     }
 
     public bool ShowFavoritesOnly

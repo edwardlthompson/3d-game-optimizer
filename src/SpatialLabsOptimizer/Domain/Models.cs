@@ -15,7 +15,9 @@ public sealed record CatalogGameMetadata(
     IReadOnlyList<string> Platforms,
     IReadOnlyList<string> SourceIds,
     string? TrueGameLabel,
-    bool IsNvidia3DVisionLegacy);
+    bool IsNvidia3DVisionLegacy,
+    int Rank3DScore = 0,
+    string? Rank3DLabel = null);
 
 public sealed record GameCompatibilityEntry(
     string Id,

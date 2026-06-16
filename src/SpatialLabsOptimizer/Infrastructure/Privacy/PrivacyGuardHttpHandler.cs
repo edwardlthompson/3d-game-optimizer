@@ -7,6 +7,7 @@ public sealed class PrivacyGuardHttpHandler : DelegatingHandler
     public PrivacyGuardHttpHandler(PrivacyGuard privacyGuard)
     {
         _privacyGuard = privacyGuard;
+        InnerHandler = new SocketsHttpHandler();
     }
 
     protected override Task<HttpResponseMessage> SendAsync(
