@@ -6,6 +6,11 @@ import {
   type LibraryMergeMode,
 } from "./library";
 import { MIN_STEAM_MATCH_CONFIDENCE } from "./steam-constants";
+import {
+  clearSteamReturnParams,
+  readSteamReturnParams,
+  steamSyncErrorMessage,
+} from "./steam-library-sync-url";
 import type { CatalogGame } from "./types";
 
 export interface SteamSyncStats {
@@ -101,31 +106,6 @@ export function applySteamSyncToLibrary(
   return stats;
 }
 
-function readSteamReturnParams(): { token: string | null; error: string | null } {
-  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
-  const query = new URLSearchParams(window.location.search);
-  return {
-    token: hash.get("steam_sync_token") ?? query.get("steam_sync_token"),
-    error: query.get("error") ?? hash.get("error"),
-  };
-}
-
-function clearSteamReturnParams(): void {
-  const params = new URLSearchParams(window.location.search);
-  params.delete("steam_sync_token");
-  params.delete("error");
-  const qs = params.toString();
-  let next = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
-
-  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
-  hash.delete("steam_sync_token");
-  hash.delete("error");
-  const hashStr = hash.toString();
-  if (hashStr) next += `#${hashStr}`;
-
-  window.history.replaceState({}, "", next);
-}
-
 export async function handleSteamSyncReturn(
   games: CatalogGame[],
   mode: LibraryMergeMode,
@@ -133,11 +113,7 @@ export async function handleSteamSyncReturn(
   const { token, error } = readSteamReturnParams();
   if (error) {
     clearSteamReturnParams();
-    const message =
-      error === "steam_api_failed"
-        ? "Steam library API is unavailable. Try again later."
-        : "Steam sign-in failed.";
-    return { stats: null, error: message, emptyLibrary: false };
+    return { stats: null, error: steamSyncErrorMessage(error), emptyLibrary: false };
   }
   if (!token) return { stats: null, error: null, emptyLibrary: false };
 
