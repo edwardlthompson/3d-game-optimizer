@@ -16,7 +16,7 @@
   "devDependencies": {
     "typescript": "~6.0.3",
     "vite": "^8.0.16",
-    "vitest": "^3.0.5"
+    "vitest": "^4.1.9"
   },
   "dependencies": {
     "@tanstack/table-core": "^8.21.3"

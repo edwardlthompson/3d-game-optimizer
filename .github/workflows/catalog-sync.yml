@@ -90,7 +90,7 @@ jobs:
           cp artifact/docs/compatibility/LENTICULAR_GAMES.md docs/compatibility/LENTICULAR_GAMES.md
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@a5a78063c14323536a7a0855aae3562b2b96cf58
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1
         with:
           commit-message: "chore(catalog): weekly sync update"
           title: "chore(catalog): weekly sync update"

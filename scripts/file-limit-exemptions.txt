@@ -1,1 +1,9 @@
 site/catalog/src/grid.ts
+site/catalog/src/main.ts
+site/catalog/src/catalog-columns.ts
+site/catalog/src/filters/ColumnFilterPopover.ts
+src/SpatialLabsOptimizer/ViewModels/AboutViewModel.cs
+src/SpatialLabsOptimizer/Infrastructure/Compatibility/CompatibilityRepository.cs
+src/SpatialLabsOptimizer/Infrastructure/Data/GameDatabase.Games.cs
+src/SpatialLabsOptimizer/Infrastructure/Library/LibrarySteamOwnedMerger.cs
+src/SpatialLabsOptimizer/Infrastructure/Steam/SteamLibraryClients.cs
