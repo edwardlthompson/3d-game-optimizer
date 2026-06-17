@@ -7,6 +7,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Product releases use tags `SpatialLabsOptimizer-v*`. Template bootstrap history is retained below.
 
+## [0.8.0](https://github.com/edwardlthompson/3d-game-optimizer/compare/v0.7.1...v0.8.0) (2026-06-17)
+
+
+### Added
+
+* 3D Rank column, filter popover polish, drop 3D level ([2cd7a25](https://github.com/edwardlthompson/3d-game-optimizer/commit/2cd7a257f001ffddc395cb00d756515e27c040de))
+* automate BUILD_PLAN gates and close maintenance backlog ([c6b3b41](https://github.com/edwardlthompson/3d-game-optimizer/commit/c6b3b41bbc8180e79a2f42f080692210e8c79747))
+* bootstrap 3D Game Optimizer WinUI foundation through v1.0 scaffold ([7dbb819](https://github.com/edwardlthompson/3d-game-optimizer/commit/7dbb819ea98d8bb5a84344ed7d55ce0ee1dd1dcb))
+* catalog UX v2 with spreadsheet filters, wishlist PWA, and price history ([865d739](https://github.com/edwardlthompson/3d-game-optimizer/commit/865d739ee6ee103131a6caf3dafbbcc15cf364e7))
+* complete living 3D catalog Phases 3-6 and settings toolchain UX ([d1a96a8](https://github.com/edwardlthompson/3d-game-optimizer/commit/d1a96a8cdf86340f71bead602bcdb7d628546715))
+* Game Rank blends Steam popularity with 3D Rank ([f392914](https://github.com/edwardlthompson/3d-game-optimizer/commit/f3929148b845bbfaca685fbddee90d37194fe12e))
+* library checklist, list filters, and weighted review rank ([2242d20](https://github.com/edwardlthompson/3d-game-optimizer/commit/2242d2006ecf574421f38377b8083c75f757f710))
+* publish 3D Game Catalog on GitHub Pages with catalog-v2 data ([ba21787](https://github.com/edwardlthompson/3d-game-optimizer/commit/ba21787e24e31b9b8ec82b484666383d53ae8ef6))
+* ship 686-title lenticular catalog with TanStack grid and Steam links ([a3691c2](https://github.com/edwardlthompson/3d-game-optimizer/commit/a3691c22f0599d49d022d3f84d23e52fb2f72fc9))
+* ship Sprints 32-52 and 40-44 for v1.1.0 ([#2](https://github.com/edwardlthompson/3d-game-optimizer/issues/2)) ([1cd32fd](https://github.com/edwardlthompson/3d-game-optimizer/commit/1cd32fdcd749928c99653527d38050f5c9e4e364))
+* ship v1.1.0 with local release pipeline and Sprint 39 polish ([a4131c8](https://github.com/edwardlthompson/3d-game-optimizer/commit/a4131c8da8d559d7612b28063093e70464e7bfa1))
+* Steam library sync and title links to Steam store ([fa4eec0](https://github.com/edwardlthompson/3d-game-optimizer/commit/fa4eec0440293ef90c65a1ebbfb4adc397d1bdce))
+* Steam Rank filter, 3D score filters, collapsible footer ([159543c](https://github.com/edwardlthompson/3d-game-optimizer/commit/159543cbac0402001ce73d45c4214e3af3968217))
+
+
+### Fixed
+
+* auto-size catalog columns per page and use Steam app link only ([e64ab16](https://github.com/edwardlthompson/3d-game-optimizer/commit/e64ab165c2a6a1f9ffef418b671352d2835232f2))
+* catalog table wrap, drop redundant columns, buy links in new tab ([f8d93ed](https://github.com/edwardlthompson/3d-game-optimizer/commit/f8d93edf3f8256c0066411ca78812633ac5aff17))
+* **ci:** allow ExternalDataGateway in privacy-audit HttpClient check ([f944a56](https://github.com/edwardlthompson/3d-game-optimizer/commit/f944a56528438bcb90b23cff7d862d56d941e7b7))
+* **ci:** bootstrap owner-label grep and preset cache test race ([8df87ed](https://github.com/edwardlthompson/3d-game-optimizer/commit/8df87ed13b693d579999b57c7d9c16f008353b0c))
+* **ci:** cap WinUI test hang and prefer Git Bash in setup script ([7cb7882](https://github.com/edwardlthompson/3d-game-optimizer/commit/7cb7882e387981f51c4979355dad522daea008f2))
+* **ci:** extract Core library so unit tests skip WinUI bootstrap ([425dc3b](https://github.com/edwardlthompson/3d-game-optimizer/commit/425dc3bc069e302abd96cbe4c1df23475f4a569c))
+* **ci:** grant Scorecard workflow read permissions ([b3aae1c](https://github.com/edwardlthompson/3d-game-optimizer/commit/b3aae1cb5a1900644a16c2ce2ee76841b80ea89d))
+* **ci:** product-release gate build step and dependabot skip ([7ba5fa3](https://github.com/edwardlthompson/3d-game-optimizer/commit/7ba5fa38f60e4ef5b15357c31ff74508883a3658))
+* **ci:** product-release wait-for-ci, pwsh publish, and zip path ([d0c1583](https://github.com/edwardlthompson/3d-game-optimizer/commit/d0c1583c047885310845457fd4a3aa5adb8eeca2))
+* **ci:** remove invalid secrets permission from release-credentials workflow ([e1e819b](https://github.com/edwardlthompson/3d-game-optimizer/commit/e1e819bbe0c4451742b68cc9dc31508d56df55a9))
+* **ci:** repair workflows, sync npm lockfiles, file limit exemptions ([7ee6707](https://github.com/edwardlthompson/3d-game-optimizer/commit/7ee6707187d25b21c6a95e8cce6066a4f3cf2821))
+* **ci:** resolve workflow failures on main after v1.1.0 ship ([fb9988c](https://github.com/edwardlthompson/3d-game-optimizer/commit/fb9988cc5ef54fb91c81564b8e117285146fb717))
+* **ci:** skip worker deploy without secrets; resolve npm audit alerts ([672eb8f](https://github.com/edwardlthompson/3d-game-optimizer/commit/672eb8fa3e2e27e4f4b64ac7d540a01a2f61a28b))
+* **ci:** use quick build-verification gate with GH_TOKEN ([3028a95](https://github.com/edwardlthompson/3d-game-optimizer/commit/3028a9593505187b1c8cf2610a47fbaa5ae57ad7))
+* default catalog sort to Game Rank descending ([dd3d872](https://github.com/edwardlthompson/3d-game-optimizer/commit/dd3d87218d5605c121595baf17c8e513998c3279))
+* initialize TanStack columnPinning so catalog grid loads ([6e0c08f](https://github.com/edwardlthompson/3d-game-optimizer/commit/6e0c08f88d1f06d99ea7338b0cade1fa46ba7753))
+* narrow catalog app root element type for strict TypeScript ([4c630e8](https://github.com/edwardlthompson/3d-game-optimizer/commit/4c630e8e8222ee31b096be44fd05848da07054f4))
+* resolve catalog site TypeScript build errors for GitHub Pages ([5e6c77a](https://github.com/edwardlthompson/3d-game-optimizer/commit/5e6c77ab09cd5c6870f038a6f63917f73fec1541))
+* unique snapshot filenames to prevent CI test collision ([f633eb1](https://github.com/edwardlthompson/3d-game-optimizer/commit/f633eb17ab45ce8c1c9efc7585ab0a08d9d30c35))
+* wrap long game titles with overflow-wrap and column width ([058059c](https://github.com/edwardlthompson/3d-game-optimizer/commit/058059cc0b3ce042a1106579f4cdb7309f7bc3f3))
+
+
+### Changed
+
+* **assets:** regenerate README UI previews ([6ab5bc9](https://github.com/edwardlthompson/3d-game-optimizer/commit/6ab5bc958a2ad9ec881d74c4a3d86971d81237f5))
+* **assets:** regenerate README UI previews ([71d77b8](https://github.com/edwardlthompson/3d-game-optimizer/commit/71d77b8f90722307a0c1e860914a3f73bfcd8d9f))
+* **assets:** regenerate README UI previews ([02d5c64](https://github.com/edwardlthompson/3d-game-optimizer/commit/02d5c6485f6856884441f6f33c4eab5d89b6edba))
+* **assets:** regenerate README UI previews ([8445331](https://github.com/edwardlthompson/3d-game-optimizer/commit/8445331efedc216c602c1bbd6e419feb14f5b581))
+
+
+### Documentation
+
+* link WinGet v1.1.0 PR [#388074](https://github.com/edwardlthompson/3d-game-optimizer/issues/388074) ([2c03a7a](https://github.com/edwardlthompson/3d-game-optimizer/commit/2c03a7a05a84e0c2ce64ab4fe8e7a249de89e4df))
+* mark catalog layout polish shipped in BUILD_PLAN ([93c3ffe](https://github.com/edwardlthompson/3d-game-optimizer/commit/93c3ffe267169e8a7496d375d3befff561faa585))
+* mark catalog UX v2 ship complete in BUILD_PLAN ([c8dbcba](https://github.com/edwardlthompson/3d-game-optimizer/commit/c8dbcba4a1e91c6bcc17c9e28ac58a1e0c236429))
+* mark lenticular catalog deploy complete in BUILD_PLAN ([631d3af](https://github.com/edwardlthompson/3d-game-optimizer/commit/631d3af489a834ded65dfb48f19f33133ede3d22))
+* mark Sprint 39 release gate complete in BUILD_PLAN ([720b6dd](https://github.com/edwardlthompson/3d-game-optimizer/commit/720b6ddd7a070ac421cbf5ee6c647c22e91664ec))
+* trim BUILD_PLAN to active follow-ups after v1.1.0 ship ([5c5df3b](https://github.com/edwardlthompson/3d-game-optimizer/commit/5c5df3ba03d4198083b11eb1128a4b484c097880))
+* update BUILD_PLAN after Sprint 39 ship gate merge ([8d61bd8](https://github.com/edwardlthompson/3d-game-optimizer/commit/8d61bd800428ed56b46d0b30e1ab6451782bb257))
+
 ## [1.3.0] - 2026-06-17
 
 ### Removed
