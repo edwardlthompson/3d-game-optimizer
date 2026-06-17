@@ -37,6 +37,12 @@
 - **Validation:** `run-post-sprint-validation.ps1`, `check-file-encoding.py`, `dotnet test` Release
 - **Consequences:** `product-release.yml` dispatch after push; WinGet v1.1.0 manifest remains `[HUMAN]` pending CLA on PR #387878
 
+### 2026-06-17 — CI stabilization after v1.3.0
+- **Status:** Accepted
+- **Context:** v1.3.0 push broke CI (stale lockfile, invalid workflow `if`, stale action SHA, file limits)
+- **Decision:** Three fix commits; worker deploy gated to workflow_dispatch; release-please manifest synced to 1.3.0
+- **Validation:** All main workflows green; Dependabot 0 open; Product Release re-dispatched successfully
+
 ### 2026-06-17 — Drop WinGet; GitHub-only distribution
 - **Status:** Accepted
 - **Context:** MSIX removed; in-app `UpdateService` already uses GitHub Releases API; WinGet PR maintenance was unused overhead

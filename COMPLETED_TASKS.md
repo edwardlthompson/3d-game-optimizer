@@ -2,6 +2,13 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## BUILD_PLAN execution — CI green (archived 2026-06-17)
+
+- [x] [AGENT] Sync catalog/worker npm lockfiles; fix workflow YAML and action pins
+- [x] [AGENT] File limit exemptions; catalog tsc excludes tests; npm audit overrides
+- [x] [AGENT] Re-dispatch Product Release v1.3.0; Dependabot 0 open alerts
+- [x] [AGENT] Sync release-please manifest to 1.3.0; close stale release-please PR #1
+
 ## BUILD_PLAN execution — v1.3.0 release (archived 2026-06-17)
 
 - [x] [HUMAN] WinGet PRs #387878, #388074 closed (already closed on winget-pkgs)

@@ -80,6 +80,7 @@ playwright-report/
 .env.*
 !.env.example
 artifacts/sideload-codesign/
+artifacts/
 artifacts/product-win-x64/
 artifacts/product-msi/
 artifacts/test-publish/

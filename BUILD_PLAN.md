@@ -17,6 +17,7 @@
 | Track | State |
 |-------|--------|
 | Product | **v1.3.0** shipped — [release](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.3.0) |
+| CI | **Green** on `main` (CI, Pages, CodeQL, Security Scan, worker) |
 | Distribution | GitHub Releases only — zip + MSI; in-app updates |
 | Steam sync | AGENT done — blocked on Cloudflare deploy |
 
