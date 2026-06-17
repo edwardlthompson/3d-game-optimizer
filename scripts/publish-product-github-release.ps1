@@ -43,26 +43,12 @@ if (-not $SkipLocalBuild) {
 
 $zip = "artifacts/product-win-x64/SpatialLabsOptimizer-$Version-win-x64.zip"
 $msi = "artifacts/product-msi/SpatialLabsOptimizer-$Version-win-x64.msi"
-$msix = Get-ChildItem "artifacts/product-msix" -Filter "*.msix" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
-$bash = & (Join-Path $Root "scripts/resolve-bash.ps1")
-
-$installer = if (Test-Path $msi) { $msi } else { $zip }
-$installerType = if (Test-Path $msi) { "msi" } else { "zip" }
-& $bash scripts/generate-winget-manifest.sh `
-    "edwardlthompson.SpatialLabsOptimizer" `
-    "$Version" `
-    "packaging/winget-product" `
-    "$installer" `
-    "$installerType"
-& $bash scripts/generate-winget-multifile.sh "$Version" "$installer" "$installerType"
 
 $notes = @"
 ## SpatialLabs Optimizer v$Version
 
 - Self-contained win-x64 zip
 - WiX MSI installer (when built)
-- MSIX sideload package (when StoreLogo assets present)
-- Winget multifile manifest stub in \`packaging/winget-product/multifile/$Version/\`
 
 See [docs/LOCAL_RELEASE.md](https://github.com/edwardlthompson/3d-game-optimizer/blob/main/docs/LOCAL_RELEASE.md) for local build instructions.
 "@
@@ -72,7 +58,6 @@ if ($DryRun) {
     Write-Host "[DryRun] gh workflow run product-release.yml -f tag=$Tag"
     Write-Host "[DryRun] Assets: $zip"
     if (Test-Path $msi) { Write-Host "[DryRun] MSI: $msi" }
-    if ($msix) { Write-Host "[DryRun] MSIX: $($msix.FullName)" }
     exit 0
 }
 
@@ -80,15 +65,12 @@ $releaseArgs = @("release", "create", $Tag, "--title", "SpatialLabs Optimizer v$
 if ($Draft) { $releaseArgs += "--draft" }
 if (Test-Path $zip) { $releaseArgs += $zip }
 if (Test-Path $msi) { $releaseArgs += $msi }
-if ($msix) { $releaseArgs += $msix.FullName }
-$releaseArgs += "packaging/winget-product/manifest.stub.yaml"
 
 & gh @releaseArgs
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Release may already exist — attempting upload only..."
-    $uploadArgs = @("release", "upload", $Tag, $zip, "packaging/winget-product/manifest.stub.yaml", "--clobber")
+    $uploadArgs = @("release", "upload", $Tag, $zip, "--clobber")
     if (Test-Path $msi) { $uploadArgs += $msi }
-    if ($msix) { $uploadArgs += $msix.FullName }
     & gh @uploadArgs
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }

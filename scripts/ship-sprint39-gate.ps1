@@ -62,7 +62,6 @@ $ArtifactPaths = @(
     "artifacts/fd-test",
     "artifacts/product-win-x64",
     "artifacts/product-msi",
-    "artifacts/product-msix",
     "artifacts/sideload-codesign"
 )
 

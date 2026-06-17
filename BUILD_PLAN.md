@@ -1,6 +1,6 @@
 # Build Plan
 
-> Active board only. Archives: [COMPLETED_TASKS.md](COMPLETED_TASKS.md)
+> Active board only. Finished work: [COMPLETED_TASKS.md](COMPLETED_TASKS.md)
 
 ## Legend
 
@@ -10,53 +10,56 @@
 | `HUMAN` | One-time actions scripts cannot perform |
 | `AUTO` | CI / scripts / bots |
 
-**Status key:** ✅ done · 🔄 in progress · ⬜ open
+---
+
+## Status (2026-06-17)
+
+| Track | State |
+|-------|--------|
+| Product | **v1.3.0** shipped — [release](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.3.0) |
+| Distribution | GitHub Releases only — zip + MSI; in-app updates |
+| Steam sync | AGENT done — blocked on Cloudflare deploy |
 
 ---
 
-## Status (2026-06-15)
+## Sequential — Steam library sync
 
-- 🔄 **Steam library sync** — AGENT complete; awaiting Cloudflare deploy
-- ⬜ **ValidateSteamAsync tests** — mocked gateway unit tests
-- ⬜ [HUMAN] GitHub Pages source = **GitHub Actions**
-- ⬜ [HUMAN] SteamDB price backfill ToS (Phase 4b)
+> [Design](.cursor/plans/steam_library_sync.plan.md) · [Ops](docs/STEAM_CATALOG_SYNC.md)
 
----
-
-## Sequential lane — Steam library sync
-
-> Design: [`.cursor/plans/steam_library_sync.plan.md`](.cursor/plans/steam_library_sync.plan.md) · Ops: [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md)
-
-- ⬜ [HUMAN] Cloudflare account + `wrangler kv namespace create` → update `workers/steam-library/wrangler.toml`
+- ⬜ [HUMAN] Cloudflare KV namespace → update `workers/steam-library/wrangler.toml`
 - ⬜ [HUMAN] GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `STEAM_WEB_API_KEY`
-- ⬜ [HUMAN] Deploy worker; set repo variable **`STEAM_SYNC_WORKER_URL`** → rebuild Pages (enables Connect Steam)
+- ⬜ [HUMAN] Deploy worker; set **`STEAM_SYNC_WORKER_URL`** → rebuild Pages
 
 ### Critique
 
 - Connect Steam hidden until `VITE_STEAM_SYNC_URL` is set at build time
-- Empty library → privacy banner (Game details must be Public)
 - Token: 5 min KV TTL, single use; URL param stripped via `replaceState`
 
 ---
 
-## Sequential lane — Desktop tests
+## Parallel — AGENT backlog
 
-- ⬜ [AGENT] `ValidateSteamAsync` unit tests with mocked `ExternalDataGateway`
+| Priority | Task |
+|----------|------|
+| P2 | Worker Vitest — exchange, rate limits, KV lifecycle (Miniflare) |
+| P2 | Extend `scripts/smoke-grid.mjs` — Game Rank sort assertions |
+| P2 | Extend `check-github-ci.sh` — catalog-site / steam-worker workflows |
+| P2 | CodeQL SARIF upload — warn in release gate on failure |
+| P2 | Split `site/catalog/src/grid.ts` (~300 lines; currently exempt) |
+| P3 | `DpapiSecretStore` — per-install random entropy |
+| P3 | `smoke-cover-art.ps1` — document manual-only or add UI automation |
 
 ---
 
-## Active follow-ups
+## Parallel — HUMAN backlog
 
-### Distribution
-
-- ⬜ [HUMAN] WinGet **1.0.1** — [microsoft/winget-pkgs#387878](https://github.com/microsoft/winget-pkgs/pull/387878)
-- ⬜ [HUMAN] WinGet **1.1.0** — [microsoft/winget-pkgs#388074](https://github.com/microsoft/winget-pkgs/pull/388074)
-
-### Hardware & manual QA
-
-- ⬜ [HUMAN] Cover art on user hardware — `SLO_COVER_ART_DEBUG=1`
-- ⬜ [HUMAN] ADR-0002 PCVR manual QA — [docs/HARDWARE_QA_OUT_OF_BAND.md](docs/HARDWARE_QA_OUT_OF_BAND.md)
-- ⬜ [HUMAN] Odyssey Hub CSV export from installed app
+| Task | Notes |
+|------|-------|
+| GitHub Pages source | Set to **GitHub Actions** in repo settings |
+| SteamDB price backfill | Phase 4b ToS review |
+| Cover art hardware QA | `SLO_COVER_ART_DEBUG=1` |
+| PCVR manual QA | [HARDWARE_QA_OUT_OF_BAND.md](docs/HARDWARE_QA_OUT_OF_BAND.md) |
+| Odyssey Hub CSV export | From installed app |
 
 ---
 
@@ -64,7 +67,8 @@
 
 | Topic | Location |
 |-------|----------|
+| Release notes | [docs/RELEASE_NOTES_v1.3.0.md](docs/RELEASE_NOTES_v1.3.0.md) |
+| Planning review | [docs/PLANNING_REVIEW.md](docs/PLANNING_REVIEW.md) |
+| Release gate | [docs/PRODUCT_RELEASE_GATE.md](docs/PRODUCT_RELEASE_GATE.md) |
 | Catalog maintenance | [docs/SEED_MAINTENANCE.md](docs/SEED_MAINTENANCE.md) |
-| Steam sync ops | [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md) |
 | Live catalog | https://edwardlthompson.github.io/3d-game-optimizer/catalog/ |
-| Completed work | [COMPLETED_TASKS.md](COMPLETED_TASKS.md) |

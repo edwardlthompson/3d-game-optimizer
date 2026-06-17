@@ -6,9 +6,9 @@ Build, sign, and package **SpatialLabsOptimizer** on a Windows machine without w
 
 ```bash
 # Unsigned zip + MSI (no pre-release gate)
-bash scripts/build-product-local.sh --skip-gate --skip-msix
+bash scripts/build-product-local.sh --skip-gate
 
-# Full gate + signed zip, MSI, MSIX (when assets exist)
+# Full gate + signed zip and MSI
 bash scripts/build-product-local.sh --sign
 ```
 
@@ -30,7 +30,7 @@ pwsh scripts/check-local-release-prereqs.ps1 -RequireSign -RequireMsi
 |------|---------|
 | .NET 8 SDK | Build and publish |
 | PowerShell 7+ (`pwsh`) | Release scripts |
-| Git Bash (`bash`) | Pre-release gate, winget stub |
+| Git Bash (`bash`) | Pre-release gate |
 | Windows SDK `signtool` | Authenticode signing (`-Sign`) |
 | WiX v4 (via NuGet) | MSI packaging |
 
@@ -46,7 +46,6 @@ Automate optional post-sprint steps (validation, assets, local build, GitHub rel
 pwsh scripts/automate-optional-next-steps.ps1
 pwsh scripts/automate-optional-next-steps.ps1 -DryRun   # preview only
 pwsh scripts/publish-product-github-release.ps1          # release only
-pwsh scripts/prepare-winget-submission.ps1 -OpenPr       # winget-pkgs PR
 ```
 
 ## Orchestrator flags
@@ -54,8 +53,7 @@ pwsh scripts/prepare-winget-submission.ps1 -OpenPr       # winget-pkgs PR
 | Flag | Effect |
 |------|--------|
 | `--skip-gate` / `-SkipGate` | Skip `pre-release-gate.sh --product-release` |
-| `--sign` / `-Sign` | Authenticode-sign exe, MSI, MSIX |
-| `--skip-msix` / `-SkipMsix` | Skip MSIX build |
+| `--sign` / `-Sign` | Authenticode-sign exe and MSI |
 | `--skip-msi` / `-SkipMsi` | Skip MSI build |
 | `--pfx-path` / `-PfxPath` | Path to `.pfx` (overrides env) |
 | `--pfx-password` / `-PfxPassword` | PFX password |
@@ -81,9 +79,7 @@ pwsh scripts/generate-sideload-codesign.ps1
 | `sign-product-release.ps1` | Signed exes in staging and/or zip |
 | `publish-product-msi.ps1` | `artifacts/product-msi/*.msi` |
 | `sign-product-msi.ps1` | Signed MSI |
-| `publish-product-msix.ps1` | `artifacts/product-msix/*.msix` |
 | `verify-product-signatures.ps1` | Signature report |
-| `generate-winget-manifest.sh` | `packaging/winget-product/manifest.stub.yaml` |
 
 ### Sign staging + zip (CI-compatible)
 
@@ -103,10 +99,8 @@ pwsh scripts/sign-product-release.ps1 -ZipPath artifacts/product-win-x64/Spatial
 
 | Path | Description |
 |------|-------------|
-| `artifacts/product-win-x64/*.zip` | Self-contained portable bundle |
+| `artifacts/product-win-x64/*.zip` | Self-contained portable bundle (EXE + deps) |
 | `artifacts/product-msi/*.msi` | Per-machine WiX installer |
-| `artifacts/product-msix/*.msix` | Sideload MSIX (when assets present) |
-| `packaging/winget-product/manifest.stub.yaml` | Winget stub (zip or MSI) |
 
 ## CI parity
 

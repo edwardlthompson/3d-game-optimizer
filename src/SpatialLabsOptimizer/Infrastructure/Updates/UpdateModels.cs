@@ -11,7 +11,6 @@ public enum UpdateCheckInterval
 public enum InstallArtifactType
 {
     Zip,
-    Msix,
     Msi
 }
 

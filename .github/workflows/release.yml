@@ -66,9 +66,6 @@ jobs:
           format: cyclonedx-json
           output-file: sbom-python.cyclonedx.json
 
-      - name: Generate Winget manifest stub
-        run: bash scripts/generate-winget-manifest.sh "AgentProjectBootstrap.Template" "$(tr -d '[:space:]' < .template-version)"
-
       - name: Generate provenance attestation
         uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32 # v2.2.0
         with:
@@ -79,7 +76,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="${{ steps.tag.outputs.tag }}"
-          FILES="packaging/winget/manifest.stub.yaml sbom.cyclonedx.json"
+          FILES="sbom.cyclonedx.json"
           if [ -f sbom-web.cyclonedx.json ]; then FILES="$FILES sbom-web.cyclonedx.json"; fi
           if [ -f sbom-python.cyclonedx.json ]; then FILES="$FILES sbom-python.cyclonedx.json"; fi
           gh release upload "$TAG" $FILES --clobber

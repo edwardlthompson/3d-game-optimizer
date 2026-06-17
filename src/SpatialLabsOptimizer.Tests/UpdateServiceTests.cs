@@ -63,9 +63,7 @@ public class UpdateServiceTests
         await store.InitializeAsync();
         var prefs = new UserPreferencesService(store);
         await prefs.SetInstallArtifactTypeAsync(InstallArtifactType.Zip);
-        var detector = new InstallArtifactDetector(
-            new FakePackageProbe(false),
-            new FakeMsiProbe(false));
+        var detector = new InstallArtifactDetector(new FakeMsiProbe(false));
         var service = new UpdateService(gateway, hub, prefs, detector);
 
         var result = await service.CheckForUpdateAsync();

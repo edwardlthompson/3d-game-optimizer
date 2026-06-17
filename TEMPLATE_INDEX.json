@@ -246,7 +246,7 @@
     },
     {
       "path": ".github/workflows/release.yml",
-      "purpose": "Attach SBOM and Winget stub to GitHub Release on release published",
+      "purpose": "Attach SBOM to GitHub Release on release published",
       "read_when": "release",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -548,13 +548,6 @@
     {
       "path": "scripts/simulate-template-upgrade.sh",
       "purpose": "Simulate child-repo upgrade; assert bootstrap validation",
-      "read_when": "milestone_boundary",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
-      "path": "scripts/generate-winget-manifest.sh",
-      "purpose": "Generate Winget manifest YAML stub",
       "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "maintainer"

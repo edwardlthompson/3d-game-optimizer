@@ -37,6 +37,20 @@
 - **Validation:** `run-post-sprint-validation.ps1`, `check-file-encoding.py`, `dotnet test` Release
 - **Consequences:** `product-release.yml` dispatch after push; WinGet v1.1.0 manifest remains `[HUMAN]` pending CLA on PR #387878
 
+### 2026-06-17 — Drop WinGet; GitHub-only distribution
+- **Status:** Accepted
+- **Context:** MSIX removed; in-app `UpdateService` already uses GitHub Releases API; WinGet PR maintenance was unused overhead
+- **Decision:** Removed all WinGet packaging, scripts, and CI manifest upload (product + template tracks)
+- **Alternatives considered:** Keep WinGet for discoverability (rejected — GitHub Releases + in-app updater sufficient)
+- **Consequences:** Close/abandon `microsoft/winget-pkgs` PRs; v1.3.0 release ships zip + MSI only
+
+### 2026-06-16 — Drop MSIX; zip + MSI only
+- **Status:** Accepted
+- **Context:** MSIX sideload was optional, never shipped on GitHub Releases; user wants EXE (portable zip) + MSI only
+- **Decision:** Removed `Package.appxmanifest`, `publish-product-msix.ps1`, `MsixUpdateApplier`, and CI/local MSIX build steps; splash uses `SplashLogo.png`
+- **Alternatives considered:** Keep MSIX for future Store submission (rejected); remove portable zip and ship bare EXE only (rejected — zip is standard self-contained layout)
+- **Consequences:** Legacy MSIX installs must migrate to MSI or zip; `install_artifact_type=Msix` prefs re-detect on read
+
 ### 2026-06-14 — Sprints 32–38 product roadmap closure
 - **Status:** Accepted
 - **Context:** BUILD_PLAN integration for distribution, coexistence, library, updates, diagnostics

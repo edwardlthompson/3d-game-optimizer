@@ -1,1 +1,1 @@
-# Known oversize files — remove entries as splits land (paths relative to repo root)
+site/catalog/src/grid.ts

@@ -2,29 +2,9 @@ using Microsoft.Win32;
 
 namespace SpatialLabsOptimizer.Infrastructure.Updates;
 
-public interface IPackageInstallProbe
-{
-    bool IsPackaged();
-}
-
 public interface IMsiInstallProbe
 {
     bool IsMsiInstalled();
-}
-
-public sealed class DefaultPackageInstallProbe : IPackageInstallProbe
-{
-    public bool IsPackaged()
-    {
-        try
-        {
-            return Windows.ApplicationModel.Package.Current is not null;
-        }
-        catch (Exception)
-        {
-            return false;
-        }
-    }
 }
 
 public sealed class DefaultMsiInstallProbe : IMsiInstallProbe
@@ -65,24 +45,15 @@ public sealed class DefaultMsiInstallProbe : IMsiInstallProbe
 
 public sealed class InstallArtifactDetector
 {
-    private readonly IPackageInstallProbe _packageProbe;
     private readonly IMsiInstallProbe _msiProbe;
 
-    public InstallArtifactDetector(
-        IPackageInstallProbe? packageProbe = null,
-        IMsiInstallProbe? msiProbe = null)
+    public InstallArtifactDetector(IMsiInstallProbe? msiProbe = null)
     {
-        _packageProbe = packageProbe ?? new DefaultPackageInstallProbe();
         _msiProbe = msiProbe ?? new DefaultMsiInstallProbe();
     }
 
     public InstallArtifactType Detect()
     {
-        if (_packageProbe.IsPackaged())
-        {
-            return InstallArtifactType.Msix;
-        }
-
         if (_msiProbe.IsMsiInstalled())
         {
             return InstallArtifactType.Msi;
@@ -93,7 +64,6 @@ public sealed class InstallArtifactDetector
 
     public static string GetExtension(InstallArtifactType type) => type switch
     {
-        InstallArtifactType.Msix => ".msix",
         InstallArtifactType.Msi => ".msi",
         _ => ".zip"
     };
@@ -101,8 +71,6 @@ public sealed class InstallArtifactDetector
     public static bool MatchesExtension(string assetName, InstallArtifactType type)
     {
         var ext = GetExtension(type);
-        return assetName.EndsWith(ext, StringComparison.OrdinalIgnoreCase) ||
-               (type == InstallArtifactType.Msix &&
-                assetName.EndsWith(".msixbundle", StringComparison.OrdinalIgnoreCase));
+        return assetName.EndsWith(ext, StringComparison.OrdinalIgnoreCase);
     }
 }

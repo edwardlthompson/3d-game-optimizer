@@ -20,7 +20,6 @@ public static partial class ServiceCollectionExtensions
         services.AddSingleton<UpdateDownloadService>();
         services.AddSingleton<IUpdateApplier, ZipUpdateApplier>();
         services.AddSingleton<IUpdateApplier, MsiUpdateApplier>();
-        services.AddSingleton<IUpdateApplier, MsixUpdateApplier>();
         services.AddSingleton<UpdateApplyService>();
         services.AddSingleton<UpdateScheduler>();
         services.AddSingleton<CatalogUpdateService>();

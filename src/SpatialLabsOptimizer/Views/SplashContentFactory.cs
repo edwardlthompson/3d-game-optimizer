@@ -24,7 +24,7 @@ internal static class SplashContentFactory
                         new Image
                         {
                             Source = new Microsoft.UI.Xaml.Media.Imaging.BitmapImage(
-                                new Uri("ms-appx:///Assets/StoreLogo.png")),
+                                new Uri("ms-appx:///Assets/SplashLogo.png")),
                             Width = 96,
                             Height = 96,
                             HorizontalAlignment = HorizontalAlignment.Center,

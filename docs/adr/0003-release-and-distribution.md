@@ -23,9 +23,8 @@ Release Please manages both packages via `release-please-config.json`.
 
 - **Primary:** Self-contained `win-x64` zip attached to product GitHub Releases.
 - **MSI:** Per-machine WiX v4 installer (`packaging/msi/Product.wxs`) harvested from published staging; attached to releases when build succeeds. Fixed `UpgradeCode` enables major upgrades.
-- **MSIX:** Sideload-first when `Assets/StoreLogo.png` exists; Microsoft Store submission deferred to v2+.
-- **Winget:** Manifest stub generated in CI (zip or MSI installer type); human submission to `microsoft/winget-pkgs` before public Winget listing.
-- **Local builds:** `scripts/build-product-local.ps1` / `docs/LOCAL_RELEASE.md` mirror CI publish, sign, MSI, and MSIX steps.
+- **Updates:** In-app checker pulls from GitHub Releases API (`UpdateService`); zip or MSI apply via `ZipUpdateApplier` / `MsiUpdateApplier`.
+- **Local builds:** `scripts/build-product-local.ps1` / `docs/LOCAL_RELEASE.md` mirror CI publish, sign, and MSI steps.
 
 ### Signing
 

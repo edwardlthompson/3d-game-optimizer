@@ -6,6 +6,8 @@ namespace SpatialLabsOptimizer.Infrastructure.Data;
 
 public sealed class ExternalDataGateway
 {
+    public const int MaxDownloadBytes = 20 * 1024 * 1024;
+
     private readonly HttpClient _httpClient;
     private readonly OperationProgressHub _progressHub;
     private readonly SemaphoreSlim _rateLimiter = new(1, 1);
@@ -105,6 +107,11 @@ public sealed class ExternalDataGateway
             }
 
             var total = response.Content.Headers.ContentLength ?? -1;
+            if (total > MaxDownloadBytes)
+            {
+                return (null, (int)response.StatusCode);
+            }
+
             await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
             using var ms = new MemoryStream();
             var buffer = new byte[8192];
@@ -112,8 +119,13 @@ public sealed class ExternalDataGateway
             int read;
             while ((read = await stream.ReadAsync(buffer, cancellationToken)) > 0)
             {
-                await ms.WriteAsync(buffer.AsMemory(0, read), cancellationToken);
                 transferred += read;
+                if (transferred > MaxDownloadBytes)
+                {
+                    return (null, 413);
+                }
+
+                await ms.WriteAsync(buffer.AsMemory(0, read), cancellationToken);
                 progress?.Report((transferred, total));
                 if (total > 0)
                 {

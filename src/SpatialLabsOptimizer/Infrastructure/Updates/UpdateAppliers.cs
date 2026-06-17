@@ -65,20 +65,3 @@ public sealed class MsiUpdateApplier : IUpdateApplier
         return Task.CompletedTask;
     }
 }
-
-public sealed class MsixUpdateApplier : IUpdateApplier
-{
-    public InstallArtifactType ArtifactType => InstallArtifactType.Msix;
-
-    public async Task ApplyAsync(string stagedPath, CancellationToken cancellationToken = default)
-    {
-        var packageUri = new Uri(stagedPath);
-        var deployment = new Windows.Management.Deployment.PackageManager();
-        await deployment.AddPackageAsync(
-            packageUri,
-            null,
-            Windows.Management.Deployment.DeploymentOptions.ForceApplicationShutdown);
-
-        Environment.Exit(0);
-    }
-}

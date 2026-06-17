@@ -78,7 +78,7 @@ public class DiagnosticsTests
         var toolDetector = new ToolInstallDetector(loader, toolPaths, settings);
         var coexistence = new ExternalToolCoexistenceService(new FakeRunningProcessProbe([]));
         var prefs = new UserPreferencesService(settings);
-        var detectorArtifact = new InstallArtifactDetector(new FakePackageProbe(false), new FakeMsiProbe(false));
+        var detectorArtifact = new InstallArtifactDetector(new FakeMsiProbe(false));
         var service = new DiagnosticBundleService(
             audit,
             detector,
@@ -125,7 +125,7 @@ public class DiagnosticsTests
             new OperationProgressHub()));
         var readiness = new ReadinessScoreService(loader, toolDetector, settings, presets);
         var coexistence = new ExternalToolCoexistenceService(new FakeRunningProcessProbe([]));
-        var artifactDetector = new InstallArtifactDetector(new FakePackageProbe(false), new FakeMsiProbe(false));
+        var artifactDetector = new InstallArtifactDetector(new FakeMsiProbe(false));
         var export = new SeedContributionExportService(
             readiness,
             detector,

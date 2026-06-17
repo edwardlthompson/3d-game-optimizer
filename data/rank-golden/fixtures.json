@@ -1,0 +1,48 @@
+{
+  "weightedReview": [
+    {
+      "reviewPercent": 100,
+      "reviewCount": 3,
+      "currentPlayers": 0,
+      "expectedMin": 33,
+      "expectedMax": 35
+    },
+    {
+      "reviewPercent": 92,
+      "reviewCount": 8000,
+      "currentPlayers": 500,
+      "expectedMin": 77,
+      "expectedMax": 78
+    }
+  ],
+  "gameRank": [
+    {
+      "reviewPercent": 92,
+      "reviewCount": 8000,
+      "currentPlayers": 500,
+      "rank3DScore": 100,
+      "expectedMin": 83,
+      "expectedMax": 85
+    },
+    {
+      "reviewPercent": null,
+      "reviewCount": null,
+      "currentPlayers": null,
+      "rank3DScore": 26,
+      "expectedMin": 17,
+      "expectedMax": 18
+    }
+  ],
+  "rank3d": [
+    {
+      "bestLevel": "ultra3d",
+      "bestExperience": {
+        "platformKey": "truegame",
+        "label": "Acer TrueGame · 3D Ultra",
+        "level": "ultra3d"
+      },
+      "platformSupport": [],
+      "expectedScore": 100
+    }
+  ]
+}

@@ -11,10 +11,9 @@
     <UseWinUI>true</UseWinUI>
     <WindowsPackageType>None</WindowsPackageType>
     <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
-    <EnableMsixTooling>false</EnableMsixTooling>
-    <Version>1.2.0</Version>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.3.0</Version>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
     <UseSdkBuildToolsPackage>true</UseSdkBuildToolsPackage>
     <WindowsSDKBuildToolsVersion>10.0.28000.1839</WindowsSDKBuildToolsVersion>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -33,12 +32,6 @@
       SkipUnchangedFiles="true" />
   </Target>
 
-  <PropertyGroup Condition="'$(BuildMsix)' == 'true'">
-    <WindowsPackageType>MSIX</WindowsPackageType>
-    <EnableMsixTooling>true</EnableMsixTooling>
-    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
-  </PropertyGroup>
-
   <ItemGroup>
     <Content Include="..\..\data\**\*" Link="data\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="product-version.json" CopyToOutputDirectory="PreserveNewest" />
@@ -47,6 +40,7 @@
     <Content Include="Assets\placeholder-gog.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\placeholder-ubisoft.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\AppIcon.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\SplashLogo.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

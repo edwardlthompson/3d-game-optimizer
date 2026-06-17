@@ -232,7 +232,6 @@ public sealed class AboutViewModel : ViewModelBase
         var type = index switch
         {
             1 => InstallArtifactType.Zip,
-            2 => InstallArtifactType.Msix,
             _ => InstallArtifactType.Msi
         };
         await SetInstallTypeOverrideAsync(type);
@@ -328,7 +327,6 @@ public sealed class AboutViewModel : ViewModelBase
 
     private static string DescribeInstallType(InstallArtifactType type) => type switch
     {
-        InstallArtifactType.Msix => "MSIX",
         InstallArtifactType.Msi => "MSI",
         _ => "Portable (zip)"
     };

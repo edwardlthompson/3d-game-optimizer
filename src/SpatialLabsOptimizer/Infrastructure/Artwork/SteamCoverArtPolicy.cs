@@ -10,7 +10,7 @@ public static class SteamCoverArtPolicy
     {
         if (game is null)
         {
-            return true;
+            return false;
         }
 
         var tag = game.ReviewDescriptor;

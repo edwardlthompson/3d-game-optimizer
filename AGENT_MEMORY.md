@@ -9,7 +9,7 @@
 |-------|-----------|---------|-------|
 | Platform | Multi-stack template (Web, Python, Android, Node, optional Lightroom/Rust/Go) | 0.7.1 | Template maintainer repo |
 | License | MIT | - | Pure FOSS |
-| Distribution | GitHub Releases + GitHub Pages demo | - | F-Droid/Winget stubs for child repos |
+| Distribution | GitHub Releases + GitHub Pages demo | - | F-Droid stubs for child repos |
 
 ## Active Modules
 

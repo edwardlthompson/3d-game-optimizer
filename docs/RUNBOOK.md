@@ -36,7 +36,7 @@ Static PWAs and CLIs may skip HTTP endpoints; document stack-specific checks ins
 | Gate checks | `pre-release-gate.sh` in `release-auto-merge.yml` |
 | Merge release PR | `gh pr merge --auto --squash` (optional `RELEASE_BOT_TOKEN` secret if branch protection blocks `GITHUB_TOKEN`) |
 | Create GitHub Release | Release Please on merged PR |
-| Attach SBOM + Winget stub | `release.yml` on `release: published` |
+| Attach SBOM | `release.yml` on `release: published` |
 | Manual fallback | `workflow_dispatch` on `release.yml` with tag input |
 
 **Token setup:** If auto-merge fails with HTTP 403, create a fine-grained PAT with `contents` + `pull_requests` write access, store as repository secret `RELEASE_BOT_TOKEN`, and re-run the Release Please PR check.
@@ -66,7 +66,6 @@ Verify docs/scripts stay aligned: `scripts/check-release-gate-parity.sh`.
 |----------|-------------|
 | Public v1.0 `.exe` zip | EV Authenticode when `CODESIGN_*` secrets set |
 | CI / sideload default | AUTO ephemeral self-signed via `scripts/sign-product-release.ps1` |
-| MSIX sideload | `AppxPackageSigningEnabled=true` + cert in trusted store |
 
 Store EV cert thumbprint in docs only — never commit `.pfx` files. One-time repo setup:
 

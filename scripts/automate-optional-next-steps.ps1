@@ -1,8 +1,7 @@
-# Automate optional post-sprint steps: validation, README assets, local build, GitHub release, Winget prep.
+# Automate optional post-sprint steps: validation, README assets, local build, GitHub release.
 param(
     [switch]$SkipRelease,
     [switch]$SkipBuild,
-    [switch]$OpenWingetPr,
     [switch]$DryRun
 )
 
@@ -21,15 +20,6 @@ if (-not $SkipRelease) {
     if ($SkipBuild) { $releaseArgs.SkipLocalBuild = $true }
     & (Join-Path $Root "scripts/publish-product-github-release.ps1") @releaseArgs
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-}
-
-if ($OpenWingetPr) {
-    $wingetArgs = @{ OpenPr = $true }
-    if ($DryRun) { $wingetArgs.DryRun = $true }
-    & (Join-Path $Root "scripts/prepare-winget-submission.ps1") @wingetArgs
-    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-} else {
-    & (Join-Path $Root "scripts/prepare-winget-submission.ps1")
 }
 
 Write-Host "=== automate-optional-next-steps complete ==="

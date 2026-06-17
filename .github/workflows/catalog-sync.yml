@@ -25,12 +25,17 @@ jobs:
           python3 -m playwright install chromium
 
       - name: Scrape lenticular 3D sources
-        continue-on-error: true
         run: |
-          python3 scripts/sync-catalog/scrape-truegame.py || true
-          python3 scripts/sync-catalog/scrape-uevr-profiles.py || true
-          python3 scripts/sync-catalog/scrape-vrto3d-wiki.py || true
-          python3 scripts/sync-catalog/scrape-pcgw-3dvision.py || true
+          failed=0
+          python3 scripts/sync-catalog/scrape-truegame.py || failed=$((failed + 1))
+          python3 scripts/sync-catalog/scrape-uevr-profiles.py || failed=$((failed + 1))
+          python3 scripts/sync-catalog/scrape-vrto3d-wiki.py || failed=$((failed + 1))
+          python3 scripts/sync-catalog/scrape-pcgw-3dvision.py || failed=$((failed + 1))
+          echo "scraper_failures=$failed"
+          if [ "$failed" -eq 4 ]; then
+            echo "All catalog scrapers failed"
+            exit 1
+          fi
 
       - name: Merge and enrich catalog
         run: |

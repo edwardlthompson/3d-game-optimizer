@@ -1,3 +1,5 @@
+import { parseStringIdList } from "./import-validation";
+
 const KEY = "3d-catalog-wishlist-v1";
 
 export function loadWishlist(): Set<string> {
@@ -28,8 +30,7 @@ export function exportWishlist(ids: Set<string>): string {
 }
 
 export function importWishlist(json: string): Set<string> {
-  const parsed = JSON.parse(json) as string[];
-  const next = new Set(Array.isArray(parsed) ? parsed : []);
+  const next = new Set(parseStringIdList(json));
   saveWishlist(next);
   return next;
 }

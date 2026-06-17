@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Local product release orchestrator (bash wrapper for build-product-local.ps1).
-# Usage: scripts/build-product-local.sh [--skip-gate] [--sign] [--skip-msix] [--skip-msi]
+# Usage: scripts/build-product-local.sh [--skip-gate] [--sign] [--skip-msi]
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -11,7 +11,6 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --skip-gate) ARGS+=("-SkipGate"); shift ;;
     --sign) ARGS+=("-Sign"); shift ;;
-    --skip-msix) ARGS+=("-SkipMsix"); shift ;;
     --skip-msi) ARGS+=("-SkipMsi"); shift ;;
     --pfx-path)
       ARGS+=("-PfxPath" "${2:-}")
@@ -22,7 +21,7 @@ while [ $# -gt 0 ]; do
       shift 2
       ;;
     -h|--help)
-      echo "Usage: $0 [--skip-gate] [--sign] [--skip-msix] [--skip-msi] [--pfx-path PATH] [--pfx-password PASS]"
+      echo "Usage: $0 [--skip-gate] [--sign] [--skip-msi] [--pfx-path PATH] [--pfx-password PASS]"
       exit 0
       ;;
     *)

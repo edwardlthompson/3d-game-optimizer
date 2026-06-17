@@ -154,9 +154,12 @@ jobs:
           cache-dependency-path: site/catalog/package-lock.json
       - name: Build and smoke test catalog
         working-directory: site/catalog
+        env:
+          VITE_STEAM_SYNC_URL: https://steam-sync.example.test
         run: |
           npm ci
           npm run build
+          npm run test
           npm run smoke
 
   steam-library-worker:

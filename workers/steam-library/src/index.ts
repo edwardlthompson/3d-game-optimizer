@@ -34,19 +34,19 @@ export default {
 
     try {
       if (url.pathname === "/auth/steam" && request.method === "GET") {
-        const limited = await rateLimited(env, ip, "auth");
+        const limited = await rateLimited(env, ip, "auth", origin);
         if (limited) return limited;
         return startSteamOpenId(url.origin);
       }
 
       if (url.pathname === "/auth/steam/callback" && request.method === "GET") {
-        const limited = await rateLimited(env, ip, "auth");
+        const limited = await rateLimited(env, ip, "auth", origin);
         if (limited) return limited;
         return handleOpenIdCallback(request, env, url.origin);
       }
 
       if (url.pathname === "/sync/exchange" && request.method === "POST") {
-        const limited = await rateLimited(env, ip, "exchange");
+        const limited = await rateLimited(env, ip, "exchange", origin);
         if (limited) return limited;
         return exchangeToken(request, env, origin);
       }
@@ -55,7 +55,7 @@ export default {
         if (env.ENABLE_USER_KEY_SYNC !== "true") {
           return cors(json({ error: "Disabled" }, 404), env, origin);
         }
-        const limited = await rateLimited(env, ip, "owned");
+        const limited = await rateLimited(env, ip, "owned", origin);
         if (limited) return limited;
         return syncOwnedWithUserKey(request, env, origin);
       }
@@ -164,7 +164,6 @@ async function exchangeToken(
   return cors(
     json({
       appIds: payload.appIds,
-      steamId: payload.steamId,
       steamIdTruncated: truncateSteamId(payload.steamId),
       emptyLibrary: payload.emptyLibrary,
       source: "openid",
@@ -194,7 +193,6 @@ async function syncOwnedWithUserKey(
   return cors(
     json({
       appIds,
-      steamId,
       steamIdTruncated: truncateSteamId(steamId),
       emptyLibrary: appIds.length === 0,
       source: "user_key",
@@ -204,13 +202,18 @@ async function syncOwnedWithUserKey(
   );
 }
 
-async function rateLimited(env: Env, ip: string, route: keyof typeof LIMITS): Promise<Response | null> {
+async function rateLimited(
+  env: Env,
+  ip: string,
+  route: keyof typeof LIMITS,
+  origin: string | null,
+): Promise<Response | null> {
   const hour = Math.floor(Date.now() / 3_600_000);
   const key = `rate:${route}:${ip}:${hour}`;
   const raw = await env.SYNC_KV.get(key);
   const count = raw ? Number.parseInt(raw, 10) : 0;
   if (count >= LIMITS[route]) {
-    return json({ error: "Rate limit exceeded" }, 429);
+    return cors(json({ error: "Rate limit exceeded" }, 429), env, origin);
   }
   await env.SYNC_KV.put(key, String(count + 1), { expirationTtl: 3600 });
   return null;

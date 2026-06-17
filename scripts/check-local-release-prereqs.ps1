@@ -1,8 +1,7 @@
 # Verify local product release toolchain prerequisites.
 param(
     [switch]$RequireSign,
-    [switch]$RequireMsi,
-    [switch]$RequireMsix
+    [switch]$RequireMsi
 )
 
 $ErrorActionPreference = "Stop"
@@ -29,7 +28,7 @@ Test-CommandPresent "pwsh" "Install PowerShell 7+" | Out-Null
 
 $bash = Get-Command bash -ErrorAction SilentlyContinue
 if (-not $bash -and -not (Test-Path "C:\Program Files\Git\bin\bash.exe")) {
-    Write-Host "FAIL missing bash - install Git for Windows for gate/winget scripts"
+    Write-Host "FAIL missing bash - install Git for Windows for pre-release gate scripts"
     $fail = 1
 } else {
     Write-Host "OK   bash"
@@ -63,14 +62,6 @@ if ($RequireMsi) {
         $fail = 1
     } else {
         Write-Host "OK   packaging/msi/Product.wixproj"
-    }
-}
-
-if ($RequireMsix) {
-    if (-not (Test-Path "src/SpatialLabsOptimizer/Assets/StoreLogo.png")) {
-        Write-Host "WARN MSIX assets missing - builds will skip MSIX until StoreLogo.png is added"
-    } else {
-        Write-Host "OK   MSIX StoreLogo.png"
     }
 }
 

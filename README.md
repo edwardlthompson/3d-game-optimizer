@@ -8,7 +8,7 @@
 ![MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 ![WinUI 3](https://img.shields.io/badge/UI-WinUI%203-68217A?style=flat-square)
 ![.NET 8](https://img.shields.io/badge/.NET-8-512BD4?style=flat-square&logo=dotnet&logoColor=white)
-![Product](https://img.shields.io/badge/product-v1.2.0-68217A?style=flat-square)
+![Product](https://img.shields.io/badge/product-v1.3.0-68217A?style=flat-square)
 ![Template](https://img.shields.io/badge/template-v0.7.1-656d76?style=flat-square)
 
 _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matching `.template-version`._
@@ -193,8 +193,9 @@ In Visual Studio or Cursor, pick the **SpatialLabsOptimizer (v2)** profile from 
 |---------|--------|
 | **v1.0** | WinUI hub, silent setup, discovery library, Play in 3D, multi-vendor displays |
 | **v1.0.1** | Incremental Steam scan, bulk preset cache, HDR watchdog |
-| **v1.1.0** | Local release (zip/MSIX/MSI), local game folders, About updates, PCVR/command palette, diagnostics |
+| **v1.1.0** | Local release (zip/MSI), local game folders, About updates, PCVR/command palette, diagnostics |
 | **v1.2.0** | Game Rank library sort, Min 3D quality filter, cover art & preset prefetch, condensed library UX |
+| **v1.3.0** | GitHub-only distribution (zip + MSI); MSIX and WinGet removed; catalog/worker hardening |
 | **v2.0** | Epic/GOG local install metadata, workshop importer, LAN export, hybrid co-op |
 
 Detail: [BUILD_PLAN.md](BUILD_PLAN.md)
@@ -235,7 +236,7 @@ No. Outbound HTTP is limited to Steam APIs, Steam CDN, signed GitHub release man
 | [docs/UX_PROGRESS.md](docs/UX_PROGRESS.md) | Progress feedback policy |
 | [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) | UI tokens & interaction |
 | [docs/QA_MATRIX.md](docs/QA_MATRIX.md) | Release QA hardware matrix |
-| [docs/LOCAL_RELEASE.md](docs/LOCAL_RELEASE.md) | Local zip/MSIX/MSI build & sign |
+| [docs/LOCAL_RELEASE.md](docs/LOCAL_RELEASE.md) | Local zip/MSI build & sign |
 | [docs/LOCAL_GAME_FOLDERS.md](docs/LOCAL_GAME_FOLDERS.md) | Watch-list folder scanning |
 | [docs/TRAINER_COEXISTENCE.md](docs/TRAINER_COEXISTENCE.md) | WeMod/mod-manager launch policy |
 

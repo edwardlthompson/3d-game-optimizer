@@ -1,7 +1,7 @@
-# MSIX store assets (Sprint 21+)
+# App assets
 
-Add `StoreLogo.png`, `Square44x44Logo.png`, and related tiles here before running `scripts/publish-product-msix.ps1`.
-
-Regenerate placeholders: `python scripts/generate-brand-assets.py`
-
-Distribution policy: sideload-first per ADR-0003.
+| File | Purpose |
+|------|---------|
+| `AppIcon.ico` | Window/taskbar icon |
+| `SplashLogo.png` | Splash screen (96×96) — regenerate via `python scripts/generate-brand-assets.py` |
+| `placeholder-*.png` | Store cover fallbacks |

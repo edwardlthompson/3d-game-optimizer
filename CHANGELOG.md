@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Product releases use tags `SpatialLabsOptimizer-v*`. Template bootstrap history is retained below.
 
+## [1.3.0] - 2026-06-17
+
+### Removed
+
+- MSIX sideload packaging and Windows Store manifest (`Package.appxmanifest`, `publish-product-msix.ps1`)
+- In-app MSIX update applier and install-type override
+- WinGet manifest pipeline (`packaging/winget*`, `generate-winget-*`, `prepare-winget-submission.ps1`)
+
+### Changed
+
+- Distribution policy: GitHub Releases only (portable zip + WiX MSI); in-app updates unchanged
+- Splash branding uses `SplashLogo.png` instead of Store tile assets
+
+### Added
+
+- Golden rank fixtures (`data/rank-golden/fixtures.json`) with C# and catalog Vitest parity tests
+- Catalog import validation and integrity fail-closed behavior
+- Game Rank sort metadata deduplication; Game Rank tooltip on library tiles
+- External download cap (20 MB); parallel cover art hydration
+
+### Fixed
+
+- Cover refresh toolbar action routes through prefetch pipeline
+- `SteamCoverArtPolicy.IsEligible(null)` returns false
+- Epic/GOG/Ubisoft cover URLs no longer hit Steam CDN
+
 ## [1.2.0] - 2026-06-16
 
 ### Added

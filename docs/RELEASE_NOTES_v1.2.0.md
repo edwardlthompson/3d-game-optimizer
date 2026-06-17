@@ -51,7 +51,6 @@ Install over the previous version. Library database and preferences are preserve
 
 ## Known follow-ups
 
-- WinGet manifest PR for 1.2.0 (manual submission)
 - Hardware QA matrix spot-check on SpatialLabs / Odyssey 3D
 
 See [CHANGELOG.md](../CHANGELOG.md) for the full change list.

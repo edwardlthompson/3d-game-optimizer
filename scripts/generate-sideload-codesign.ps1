@@ -1,5 +1,5 @@
 # Generate an ephemeral self-signed Authenticode cert for sideload/dev builds.
-# Not publicly trusted — use for MSIX sideload and CI when CODESIGN_* secrets are unset.
+# Not publicly trusted — use for zip/MSI sideload and CI when CODESIGN_* secrets are unset.
 param(
     [string]$OutputDir = "artifacts/sideload-codesign",
     [string]$Password = "sideload-dev",

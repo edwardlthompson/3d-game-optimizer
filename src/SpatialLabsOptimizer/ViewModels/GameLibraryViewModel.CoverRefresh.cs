@@ -37,10 +37,20 @@ public sealed partial class GameLibraryViewModel
             return;
         }
 
-        foreach (var item in Games)
+        using var gate = new SemaphoreSlim(4);
+        var tasks = Games.Select(async item =>
         {
-            await HydrateCoverTileAsync(item);
-        }
+            await gate.WaitAsync();
+            try
+            {
+                await HydrateCoverTileAsync(item);
+            }
+            finally
+            {
+                gate.Release();
+            }
+        });
+        await Task.WhenAll(tasks);
 
         LibraryUpdated?.Invoke(this, EventArgs.Empty);
     }

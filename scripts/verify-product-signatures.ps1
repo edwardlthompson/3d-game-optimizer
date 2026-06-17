@@ -2,7 +2,6 @@
 param(
     [string]$ZipPath = "",
     [string]$MsiPath = "",
-    [string]$MsixPath = "",
     [string]$StagingDir = ""
 )
 
@@ -67,12 +66,8 @@ if (-not [string]::IsNullOrWhiteSpace($MsiPath)) {
     Test-SignatureReport -Path $MsiPath -Label "MSI"
 }
 
-if (-not [string]::IsNullOrWhiteSpace($MsixPath)) {
-    Test-SignatureReport -Path $MsixPath -Label "MSIX"
-}
-
-if ($targets.Count -eq 0 -and [string]::IsNullOrWhiteSpace($MsiPath) -and [string]::IsNullOrWhiteSpace($MsixPath)) {
-    throw "No artifacts to verify — pass -ZipPath, -StagingDir, -MsiPath, and/or -MsixPath"
+if ($targets.Count -eq 0 -and [string]::IsNullOrWhiteSpace($MsiPath)) {
+    throw "No artifacts to verify — pass -ZipPath, -StagingDir, and/or -MsiPath"
 }
 
 if ($fail -ne 0) {

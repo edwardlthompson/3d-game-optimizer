@@ -71,7 +71,7 @@ public class UpdateSchedulerTests
         };
         var hub = new OperationProgressHub();
         var gateway = new ExternalDataGateway(handler, hub);
-        var detector = new InstallArtifactDetector(new FakePackageProbe(false), new FakeMsiProbe(false));
+        var detector = new InstallArtifactDetector(new FakeMsiProbe(false));
         return new UpdateService(gateway, hub, prefs, detector);
     }
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate MSIX logos and README UI preview assets (Sprint 31 polish)."""
+"""Generate splash logo, app icon, and README UI preview assets."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -142,8 +142,7 @@ def main() -> None:
     ASSETS.mkdir(parents=True, exist_ok=True)
     README_ASSETS.mkdir(parents=True, exist_ok=True)
 
-    draw_logo(150).save(ASSETS / "StoreLogo.png")
-    draw_logo(44).save(ASSETS / "Square44x44Logo.png")
+    draw_logo(96).save(ASSETS / "SplashLogo.png")
 
     ico_sizes = [16, 32, 48, 256]
     ico_images = [draw_logo(size) for size in ico_sizes]
@@ -168,7 +167,7 @@ def main() -> None:
     for filename, renderer in screens:
         renderer().save(README_ASSETS / filename)
 
-    print(f"Wrote MSIX assets to {ASSETS}")
+    print(f"Wrote app assets to {ASSETS}")
     print(f"Wrote README UI previews to {README_ASSETS}")
 
 

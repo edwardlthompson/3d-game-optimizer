@@ -1,8 +1,7 @@
-# Local product release orchestrator: publish, sign, MSIX, MSI, winget stub, verification.
+# Local product release orchestrator: publish, sign, MSI, verification.
 param(
     [switch]$SkipGate,
     [switch]$Sign,
-    [switch]$SkipMsix,
     [switch]$SkipMsi,
     [string]$PfxPath = "",
     [string]$PfxPassword = "",
@@ -16,7 +15,7 @@ Set-Location $Root
 
 Write-Host "=== build-product-local ($Configuration) ==="
 
-& (Join-Path $Root "scripts/check-local-release-prereqs.ps1") -RequireSign:$Sign -RequireMsi:(-not $SkipMsi) -RequireMsix:(-not $SkipMsix)
+& (Join-Path $Root "scripts/check-local-release-prereqs.ps1") -RequireSign:$Sign -RequireMsi:(-not $SkipMsi)
 
 if (-not $SkipGate) {
     $bash = "bash"
@@ -60,41 +59,9 @@ if (-not $SkipMsi) {
     }
 }
 
-if (-not $SkipMsix) {
-    if (Test-Path "src/SpatialLabsOptimizer/Assets/StoreLogo.png") {
-        try {
-            $msixArgs = @{}
-            if ($Sign) { $msixArgs.Sign = $true }
-            if ($PfxPath) { $msixArgs.PfxPath = $PfxPath }
-            if ($PfxPassword) { $msixArgs.PfxPassword = $PfxPassword }
-            & (Join-Path $Root "scripts/publish-product-msix.ps1") @msixArgs
-        } catch {
-            Write-Warning "MSIX build skipped: $_"
-        }
-    } else {
-        Write-Host "Skipping MSIX - add src/SpatialLabsOptimizer/Assets/StoreLogo.png"
-    }
-}
-
-$bash = "bash"
-if (-not (Get-Command $bash -ErrorAction SilentlyContinue)) {
-    $bash = "C:\Program Files\Git\bin\bash.exe"
-}
-
-$wingetInstaller = if ($msiPath -and (Test-Path $msiPath)) { $msiPath } else { $zipPath }
-$wingetType = if ($msiPath -and (Test-Path $msiPath)) { "msi" } else { "zip" }
-& $bash scripts/generate-winget-manifest.sh `
-    "edwardlthompson.SpatialLabsOptimizer" `
-    "$version" `
-    "packaging/winget-product" `
-    "$wingetInstaller" `
-    "$wingetType"
-
 if ($Sign) {
     $verifyArgs = @{ ZipPath = $zipPath }
     if ($msiPath -and (Test-Path $msiPath)) { $verifyArgs.MsiPath = $msiPath }
-    $msix = Get-ChildItem "artifacts/product-msix" -Filter "*.msix" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
-    if ($msix) { $verifyArgs.MsixPath = $msix.FullName }
     & (Join-Path $Root "scripts/verify-product-signatures.ps1") @verifyArgs
 }
 

@@ -79,7 +79,7 @@ public sealed class PlatformConnectionService
         return new PlatformConnectionResult(
             true,
             games.Count > 0
-                ? $"Epic validated — {games.Count} installed locally. Online catalog — coming soon."
+                ? $"Epic validated — {games.Count} installed locally."
                 : "Epic path set but no games found. Install a game or check the folder.",
             games.Count,
             0);
@@ -105,7 +105,7 @@ public sealed class PlatformConnectionService
         return new PlatformConnectionResult(
             true,
             games.Count > 0
-                ? $"GOG validated — {games.Count} installed locally. Online catalog — coming soon."
+                ? $"GOG validated — {games.Count} installed locally."
                 : "GOG path set but no games found.",
             games.Count,
             0);
@@ -122,14 +122,14 @@ public sealed class PlatformConnectionService
         {
             return new PlatformConnectionResult(
                 false,
-                "Ubisoft Connect not detected or no installed games found. Online catalog — coming soon.",
+                "Ubisoft Connect not detected or no installed games found.",
                 0,
                 0);
         }
 
         return new PlatformConnectionResult(
             true,
-            $"Ubisoft validated — {games.Count} installed locally. Online catalog — coming soon.",
+            $"Ubisoft validated — {games.Count} installed locally.",
             games.Count,
             0);
     }

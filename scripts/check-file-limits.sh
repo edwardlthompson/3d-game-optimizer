@@ -76,6 +76,14 @@ check_winui_csharp
 echo "Checking example logic file limits (max $LOGIC_LIMIT lines)..."
 check_example_logic
 
+echo "Checking catalog site logic file limits (max $LOGIC_LIMIT lines)..."
+if [ -d "$ROOT/site/catalog/src" ]; then
+  while IFS= read -r -d '' file; do
+    check_file "$file" "$LOGIC_LIMIT" "catalog-logic"
+  done < <(find "$ROOT/site/catalog/src" -type f -name "*.ts" \
+    ! -name "*.test.*" ! -name "*.spec.*" ! -path "*/node_modules/*" -print0 2>/dev/null)
+fi
+
 if [ "$WARNINGS" -gt 0 ]; then
   echo "$WARNINGS exempt file(s) still exceed limits (tracked in scripts/file-limit-exemptions.txt)"
 fi

@@ -101,9 +101,7 @@
 - All v2 P0 scenarios have automated or documented coverage (table above).
 - `FeatureFlags.V2Enabled` requires explicit `SPATIALLABS_ENABLE_V2=true`; default off in production builds.
 - Epic/GOG read-only scan documented in [ADR-0004](adr/0004-epic-gog-connector.md); no elevated silent install for third-party stores.
-- Winget manifest SHA256 populated in CI product release (`product-release.yml`).
 - Product tag `SpatialLabsOptimizer-v*` runs full pre-release gate including QA matrix coverage.
-- MSIX sideload package builds when `Assets/StoreLogo.png` is present (ADR-0003).
 - Optional Authenticode signing when `CODESIGN_*` secrets are configured.
 
 ## Exit Criteria for Sprint 43 (P1 gate)

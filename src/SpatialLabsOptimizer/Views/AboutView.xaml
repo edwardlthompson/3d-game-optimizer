@@ -36,7 +36,6 @@
             <ComboBox Header="Install type override (advanced)" SelectedIndex="{x:Bind ViewModel.InstallTypeOverrideIndex, Mode=TwoWay}" Width="320">
                 <ComboBoxItem Content="Auto-detect" Tag="" />
                 <ComboBoxItem Content="Portable (zip)" Tag="Zip" />
-                <ComboBoxItem Content="MSIX" Tag="Msix" />
                 <ComboBoxItem Content="MSI" Tag="Msi" />
             </ComboBox>
             <StackPanel Orientation="Horizontal" Spacing="8">

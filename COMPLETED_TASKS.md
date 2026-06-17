@@ -2,6 +2,37 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## BUILD_PLAN execution — v1.3.0 release (archived 2026-06-17)
+
+- [x] [HUMAN] WinGet PRs #387878, #388074 closed (already closed on winget-pkgs)
+- [x] [AGENT] v1.3.0 — MSIX/WinGet removal, zip + MSI GitHub release
+
+## BUILD_PLAN execution — drop WinGet (archived 2026-06-17)
+
+- [x] [AGENT] Delete packaging/winget*, winget scripts, CI manifest upload
+- [x] [AGENT] Trim build/release orchestration; update ADR, LOCAL_RELEASE, docs
+
+## BUILD_PLAN execution — drop MSIX (archived 2026-06-16)
+
+- [x] [AGENT] Remove MSIX runtime (applier, enum, detector, About UI)
+- [x] [AGENT] Delete manifest + publish script; trim CI/local release pipeline
+- [x] [AGENT] SplashLogo, ADR-0003, LOCAL_RELEASE, CHANGELOG [Unreleased]
+
+## BUILD_PLAN execution — v1.2.0 + code review (archived 2026-06-16)
+
+Shipped [SpatialLabsOptimizer-v1.2.0](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.2.0). AGENT lane from code review:
+
+- [x] [AGENT] P1 cover refresh → `PrefetchMissingArtworkAsync` + `CoverArtPrefetchTests`
+- [x] [AGENT] MSIX manifest `<Logo>`; `PLANNING_REVIEW.md` v1.2.0
+- [x] [AGENT] Golden rank fixtures (`data/rank-golden/fixtures.json`) + C# / Vitest tests
+- [x] [AGENT] Dedupe catalog metadata on Game Rank sort (`GameLibraryViewModel.Sort.cs`)
+- [x] [AGENT] Catalog Vitest, integrity fail-closed, import validation, file-limit scope
+- [x] [AGENT] Worker CORS on 429; Steam ID truncated in exchange response
+- [x] [AGENT] Download cap (20 MB), parallel cover hydrate, `IsEligible(null)` fix, Game Rank tooltip
+- [x] [AGENT] Split `GameLibraryItemViewModel`; Epic/GOG/Ubisoft message cleanup
+- [x] [AGENT] CI: mock `VITE_STEAM_SYNC_URL`, scraper fail-if-all-down, `PRODUCT_RELEASE_GATE.md`
+- [x] [AGENT] `PlatformConnectionServiceTests` input validation
+
 ## Living 3D catalog — Phases 3–6 (archived 2026-06-15)
 
 ### Phase 3 — CI sync scripts

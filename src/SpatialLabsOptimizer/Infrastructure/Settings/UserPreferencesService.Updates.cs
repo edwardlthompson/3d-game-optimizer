@@ -50,7 +50,13 @@ public sealed partial class UserPreferencesService
         CancellationToken cancellationToken = default)
     {
         var value = await _settings.GetAsync("install_artifact_type", cancellationToken);
-        if (Enum.TryParse<InstallArtifactType>(value, true, out var stored))
+        if (string.Equals(value, "Msix", StringComparison.OrdinalIgnoreCase))
+        {
+            value = null;
+        }
+
+        if (!string.IsNullOrWhiteSpace(value) &&
+            Enum.TryParse<InstallArtifactType>(value, true, out var stored))
         {
             return stored;
         }

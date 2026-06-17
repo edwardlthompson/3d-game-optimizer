@@ -1,3 +1,5 @@
+import { parseStringIdList } from "./import-validation";
+
 const LIBRARY_KEY = "3d-catalog-library-v1";
 export const STEAM_META_KEY = "3d-catalog-steam-meta-v1";
 
@@ -43,8 +45,7 @@ export function exportLibrary(ids: Set<string>): string {
 }
 
 export function importLibrary(json: string): Set<string> {
-  const parsed = JSON.parse(json) as string[];
-  const next = new Set(Array.isArray(parsed) ? parsed : []);
+  const next = new Set(parseStringIdList(json));
   saveLibrary(next);
   return next;
 }

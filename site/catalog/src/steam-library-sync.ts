@@ -17,7 +17,6 @@ export interface SteamSyncStats {
 
 export interface SteamExchangeResult {
   appIds: number[];
-  steamId: string;
   steamIdTruncated: string;
   emptyLibrary: boolean;
   source: "openid";
@@ -96,7 +95,7 @@ export function applySteamSyncToLibrary(
   const { matchedIds, stats } = mapOwnedAppIdsToCatalogIds(games, result.appIds);
   mergeLibraryFromCatalogIds(matchedIds, mode);
   saveSteamMeta({
-    steamId: result.steamId,
+    steamId: result.steamIdTruncated,
     lastSyncAt: new Date().toISOString(),
   });
   return stats;

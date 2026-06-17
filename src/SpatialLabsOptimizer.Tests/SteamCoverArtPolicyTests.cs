@@ -5,6 +5,12 @@ namespace SpatialLabsOptimizer.Tests;
 
 public class SteamCoverArtPolicyTests
 {
+    [Fact]
+    public void IsEligible_ReturnsFalse_WhenGameIsNull()
+    {
+        Assert.False(SteamCoverArtPolicy.IsEligible(null));
+    }
+
     [Theory]
     [InlineData("Epic", false)]
     [InlineData("GOG", false)]
