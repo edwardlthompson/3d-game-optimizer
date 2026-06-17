@@ -138,19 +138,19 @@ fi
 
 if command -v npm >/dev/null 2>&1; then
   if [ -f site/catalog/package.json ]; then
-    if ! (cd site/catalog && npm test); then
-      echo "FAIL: catalog npm test failed"
+    if ! (cd site/catalog && npm ci && npm test); then
+      echo "FAIL: catalog npm ci/test failed"
       ERRORS=$((ERRORS + 1))
     else
-      echo "OK   catalog npm test passed"
+      echo "OK   catalog npm ci/test passed"
     fi
   fi
   if [ -f workers/steam-library/package.json ]; then
-    if ! (cd workers/steam-library && npm test); then
-      echo "FAIL: steam-library worker npm test failed"
+    if ! (cd workers/steam-library && npm ci && npm test); then
+      echo "FAIL: steam-library worker npm ci/test failed"
       ERRORS=$((ERRORS + 1))
     else
-      echo "OK   steam-library worker npm test passed"
+      echo "OK   steam-library worker npm ci/test passed"
     fi
   fi
 else
