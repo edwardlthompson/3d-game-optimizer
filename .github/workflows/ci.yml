@@ -110,7 +110,7 @@ jobs:
         run: bash scripts/build-verification-gate.sh --quick --skip-pre-commit --skip-dotnet
 
   qa-matrix-coverage:
-    name: QA Matrix P0 Coverage
+    name: QA Matrix + SteamDB Policy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -118,6 +118,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ripgrep
       - run: bash scripts/check-qa-matrix-coverage.sh
       - run: bash scripts/check-compatibility-seed.sh
+      - run: bash scripts/run-out-of-band-qa.sh
 
   local-release-scripts:
     name: Local Release Script Inventory
@@ -147,6 +148,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: SteamDB policy (ADR-0005)
+        run: bash scripts/check-steamdb-policy.sh
       - uses: actions/setup-node@v6
         with:
           node-version: "22"
@@ -161,20 +164,8 @@ jobs:
           npm run build
           npm run test
           npm run smoke
+          npm run smoke:rank
 
   steam-library-worker:
     name: Steam library worker - typecheck and test
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: workers/steam-library
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "22"
-          cache: npm
-          cache-dependency-path: workers/steam-library/package-lock.json
-      - run: npm ci
-      - run: npm run lint
-      - run: npm test
+    uses: ./.github/workflows/reusable-steam-worker-lint.yml

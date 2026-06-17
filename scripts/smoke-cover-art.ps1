@@ -1,12 +1,23 @@
-# Smoke test: download Steam cover art into the local cache using production handler wiring.
+# Smoke test: download Steam cover art using production handler wiring.
+param(
+    [switch]$UserCache
+)
+
 $ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 Set-Location $Root
 
 Write-Host "=== smoke-cover-art ==="
 
+$filter = "FullyQualifiedName~CoverArtSmoke"
+if ($UserCache) {
+    $env:SLO_COVER_SMOKE_USER_CACHE = "1"
+    $filter = "FullyQualifiedName~CoverArtSmoke|FullyQualifiedName~ResolveCoverPathAsync_WritesToUserCache"
+    Write-Host "UserCache: will write to %LOCALAPPDATA%\3d-game-optimizer\cache\covers"
+}
+
 dotnet test "src/SpatialLabsOptimizer.Tests/SpatialLabsOptimizer.Tests.csproj" `
-    --filter "FullyQualifiedName~CoverArtSmoke" `
+    --filter $filter `
     --nologo -v q
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
@@ -17,16 +28,28 @@ $sampleIds = @(570, 1091500, 1086940)
 $found = @()
 foreach ($id in $sampleIds) {
     $path = Join-Path $cacheDir "$id.jpg"
-    if (Test-Path $path) { $found += $path }
+    if (Test-Path $path) {
+        $len = (Get-Item $path).Length
+        if ($len -gt 1000) {
+            $found += $path
+            Write-Host "OK   cover $id ($len bytes)"
+        } else {
+            Write-Host "WARN cover $id too small ($len bytes): $path"
+        }
+    }
 }
 
-if ($found.Count -eq 0) {
-    Write-Host "NOTE: Temp test cache passed; user cache still empty until app Refresh cover art runs."
+if ($UserCache) {
+    if ($found.Count -lt $sampleIds.Count) {
+        Write-Host "FAIL: -UserCache expected $($sampleIds.Count) covers in $cacheDir"
+        exit 1
+    }
+    Write-Host "PASS: user cache populated ($($found.Count) covers)"
+} elseif ($found.Count -eq 0) {
+    Write-Host "NOTE: Temp test cache passed; user cache empty until -UserCache or app Refresh cover art."
     Write-Host "Cache dir: $cacheDir"
-    Write-Host "Run the staging build, open Library, click Refresh cover art."
 } else {
-    Write-Host "Cached covers:"
-    $found | ForEach-Object { Write-Host "  $_ ($((Get-Item $_).Length) bytes)" }
+    Write-Host "Cached covers in user profile: $($found.Count)"
 }
 
 Write-Host "PASS: cover art smoke tests"

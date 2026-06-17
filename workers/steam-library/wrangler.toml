@@ -11,3 +11,13 @@ id = "00000000000000000000000000000000"
 [vars]
 ALLOWED_ORIGIN = "https://edwardlthompson.github.io"
 CATALOG_RETURN_URL = "https://edwardlthompson.github.io/3d-game-optimizer/catalog/"
+
+# Vitest pool only. Production key is a Wrangler secret (steam-library-worker.yml).
+[env.vitest.vars]
+ALLOWED_ORIGIN = "https://edwardlthompson.github.io"
+CATALOG_RETURN_URL = "https://edwardlthompson.github.io/3d-game-optimizer/catalog/"
+STEAM_WEB_API_KEY = "vitest-steam-key"
+
+[[env.vitest.kv_namespaces]]
+binding = "SYNC_KV"
+id = "00000000000000000000000000000000"

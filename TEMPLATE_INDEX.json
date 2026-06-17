@@ -231,6 +231,90 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-steamdb-policy.sh",
+      "purpose": "Enforce ADR-0005 — no SteamDB scraping in automation paths",
+      "read_when": "catalog_sync",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-wrangler-kv-ready.sh",
+      "purpose": "Fail deploy when wrangler.toml KV namespace id is still placeholder",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/sync-steam-worker-pages.sh",
+      "purpose": "Set STEAM_SYNC_WORKER_URL repo variable and dispatch Pages rebuild",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-codeql-sarif-upload.sh",
+      "purpose": "Warn or fail when CodeQL SARIF upload steps fail on a commit",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/run-out-of-band-qa.sh",
+      "purpose": "CI subset of hardware/SteamDB QA checks",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/run-out-of-band-qa.ps1",
+      "purpose": "Windows out-of-band QA — cover art, PCVR, ADR-0005",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/smoke-pcvr-readiness.ps1",
+      "purpose": "Smoke PCVR readiness paths from installed app cache",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/STEAM_CATALOG_SYNC.md",
+      "purpose": "Steam library sync operator checklist and architecture",
+      "read_when": "catalog_sync",
+      "update_when": "milestone_boundary",
+      "owner": "agent+human"
+    },
+    {
+      "path": "docs/adr/0005-steamdb-price-history.md",
+      "purpose": "ADR — SteamDB price history policy (no scraping)",
+      "read_when": "catalog_sync",
+      "update_when": "architectural_decision",
+      "owner": "agent+human"
+    },
+    {
+      "path": "workers/steam-library/",
+      "purpose": "Cloudflare Worker — Steam OpenID, owned games proxy, KV sync tokens",
+      "read_when": "catalog_sync",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": ".github/workflows/reusable-steam-worker-lint.yml",
+      "purpose": "Reusable workflow — worker lint and vitest",
+      "read_when": "catalog_sync",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".github/workflows/steam-library-worker.yml",
+      "purpose": "Deploy Steam library worker to Cloudflare; sync Pages URL",
+      "read_when": "catalog_sync",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/check-workflow-action-ref-format.sh",
       "purpose": "Pre-commit guard against bare-semver GitHub Action refs in workflows",
       "read_when": "bootstrap_session_start",

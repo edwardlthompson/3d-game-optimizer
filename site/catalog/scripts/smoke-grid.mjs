@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 import {
   createColumnHelper,
   createTable,
@@ -11,7 +12,8 @@ import {
 } from "@tanstack/table-core";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const catalogPath = resolve(here, "../public/data/catalog-v2.json");
+const catalogRoot = resolve(here, "..");
+const catalogPath = resolve(catalogRoot, "public/data/catalog-v2.json");
 const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
 const games = catalog.games ?? [];
 
@@ -58,6 +60,16 @@ const withSupport = games.filter((g) => (g.platformSupport ?? []).length > 0).le
 if (withSupport < games.length * 0.9) {
   console.error(`smoke-grid: expected platformSupport on most games, got ${withSupport}/${games.length}`);
   process.exit(1);
+}
+
+const node = process.env.npm_node_execpath || process.execPath;
+const vitestBin = resolve(catalogRoot, "node_modules/vitest/vitest.mjs");
+const rankSmoke = spawnSync(node, [vitestBin, "run", "-c", "vitest.smoke.config.ts"], {
+  cwd: catalogRoot,
+  stdio: "inherit",
+});
+if (rankSmoke.status !== 0) {
+  process.exit(rankSmoke.status ?? 1);
 }
 
 console.log(`smoke-grid: ok (${games.length} games, page rows ${rows.length}, platformSupport ${withSupport})`);

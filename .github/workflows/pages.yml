@@ -28,6 +28,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: SteamDB policy (ADR-0005)
+        run: bash scripts/check-steamdb-policy.sh
+
       - uses: actions/setup-node@v6
         with:
           node-version: "22"
@@ -52,11 +55,18 @@ jobs:
         working-directory: site/catalog
         run: |
           npm ci
+          npm test
           npm run build
           npm run smoke
+          npm run smoke:rank
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/catalog/
           VITE_STEAM_SYNC_URL: ${{ vars.STEAM_SYNC_WORKER_URL }}
+
+      - name: Steam sync URL notice
+        if: ${{ vars.STEAM_SYNC_WORKER_URL == '' }}
+        run: |
+          echo "::notice::STEAM_SYNC_WORKER_URL is unset — catalog built without Connect Steam (expected until worker deploy)"
 
       - name: Combine Pages artifact
         run: |

@@ -39,6 +39,7 @@ jobs:
 
       - name: Merge and enrich catalog
         run: |
+          bash scripts/check-steamdb-policy.sh
           python3 scripts/sync-catalog/merge-catalog.py
           python3 scripts/sync-catalog/resolve-steam-appids.py
           python3 scripts/sync-catalog/enrich-steam-stats.py

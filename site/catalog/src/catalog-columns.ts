@@ -1,33 +1,18 @@
-import {
-  type ColumnDef,
-  createColumnHelper,
-} from "@tanstack/table-core";
+import { type ColumnDef, createColumnHelper } from "@tanstack/table-core";
+import { createSteamColumns } from "./catalog-steam-columns";
+import { titleCell } from "./catalog-title-cell";
 import {
   gameRankBucket,
   hardwareSummary,
-  playerBucket,
   playMethodKeysForGame,
-  priceBucket,
   rank3DBucket,
-  releaseYearBucket,
-  reviewBucket,
 } from "./filters/buckets";
 import { matchesCheckboxFilter } from "./filters/checkbox-filter";
 import { playMethodsForGame, playMethodsText } from "./game-accessors";
 import { compareGameRank, gameRankScore, GAME_RANK_TOOLTIP } from "./game-ranking";
 import { rank3DForGame, rank3DScore } from "./rank-3d";
-import { isLinkableSteamApp } from "./steam-constants";
 import type { CatalogGame } from "./types";
 import { displayTitle, escapeHtml } from "./utils";
-
-function titleCell(game: CatalogGame, title: string): string {
-  if (isLinkableSteamApp(game.steamAppId, game.steamMatchConfidence)) {
-    const appId = game.steamAppId;
-    const storeUrl = `https://store.steampowered.com/app/${appId}/`;
-    return `<a href="${storeUrl}" class="title-cell title-steam-link" target="_blank" rel="noopener noreferrer" data-steam-app="${appId}" aria-label="Open Steam store: ${escapeHtml(title)}">${escapeHtml(title)}</a>`;
-  }
-  return `<span class="title-cell" title="${escapeHtml(title)}">${escapeHtml(title)}</span>`;
-}
 
 const columnHelper = createColumnHelper<CatalogGame>();
 
@@ -114,50 +99,6 @@ export function createColumns(callbacks: ColumnCallbacks): ColumnDef<CatalogGame
       filterFn: (row, _id, value) => matchesCheckboxFilter(hardwareSummary(row.original), value),
       cell: (info) => escapeHtml(hardwareSummary(info.row.original)),
     }),
-    columnHelper.accessor((g) => g.steamStats?.reviewPercent ?? null, {
-      id: "reviewPercent",
-      header: "Reviews",
-      meta: { steam: true },
-      filterFn: (row, _id, value) =>
-        matchesCheckboxFilter(reviewBucket(row.original.steamStats?.reviewPercent), value),
-      cell: (info) => {
-        const review = info.row.original.steamStats?.reviewPercent;
-        const count = info.row.original.steamStats?.reviewCount;
-        if (review == null) return "—";
-        return count ? `${review}% (${count.toLocaleString()})` : `${review}%`;
-      },
-    }),
-    columnHelper.accessor((g) => g.steamStats?.currentPlayers ?? null, {
-      id: "currentPlayers",
-      header: "Players",
-      meta: { steam: true },
-      filterFn: (row, _id, value) =>
-        matchesCheckboxFilter(playerBucket(row.original.steamStats?.currentPlayers), value),
-      cell: (info) => {
-        const players = info.row.original.steamStats?.currentPlayers;
-        return players != null ? players.toLocaleString() : "—";
-      },
-    }),
-    columnHelper.accessor((g) => g.steamStats?.releaseDate ?? "—", {
-      id: "releaseDate",
-      header: "Release",
-      meta: { steam: true },
-      filterFn: (row, _id, value) =>
-        matchesCheckboxFilter(releaseYearBucket(row.original.steamStats?.releaseDate), value),
-      cell: (info) => escapeHtml(String(info.getValue())),
-    }),
-    columnHelper.accessor((g) => g.steamStats?.priceUsd ?? null, {
-      id: "priceUsd",
-      header: "Price",
-      meta: { steam: true, price: true },
-      filterFn: (row, _id, value) =>
-        matchesCheckboxFilter(priceBucket(row.original.steamStats?.priceUsd), value),
-      cell: (info) => {
-        const game = info.row.original;
-        const price = game.steamStats?.priceUsd;
-        if (price == null) return "—";
-        return `<button type="button" class="price-btn" data-price-game="${escapeHtml(game.id)}">$${price.toFixed(2)}</button>`;
-      },
-    }),
+    ...createSteamColumns(),
   ] as ColumnDef<CatalogGame>[];
 }

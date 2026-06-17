@@ -1,4 +1,4 @@
-import { PLATFORM_LABELS } from "../game-accessors";
+import { positionFilterPopover } from "./column-filter-position";
 
 export class ColumnFilterPopover {
   private popover: HTMLDivElement | null = null;
@@ -68,7 +68,9 @@ export class ColumnFilterPopover {
         row.append(input, text);
         list.append(row);
       }
-      this.positionPopover();
+      if (this.popover && this.anchor) {
+        positionFilterPopover(this.popover, this.anchor);
+      }
     };
 
     search.addEventListener("input", () => renderList(search.value));
@@ -100,36 +102,10 @@ export class ColumnFilterPopover {
     document.addEventListener("click", this.onDocumentClick, true);
   }
 
-  private positionPopover = (): void => {
-    if (!this.popover || !this.anchor) return;
-    const margin = 8;
-    const maxWidth = window.innerWidth - margin * 2;
-    const maxHeight = window.innerHeight - margin * 2;
-
-    this.popover.style.visibility = "hidden";
-    this.popover.style.left = "-9999px";
-    this.popover.style.top = "0";
-    this.popover.style.width = "max-content";
-    this.popover.style.maxWidth = `${maxWidth}px`;
-    this.popover.style.maxHeight = `${maxHeight}px`;
-
-    const pop = this.popover.getBoundingClientRect();
-    const rect = this.anchor.getBoundingClientRect();
-    let left = rect.left;
-    let top = rect.bottom + 4;
-    if (left + pop.width > window.innerWidth - margin) {
-      left = Math.max(margin, window.innerWidth - pop.width - margin);
-    }
-    if (top + pop.height > window.innerHeight - margin) {
-      top = Math.max(margin, rect.top - pop.height - 4);
-    }
-    this.popover.style.left = `${left}px`;
-    this.popover.style.top = `${top}px`;
-    this.popover.style.visibility = "visible";
-  };
-
   private onViewportChange = (): void => {
-    this.positionPopover();
+    if (this.popover && this.anchor) {
+      positionFilterPopover(this.popover, this.anchor);
+    }
   };
 
   private onDocumentClick = (event: MouseEvent): void => {
@@ -148,11 +124,4 @@ export class ColumnFilterPopover {
   }
 }
 
-export function formatPlayMethodOption(key: string): string {
-  const pipe = key.indexOf("|");
-  if (pipe < 0) return key;
-  const platformKey = key.slice(0, pipe);
-  const label = key.slice(pipe + 1);
-  const platform = PLATFORM_LABELS[platformKey] ?? platformKey;
-  return `${platform} · ${label}`;
-}
+export { formatPlayMethodOption } from "./play-method-format";

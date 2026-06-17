@@ -56,6 +56,15 @@ if [ -z "$REPO" ]; then
   exit 1
 fi
 
+if [ "$PRODUCT_RELEASE" = true ]; then
+  if ! bash scripts/check-codeql-sarif-upload.sh "$REPO" HEAD --strict; then
+    echo "FAIL: CodeQL SARIF upload failed"
+    ERRORS=$((ERRORS + 1))
+  fi
+else
+  bash scripts/check-codeql-sarif-upload.sh "$REPO" HEAD || true
+fi
+
 if ALERT_COUNT="$(bash scripts/dependabot-critical-high-count.sh "$REPO" 2>/dev/null)"; then
   :
 else
@@ -125,6 +134,27 @@ if [ "$SKIP_DOTNET" = false ] && [ -f SpatialLabsOptimizer.sln ] && command -v d
   fi
 elif [ "$SKIP_DOTNET" = false ] && [ -f SpatialLabsOptimizer.sln ]; then
   echo "SKIP dotnet tests (dotnet not installed)"
+fi
+
+if command -v npm >/dev/null 2>&1; then
+  if [ -f site/catalog/package.json ]; then
+    if ! (cd site/catalog && npm test); then
+      echo "FAIL: catalog npm test failed"
+      ERRORS=$((ERRORS + 1))
+    else
+      echo "OK   catalog npm test passed"
+    fi
+  fi
+  if [ -f workers/steam-library/package.json ]; then
+    if ! (cd workers/steam-library && npm test); then
+      echo "FAIL: steam-library worker npm test failed"
+      ERRORS=$((ERRORS + 1))
+    else
+      echo "OK   steam-library worker npm test passed"
+    fi
+  fi
+else
+  echo "SKIP npm tests (npm not installed)"
 fi
 
 if [ "${PRODUCT_RELEASE:-false}" = true ]; then

@@ -25,4 +25,8 @@ describe("corsOrigin", () => {
   it("falls back to allowed origin when absent", () => {
     expect(corsOrigin(null, env)).toBe(env.ALLOWED_ORIGIN);
   });
+
+  it("rejects foreign origin in ACAO", () => {
+    expect(corsOrigin("https://evil.example", env)).toBe(env.ALLOWED_ORIGIN);
+  });
 });

@@ -84,6 +84,14 @@ if [ -d "$ROOT/site/catalog/src" ]; then
     ! -name "*.test.*" ! -name "*.spec.*" ! -path "*/node_modules/*" -print0 2>/dev/null)
 fi
 
+echo "Checking worker logic file limits (max $LOGIC_LIMIT lines)..."
+if [ -d "$ROOT/workers" ]; then
+  while IFS= read -r -d '' file; do
+    check_file "$file" "$LOGIC_LIMIT" "worker-logic"
+  done < <(find "$ROOT/workers" -path "*/src/*.ts" -type f \
+    ! -name "*.test.*" ! -name "*.spec.*" ! -path "*/node_modules/*" -print0 2>/dev/null)
+fi
+
 if [ "$WARNINGS" -gt 0 ]; then
   echo "$WARNINGS exempt file(s) still exceed limits (tracked in scripts/file-limit-exemptions.txt)"
 fi

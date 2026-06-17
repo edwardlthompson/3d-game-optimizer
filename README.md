@@ -8,7 +8,7 @@
 ![MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 ![WinUI 3](https://img.shields.io/badge/UI-WinUI%203-68217A?style=flat-square)
 ![.NET 8](https://img.shields.io/badge/.NET-8-512BD4?style=flat-square&logo=dotnet&logoColor=white)
-![Product](https://img.shields.io/badge/product-v1.3.0-68217A?style=flat-square)
+![Product](https://img.shields.io/badge/product-v1.4.0-68217A?style=flat-square)
 ![Template](https://img.shields.io/badge/template-v0.7.1-656d76?style=flat-square)
 
 _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matching `.template-version`._
@@ -25,7 +25,7 @@ _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matc
 |---|---|
 | **Displays** | Acer SpatialLabs · Samsung Odyssey 3D · NVIDIA 3D Vision (legacy) · Manual fallback |
 | **Library** | Steam discovery hub — sort by **Game Rank** (Steam + 3D), players online, Wilson reviews; filter by **Min 3D quality** |
-| **Catalog site** | Public [3D Game Catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) — browse all known 3D titles in your browser |
+| **Catalog site** | Public [3D Game Catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) — browse titles, **Connect Steam** for Lib checkmarks, sort by Game Rank |
 | **Launch** | **Play in 3D** — silent presets, no ReShade/UEVR config dialogs |
 | **Privacy** | Local-first · zero telemetry · optional Steam API key only · no cloud sync |
 
@@ -55,8 +55,9 @@ The catalog merges **686 lenticular 3D titles** from Acer TrueGame (~222), UEVR 
 | **Hardware** | Required display stack (SpatialLabs, Odyssey 3D, legacy 3D Vision, generic stereo) |
 | **Steam Store** | Reviews, players, release date, price (when enriched) |
 
+- **Connect Steam** — one-click OpenID sync marks owned titles in your browser library (requires operator-deployed worker; see [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md))
 - No cookies or analytics — static GitHub Pages site
-- Same `catalog-v2.json` the desktop app can opt into syncing later
+- Same `catalog-v2.json` the desktop app indexes for the 3D-only library view
 - Deep link a game: `?appId=1174180` (Steam app ID)
 
 Data maintenance: [docs/SEED_MAINTENANCE.md](docs/SEED_MAINTENANCE.md) · Site source: [`site/catalog/`](site/catalog/)
@@ -196,6 +197,7 @@ In Visual Studio or Cursor, pick the **SpatialLabsOptimizer (v2)** profile from 
 | **v1.1.0** | Local release (zip/MSI), local game folders, About updates, PCVR/command palette, diagnostics |
 | **v1.2.0** | Game Rank library sort, Min 3D quality filter, cover art & preset prefetch, condensed library UX |
 | **v1.3.0** | GitHub-only distribution (zip + MSI); MSIX and WinGet removed; catalog/worker hardening |
+| **v1.4.0** | Catalog **Connect Steam** (OpenID + Cloudflare Worker); Lib sync, security hardening, test/CI expansion |
 | **v2.0** | Epic/GOG local install metadata, workshop importer, LAN export, hybrid co-op |
 
 Detail: [BUILD_PLAN.md](BUILD_PLAN.md)
@@ -231,6 +233,7 @@ No. Outbound HTTP is limited to Steam APIs, Steam CDN, signed GitHub release man
 | [docs/SEED_MAINTENANCE.md](docs/SEED_MAINTENANCE.md) | Catalog v2 merge & validation |
 | [site/catalog/README.md](site/catalog/README.md) | GitHub Pages catalog browser |
 | [docs/DISPLAY_VENDORS.md](docs/DISPLAY_VENDORS.md) | Display catalog & hubs |
+| [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md) | Catalog Connect Steam (worker + OpenID) |
 | [docs/STEAM_INTEGRATION.md](docs/STEAM_INTEGRATION.md) | API-first data policy |
 | [docs/TOOL_AUTOMATION.md](docs/TOOL_AUTOMATION.md) | Silent install contracts |
 | [docs/UX_PROGRESS.md](docs/UX_PROGRESS.md) | Progress feedback policy |

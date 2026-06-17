@@ -5,38 +5,32 @@ on:
     branches: [main]
     paths:
       - "workers/steam-library/**"
+      - "scripts/sync-steam-worker-pages.sh"
+      - "scripts/check-wrangler-kv-ready.sh"
       - ".github/workflows/steam-library-worker.yml"
   pull_request:
     paths:
       - "workers/steam-library/**"
+      - "scripts/sync-steam-worker-pages.sh"
+      - "scripts/check-wrangler-kv-ready.sh"
       - ".github/workflows/steam-library-worker.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
+  actions: write
 
 jobs:
   lint:
-    name: Typecheck worker
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: workers/steam-library
-    steps:
-      - uses: actions/checkout@v6
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "22"
-
-      - run: npm ci
-      - run: npm run lint
-      - run: npm test
+    uses: ./.github/workflows/reusable-steam-worker-lint.yml
 
   deploy:
     name: Deploy to Cloudflare Workers
     needs: lint
-    if: github.event_name == 'workflow_dispatch'
+    if: >-
+      needs.lint.result == 'success' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event_name == 'push' && github.ref == 'refs/heads/main'))
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -44,16 +38,57 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Skip deploy without operator secrets
+        id: gate
+        run: |
+          missing=0
+          [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && missing=1
+          [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ] && missing=1
+          [ -z "${{ secrets.STEAM_WEB_API_KEY }}" ] && missing=1
+          if [ "$missing" -eq 1 ]; then
+            echo "::notice::Cloudflare/Steam secrets not configured — skipping worker deploy"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-node@v6
+        if: steps.gate.outputs.skip != 'true'
         with:
           node-version: "22"
 
-      - run: npm ci
+      - name: Check wrangler KV namespace
+        if: steps.gate.outputs.skip != 'true'
+        working-directory: ${{ github.workspace }}
+        run: bash scripts/check-wrangler-kv-ready.sh
+
+      - name: Install dependencies
+        if: steps.gate.outputs.skip != 'true'
+        run: npm ci
 
       - name: Deploy
+        id: deploy
+        if: steps.gate.outputs.skip != 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: workers/steam-library
           command: deploy
+          secrets: |
+            STEAM_WEB_API_KEY
+        env:
+          STEAM_WEB_API_KEY: ${{ secrets.STEAM_WEB_API_KEY }}
+
+      - name: Set STEAM_SYNC_WORKER_URL and rebuild Pages
+        if: steps.gate.outputs.skip != 'true'
+        working-directory: ${{ github.workspace }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WORKER_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: |
+          if [ -z "$WORKER_URL" ]; then
+            echo "::error::wrangler deploy did not return deployment-url"
+            exit 1
+          fi
+          bash scripts/sync-steam-worker-pages.sh "$WORKER_URL" "$GITHUB_REPOSITORY" "$GITHUB_REF_NAME"

@@ -26,7 +26,7 @@ export function showSteamBanner(
     return;
   }
 
-  if (emptyLibrary && !stats) {
+  if ((emptyLibrary && !stats) || (stats && emptyLibrary && stats.ownedTotal === 0)) {
     banner.hidden = false;
     banner.className = "banner steam-sync-banner warn";
     banner.innerHTML = `

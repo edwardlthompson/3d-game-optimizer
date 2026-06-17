@@ -8,5 +8,5 @@ export function isAllowedOrigin(origin: string | null, env: AllowedOriginEnv): b
 }
 
 export function corsOrigin(origin: string | null, env: AllowedOriginEnv): string {
-  return origin ?? env.ALLOWED_ORIGIN;
+  return origin && isAllowedOrigin(origin, env) ? origin : env.ALLOWED_ORIGIN;
 }

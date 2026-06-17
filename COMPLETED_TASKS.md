@@ -2,6 +2,60 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## BUILD_PLAN execution — review pass 10 (archived 2026-06-17)
+
+- [x] [AGENT] Worker catch block — CORS-wrap 500 responses
+- [x] [AGENT] OpenID callback caps `appIds` at 10k before KV write + test
+- [x] [AGENT] Ops docs + plan synced for URL-fragment sync tokens
+- [x] [AGENT] `http.test.ts` for `redirectCatalog` hash/query behavior
+- [x] [AGENT] Validation — catalog 42/42, worker 35/35, dotnet 223/223
+
+## BUILD_PLAN execution — review pass 9 (archived 2026-06-17)
+
+- [x] [AGENT] Sync token in URL fragment — worker redirect + catalog read/clear (query fallback kept)
+- [x] [AGENT] `SteamWebApiClient` / `PlayerCountService` — `JsonException` guards + tests
+- [x] [AGENT] CI job renamed to “QA Matrix + SteamDB Policy”
+- [x] [AGENT] Validation — catalog 42/42, worker 32/32, dotnet 223/223
+
+## BUILD_PLAN execution — review pass 8 (archived 2026-06-17)
+
+- [x] [AGENT] Worker unit Vitest glob — `steam-api.test.ts` now runs in CI (was excluded)
+- [x] [AGENT] `matchesCatalogGlobalFilter` case-normalizes filter; DOM tests for `appId` + `steam_api_failed`
+- [x] [AGENT] Worker `index.ts` logs caught errors; `SteamWebApiClient` parse test
+- [x] [AGENT] Validation — catalog 41/41, worker 32/32, dotnet 221/221
+
+## BUILD_PLAN execution — review pass 7 (archived 2026-06-17)
+
+- [x] [AGENT] `fetchOwnedGames` — `OwnedGamesResult` distinguishes API failure vs empty library
+- [x] [AGENT] OpenID callback redirects `steam_api_failed`; catalog maps error message
+- [x] [AGENT] `showSteamBanner` warn when sync returns 0 owned games
+- [x] [AGENT] `/sync/owned` — JSON guard + 502 on Steam API failure
+- [x] [AGENT] `build-verification-gate.sh` — catalog/worker `npm test` in non-quick mode
+- [x] [AGENT] Validation — catalog 38/38, worker 27/27, dotnet 220/220
+
+## BUILD_PLAN execution — review pass 6 (archived 2026-06-17)
+
+- [x] [AGENT] Worker `exchangeToken` — validate before KV delete; 400 on malformed JSON
+- [x] [AGENT] Catalog — preserve `appId` through Steam return; global filter matches `steamAppId`
+- [x] [AGENT] `ReadGamesAsync` — `is_catalog_title` from column 14 + regression test
+- [x] [AGENT] Cap sync payload at 10k app IDs
+- [x] [AGENT] Validation — catalog 37/37, worker 25/25, dotnet 220/220
+
+## BUILD_PLAN execution — review pass 5 (archived 2026-06-17)
+
+- [x] [AGENT] Fix `PlayIn3D_RollbackSnapshot_WhenLaunchFails` — `FakeRunningProcessProbe` isolates coexistence
+- [x] [AGENT] Index `scripts/smoke-pcvr-readiness.ps1` in `TEMPLATE_INDEX.json`
+- [x] [AGENT] Validation — catalog 36/36, worker 22/22, dotnet 219/219
+
+## BUILD_PLAN execution — out-of-band QA automation (archived 2026-06-17)
+
+- [x] [AGENT] ADR-0005 — SteamDB price history rejected; CI policy gate
+- [x] [AGENT] `run-out-of-band-qa.ps1` / `.sh`, `smoke-pcvr-readiness.ps1`, enhanced `smoke-cover-art.ps1`
+
+## BUILD_PLAN execution — GitHub Pages confirmed (archived 2026-06-17)
+
+- [x] [HUMAN] Pages source = GitHub Actions; catalog live at `/catalog/`
+
 ## BUILD_PLAN execution — CI green (archived 2026-06-17)
 
 - [x] [AGENT] Sync catalog/worker npm lockfiles; fix workflow YAML and action pins
@@ -719,7 +773,54 @@ Post-MVVM / file-split follow-up from BUILD_PLAN pass 2.
 - [x] [AGENT] CI — `steam-library-worker.yml`, catalog + worker in main `ci.yml`, `VITE_STEAM_SYNC_URL`
 - [x] [AGENT] Docs — [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md)
 
-> **Ship gate:** `[HUMAN]` Cloudflare deploy + `STEAM_SYNC_WORKER_URL` — tracked in [BUILD_PLAN.md](BUILD_PLAN.md).
+## AGENT backlog cleared (2026-06-17)
+
+- [x] [AGENT] Worker Vitest — exchange, rate limits, KV lifecycle (`index.worker.test.ts`, Miniflare via `@cloudflare/vitest-pool-workers`)
+- [x] [AGENT] `scripts/smoke-grid.mjs` — Game Rank sort via `smoke-game-rank.test.ts`
+- [x] [AGENT] `check-github-ci.sh` / `.ps1` — path-triggered **GitHub Pages** + **Steam library worker**
+- [x] [AGENT] `check-codeql-sarif-upload.sh` — warn in `pre-release-gate.sh` on SARIF upload failure
+- [x] [AGENT] Split `site/catalog/src/grid.ts` → `grid-types.ts`, `grid-render.ts`
+- [x] [AGENT] Post-review: KV guard, grid file-limit split, steam-library-sync tests, Pages npm test, catalog-sync ADR gate
+
+## P3 AGENT backlog cleared (2026-06-17)
+
+- [x] [AGENT] Worker OpenID tests — `index.auth.test.ts` (`/auth/steam`, callback, mocked Steam fetch)
+- [x] [AGENT] `handleSteamSyncReturn` DOM tests — `steam-library-sync.dom.test.ts` (`happy-dom`)
+- [x] [AGENT] `check-github-ci.sh` / `.ps1` — `--require-pages` / `--require-worker` flags
+- [x] [AGENT] CodeQL SARIF hard-fail — `check-codeql-sarif-upload.sh --strict` in `pre-release-gate.sh --product-release`
+- [x] [AGENT] File-limit burn-down — split `catalog-columns.ts`, `ColumnFilterPopover.ts`; trim exemptions (`main.ts` + oversize C# only)
+
+## Code review execution (2026-06-17)
+
+- [x] [AGENT] Worker security — CORS `corsOrigin`, `parseSyncPayload`, API key out of committed `[vars]`
+- [x] [AGENT] Worker split — `openid.ts`, `sync.ts`, `http.ts`, `rate-limit.ts`, `steam-api.ts`, `types.ts`
+- [x] [AGENT] CI — `smoke:rank` in catalog-site + Pages; Pages unset-sync notice
+- [x] [AGENT] Tests — `/sync/owned`, auth rate limits, invalid KV, `steam-ui.dom.test.ts`
+- [x] [AGENT] `check-file-limits.sh` — workers `src/*.ts`; pre-release gate `npm test`
+- [x] [AGENT] Steam plan frontmatter synced to shipped state
+
+## Build plan cleared (2026-06-17, pass 2)
+
+- [x] [AGENT] `catalog-shell.ts` — shell HTML + toolbar bindings; `main.ts` under file limit
+- [x] [AGENT] Reusable workflow `reusable-steam-worker-lint.yml` — dedup `ci.yml` + `steam-library-worker.yml`
+- [x] [AGENT] `check-steamdb-policy.sh` in catalog-site CI job
+- [x] [AGENT] `BUILD_PLAN.md` trimmed — AGENT backlog + recommendations archived here
+
+## Code review execution (2026-06-17, pass 3)
+
+- [x] [AGENT] `catalog-bootstrap.ts` — bootstrap wiring; `main.ts` entry-only
+- [x] [AGENT] Tests — `catalog-integrity.test.ts`, `catalog-shell.dom.test.ts`, Steam replace mode
+- [x] [AGENT] `TEMPLATE_INDEX.json` — steam worker scripts, workflows, ADR-0005
+- [x] [AGENT] `pages.yml` SteamDB policy; worker exchange 429 CORS test; `.gitignore` Vitest cache
+
+## Build plan cleared (2026-06-17, pass 4)
+
+- [x] [AGENT] Grid filter tests — `grid-filters.test.ts`, `filters/buckets.test.ts`
+- [x] [AGENT] C# file-limit split — `SteamApiUrls`, `PlayerCountService`, `SteamVdfScanner`, `SteamWebApiClient`; `GameDatabase.Games.Queries.cs`
+- [x] [AGENT] Post-deploy smoke checklist — `docs/STEAM_CATALOG_SYNC.md`
+- [x] [AGENT] `BUILD_PLAN.md` cleaned — HUMAN-only active board
+
+> **Ship gate:** `[HUMAN]` Cloudflare KV + secrets — tracked in [BUILD_PLAN.md](BUILD_PLAN.md).
 
 ## Full-stack code review (archived 2026-06-15)
 

@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Product releases use tags `SpatialLabsOptimizer-v*`. Template bootstrap history is retained below.
 
+## [1.4.0] - 2026-06-17
+
+### Added
+
+- **Connect Steam** on the [3D Game Catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) — Steam OpenID via Cloudflare Worker; owned App IDs matched to catalog **Lib** checkmarks in `localStorage`
+- `workers/steam-library/` — OpenID callback, single-use KV sync tokens (5 min TTL), rate limits, CORS hardening, `OwnedGamesResult` API error discrimination
+- Catalog modules: `steam-library-sync`, `catalog-shell`, `catalog-bootstrap`, grid filter splits; **42** Vitest tests
+- CI: reusable worker lint, deploy workflow, Pages rebuild on `STEAM_SYNC_WORKER_URL`, SteamDB policy gate (ADR-0005)
+- C# Steam infrastructure split (`SteamWebApiClient`, `PlayerCountService`, `SteamVdfScanner`); `GameDatabase.Games.Queries` partial
+- Out-of-band QA scripts, wrangler KV guard, `sync-steam-worker-pages.sh`
+
+### Fixed
+
+- `PlayIn3D_RollbackSnapshot_WhenLaunchFails` — isolate coexistence probe in tests
+- `GameDatabase.ReadGamesAsync` — `IsCatalogTitle` read from correct column (14)
+- Sync exchange validates payload before KV delete; sync token in URL **fragment** (query fallback); `appId` deep links preserved through OAuth return
+- Catalog global filter matches Steam app IDs; empty-library vs API-failure UX
+- Worker unit Vitest glob includes `steam-api.test.ts`; top-level catch returns CORS-wrapped 500
+
+### Changed
+
+- OpenID callback caps owned App IDs at 10,000 before KV write
+- `build-verification-gate.sh` runs catalog/worker `npm test` in non-full-quick mode
+- README and ops docs updated for Connect Steam and fragment token delivery
+
 ## [1.3.0] - 2026-06-17
 
 ### Removed

@@ -67,7 +67,7 @@ export function showPriceChart(
         <div><dt>Record high</dt><dd>${high != null ? `$${high.toFixed(2)}` : "—"}</dd></div>
         <div><dt>Steam App</dt><dd>${appId ?? "—"}</dd></div>
       </dl>
-      <p class="muted">Self-tracked from catalog sync. SteamDB backfill may come later.</p>
+      <p class="muted">Self-tracked from catalog sync (Steam Store API). See ADR-0005.</p>
     </div>
   `;
 

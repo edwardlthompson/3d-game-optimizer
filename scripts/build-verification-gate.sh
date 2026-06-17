@@ -62,6 +62,15 @@ elif [ "$SKIP_DOTNET" = false ] && [ -f SpatialLabsOptimizer.sln ]; then
   echo "SKIP dotnet (not installed)"
 fi
 
+if [ "$QUICK" = false ] && command -v npm >/dev/null 2>&1; then
+  if [ -f site/catalog/package-lock.json ]; then
+    run_check bash -c 'cd site/catalog && npm ci && npm test'
+  fi
+  if [ -f workers/steam-library/package-lock.json ]; then
+    run_check bash -c 'cd workers/steam-library && npm ci && npm test'
+  fi
+fi
+
 if [ "$QUICK" = false ] && command -v npm >/dev/null 2>&1 && [ -f examples/web/package-lock.json ]; then
   if [ -d examples/web/node_modules ]; then
     run_check bash scripts/check-license-compliance.sh web

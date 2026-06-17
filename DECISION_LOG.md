@@ -16,6 +16,13 @@
 
 ## Entries
 
+### 2026-06-17 — Steam library sync AGENT batch
+- **Status:** Accepted
+- **Context:** Catalog needed one-click Steam library merge; browser cannot call `GetOwnedGames` directly
+- **Decision:** Cloudflare Worker (OpenID → KV token → single-use exchange); catalog client maps owned App IDs to catalog IDs; CI deploy chain sets `STEAM_SYNC_WORKER_URL` and rebuilds Pages
+- **Validation:** Worker 22 Vitest tests; catalog 25+ Vitest tests; `check-steamdb-policy.sh` in CI/Pages; `pre-release-gate.sh` runs npm test
+- **Consequences:** Live Connect Steam blocked on `[HUMAN]` KV namespace id + Cloudflare/Steam secrets; privacy API-key fallback cancelled per ADR
+
 ### 2026-06-15 — Sprint 39 ship gate v1.1.0 complete
 - **Status:** Accepted
 - **Context:** Local Sprints 32–52 blocked on single PR + remote CI/release
@@ -36,6 +43,12 @@
 - **Decision:** Fixed legal-consistency script paths; staged-update reuse with SHA-256 verify (`3DGO-0103`); About retry banner for `update_restart_pending`; shell update InfoBar; v2 toggle restart notice when DI differs from saved pref; 118/118 tests + post-sprint validation green
 - **Validation:** `run-post-sprint-validation.ps1`, `check-file-encoding.py`, `dotnet test` Release
 - **Consequences:** `product-release.yml` dispatch after push; WinGet v1.1.0 manifest remains `[HUMAN]` pending CLA on PR #387878
+
+### 2026-06-17 — SteamDB price history (ADR-0005)
+- **Status:** Accepted
+- **Context:** Phase 4b considered SteamDB backfill for price graphs
+- **Decision:** Reject scraping/import; Steam Store API self-tracking only; CI enforces via `check-steamdb-policy.sh`
+- **Validation:** ADR-0005 Accepted; catalog footer updated; `run-out-of-band-qa.sh` in CI
 
 ### 2026-06-17 — CI stabilization after v1.3.0
 - **Status:** Accepted

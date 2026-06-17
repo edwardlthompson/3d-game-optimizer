@@ -20,3 +20,5 @@ npm run build
 ```
 
 Set `VITE_BASE_PATH=/your-repo-name/catalog/` for production (CI sets this automatically).
+
+Optional: `VITE_STEAM_SYNC_URL` enables **Connect Steam** (OpenID worker URL). See [docs/STEAM_CATALOG_SYNC.md](../../docs/STEAM_CATALOG_SYNC.md).

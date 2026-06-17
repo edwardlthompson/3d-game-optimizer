@@ -100,7 +100,7 @@ public class PlayIn3DLaunchTests
         var gateway = new ExternalDataGateway(handler, hub);
         var presets = new PresetCacheService(loader, gateway);
         var readiness = new LaunchReadinessService(presets);
-        var coexistence = new ExternalToolCoexistenceService(new RunningProcessProbe());
+        var coexistence = new ExternalToolCoexistenceService(new FakeRunningProcessProbe([]));
         var installPaths = new GameInstallPathResolver();
         var launcher = new ProcessLauncher(installPaths);
         var configWriter = new ToolConfigWriter();
@@ -142,7 +142,7 @@ public class PlayIn3DLaunchTests
             presets,
             readiness,
             coexistence,
-            new GameFirstLaunchOrchestrator(installPaths, launcher, new RunningProcessProbe()),
+            new GameFirstLaunchOrchestrator(installPaths, launcher, new FakeRunningProcessProbe([])),
             configWriter,
             snapshots,
             new LaunchErrorCatalog(),
@@ -158,6 +158,19 @@ public class PlayIn3DLaunchTests
             defaults,
             displayHandoff,
             installPaths);
+    }
+
+    private sealed class FakeRunningProcessProbe : IRunningProcessProbe
+    {
+        private readonly HashSet<string> _running;
+
+        public FakeRunningProcessProbe(IEnumerable<string> running) =>
+            _running = new HashSet<string>(running, StringComparer.OrdinalIgnoreCase);
+
+        public bool IsProcessRunning(string processName) => _running.Contains(processName);
+
+        public IReadOnlyList<string> GetRunningFrom(params string[] processNames) =>
+            processNames.Where(IsProcessRunning).ToList();
     }
 
     private sealed class StubLaunchAdapter : LaunchAdapterBase

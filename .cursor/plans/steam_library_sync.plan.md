@@ -4,28 +4,28 @@ overview: Add one-click “Connect Steam” to the static 3D Game Catalog using 
 todos:
   - id: worker-openid
     content: "Add Cloudflare Worker: Steam OpenID login, GetOwnedGames proxy, single-use token exchange with CORS"
-    status: pending
+    status: completed
   - id: catalog-sync-client
     content: Add steam-library-sync.ts + library merge/replace; map owned appIds to catalog ids (confidence >= 0.92)
-    status: pending
+    status: completed
   - id: catalog-ui
     content: Toolbar Connect Steam button, return-url handler, status banner, optional replace-library checkbox
-    status: pending
+    status: completed
   - id: ci-deploy
     content: wrangler deploy workflow + VITE_STEAM_SYNC_URL in pages build; document STEAM_WEB_API_KEY setup
-    status: pending
+    status: completed
   - id: privacy-fallback
     content: "Private-profile flow: detect empty GetOwnedGames, privacy help panel, user API key path (localStorage + POST forward-only)"
-    status: pending
+    status: cancelled
   - id: critique-security
     content: "Token hardening (5min TTL, single-use KV, replaceState strip), rate limits, no bulk lookup endpoint"
-    status: pending
+    status: completed
   - id: critique-sync-ux
     content: "Post-sync summary banner with matched/unmatched/no-steam-link counts + export unmatched appIds optional"
-    status: pending
+    status: completed
   - id: critique-human-setup
     content: "docs/STEAM_CATALOG_SYNC.md operator checklist + BUILD_PLAN [HUMAN] gates for Cloudflare + Steam API key"
-    status: pending
+    status: completed
 isProject: false
 ---
 
@@ -115,7 +115,7 @@ public async Task<IReadOnlyList<int>> GetOwnedAppIdsAsync(string apiKey, string 
 **[`site/catalog/src/steam-library-sync.ts`](site/catalog/src/steam-library-sync.ts)** (new)
 
 - `startSteamConnect(workerBaseUrl)` → redirect to worker `/auth/steam`
-- `handleSteamSyncReturn()` — on load, read `?steam_sync_token=` from URL, **immediately** `history.replaceState` to strip query (before exchange completes), then POST exchange
+- `handleSteamSyncReturn()` — on load, read `#steam_sync_token=` from URL fragment (fallback: `?steam_sync_token=` query), **immediately** `history.replaceState` to strip token (before exchange completes), then POST exchange
 - `mapOwnedAppIdsToCatalogIds(games, appIds)` — returns `{ matchedIds, stats }` where stats includes:
   - `catalogMatched` — titles marked in library
   - `ownedTotal` — App IDs from Steam
