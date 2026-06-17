@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { redirectCatalog } from "./http";
+import type { AllowedOriginEnv } from "./security";
 
-const env = {
+const env: AllowedOriginEnv = {
   ALLOWED_ORIGIN: "https://edwardlthompson.github.io",
   CATALOG_RETURN_URL: "https://edwardlthompson.github.io/3d-game-optimizer/catalog/",
-} as const;
+};
 
 describe("redirectCatalog", () => {
   it("puts sync tokens in the URL fragment", () => {

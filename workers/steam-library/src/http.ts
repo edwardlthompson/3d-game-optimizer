@@ -1,6 +1,5 @@
-import { corsOrigin } from "./security";
+import { corsOrigin, type AllowedOriginEnv } from "./security";
 import type { Env } from "./types";
-
 export function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
     status,
@@ -23,8 +22,7 @@ export function truncateSteamId(steamId: string): string {
 }
 
 export function redirectCatalog(
-  env: Env,
-  query: Record<string, string> = {},
+  env: AllowedOriginEnv,  query: Record<string, string> = {},
   hash: Record<string, string> = {},
 ): Response {
   const url = new URL(env.CATALOG_RETURN_URL);
