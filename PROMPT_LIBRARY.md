@@ -14,7 +14,25 @@ Follow Section 8 Startup Sequence.
 Use BUILD_PLAN.md Sequential lane first; respect AGENT/HUMAN/ADB/AUTO labels.
 ```
 
-## Entry 2 — Reference Mode (Existing Project)
+## Entry 2 — Slash command workflows
+
+**Files:** `.cursor/commands/*.md` — index at `.cursor/commands/README.md`
+
+| Invoke | When |
+|--------|------|
+| `/build` | Plan → feature → gates for a BUILD_PLAN row |
+| `/gates` | Pre-push local validation (`feature-gate.sh --stack product`) |
+| `/ship` | Prerelease → push → regress |
+| `/audit` | Full repo review + CODE_REVIEW.md |
+| `/fix` | After a failed gate (`watch-agent-gates.sh --once --autofix`) |
+
+**Prompt:**
+
+```
+Use slash command @.cursor/commands/gates.md — execute fully, report pass/fail per script.
+```
+
+## Entry 3 — Reference Mode (Existing Project)
 
 **Prompt:**
 

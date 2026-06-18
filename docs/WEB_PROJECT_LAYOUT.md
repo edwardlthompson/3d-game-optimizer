@@ -1,89 +1,110 @@
 # Web Project Layout
 
-> Where website source, agent documentation, and published output live in this template. Read when your stack includes web or GitHub Pages hosting.
+> Where website source, agent documentation, and published output live. Read when your stack includes web or GitHub Pages hosting.
 
-## Folder roles
+## Folder roles (this product)
 
 | Path | Purpose | Publish to GitHub Pages? |
 |------|---------|----------------------------|
 | `docs/` | Agent prompts, security playbooks, design guide, ADRs | **No** |
-| [`examples/web/`](../examples/web/) | PWA/app **source** (Vite, TypeScript, tests) | **No** (source only) |
-| `examples/web/dist/` | Production **build output** | **Yes** (via GitHub Actions artifact) |
-| `site/` or `website/` | Optional static/markdown site (no Vite bundler) | Only with a separate workflow |
+| [`site/catalog/`](../site/catalog/) | **Primary public site** — 3D Game Catalog (Vite, TypeScript, Vitest) | **Yes** at `/catalog/` |
+| `site/catalog/dist/` | Catalog production build output | **Yes** (CI artifact) |
+| [`examples/web/`](../examples/web/) | Template PWA **demo stub** (Golden Path reference) | **Yes** at repo root path |
+| `examples/web/dist/` | Demo build output | **Yes** (merged into Pages artifact) |
+| [`workers/steam-library/`](../workers/steam-library/) | Connect Steam API (Cloudflare Worker) | Deployed separately to Cloudflare |
 | [`design-tokens/`](../design-tokens/) | Colors, spacing, typography tokens | **No** |
 
-**`docs/` is not your public website.** Agents are instructed to read `docs/` for project instructions. Putting HTML, marketing pages, or PWA assets in `docs/` breaks that contract and conflicts with GitHub's legacy "Publish from `/docs`" Pages source.
+**`docs/` is not your public website.** Agents read `docs/` for project instructions. Never put marketing HTML or the catalog app in `docs/`.
 
-## Golden Path (this template)
+## Golden Path (3D Game Optimizer)
 
 ```text
-examples/web/          # edit source here
+site/catalog/              # PRIMARY — edit catalog browser here
   src/
-    locales/en.json    # user-visible strings (English default)
-    i18n/index.ts      # t() helper
-    style.css          # layout only — no copy
-    design-tokens.css  # generated from design-tokens/
-    theme.ts           # theme preference only
-  dist/                # npm run build — do not commit; CI publishes this
+    locales/               # user-visible strings (if present)
+    *.ts                   # grid, filters, Connect Steam client
+  public/data/             # catalog-v2.json copy at build
+  dist/                    # npm run build — do not commit
 
-.github/workflows/pages.yml   # build + deploy dist/ to GitHub Pages
-docs/                         # agent documentation only — never deploy
+examples/web/              # template demo stub (secondary Pages deploy)
+  dist/                    # npm run build — merged at site root
+
+workers/steam-library/     # Steam OpenID + owned games (not Pages)
+  wrangler.toml            # KV namespace — [HUMAN] required for live sync
+
+.github/workflows/pages.yml   # build catalog + demo; deploy combined artifact
+docs/                          # agent documentation only — never deploy
 ```
 
-Flow:
+### Pages deploy flow
 
-1. Push changes under `examples/web/` to `main`.
-2. [`.github/workflows/pages.yml`](../.github/workflows/pages.yml) runs `npm ci`, `npm run build` with `VITE_BASE_PATH=/${{ github.event.repository.name }}/`.
-3. The workflow uploads `examples/web/dist` as the Pages artifact.
-4. GitHub Pages serves the built static files.
+1. Push changes under `site/catalog/`, `examples/web/`, `data/compatibility/catalog-v2.json`, or worker client code.
+2. [`.github/workflows/pages.yml`](../.github/workflows/pages.yml) runs:
+   - `check-steamdb-policy.sh` (ADR-0005)
+   - `examples/web`: `npm ci && npm run build` with `VITE_BASE_PATH=/${repo}/`
+   - `site/catalog`: `npm ci && npm test && npm run build && npm run smoke && npm run smoke:rank`
+   - Merges both `dist/` trees into one Pages artifact
+3. Catalog is served at `https://{user}.github.io/{repo}/catalog/`
+4. Demo stub at `https://{user}.github.io/{repo}/`
+
+### Connect Steam (`VITE_STEAM_SYNC_URL`)
+
+The catalog **Connect Steam** toolbar requires a deployed worker URL at build time:
+
+| Variable | Set by |
+|----------|--------|
+| `VITE_STEAM_SYNC_URL` | GitHub repo variable `STEAM_SYNC_WORKER_URL` (from worker deploy workflow) |
+| `VITE_BASE_PATH` | Pages workflow (`/repo/catalog/`) |
+
+Without `STEAM_SYNC_WORKER_URL`, the catalog builds successfully but Connect Steam is hidden/disabled. Operator checklist: [STEAM_CATALOG_SYNC.md](STEAM_CATALOG_SYNC.md).
 
 ## GitHub repository settings
 
 | Setting | Required value |
 |---------|----------------|
 | **Pages source** | **GitHub Actions** (not "Deploy from `/docs` branch folder") |
-| **Analytics** | None in template workflow (FOSS, no tracking scripts) |
+| **Analytics** | None in workflow (FOSS, no tracking scripts) |
 
-`[HUMAN]` enables Pages under **Settings → Pages** and selects **GitHub Actions** as the source. If "Deploy from `/docs`" is enabled instead, agent documentation may be exposed as a public site and the PWA deploy will conflict.
+`[HUMAN]` enables Pages under **Settings → Pages** → **GitHub Actions**.
 
-## Localization vs styles (web)
+## Localization vs styles (catalog)
 
 Keep user-visible copy out of stylesheets and theme code.
 
-| Layer | Location | API |
-|-------|----------|-----|
-| **Strings** | `src/locales/en.json` | `t(key)` from `src/i18n/index.ts` |
-| **Styles** | `style.css`, `design-tokens.css` | CSS variables `var(--gp-*)` |
-| **Theme** | `theme.ts`, `ThemeToggle.ts` | Preference only; labels from `t()` |
+| Layer | Location (catalog) | API |
+|-------|-------------------|-----|
+| **Strings** | `site/catalog/src/` modules or locale files | Prefer `t()` / dedicated string modules |
+| **Styles** | CSS modules / `style.css` | CSS variables `var(--gp-*)` where synced |
+| **Theme** | theme preference modules | Labels from i18n, not CSS `content:` |
 
-Default locale is **English only** at bootstrap. Add `src/locales/{lang}.json` when you ship translations.
+See [`docs/DESIGN_GUIDE.md`](DESIGN_GUIDE.md) for cross-stack rules.
 
-See [`docs/DESIGN_GUIDE.md`](DESIGN_GUIDE.md) for cross-stack i18n rules, shared key naming, and layout guidance for long strings and RTL.
+## Inactive template stubs
 
-## Optional `site/` folder
-
-Use `site/` or `website/` only when you need a **separate** static or markdown documentation site (no Vite build). That site needs its own workflow; do not merge it into `docs/` (agent files) or `examples/web/` (PWA source).
+`examples/{android,python,lightroom,rust,go}/` remain as **inactive** bootstrap references. They are not deployed. See [`OPTIONAL_STACKS.md`](OPTIONAL_STACKS.md).
 
 ## Pruning the web stack
 
-If `init-project` removes the web stack:
+If removing the catalog entirely (unlikely for this product):
 
-1. Delete or disable [`.github/workflows/pages.yml`](../.github/workflows/pages.yml).
-2. Remove the GitHub Pages Demo section from your `README.md` or repoint it to your new hosting path.
-3. Turn off GitHub Pages in repo settings if no site remains.
+1. Disable catalog steps in `pages.yml`; keep or remove `examples/web` demo as needed.
+2. Update README catalog links and `BUILD_PLAN.md`.
+3. Turn off GitHub Pages if no site remains.
 
 ## Anti-patterns
 
 | Do not | Why |
 |--------|-----|
-| Put the public site in `docs/` | Collides with agent read order and START_HERE routing |
-| Commit `examples/web/dist/` | Build output belongs in CI artifacts, not git history |
-| Put user-facing copy in CSS | Breaks localization; use `locales/*.json` |
-| Hardcode strings in `main.ts` markup | Use `t()`; CI cohesion check flags literals |
-| Enable "Publish from `/docs`" | Serves agent markdown as a website; wrong content |
+| Put the catalog in `docs/` | Collides with agent read order |
+| Commit `site/catalog/dist/` or `examples/web/dist/` | CI builds artifacts |
+| Put user-facing copy in CSS | Breaks localization |
+| Enable "Publish from `/docs`" | Serves agent markdown as a website |
+| Scrape SteamDB for prices | ADR-0005; use Steam Store API only |
 
 ## Related docs
 
-- [`docs/DESIGN_GUIDE.md`](DESIGN_GUIDE.md) — tokens, themes, Android `strings.xml`, web `t()`
-- [`modules/web/MODULE.md`](../modules/web/MODULE.md) — PWA requirements and activation checklist
-- [`examples/web/README.md`](../examples/web/README.md) — local commands and `src/` layout
+- [`site/catalog/README.md`](../site/catalog/README.md) — local dev, env vars, tests
+- [`docs/STEAM_CATALOG_SYNC.md`](STEAM_CATALOG_SYNC.md) — worker deploy and smoke tests
+- [`modules/web/MODULE.md`](../modules/web/MODULE.md) — PWA / Vite patterns
+- [`modules/node/MODULE.md`](../modules/node/MODULE.md) — worker HTTP patterns
+- [`docs/DESIGN_GUIDE.md`](DESIGN_GUIDE.md) — tokens, themes, i18n

@@ -12,6 +12,7 @@
 | Distribution | GitHub Releases only | In-app updates via `UpdateService` |
 | GitHub Pages | **Confirmed** | Actions source (`build_type: workflow`); catalog live |
 | Local release | Framework-dependent publish | [docs/LOCAL_RELEASE.md](LOCAL_RELEASE.md) |
+| Bootstrap alignment | **Complete** | Template Migration Sprint — policy (B); see `COMPLETED_TASKS.md` |
 
 ## Release tracks
 

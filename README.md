@@ -245,6 +245,21 @@ No. Outbound HTTP is limited to Steam APIs, Steam CDN, signed GitHub release man
 
 </details>
 
+## Agent bootstrap
+
+Child repo of [agent-project-bootstrap](https://github.com/edwardlthompson/agent-project-bootstrap) **v0.7.1**.
+
+| Track | Version | Tag pattern | Workflow |
+|-------|---------|-------------|----------|
+| **Product** | 1.4.0 | `SpatialLabsOptimizer-v*` | `product-release.yml` |
+| **Template** | 0.7.1 | `v*` | `release.yml` |
+
+**Active stacks:** WinUI (`src/`), web catalog (`site/catalog/`), Cloudflare worker (`workers/steam-library/`), Python sync (`scripts/sync-catalog/`). Inactive template stubs under `examples/` — see [docs/OPTIONAL_STACKS.md](docs/OPTIONAL_STACKS.md).
+
+Task board and migration status: [BUILD_PLAN.md](BUILD_PLAN.md) · Agent memory: [AGENT_MEMORY.md](AGENT_MEMORY.md)
+
+**Cursor slash commands:** type `/` in Agent chat — [`/.cursor/commands/README.md`](.cursor/commands/README.md) (`/build`, `/gates`, `/ship`, `/audit`, …)
+
 ---
 
 <div align="center">

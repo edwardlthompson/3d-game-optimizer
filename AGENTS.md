@@ -3,8 +3,9 @@
 1. **First read:** `docs/START_HERE.md`
 2. **Bootstrap mode:** `docs/INITIALIZATION_PROMPT.md`
 3. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json`
-4. **Task board:** `BUILD_PLAN.md` (Sequential before Parallel)
-5. **Living memory:** update `AGENT_MEMORY.md` only at milestone boundaries
+4. **Slash commands:** `.cursor/commands/README.md` (`/build`, `/gates`, `/ship`, `/audit`, …)
+5. **Task board:** `BUILD_PLAN.md` (Sequential before Parallel)
+6. **Living memory:** update `AGENT_MEMORY.md` only at milestone boundaries
 
 > Legacy `.cursorrules` is deprecated. Use `.cursor/rules/*.mdc` and this file instead.
 

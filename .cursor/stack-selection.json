@@ -1,12 +1,12 @@
 {
-  "stack": "none",
+  "stack": "product",
   "pruned": false,
   "active_modules": [
-    "android",
+    "winui",
     "web",
-    "python",
-    "lightroom"
+    "node",
+    "python"
   ],
-  "parallel_scope_note": "Sprint 1 Parallel: scope per AGENT_MEMORY active modules",
-  "selected_at": "2026-06-14T19:06:48+00:00"
+  "parallel_scope_note": "Product Parallel: one scope per row in docs/PARALLEL_AGENT_SCOPES.md",
+  "selected_at": "2026-06-18T01:37:14+00:00"
 }

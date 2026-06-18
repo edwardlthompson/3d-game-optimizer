@@ -8,24 +8,37 @@
 |-------|-------|
 | `AGENT` | Cursor Agent — code, docs, tests, CI |
 | `HUMAN` | One-time actions scripts cannot perform |
+| `ADB` | Android device/emulator testing |
 | `AUTO` | CI / scripts / bots |
 
 ---
 
-## Status (2026-06-17)
+## Status (2026-06-18)
 
 | Track | State |
 |-------|--------|
-| Product | **v1.4.0** shipped |
-| CI | Local Steam sync batch ready to merge |
+| Product | **v1.4.0** shipped — [release](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.4.0) |
+| Template | **v0.7.1** aligned — pending push (audit F-001) |
+| CI | Green on `main` (last push `8948427`) |
 | GitHub Pages | **Live** — [catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) |
-| Steam sync | **Blocked on HUMAN** — KV id + Cloudflare/Steam secrets |
+| Steam sync | **Blocked on HUMAN** — KV id + Cloudflare/Steam secrets (F-002) |
+
+---
+
+## Sequential — Audit sprint (2026-06-18)
+
+> Findings: `CODE_REVIEW.md` (local, gitignored) · Invoke `/audit` again after push.
+
+1. ⬜ [AGENT] Commit template migration + slash commands + gate scripts batch (F-001)
+2. ⬜ [HUMAN] Push to `main` and run `bash scripts/check-github-ci.sh HEAD --wait 600` (or `/push`)
+3. ⬜ [AGENT] Document Windows gate fallback in `docs/FOR_AGENTS.md` — WSL/Git Bash vs CI (F-003)
+4. ✅ [AUTO] Local product tests — dotnet 223/223, catalog 42/42, worker 35/35
 
 ---
 
 ## Sequential — Steam library sync
 
-> [Design](.cursor/plans/steam_library_sync.plan.md) · [Ops](docs/STEAM_CATALOG_SYNC.md)
+> [Design](.cursor/plans/steam_library_sync.plan.md) · [Ops](docs/STEAM_CATALOG_SYNC.md) · F-002
 
 - ⬜ [HUMAN] Cloudflare KV namespace → `workers/steam-library/wrangler.toml`
 - ⬜ [HUMAN] GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `STEAM_WEB_API_KEY`
@@ -37,19 +50,27 @@
 
 ## Parallel — HUMAN backlog (hardware only)
 
-| Task | Notes |
-|------|-------|
-| GPU / display QA | After `run-out-of-band-qa.ps1` |
-| Headset VR launch | SteamVR + native/UEVR titles |
-| Odyssey Hub CSV export | From installed app |
-| CodeQL SARIF upload | Enable for product-release `--strict` gate |
+| Task | Owner | Isolated scope |
+|------|-------|----------------|
+| GPU / display QA | HUMAN | Manual — `docs/HARDWARE_QA_OUT_OF_BAND.md` |
+| Headset VR launch | HUMAN | SteamVR + native/UEVR titles |
+| Odyssey Hub CSV export | HUMAN | From installed app |
+| CodeQL SARIF upload | HUMAN | Enable for product-release `--strict` gate |
 
 ```powershell
 pwsh scripts/run-out-of-band-qa.ps1 -UserCache
 bash scripts/run-out-of-band-qa.sh
 ```
 
-See [docs/HARDWARE_QA_OUT_OF_BAND.md](docs/HARDWARE_QA_OUT_OF_BAND.md).
+---
+
+## Parallel — Deferred from audit
+
+| Task | Owner | Finding | Isolated scope |
+|------|-------|---------|----------------|
+| WinUI file-budget sweep | AGENT | F-004 | `src/SpatialLabsOptimizer/**`, `ElevatedHelper/**` |
+
+Run `bash scripts/check-parallel-scope.sh` before dispatch.
 
 ---
 
@@ -57,7 +78,8 @@ See [docs/HARDWARE_QA_OUT_OF_BAND.md](docs/HARDWARE_QA_OUT_OF_BAND.md).
 
 | Topic | Location |
 |-------|----------|
+| Slash commands | [`.cursor/commands/README.md`](.cursor/commands/README.md) |
 | Planning review | [docs/PLANNING_REVIEW.md](docs/PLANNING_REVIEW.md) |
-| Release gate | [docs/PRODUCT_RELEASE_GATE.md](docs/PRODUCT_RELEASE_GATE.md) |
-| Catalog maintenance | [docs/SEED_MAINTENANCE.md](docs/SEED_MAINTENANCE.md) |
+| Product release gate | [docs/PRODUCT_RELEASE_GATE.md](docs/PRODUCT_RELEASE_GATE.md) |
+| Agent memory | [AGENT_MEMORY.md](AGENT_MEMORY.md) |
 | Live catalog | https://edwardlthompson.github.io/3d-game-optimizer/catalog/ |

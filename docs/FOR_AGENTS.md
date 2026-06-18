@@ -80,6 +80,22 @@ If overlap is reported, split tasks or serialize the conflicting rows in BUILD_P
 
 Run `python3 scripts/check-file-encoding.py` after edits. Write text with UTF-8 (no BOM); never UTF-16.
 
+### Bash gates on Windows (no WSL)
+
+Many scripts (`validate-bootstrap.sh`, `feature-gate.sh`, `watch-agent-gates.sh`, `check-repo-hygiene.sh`) require **bash**. On Windows without WSL they fail with "no installed distributions".
+
+**Fallback (product stack):**
+
+```powershell
+python scripts/check-file-encoding.py
+dotnet test src/SpatialLabsOptimizer.Tests/SpatialLabsOptimizer.Tests.csproj -c Release
+cd site/catalog; npm test
+cd workers/steam-library; npm test
+pwsh scripts/check-github-ci.ps1 -WaitSeconds 300   # after push
+```
+
+Treat **GitHub Actions on `main`** as authoritative when local bash is unavailable. Install WSL or Git Bash for full `/gates` parity.
+
 ## WinUI host and UI thread contract
 
 The app builds the DI host on a background thread (`App.FinishStartupAsync` uses `Task.Run`) so startup splash stays responsive. Singleton ViewModels are constructed during that build, so `SynchronizationContext.Current` is **null** in their constructors.

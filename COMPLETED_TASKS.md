@@ -834,3 +834,27 @@ Security, CI, catalog, pipeline, and desktop Steam hardening from BUILD_PLAN rev
 
 **Evidence:** catalog build + smoke; worker vitest (4); `SteamVdfScannerTests` (2); `test_resolve_steam_appids.py` (3).
 
+## Template Migration Sprint (2026-06-17)
+
+> Policy **(B)**: keep inactive `examples/` stubs; mark unchecked in `AGENT_MEMORY.md`.
+
+- [x] [AGENT] Repository assessment + migration plan in `BUILD_PLAN.md`
+- [x] [AGENT] `AGENT_MEMORY.md` — product stack (WinUI, catalog, worker, Python sync)
+- [x] [AGENT] `docs/WEB_PROJECT_LAYOUT.md` — `site/catalog/` Golden Path, `VITE_STEAM_SYNC_URL`
+- [x] [AGENT] `init-stack-sync.py` + `product` stack → `.cursor/stack-selection.json`
+- [x] [AGENT] `TEMPLATE_INDEX.json` — winui, site/catalog, product-version, scopes
+- [x] [AGENT] `docs/PARALLEL_AGENT_SCOPES.md` — product isolated scopes
+- [x] [HUMAN] Inactive stack policy **(B)** — documented in `docs/OPTIONAL_STACKS.md`
+- [x] [AGENT] ADR-0001 template-baseline **Superseded**; core-architecture **Accepted**
+- [x] [AGENT] `README.md` agent bootstrap section; `KNOWLEDGE_BASE` KB-008
+- [x] [AGENT] `DECISION_LOG.md` — Template Migration Sprint entry
+- [x] [AUTO] Local validation — encoding, template index, catalog 42/42, worker 35/35, dotnet 223/223
+
+## Cursor slash commands integration (2026-06-17)
+
+- [x] [AGENT] Import `.cursor/commands/` (25 workflows) from agent-project-bootstrap v0.7.1
+- [x] [AGENT] Product-tailor `/gates`, `/push`, `/prerelease`, `/regress`, `/audit`, `/init`, `/feature`
+- [x] [AGENT] Gate scripts — `watch-agent-gates.sh`, `feature-gate.sh` (`--stack product`), `check-repo-hygiene.sh`, `agent-progress.sh`, `feature-autofix.sh`
+- [x] [AGENT] Docs — `FEATURE_MODULES.md`, `CURSOR_MODES.md`, `feature-modules.mdc`, `CODE_REVIEW.md.example`
+- [x] [AGENT] Repo hygiene — `.gitattributes`, `.editorconfig`; index + START_HERE + PROMPT_LIBRARY updates
+

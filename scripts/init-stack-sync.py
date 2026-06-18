@@ -8,38 +8,49 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Labels must match AGENT_MEMORY.md checkbox text (after "- [x] " / "- [ ] ").
 MODULE_LINES = {
-    "android": "Android / F-Droid",
-    "web": "Web / PWA",
-    "python": "Python",
-    "lightroom": "Lightroom Classic",
+    "winui": "WinUI 3 desktop",
+    "web": "Web catalog",
+    "node": "Node / Cloudflare Worker",
+    "python": "Python sync tooling",
+    "android": "Android / F-Droid (inactive stub",
+    "lightroom": "Lightroom Classic (inactive stub",
+    "rust": "Rust (inactive stub",
+    "go": "Go (inactive stub",
 }
 
+PRODUCT_STACK_MODULES = ["winui", "web", "node", "python"]
+
 PARALLEL_NOTES = {
-    "web": "Sprint 1 Parallel: Web PWA scope only (`examples/web/**`)",
-    "python": "Sprint 1 Parallel: Python CLI scope only (`examples/python/**`)",
-    "android": "Sprint 1 Parallel: Android FOSS scope only (`examples/android/**`)",
-    "multi": "Sprint 1 Parallel: one agent per active stack; no overlapping paths",
-    "none": "Sprint 1 Parallel: scope per AGENT_MEMORY active modules",
+    "product": "Product Parallel: one scope per row in docs/PARALLEL_AGENT_SCOPES.md",
+    "winui": "Parallel: `src/SpatialLabsOptimizer/**` only",
+    "web": "Parallel: `site/catalog/**` only",
+    "node": "Parallel: `workers/steam-library/**` only",
+    "python": "Parallel: `scripts/sync-catalog/**` only",
+    "multi": "Parallel: one agent per active stack; no overlapping paths",
+    "none": "Parallel: scope per AGENT_MEMORY active modules",
 }
 
 
 def active_modules(stack: str) -> list[str]:
-    if stack in ("multi", "none"):
-        return list(MODULE_LINES.keys())
+    if stack == "product":
+        return list(PRODUCT_STACK_MODULES)
     if stack in MODULE_LINES:
         return [stack]
-    return list(MODULE_LINES.keys())
+    if stack in ("multi", "none"):
+        return list(MODULE_LINES.keys())
+    return list(PRODUCT_STACK_MODULES)
 
 
 def sync_agent_memory(root: Path, stack: str) -> None:
     path = root / "AGENT_MEMORY.md"
     text = path.read_text(encoding="utf-8")
     active = set(active_modules(stack))
-    for key, label in MODULE_LINES.items():
+    for key, label_prefix in MODULE_LINES.items():
         mark = "x" if key in active else " "
-        pattern = rf"^- \[.\] {re.escape(label)}"
-        text = re.sub(pattern, f"- [{mark}] {label}", text, count=1)
+        pattern = rf"^- \[.\] {re.escape(label_prefix)}"
+        text = re.sub(pattern, f"- [{mark}] {label_prefix}", text, count=1)
     path.write_text(text, encoding="utf-8")
 
 
@@ -50,7 +61,7 @@ def write_stack_selection(root: Path, stack: str, pruned: bool) -> None:
         "stack": stack,
         "pruned": pruned,
         "active_modules": active_modules(stack),
-        "parallel_scope_note": PARALLEL_NOTES.get(stack, PARALLEL_NOTES["none"]),
+        "parallel_scope_note": PARALLEL_NOTES.get(stack, PARALLEL_NOTES["product"]),
         "selected_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
     }
     (cursor_dir / "stack-selection.json").write_text(
@@ -60,7 +71,11 @@ def write_stack_selection(root: Path, stack: str, pruned: bool) -> None:
 
 def main() -> None:
     if len(sys.argv) != 4:
-        print("Usage: init-stack-sync.py <stack> <root> <pruned:true|false>", file=sys.stderr)
+        print(
+            "Usage: init-stack-sync.py <stack> <root> <pruned:true|false>\n"
+            "  stack: product | winui | web | node | python | multi | none",
+            file=sys.stderr,
+        )
         sys.exit(1)
     stack, root_s, pruned_s = sys.argv[1], sys.argv[2], sys.argv[3]
     root = Path(root_s)

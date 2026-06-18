@@ -20,7 +20,8 @@
 
 ## Golden Path Reference
 
-See `examples/node/` for Hono + TypeScript + Vitest minimal API stub.
+- **This product:** `workers/steam-library/` — Cloudflare Worker (OpenID, KV tokens, Steam API proxy). See `docs/STEAM_CATALOG_SYNC.md`.
+- **Template stub:** `examples/node/` — Hono + TypeScript + Vitest minimal API.
 
 ## Owner Labels for This Module
 

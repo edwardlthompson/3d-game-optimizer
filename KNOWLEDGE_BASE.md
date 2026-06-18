@@ -73,3 +73,12 @@
 | **Cause** | Parent package pins or bundles a vulnerable sub-dependency; fix not yet published upstream |
 | **Fix** | **npm:** add `overrides` in `package.json` to force patched semver (see `examples/web` `@lhci/cli` overrides). **Python:** prefer `uv`/`pip` constraint or bump direct dep; document in DECISION_LOG if override is temporary |
 | **Prevention** | Prefer overrides over `--force` installs; remove overrides when upstream ships fix; weekly triage per `docs/SECURITY_TRIAGE.md`; see KB-007 before dismissing Dependabot alerts |
+
+### KB-008 — Child-repo vs template maintainer memory drift
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | Agents treat repo as bootstrap template; edit `examples/web` instead of `site/catalog`; wrong Parallel scopes |
+| **Cause** | `AGENT_MEMORY.md` and `WEB_PROJECT_LAYOUT.md` not updated after product fork; `stack-selection.json` still `"stack": "none"` |
+| **Fix** | Run Template Migration Sprint; `python3 scripts/init-stack-sync.py product . false`; read `AGENT_MEMORY.md` Golden Path map |
+| **Prevention** | Update memory at milestone boundaries; index product paths in `TEMPLATE_INDEX.json`; policy (B) marks inactive stubs unchecked |

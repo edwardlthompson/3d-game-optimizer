@@ -1,6 +1,6 @@
 # ADR-0001: Template Baseline Architecture
 
-- **Status:** Accepted
+- **Status:** Superseded by [0001-core-architecture.md](0001-core-architecture.md) (child-repo product mode, 2026-06-17)
 - **Date:** 2026-06-12
 - **Deciders:** Template maintainer
 

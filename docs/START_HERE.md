@@ -30,6 +30,18 @@
 3. `TEMPLATE_INDEX.json`
 4. `AGENTS.md`
 5. Matching `modules/{stack}/MODULE.md` only
+6. `.cursor/commands/README.md` — slash commands (`/build`, `/gates`, `/ship`, …)
+
+## Slash commands
+
+Type `/` in Cursor Agent chat. Workflows live in `.cursor/commands/` — see [`.cursor/commands/README.md`](../.cursor/commands/README.md).
+
+| Common | Command |
+|--------|---------|
+| Feature batch | `/build` |
+| Local gates | `/gates` |
+| Release | `/ship` or `/push` |
+| After AGENT step | `/fix` or `watch-agent-gates.sh` |
 
 ## Do Not Read Yet
 

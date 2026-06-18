@@ -107,3 +107,10 @@
 - **Alternatives considered:** Lightroom-only (rejected: Rust/Go stubs are low-cost and popular); defer all optional modules (rejected: COMPLETED_TASKS M3 work already landed)
 - **Consequences:** Template CI runs more jobs on `main`; child repos can delete unused `examples/` folders to skip jobs via `hashFiles` guards
 
+### 2026-06-17 — Template Migration Sprint (child-repo alignment)
+- **Status:** Accepted
+- **Context:** Product v1.4.0 shipped; `AGENT_MEMORY.md` and layout docs still described template maintainer repo; `stack-selection.json` stale
+- **Decision:** Policy **(B)** — keep inactive `examples/` stubs; rewrite memory/index/scopes for product Golden Path (`src/`, `site/catalog/`, `workers/steam-library/`); extend `init-stack-sync.py` with `product` stack; supersede ADR-0001 template-baseline in favor of ADR-0001 core-architecture
+- **Validation:** `validate-bootstrap.sh`, `build-verification-gate.sh`, catalog + worker Vitest, `validate-template-index.sh`
+- **Consequences:** Agents read `site/catalog/` as primary web path; optional stacks documented in `docs/OPTIONAL_STACKS.md` only
+

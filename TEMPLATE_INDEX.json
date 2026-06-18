@@ -803,6 +803,90 @@
       "read_when": "ui_work",
       "update_when": "design_change",
       "owner": "maintainer"
+    },
+    {
+      "path": "modules/winui/MODULE.md",
+      "purpose": "WinUI 3 Golden Path — SpatialLabsOptimizer desktop hub (MVVM + Clean)",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": "site/catalog/README.md",
+      "purpose": "3D Game Catalog browser — primary GitHub Pages app at /catalog/",
+      "read_when": "web_hosting",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": "src/SpatialLabsOptimizer/product-version.json",
+      "purpose": "Product semver consumed by product-release.yml and MSI/zip naming",
+      "read_when": "release",
+      "update_when": "milestone_boundary",
+      "owner": "agent"
+    },
+    {
+      "path": "scripts/init-stack-sync.py",
+      "purpose": "Sync AGENT_MEMORY module checkboxes and .cursor/stack-selection.json for product stack",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/PARALLEL_AGENT_SCOPES.md",
+      "purpose": "Isolated scopes for BUILD_PLAN Parallel agents (product paths)",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/commands/README.md",
+      "purpose": "Index of Cursor slash commands (/build, /gates, /ship, …)",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/watch-agent-gates.sh",
+      "purpose": "Gate loop with autofix after AGENT BUILD_PLAN steps",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/feature-gate.sh",
+      "purpose": "Stack lint + smoke gate (product: dotnet + catalog + worker)",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/check-repo-hygiene.sh",
+      "purpose": "Tracked artifacts, .gitignore, .gitattributes hygiene",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/FEATURE_MODULES.md",
+      "purpose": "Vertical slice contract and watch-agent-gates protocol",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/CURSOR_MODES.md",
+      "purpose": "Plan vs Agent vs Debug mode guidance",
+      "read_when": "session_start",
+      "update_when": "never",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/rules/feature-modules.mdc",
+      "purpose": "Agent guardrails for vertical slice feature work",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
     }
   ],
   "modules": {
@@ -839,7 +923,12 @@
     "node": {
       "guide": "modules/node/MODULE.md",
       "example": "examples/node",
-      "activate_when": "stack includes Node.js HTTP API"
+      "activate_when": "stack includes Node.js HTTP API; product worker at workers/steam-library/"
+    },
+    "winui": {
+      "guide": "modules/winui/MODULE.md",
+      "example": "examples/winui",
+      "activate_when": "stack includes WinUI 3 desktop (this product)"
     }
   },
   "roadmap": {

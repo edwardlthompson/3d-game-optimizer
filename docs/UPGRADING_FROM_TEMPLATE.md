@@ -16,6 +16,7 @@ Read the upstream release notes at `github.com/edwardlthompson/agent-project-boo
 |-------------|----------|-------|
 | `.github/workflows/` | Cherry-pick or manual merge | AGENT + HUMAN review |
 | `.cursor/rules/` | Copy new/changed `.mdc` files | AGENT |
+| `.cursor/commands/` | Copy new/changed slash command `.md` files | AGENT |
 | `docs/INITIALIZATION_PROMPT.md` | Manual review; do not blind overwrite | HUMAN |
 | `scripts/` | Copy updated scripts | AGENT |
 | `scripts/check-file-encoding.sh` | Copy + add CI/pre-commit gate | AGENT |

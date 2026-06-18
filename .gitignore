@@ -70,6 +70,9 @@ Thumbs.db
 .vscode/
 *.swp
 .cursor-session-state
+.cursor-session-state.json
+.cursor/agent-progress.json
+CODE_REVIEW.md
 
 # Test artifacts
 test-results/
