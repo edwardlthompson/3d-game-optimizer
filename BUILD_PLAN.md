@@ -18,27 +18,16 @@
 | Track | State |
 |-------|--------|
 | Product | **v1.4.0** shipped — [release](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.4.0) |
-| Template | **v0.7.1** aligned — commit `d198d92` pending push |
-| CI | Green on `main` (last push `8948427`) |
+| Template | **v0.7.1** on `main` (`a5d4f67`) — slash commands + migration live |
+| CI | **Green** on `a5d4f67` — CI, Security Scan, CodeQL |
 | GitHub Pages | **Live** — [catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) |
-| Steam sync | **Blocked on HUMAN** — KV id + Cloudflare/Steam secrets (F-002) |
-
----
-
-## Sequential — Audit sprint (2026-06-18)
-
-> Findings: `CODE_REVIEW.md` (local, gitignored) · Invoke `/audit` again after push.
-
-1. ✅ [AGENT] Commit template migration + slash commands + gate scripts batch (F-001) — `d198d92`
-2. ⬜ [HUMAN] Push to `main` and run `bash scripts/check-github-ci.sh HEAD --wait 600` (or `/push`)
-3. ✅ [AGENT] Document Windows gate fallback in `docs/FOR_AGENTS.md` — WSL/Git Bash vs CI (F-003)
-4. ✅ [AUTO] Local product tests — dotnet 223/223, catalog 42/42, worker 35/35
+| Steam sync | **Blocked on HUMAN** — KV id + Cloudflare/Steam secrets |
 
 ---
 
 ## Sequential — Steam library sync
 
-> [Design](.cursor/plans/steam_library_sync.plan.md) · [Ops](docs/STEAM_CATALOG_SYNC.md) · F-002
+> [Design](.cursor/plans/steam_library_sync.plan.md) · [Ops](docs/STEAM_CATALOG_SYNC.md)
 
 - ⬜ [HUMAN] Cloudflare KV namespace → `workers/steam-library/wrangler.toml`
 - ⬜ [HUMAN] GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `STEAM_WEB_API_KEY`
@@ -64,11 +53,11 @@ bash scripts/run-out-of-band-qa.sh
 
 ---
 
-## Parallel — Deferred from audit
+## Parallel — Deferred
 
-| Task | Owner | Finding | Isolated scope |
-|------|-------|---------|----------------|
-| WinUI file-budget sweep | AGENT | F-004 | `src/SpatialLabsOptimizer/**`, `ElevatedHelper/**` |
+| Task | Owner | Isolated scope |
+|------|-------|----------------|
+| WinUI file-budget sweep | AGENT | `src/SpatialLabsOptimizer/**`, `ElevatedHelper/**` |
 
 Run `bash scripts/check-parallel-scope.sh` before dispatch.
 

@@ -866,3 +866,10 @@ Security, CI, catalog, pipeline, and desktop Steam hardening from BUILD_PLAN rev
 - [x] [AUTO] Product tests — dotnet 223/223, catalog 42/42, worker 35/35; Dependabot 0 open
 - ⬜ [HUMAN] Push `d198d92` + CI poll (audit step 2)
 
+## Ship workflow (2026-06-18)
+
+- [x] [AUTO] Pre-release validation — encoding, template index, product tests, Dependabot 0
+- [x] [HUMAN] Push `a5d4f67` to `main` (bootstrap + audit docs)
+- [x] [AUTO] CI green on `a5d4f67` — CI, Security Scan, CodeQL
+- [x] [AUTO] Regress — v1.4.0 zip + MSI present; Pages live; tests 223/42/35
+
