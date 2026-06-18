@@ -858,3 +858,11 @@ Security, CI, catalog, pipeline, and desktop Steam hardening from BUILD_PLAN rev
 - [x] [AGENT] Docs — `FEATURE_MODULES.md`, `CURSOR_MODES.md`, `feature-modules.mdc`, `CODE_REVIEW.md.example`
 - [x] [AGENT] Repo hygiene — `.gitattributes`, `.editorconfig`; index + START_HERE + PROMPT_LIBRARY updates
 
+## Audit sprint (2026-06-18)
+
+- [x] [AGENT] `/audit` — CODE_REVIEW.md findings F-001–F-006; gate matrix documented
+- [x] [AGENT] Commit bootstrap batch `d198d92` (64 files — slash commands + migration)
+- [x] [AGENT] Windows bash gate fallback — `docs/FOR_AGENTS.md`
+- [x] [AUTO] Product tests — dotnet 223/223, catalog 42/42, worker 35/35; Dependabot 0 open
+- ⬜ [HUMAN] Push `d198d92` + CI poll (audit step 2)
+
