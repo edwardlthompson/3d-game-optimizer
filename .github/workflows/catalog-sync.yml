@@ -13,7 +13,7 @@ jobs:
     name: Merge sources and validate catalog v2
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-python@v6
         with:
@@ -57,7 +57,7 @@ jobs:
           python3 scripts/sync-catalog/test_resolve_steam_appids.py
 
       - name: Upload catalog artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: catalog-v2
           path: |
@@ -74,11 +74,11 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: catalog-v2
           path: artifact
