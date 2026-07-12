@@ -17,7 +17,7 @@ jobs:
     name: Weekly Workflow Health
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       # Dependabot squash-merge with GITHUB_TOKEN does not re-trigger push CI on main.
       - name: Ensure CI run exists on HEAD
