@@ -82,3 +82,12 @@
 | **Cause** | `AGENT_MEMORY.md` and `WEB_PROJECT_LAYOUT.md` not updated after product fork; `stack-selection.json` still `"stack": "none"` |
 | **Fix** | Run Template Migration Sprint; `python3 scripts/init-stack-sync.py product . false`; read `AGENT_MEMORY.md` Golden Path map |
 | **Prevention** | Update memory at milestone boundaries; index product paths in `TEMPLATE_INDEX.json`; policy (B) marks inactive stubs unchecked |
+
+### KB-009 — Dependabot High alerts lag until override lockfiles hit `main`
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | `pre-release-gate.sh --product-release` fails with open Critical/High Dependabot alerts after local `overrides` + lockfile fix |
+| **Cause** | GitHub Dependabot evaluates the default branch; unpushed lockfiles do not close alerts |
+| **Fix** | Push overrides (e.g. `undici >=7.28.0`); re-run `scripts/dependabot-critical-high-count.sh`; then tag |
+| **Prevention** | Ship security lockfile fixes before cutting product tags; do not expect local `npm audit` alone to clear remote alerts |

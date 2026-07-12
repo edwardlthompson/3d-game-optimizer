@@ -17,7 +17,7 @@
 
 | Track | State |
 |-------|--------|
-| Product | **v1.5.0** shipping (`/ship` in progress) |
+| Product | **v1.5.0** shipped — [release](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.5.0) |
 | Template | **v0.7.1** on `main` |
 | GitHub Pages | **Live** — [catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) |
 | Steam sync | **Blocked on HUMAN** — KV + secrets + smoke |
@@ -30,7 +30,7 @@
 > Agent UX sprints A–C archived in [COMPLETED_TASKS.md](COMPLETED_TASKS.md). Commit/push includes audit + UX batches.
 
 - ✅ [HUMAN] Review + commit/push (audit + UX A–C) — via `/ship` 2026-07-12
-- ⬜ [AUTO] After push — CI + Security Triage + Health Check green
+- ✅ [AUTO] After push — CI + Security Scan + CodeQL green; Dependabot Critical/High = 0
 - ⬜ [HUMAN] Cloudflare KV namespace id → `workers/steam-library/wrangler.toml`
 - ⬜ [HUMAN] GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `STEAM_WEB_API_KEY`
 - ⬜ [HUMAN] Post-deploy smoke — [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md) § Post-deploy smoke (Connect Steam visible, OpenID, Lib ✓, `/health`)
@@ -39,6 +39,7 @@
 - ✅ [AGENT] UX-A trust (Simple mode, theme, pre-launch confirm, setup wizard)
 - ✅ [AGENT] UX-B discovery (detail notes/queue, readiness, filter flyout, Ctrl+K, remove orphan health)
 - ✅ [AGENT] UX-C catalog Steam UX (unavailable/loading/confirm/unmatched/prefs/filters)
+- ✅ [AGENT] Ship v1.5.0 — tag + zip/MSI on GitHub Releases
 
 ---
 
