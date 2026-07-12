@@ -9,7 +9,6 @@
 - [x] [AGENT] UX-C — Catalog Steam unavailable state, loading, replace/disconnect confirms, unmatched modal, toolbar prefs + TrueGame/UEVR/min-rank filters
 - [x] [AGENT] Validation — dotnet 225/225; catalog 45/45
 - [x] [AGENT] Ship v1.5.0 — push + `SpatialLabsOptimizer-v1.5.0` zip+MSI; CI green; Dependabot High/Critical cleared
-- [ ] [HUMAN] Steam KV/secrets/smoke, hardware QA, README screenshots — remain on BUILD_PLAN
 
 ## BUILD_PLAN execution — Audit Sprint 2026-07-12 (archived 2026-07-12)
 
@@ -21,7 +20,6 @@
 - [x] [AGENT] F-005 — `stripHtml` single-pass entity decode + `utils.test.ts`; catalog 45/45
 - [x] [AGENT] Validation — watch-agent-gates 7 stages OK; bootstrap --quick PASS; worker 35/35; catalog 45/45; dotnet 223/223
 - [x] [AUTO] Pending push — CI / Security Triage / Health Check re-verify
-- [ ] [HUMAN] Steam KV + secrets (unchanged)
 
 ## BUILD_PLAN execution — review pass 10 (archived 2026-06-17)
 
