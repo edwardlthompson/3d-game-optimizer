@@ -13,27 +13,32 @@
 
 ---
 
-## Status (2026-06-18)
+## Status (2026-07-12)
 
 | Track | State |
 |-------|--------|
-| Product | **v1.4.0** shipped — [release](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.4.0) |
-| Template | **v0.7.1** on `main` (`a5d4f67`) — slash commands + migration live |
-| CI | **Green** on `a5d4f67` — CI, Security Scan, CodeQL |
+| Product | **v1.5.0** shipping (`/ship` in progress) |
+| Template | **v0.7.1** on `main` |
 | GitHub Pages | **Live** — [catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) |
-| Steam sync | **Blocked on HUMAN** — KV id + Cloudflare/Steam secrets |
+| Steam sync | **Blocked on HUMAN** — KV + secrets + smoke |
+| Hardware QA | **HUMAN** — [HARDWARE_QA_OUT_OF_BAND.md](docs/HARDWARE_QA_OUT_OF_BAND.md) |
 
 ---
 
-## Sequential — Steam library sync
+## Sequential — HUMAN gate (Steam + ship)
 
-> [Design](.cursor/plans/steam_library_sync.plan.md) · [Ops](docs/STEAM_CATALOG_SYNC.md)
+> Agent UX sprints A–C archived in [COMPLETED_TASKS.md](COMPLETED_TASKS.md). Commit/push includes audit + UX batches.
 
-- ⬜ [HUMAN] Cloudflare KV namespace → `workers/steam-library/wrangler.toml`
+- ✅ [HUMAN] Review + commit/push (audit + UX A–C) — via `/ship` 2026-07-12
+- ⬜ [AUTO] After push — CI + Security Triage + Health Check green
+- ⬜ [HUMAN] Cloudflare KV namespace id → `workers/steam-library/wrangler.toml`
 - ⬜ [HUMAN] GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `STEAM_WEB_API_KEY`
-- ⬜ [HUMAN] Post-deploy smoke — checklist in `docs/STEAM_CATALOG_SYNC.md` § Post-deploy smoke
-- ✅ [AUTO] Deploy worker → `STEAM_SYNC_WORKER_URL` → rebuild Pages
-- ✅ [AGENT] KV guard, worker + catalog tests, CI wiring
+- ⬜ [HUMAN] Post-deploy smoke — [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md) § Post-deploy smoke (Connect Steam visible, OpenID, Lib ✓, `/health`)
+- ⬜ [HUMAN] Real WinUI README screenshots (replace synthetic Sprint 43 assets)
+- ⬜ [HUMAN] Hardware Play in 3D / VR sign-off — [docs/HARDWARE_QA_OUT_OF_BAND.md](docs/HARDWARE_QA_OUT_OF_BAND.md)
+- ✅ [AGENT] UX-A trust (Simple mode, theme, pre-launch confirm, setup wizard)
+- ✅ [AGENT] UX-B discovery (detail notes/queue, readiness, filter flyout, Ctrl+K, remove orphan health)
+- ✅ [AGENT] UX-C catalog Steam UX (unavailable/loading/confirm/unmatched/prefs/filters)
 
 ---
 
@@ -58,6 +63,9 @@ bash scripts/run-out-of-band-qa.sh
 | Task | Owner | Isolated scope |
 |------|-------|----------------|
 | WinUI file-budget sweep | AGENT | `src/SpatialLabsOptimizer/**`, `ElevatedHelper/**` |
+| Scorecard pin + permissions | AGENT | `.github/workflows/**` (CODE_REVIEW F-007) |
+| Dependabot PR #8 (github-actions) | HUMAN | Review + merge open actions bump |
+| WinUI i18n resource strings | AGENT | XAML → .resw |
 
 Run `bash scripts/check-parallel-scope.sh` before dispatch.
 
@@ -68,7 +76,7 @@ Run `bash scripts/check-parallel-scope.sh` before dispatch.
 | Topic | Location |
 |-------|----------|
 | Slash commands | [`.cursor/commands/README.md`](.cursor/commands/README.md) |
-| Planning review | [docs/PLANNING_REVIEW.md](docs/PLANNING_REVIEW.md) |
-| Product release gate | [docs/PRODUCT_RELEASE_GATE.md](docs/PRODUCT_RELEASE_GATE.md) |
+| UX tracker | [docs/UX_PROGRESS.md](docs/UX_PROGRESS.md) |
+| Steam ops | [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md) |
 | Agent memory | [AGENT_MEMORY.md](AGENT_MEMORY.md) |
 | Live catalog | https://edwardlthompson.github.io/3d-game-optimizer/catalog/ |

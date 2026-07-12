@@ -21,6 +21,9 @@ const baseCtx = {
     libraryFilter: "all" as const,
     ultraOnly: false,
     visionCertifiedOnly: false,
+    trueGameOnly: false,
+    uevrOnly: false,
+    minRank3D: 0,
   },
   globalFilter: "",
 };

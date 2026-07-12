@@ -1,5 +1,6 @@
 using System.Windows.Input;
 using SpatialLabsOptimizer.Infrastructure.Displays;
+using SpatialLabsOptimizer.Infrastructure.Hosting;
 using SpatialLabsOptimizer.Infrastructure.Launch;
 using SpatialLabsOptimizer.Infrastructure.Launch.Coexistence;
 using SpatialLabsOptimizer.Infrastructure.Pcvr;
@@ -13,6 +14,7 @@ namespace SpatialLabsOptimizer.ViewModels;
 public sealed partial class Global3DSettingsViewModel : ViewModelBase
 {
     private readonly UserPreferencesService _prefs;
+    private readonly AppThemeService _themeService;
 
     private double _depth = 0.65;
     private double _convergence = 0.5;
@@ -25,6 +27,7 @@ public sealed partial class Global3DSettingsViewModel : ViewModelBase
 
     public Global3DSettingsViewModel(
         UserPreferencesService prefs,
+        AppThemeService themeService,
         ExternalToolCoexistenceService coexistence,
         GameOverrideRepository overrides,
         PresetCacheService presets,
@@ -38,9 +41,12 @@ public sealed partial class Global3DSettingsViewModel : ViewModelBase
         HdrWatchdogService? hdrWatchdog = null,
         SessionProfileService? sessionProfiles = null,
         StreamerHotkeyService? streamerHotkey = null,
-        StreamFriendlyProfileService? streamFriendly = null)
+        StreamFriendlyProfileService? streamFriendly = null,
+        ReadinessScoreService? readinessScore = null,
+        DisplayAutoDetector? displayDetector = null)
     {
         _prefs = prefs;
+        _themeService = themeService;
         Toolchain = toolchain;
         _coexistence = coexistence;
         _overrides = overrides;
@@ -55,6 +61,10 @@ public sealed partial class Global3DSettingsViewModel : ViewModelBase
         _sessionProfiles = sessionProfiles;
         _streamerHotkey = streamerHotkey;
         _streamFriendly = streamFriendly;
+        if (readinessScore is not null && displayDetector is not null)
+        {
+            AttachReadiness(readinessScore, displayDetector);
+        }
 
         RefreshDetectedToolsCommand = new RelayCommand(RefreshDetectedTools);
         SaveOverrideCommand = new RelayCommand(SaveOverrideAsync);
@@ -138,40 +148,6 @@ public sealed partial class Global3DSettingsViewModel : ViewModelBase
         }
     }
 
-    public bool SimpleMode
-    {
-        get => _simpleMode;
-        set
-        {
-            if (SetProperty(ref _simpleMode, value) && !_isLoading)
-            {
-                _ = SaveLaunchSafetyAsync();
-            }
-        }
-    }
-
-    public string Theme
-    {
-        get => _theme;
-        private set => SetProperty(ref _theme, value);
-    }
-
-    public int ThemeIndex
-    {
-        get => Theme switch
-        {
-            "light" => 1,
-            "dark" => 2,
-            _ => 0
-        };
-        set => _ = SetThemeAsync(value switch
-        {
-            1 => "light",
-            2 => "dark",
-            _ => "system"
-        });
-    }
-
     public ICommand RefreshDetectedToolsCommand { get; }
     public ICommand SaveOverrideCommand { get; }
     public ICommand DisableHdrCommand { get; }
@@ -196,6 +172,8 @@ public sealed partial class Global3DSettingsViewModel : ViewModelBase
         Depth = await _prefs.GetDefaultDepthAsync();
         Convergence = await _prefs.GetDefaultConvergenceAsync();
         OnPropertyChanged(nameof(ThemeIndex));
+        OnPropertyChanged(nameof(ShowAdvancedSettings));
+        OnPropertyChanged(nameof(ShowIntegrationsPanel));
 
         RefreshDetectedTools();
         await LoadV2SectionAsync();
@@ -204,6 +182,7 @@ public sealed partial class Global3DSettingsViewModel : ViewModelBase
         await LoadSessionProfilesSectionAsync();
         RefreshSnapshots();
         await Toolchain.LoadAsync();
+        await RefreshReadinessAsync();
         _isLoading = false;
     }
 
@@ -219,12 +198,5 @@ public sealed partial class Global3DSettingsViewModel : ViewModelBase
     {
         await _prefs.SetDefaultDepthAsync(Depth);
         await _prefs.SetDefaultConvergenceAsync(Convergence);
-    }
-
-    public async Task SetThemeAsync(string theme)
-    {
-        Theme = theme;
-        OnPropertyChanged(nameof(ThemeIndex));
-        await _prefs.SetThemeAsync(theme);
     }
 }

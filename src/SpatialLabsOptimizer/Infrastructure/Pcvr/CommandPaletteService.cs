@@ -12,9 +12,12 @@ public sealed class CommandPaletteService
         new("cache-presets", "Cache Top Presets", "Bulk download UEVR presets"),
         new("open-logs", "Open Logs Folder", "Reveal local log directory"),
         new("toggle-safe-launch", "Toggle Safe Launch", "Enable or disable injector-free launches"),
-        new("safe-launch", "Safe Launch", "Launch without injectors"),
+        new("safe-launch", "Safe Launch selected game", "Enable safe launch and Play in 3D"),
         new("diagnostic-bundle", "Export Diagnostics", "Create redacted support bundle"),
-        new("command-palette", "Quick Actions", "Open searchable shortcut list")
+        new("command-palette", "Quick Actions", "Open searchable shortcut list (Ctrl+K)"),
+        new("shortcut-ctrl-k", "Keyboard: Ctrl+K", "Open Quick Actions from anywhere"),
+        new("shortcut-safe", "Keyboard: Ctrl+Shift+S", "Toggle Safe Launch (streamer binding)"),
+        new("setup-wizard-guided", "Guided Setup Wizard", "Three-step first-run: disclaimer, display, tools")
     };
 
     public IReadOnlyList<CommandPaletteEntry> Search(string query)

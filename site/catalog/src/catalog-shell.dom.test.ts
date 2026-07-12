@@ -3,19 +3,21 @@ import { describe, expect, it } from "vitest";
 import { libraryMergeMode, renderCatalogShell } from "./catalog-shell";
 
 describe("renderCatalogShell", () => {
-  it("omits Steam controls when sync is disabled", () => {
+  it("shows unavailable Steam state when sync is disabled", () => {
     const root = document.createElement("div");
     renderCatalogShell(root, { steamEnabled: false, connectedHint: "" });
     expect(root.querySelector("#connect-steam")).toBeNull();
     expect(root.querySelector("#disconnect-steam")).toBeNull();
     expect(root.querySelector("#replace-library")).toBeNull();
-    expect(root.innerHTML).not.toContain("Steam sync available");
+    expect(root.querySelector("#steam-unavailable")).not.toBeNull();
+    expect(root.innerHTML).toContain("Steam sync not configured");
   });
 
   it("renders Steam controls when sync is enabled", () => {
     const root = document.createElement("div");
     renderCatalogShell(root, { steamEnabled: true, connectedHint: "Last sync yesterday" });
     expect(root.querySelector("#connect-steam")).not.toBeNull();
+    expect(root.querySelector("#resync-steam")).not.toBeNull();
     expect(root.querySelector("#steam-connected-status")?.textContent).toContain("Last sync yesterday");
     expect(root.innerHTML).toContain("Steam sync available");
   });

@@ -32,6 +32,7 @@ public sealed partial class PlayIn3D
     private readonly SafeLaunchService _safeLaunch;
     private readonly UserPreferencesService _preferences;
     private readonly LaunchPreviewService _launchPreview;
+    private readonly ILaunchConfirmationService _launchConfirm;
     private readonly LibraryIntelligenceService _libraryIntel;
     private readonly GameDatabase _database;
     private readonly OptimalDefaultsService _defaults;
@@ -55,6 +56,7 @@ public sealed partial class PlayIn3D
         SafeLaunchService safeLaunch,
         UserPreferencesService preferences,
         LaunchPreviewService launchPreview,
+        ILaunchConfirmationService launchConfirm,
         LibraryIntelligenceService libraryIntel,
         GameDatabase database,
         OptimalDefaultsService defaults,
@@ -77,6 +79,7 @@ public sealed partial class PlayIn3D
         _safeLaunch = safeLaunch;
         _preferences = preferences;
         _launchPreview = launchPreview;
+        _launchConfirm = launchConfirm;
         _libraryIntel = libraryIntel;
         _database = database;
         _defaults = defaults;

@@ -28,7 +28,7 @@ describe("showSteamBanner", () => {
     const ui = ctx('<div id="steam-sync-banner" hidden></div>');
     showSteamBanner(
       ui,
-      { catalogMatched: 0, ownedTotal: 0, ownedUnmatched: 0, catalogNoSteamLink: 0 },
+      { catalogMatched: 0, ownedTotal: 0, ownedUnmatched: 0, catalogNoSteamLink: 0, unmatchedAppIds: [] },
       null,
       true,
     );
@@ -54,6 +54,7 @@ describe("showSteamBanner", () => {
         ownedTotal: 10,
         ownedUnmatched: 2,
         catalogNoSteamLink: 5,
+        unmatchedAppIds: [10, 20],
       },
       null,
       false,

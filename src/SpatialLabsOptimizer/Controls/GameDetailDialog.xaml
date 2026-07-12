@@ -41,6 +41,25 @@
                 <Button Command="{x:Bind ViewModel.PinCommand}" Content="Pin" Style="{StaticResource AppButtonStyle}" />
                 <Button Command="{x:Bind ViewModel.UnpinCommand}" Content="Unpin" Style="{StaticResource AppButtonStyle}" />
                 <Button Command="{x:Bind ViewModel.ToggleFavoriteCommand}" Content="Favorite" Style="{StaticResource AppButtonStyle}" />
+                <Button Command="{x:Bind ViewModel.QueueCommand}" Content="Add to queue" Style="{StaticResource AppButtonStyle}" />
+                <Button Command="{x:Bind ViewModel.PlayNextCommand}" Content="Play next" Style="{StaticResource AppButtonStyle}" />
+            </StackPanel>
+            <TextBox
+                Header="Compatibility note"
+                PlaceholderText="Notes for this title…"
+                Text="{x:Bind ViewModel.CompatibilityNote, Mode=TwoWay}"
+                TextWrapping="Wrap"
+                AcceptsReturn="True"
+                Height="72" />
+            <Button Command="{x:Bind ViewModel.SaveCompatibilityNoteCommand}" Content="Save note" Style="{StaticResource AppButtonStyle}" HorizontalAlignment="Left" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBox
+                    Width="160"
+                    Header="Playlist"
+                    PlaceholderText="Name"
+                    Text="{x:Bind ViewModel.PlaylistName, Mode=TwoWay}" />
+                <Button VerticalAlignment="Bottom" Command="{x:Bind ViewModel.SavePlaylistCommand}" Content="Save playlist" Style="{StaticResource AppButtonStyle}" />
+                <Button VerticalAlignment="Bottom" Command="{x:Bind ViewModel.LoadPlaylistCommand}" Content="Load to queue" Style="{StaticResource AppButtonStyle}" />
             </StackPanel>
         </StackPanel>
     </Grid>

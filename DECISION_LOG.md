@@ -16,6 +16,27 @@
 
 ## Entries
 
+### 2026-07-12 — Ship v1.5.0 (/ship)
+- **Status:** Accepted
+- **Context:** Pre-release gate blocked on remote Dependabot undici High alerts until lockfile overrides land on `main`
+- **Decision:** Commit audit + UX A–C + 1.5.0 bump; push; re-check Dependabot; tag `SpatialLabsOptimizer-v1.5.0`
+- **Validation:** feature-gate product PASS; catalog 45; worker 35; file limits OK; license PASS
+- **Consequences:** Steam KV/secrets and hardware QA remain HUMAN
+
+### 2026-07-12 — UX roadmap sprints A–C
+- **Status:** Accepted
+- **Context:** Plan `ux_ui_feature_roadmap` — close dead toggles, launch trust, catalog Steam friction
+- **Decision:** Sequential AGENT delivery of D1–D8 + C1–C5; HUMAN Steam infra and hardware QA remain on BUILD_PLAN
+- **Validation:** dotnet 225/225; catalog Vitest 45/45
+- **Consequences:** Unpushed local changes; live Connect Steam still needs Cloudflare KV + secrets
+
+### 2026-07-12 — Audit Sprint (undici + weekly CI gates)
+- **Status:** Accepted
+- **Context:** `/audit` found High undici Dependabot alerts; weekly Security Triage failed (missing `security-triage` label); Health Check failed because Dependabot `GITHUB_TOKEN` squash-merges do not re-trigger push CI on `main` HEAD; catalog JSON blocked local feature-gate hygiene
+- **Decision:** Override `undici >=7.28.0`; bootstrap triage label in workflow; Health Check dispatches CI when absent then `--wait 600`; exempt intentional `catalog-v2.json` paths; single-pass `stripHtml` entity decode for CodeQL
+- **Validation:** Local watch-agent-gates 7 stages; catalog 45/45; worker 35/35; dotnet 223/223; bootstrap `--quick` PASS
+- **Consequences:** Changes uncommitted until [HUMAN] review/push; Scorecard pin sprint and Steam secrets remain deferred/HUMAN
+
 ### 2026-06-17 — Steam library sync AGENT batch
 - **Status:** Accepted
 - **Context:** Catalog needed one-click Steam library merge; browser cannot call `GetOwnedGames` directly

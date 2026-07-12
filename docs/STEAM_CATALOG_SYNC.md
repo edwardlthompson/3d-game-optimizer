@@ -60,10 +60,13 @@ bash scripts/sync-steam-worker-pages.sh https://steam-library-sync.<subdomain>.w
 After KV id and secrets are set and `steam-library-worker.yml` + Pages have run:
 
 1. Confirm repo variable `STEAM_SYNC_WORKER_URL` is set (`gh variable list`).
-2. Open the live catalog — **Connect Steam** button visible in the toolbar.
-3. Complete OpenID sign-in; return URL should strip `#steam_sync_token` from the fragment (legacy `?steam_sync_token=` query also accepted) and show a success banner.
-4. Verify at least one catalog title with a Steam link shows **Lib** checked when owned.
-5. Worker health: `curl -s "$STEAM_SYNC_WORKER_URL/health"` → `{"ok":true}`.
+2. Open the live catalog — **Connect Steam** + **Resync library** visible (not the “Steam sync unavailable” muted hint).
+3. Complete OpenID sign-in; return URL should strip `#steam_sync_token` from the fragment (legacy `?steam_sync_token=` query also accepted), show a **loading** then success banner.
+4. If unmatched owned games > 0, click the unmatched count to open the App ID list modal.
+5. Verify at least one catalog title with a Steam link shows **Lib** checked when owned.
+6. Worker health: `curl -s "$STEAM_SYNC_WORKER_URL/health"` → `{"ok":true}`.
+
+Before secrets are configured, the catalog intentionally shows **Steam sync unavailable — worker not configured** instead of hiding Steam UX.
 
 ### 4. Local development
 

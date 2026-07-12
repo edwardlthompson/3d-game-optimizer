@@ -1,28 +1,14 @@
-import { bindCatalogToolbar, libraryMergeMode, renderCatalogShell } from "./catalog-shell";
+import { mountCatalogShell } from "./catalog-mount";
+import { loadToolbarPrefs, prefsToGridOptions, saveToolbarPrefs } from "./catalog-prefs";
 import { checkCatalogSync, verifyCatalogIntegrity } from "./catalog-integrity";
 import { CatalogGrid, type GridOptions } from "./grid";
 import { loadPriceHistory, type PriceHistoryDocument } from "./price-chart";
-import { exportLibrary, importLibrary, loadLibrary } from "./library";
+import { libraryMergeMode } from "./catalog-shell";
+import { loadSteamMeta } from "./library";
 import type { CatalogDocument } from "./types";
-import {
-  disconnectSteam,
-  handleSteamSyncReturn,
-  isSteamSyncEnabled,
-  loadSteamMeta,
-  startSteamConnect,
-} from "./steam-library-sync";
-import { showSteamBanner, type SteamUiContext } from "./steam-ui";
-import { exportWishlist, importWishlist, loadWishlist } from "./wishlist";
-
-function downloadJson(filename: string, json: string): void {
-  const blob = new Blob([json], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-}
+import { handleSteamSyncReturn } from "./steam-library-sync";
+import { showSteamBanner, showSteamLoading, type SteamUiContext } from "./steam-ui";
+import { readSteamReturnParams } from "./steam-library-sync-url";
 
 function registerServiceWorker(base: string): void {
   if (!("serviceWorker" in navigator)) return;
@@ -34,14 +20,19 @@ export async function bootstrapCatalog(appRoot: HTMLElement): Promise<void> {
   let priceHistory: PriceHistoryDocument | null = null;
   let grid: CatalogGrid | null = null;
 
-  const gridOptions: GridOptions = {
-    wishlistFilter: "all",
-    libraryFilter: "all",
-    ultraOnly: false,
-    visionCertifiedOnly: false,
-  };
+  const prefs = loadToolbarPrefs();
+  const gridOptions: GridOptions = prefsToGridOptions(prefs);
 
-  const syncGridOptions = (): void => {
+  const persistAndSync = (): void => {
+    saveToolbarPrefs({
+      wishlistFilter: gridOptions.wishlistFilter,
+      libraryFilter: gridOptions.libraryFilter,
+      ultraOnly: gridOptions.ultraOnly,
+      visionCertifiedOnly: gridOptions.visionCertifiedOnly,
+      trueGameOnly: gridOptions.trueGameOnly,
+      uevrOnly: gridOptions.uevrOnly,
+      minRank3D: gridOptions.minRank3D,
+    });
     grid?.setOptions({ ...gridOptions });
   };
 
@@ -51,50 +42,6 @@ export async function bootstrapCatalog(appRoot: HTMLElement): Promise<void> {
     getMergeMode: () => libraryMergeMode(appRoot),
     refreshGrid: () => grid?.refreshLibrary(),
   });
-
-  const mountShell = (): void => {
-    const steamMeta = loadSteamMeta();
-    const connectedHint =
-      steamMeta.steamId && steamMeta.lastSyncAt
-        ? `Last sync ${new Date(steamMeta.lastSyncAt).toLocaleString()}`
-        : "";
-    renderCatalogShell(appRoot, { steamEnabled: isSteamSyncEnabled(), connectedHint });
-    bindCatalogToolbar(appRoot, {
-      onSearch: (query) => grid?.setGlobalFilter(query),
-      onWishlistFilter: (mode) => {
-        gridOptions.wishlistFilter = mode;
-        syncGridOptions();
-      },
-      onLibraryFilter: (mode) => {
-        gridOptions.libraryFilter = mode;
-        syncGridOptions();
-      },
-      onUltraOnly: (enabled) => {
-        gridOptions.ultraOnly = enabled;
-        syncGridOptions();
-      },
-      onVisionCertified: (enabled) => {
-        gridOptions.visionCertifiedOnly = enabled;
-        syncGridOptions();
-      },
-      onExportWishlist: () => downloadJson("3d-catalog-wishlist.json", exportWishlist(loadWishlist())),
-      onImportWishlist: (text) => {
-        importWishlist(text);
-        grid?.setOptions({ ...gridOptions });
-      },
-      onExportLibrary: () => downloadJson("3d-catalog-library.json", exportLibrary(loadLibrary())),
-      onImportLibrary: (text) => {
-        importLibrary(text);
-        grid?.refreshLibrary();
-      },
-      onConnectSteam: () => startSteamConnect(),
-      onDisconnectSteam: () => {
-        disconnectSteam();
-        const status = appRoot.querySelector<HTMLSpanElement>("#steam-connected-status");
-        if (status) status.textContent = "";
-      },
-    });
-  };
 
   const base = import.meta.env.BASE_URL;
   registerServiceWorker(base);
@@ -108,7 +55,12 @@ export async function bootstrapCatalog(appRoot: HTMLElement): Promise<void> {
   catalog = JSON.parse(catalogText) as CatalogDocument;
   priceHistory = await loadPriceHistory(base);
 
-  mountShell();
+  mountCatalogShell({
+    appRoot,
+    gridOptions,
+    getGrid: () => grid,
+    persistAndSync,
+  });
   checkCatalogSync(catalog.meta.mergedAt, integrity.hash, () => {
     const banner = appRoot.querySelector<HTMLDivElement>("#sync-banner");
     if (banner) {
@@ -126,7 +78,12 @@ export async function bootstrapCatalog(appRoot: HTMLElement): Promise<void> {
       status.textContent = `${s.filtered} of ${s.total} titles · page ${s.page}/${Math.max(s.pageCount, 1)} · sync ${catalog!.meta.syncStatus} · merged ${catalog!.meta.mergedAt}`;
     }
   });
+  grid.setOptions({ ...gridOptions });
 
+  const pendingSteam = readSteamReturnParams();
+  if (pendingSteam.token || pendingSteam.error) {
+    showSteamLoading(steamCtx());
+  }
   const steamResult = await handleSteamSyncReturn(catalog.games, libraryMergeMode(appRoot));
   showSteamBanner(steamCtx(), steamResult.stats, steamResult.error, steamResult.emptyLibrary);
   if (steamResult.stats) {

@@ -2,7 +2,28 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## BUILD_PLAN execution — UX roadmap A–C (archived 2026-07-12)
+
+- [x] [AGENT] UX-A — Simple mode hides Advanced/dense filters; theme applies via `AppThemeService`; Play in 3D pre-launch confirm; 3-step `SetupWizardView`
+- [x] [AGENT] UX-B — Game detail notes/queue/playlist; readiness score on Settings; filter flyout + chips; global Ctrl+K; Command Palette shortcuts; removed orphan `ToolchainHealthView`
+- [x] [AGENT] UX-C — Catalog Steam unavailable state, loading, replace/disconnect confirms, unmatched modal, toolbar prefs + TrueGame/UEVR/min-rank filters
+- [x] [AGENT] Validation — dotnet 225/225; catalog 45/45
+- [ ] [HUMAN] Push, Steam KV/secrets/smoke, hardware QA, README screenshots — staged on BUILD_PLAN
+
+## BUILD_PLAN execution — Audit Sprint 2026-07-12 (archived 2026-07-12)
+
+
+- [x] [AGENT] F-001 — `undici` `>=7.28.0` overrides in `workers/steam-library` + `examples/web`; lockfiles re-resolved (0 npm vulns)
+- [x] [AGENT] F-002 — `security-triage` label bootstrap in workflow + label created on GitHub
+- [x] [AGENT] F-003 — Health Check dispatches CI when missing on HEAD; `actions: write`; `--wait 600`; `check-github-ci` `--limit 100`
+- [x] [AGENT] F-004 — `scripts/large-file-exemptions.txt` for catalog JSON; hygiene + feature-gate pass
+- [x] [AGENT] F-005 — `stripHtml` single-pass entity decode + `utils.test.ts`; catalog 45/45
+- [x] [AGENT] Validation — watch-agent-gates 7 stages OK; bootstrap --quick PASS; worker 35/35; catalog 45/45; dotnet 223/223
+- [ ] [AUTO] Pending push — CI / Security Triage / Health Check re-verify
+- [ ] [HUMAN] Steam KV + secrets (unchanged)
+
 ## BUILD_PLAN execution — review pass 10 (archived 2026-06-17)
+
 
 - [x] [AGENT] Worker catch block — CORS-wrap 500 responses
 - [x] [AGENT] OpenID callback caps `appIds` at 10k before KV write + test

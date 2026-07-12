@@ -160,6 +160,7 @@ public sealed partial class GameLibraryViewModel
         {
             if (SetProperty(ref _showLocalOnly, value))
             {
+                OnPropertyChanged(nameof(ActiveFilterChips));
                 _ = LoadAsync();
                 ScheduleSaveLibraryPrefs();
             }
@@ -173,6 +174,7 @@ public sealed partial class GameLibraryViewModel
         {
             if (SetProperty(ref _showWhyNotReady, value))
             {
+                OnPropertyChanged(nameof(ActiveFilterChips));
                 _ = LoadAsync();
                 ScheduleSaveLibraryPrefs();
             }

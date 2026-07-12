@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  actions: write
 
 env:
   CI_EXAMPLE_STACKS: ${{ vars.CI_EXAMPLE_STACKS || 'on' }}
@@ -18,10 +19,25 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      # Dependabot squash-merge with GITHUB_TOKEN does not re-trigger push CI on main.
+      - name: Ensure CI run exists on HEAD
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SHA="$(git rev-parse HEAD)"
+          COUNT="$(gh run list --repo "$GITHUB_REPOSITORY" --commit "$SHA" --workflow ci.yml \
+            --limit 5 --json databaseId --jq 'length')"
+          if [ "${COUNT:-0}" = "0" ]; then
+            echo "No CI on ${SHA:0:7}; dispatching workflow_dispatch"
+            gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME"
+          else
+            echo "CI already present on ${SHA:0:7} (${COUNT} run(s))"
+          fi
+
       - name: Verify CI + Security Scan + CodeQL green on HEAD
         env:
           GH_TOKEN: ${{ github.token }}
-        run: bash scripts/check-github-ci.sh "$(git rev-parse HEAD)"
+        run: bash scripts/check-github-ci.sh "$(git rev-parse HEAD)" --wait 600
 
       - name: Security triage recency
         env:

@@ -12,4 +12,8 @@ export interface GridOptions {
   libraryFilter: ListFilterMode;
   ultraOnly: boolean;
   visionCertifiedOnly: boolean;
+  trueGameOnly: boolean;
+  uevrOnly: boolean;
+  /** Minimum 3D Rank score 0–100; 0 = any. */
+  minRank3D: number;
 }

@@ -31,6 +31,9 @@ export class CatalogGrid implements CatalogTableSource {
     libraryFilter: "all",
     ultraOnly: false,
     visionCertifiedOnly: false,
+    trueGameOnly: false,
+    uevrOnly: false,
+    minRank3D: 0,
   };
   sorting: SortingState = [{ id: "gameRank", desc: true }];
   columnFilters: ColumnFiltersState = [];

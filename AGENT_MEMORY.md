@@ -7,7 +7,7 @@
 
 | Layer | Technology | Version | Notes |
 |-------|-----------|---------|-------|
-| Desktop | WinUI 3 + .NET 8 | 1.4.0 | `src/SpatialLabsOptimizer*` — glasses-free 3D PC gaming hub |
+| Desktop | WinUI 3 + .NET 8 | 1.5.0 | `src/SpatialLabsOptimizer*` — glasses-free 3D PC gaming hub |
 | Catalog site | Vite + TypeScript | 0.1.0 | `site/catalog/` — GitHub Pages at `/catalog/` |
 | Steam sync | Cloudflare Worker | 0.1.0 | `workers/steam-library/` — OpenID + owned-games proxy |
 | Data | SQLite + JSON seeds | catalog-v2 | `data/compatibility/` merged catalog |
@@ -65,6 +65,9 @@
 
 | Date | Milestone | What worked | What to improve |
 |------|-----------|-------------|-----------------|
+| 2026-07-12 | UX roadmap A–C | Pre-launch confirm + setup wizard; catalog Steam unavailable UX | HUMAN Steam secrets still block live Connect |
+| 2026-07-12 | Audit Sprint | Git Bash for gates on Windows; undici overrides; Health Check CI dispatch | Dependabot automerge still uses GITHUB_TOKEN (needs dispatch workaround); Scorecard backlog |
+| 2026-07-12 | v1.5.0 ship | UX A–C + audit undici/CI; Dependabot clears after push | Steam Connect still HUMAN (KV/secrets) |
 | 2026-06-17 | v1.4.0 + template alignment | Connect Steam batch; product-release CI fixes | Mark inactive `examples/` stubs explicitly in memory |
 | 2026-06-13 | v0.6.0 design system | Cross-stack tokens + i18n scaffold | Product uses `site/catalog` not `examples/web` as primary site |
 

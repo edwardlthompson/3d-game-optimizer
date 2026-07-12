@@ -8,7 +8,7 @@
 ![MIT](https://img.shields.io/badge/license-MIT-2ea043?style=flat-square)
 ![WinUI 3](https://img.shields.io/badge/UI-WinUI%203-68217A?style=flat-square)
 ![.NET 8](https://img.shields.io/badge/.NET-8-512BD4?style=flat-square&logo=dotnet&logoColor=white)
-![Product](https://img.shields.io/badge/product-v1.4.0-68217A?style=flat-square)
+![Product](https://img.shields.io/badge/product-v1.5.0-68217A?style=flat-square)
 ![Template](https://img.shields.io/badge/template-v0.7.1-656d76?style=flat-square)
 
 _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matching `.template-version`._
@@ -197,6 +197,7 @@ In Visual Studio or Cursor, pick the **SpatialLabsOptimizer (v2)** profile from 
 | **v1.1.0** | Local release (zip/MSI), local game folders, About updates, PCVR/command palette, diagnostics |
 | **v1.2.0** | Game Rank library sort, Min 3D quality filter, cover art & preset prefetch, condensed library UX |
 | **v1.3.0** | GitHub-only distribution (zip + MSI); MSIX and WinGet removed; catalog/worker hardening |
+| **v1.5.0** | UX trust + discovery (setup wizard, launch confirm, Simple mode/theme, readiness); catalog Steam UX polish; undici/CI gate fixes |
 | **v1.4.0** | Catalog **Connect Steam** (OpenID + Cloudflare Worker); Lib sync, security hardening, test/CI expansion |
 | **v2.0** | Epic/GOG local install metadata, workshop importer, LAN export, hybrid co-op |
 
@@ -251,7 +252,7 @@ Child repo of [agent-project-bootstrap](https://github.com/edwardlthompson/agent
 
 | Track | Version | Tag pattern | Workflow |
 |-------|---------|-------------|----------|
-| **Product** | 1.4.0 | `SpatialLabsOptimizer-v*` | `product-release.yml` |
+| **Product** | 1.5.0 | `SpatialLabsOptimizer-v*` | `product-release.yml` |
 | **Template** | 0.7.1 | `v*` | `release.yml` |
 
 **Active stacks:** WinUI (`src/`), web catalog (`site/catalog/`), Cloudflare worker (`workers/steam-library/`), Python sync (`scripts/sync-catalog/`). Inactive template stubs under `examples/` — see [docs/OPTIONAL_STACKS.md](docs/OPTIONAL_STACKS.md).

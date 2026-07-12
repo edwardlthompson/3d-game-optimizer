@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using SpatialLabsOptimizer.Infrastructure;
+using SpatialLabsOptimizer.Infrastructure.Hosting;
 using SpatialLabsOptimizer.Infrastructure.Launch;
 using SpatialLabsOptimizer.Infrastructure.Pcvr;
 using SpatialLabsOptimizer.Infrastructure.Progress;
@@ -31,6 +32,8 @@ public sealed partial class ShellPage : Page
     private readonly OperationProgressHub _progressHub;
     private readonly UserPreferencesService _prefs;
     private readonly StreamerHotkeyService? _streamerHotkey;
+    private readonly SetupWizardViewModel _setupWizardViewModel;
+    private readonly AppThemeService _themeService;
 
     public ShellViewModel ViewModel { get; }
 
@@ -44,9 +47,11 @@ public sealed partial class ShellPage : Page
         GlossaryViewModel glossaryViewModel,
         TroubleshootingViewModel troubleshootingViewModel,
         CommandPaletteViewModel commandPaletteViewModel,
+        SetupWizardViewModel setupWizardViewModel,
         PresetCacheService presets,
         OperationProgressHub progressHub,
         UserPreferencesService prefs,
+        AppThemeService themeService,
         StreamerHotkeyService? streamerHotkey = null)
     {
         ViewModel = viewModel;
@@ -58,14 +63,26 @@ public sealed partial class ShellPage : Page
         _glossaryViewModel = glossaryViewModel;
         _troubleshootingViewModel = troubleshootingViewModel;
         _commandPaletteViewModel = commandPaletteViewModel;
+        _setupWizardViewModel = setupWizardViewModel;
         _presets = presets;
         _progressHub = progressHub;
         _prefs = prefs;
+        _themeService = themeService;
         _streamerHotkey = streamerHotkey;
         InitializeComponent();
         Loaded += ShellPage_Loaded;
         Unloaded += (_, _) => Current = null;
         ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+        KeyboardAccelerators.Add(new KeyboardAccelerator
+        {
+            Key = VirtualKey.K,
+            Modifiers = VirtualKeyModifiers.Control
+        });
+        KeyboardAccelerators[0].Invoked += (_, args) =>
+        {
+            NavigateToTag("commands");
+            args.Handled = true;
+        };
     }
 
     private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -88,16 +105,20 @@ public sealed partial class ShellPage : Page
 
         ViewModel.StartDisplayMonitoring();
         await ViewModel.InitializeAsync();
+        await _themeService.ApplySavedThemeAsync();
 
         var navTag = "library";
         if (!await ViewModel.IsSetupCompleteAsync())
         {
-            _settingsViewModel.ExpandToolchain = true;
-            navTag = "settings";
+            navTag = "setup-wizard";
         }
         else
         {
             navTag = await _prefs.GetLastNavTagAsync() ?? "library";
+            if (navTag == "setup-wizard")
+            {
+                navTag = "library";
+            }
         }
 
         NavigateToTag(navTag);
@@ -191,35 +212,5 @@ public sealed partial class ShellPage : Page
         }
 
         NavigateContent(tag);
-    }
-
-    private void NavigateContent(string tag)
-    {
-        var pageType = tag switch
-        {
-            "library" => typeof(GameLibraryView),
-            "settings" => typeof(Global3DSettingsView),
-            "library-settings" => typeof(LibrarySettingsView),
-            "troubleshoot" => typeof(TroubleshootingView),
-            "glossary" => typeof(GlossaryView),
-            "about" => typeof(AboutView),
-            "commands" => typeof(CommandPaletteView),
-            _ => typeof(GameLibraryView)
-        };
-
-        var parameter = tag switch
-        {
-            "library" => (object)_libraryViewModel,
-            "settings" => _settingsViewModel,
-            "library-settings" => _librarySettingsViewModel,
-            "troubleshoot" => _troubleshootingViewModel,
-            "glossary" => _glossaryViewModel,
-            "about" => _aboutViewModel,
-            "commands" => _commandPaletteViewModel,
-            _ => null!
-        };
-
-        ContentFrame.Navigate(pageType, parameter);
-        _ = _prefs.SetLastNavTagAsync(tag);
     }
 }

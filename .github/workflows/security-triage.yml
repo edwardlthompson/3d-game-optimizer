@@ -50,6 +50,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # Label must exist before --label / --add-label (repo had none → weekly FAIL)
+          gh label create security-triage --repo "$GITHUB_REPOSITORY" \
+            --description "Weekly CVE triage tracking" --color B60205 \
+            --force 2>/dev/null || true
           TITLE="Security triage $(date -u +%Y-%m-%d)"
           BODY="Automated weekly CVE triage.
 

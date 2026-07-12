@@ -1,0 +1,50 @@
+<Page
+    x:Class="SpatialLabsOptimizer.Views.SetupWizardView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:SpatialLabsOptimizer.Converters"
+    xmlns:views="using:SpatialLabsOptimizer.Views"
+    x:DataType="views:SetupWizardView">
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </Page.Resources>
+    <ScrollViewer Padding="32">
+        <StackPanel MaxWidth="640" Spacing="16">
+            <TextBlock FontSize="28" FontWeight="SemiBold" Text="Welcome to 3D Game Optimizer" />
+            <TextBlock FontSize="18" Opacity="0.9" Text="{x:Bind ViewModel.StepTitle, Mode=OneWay}" />
+            <TextBlock Opacity="0.75" Text="{x:Bind ViewModel.Status, Mode=OneWay}" TextWrapping="Wrap" />
+
+            <StackPanel Spacing="12" Visibility="{x:Bind ViewModel.IsDisclaimerStep, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
+                <TextBlock TextWrapping="Wrap" Text="This app can install third-party 3D tooling and change game configs. Accept the toolchain EULA and legal disclaimers to continue. Processing stays local-first." />
+                <CheckBox
+                    AutomationProperties.AutomationId="SetupWizard_DisclaimerCheck"
+                    Content="I accept the toolchain EULA and legal disclaimers"
+                    IsChecked="{x:Bind ViewModel.DisclaimerAccepted, Mode=TwoWay}" />
+            </StackPanel>
+
+            <StackPanel Spacing="12" Visibility="{x:Bind ViewModel.IsDisplayStep, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
+                <TextBlock TextWrapping="Wrap" Text="Pick the glasses-free 3D display you will use. You can change this later in Settings." />
+                <views:ManualDisplayPickerView x:Name="DisplayPicker" />
+            </StackPanel>
+
+            <StackPanel Spacing="12" Visibility="{x:Bind ViewModel.IsToolchainStep, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
+                <TextBlock TextWrapping="Wrap" Text="Install required tools for your display, then finish. Missing tools can be installed later from Settings." />
+                <views:ToolchainSetupPanel x:Name="ToolchainPanel" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Command="{x:Bind ViewModel.BackCommand}" Content="Back" Style="{StaticResource AppButtonStyle}" />
+                <Button
+                    Command="{x:Bind ViewModel.NextCommand}"
+                    Content="Next"
+                    Style="{StaticResource AppButtonStyle}"
+                    Visibility="{x:Bind ViewModel.IsToolchainStep, Mode=OneWay, Converter={StaticResource BoolToVisibility}, ConverterParameter=Invert}" />
+                <Button
+                    Command="{x:Bind ViewModel.FinishCommand}"
+                    Content="Finish"
+                    Style="{StaticResource AppButtonStyle}"
+                    Visibility="{x:Bind ViewModel.IsToolchainStep, Mode=OneWay, Converter={StaticResource BoolToVisibility}}" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

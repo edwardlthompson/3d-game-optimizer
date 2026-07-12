@@ -12,6 +12,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:CoverPathToImageConverter x:Key="CoverConverter" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
     </Page.Resources>
     <Grid Padding="16" RowSpacing="10">
         <Grid.RowDefinitions>
@@ -21,9 +22,10 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Spacing="8">
             <TextBlock VerticalAlignment="Center" FontSize="22" FontWeight="SemiBold" Text="Library" />
+            <Button Command="{x:Bind ViewModel.PlayCommand}" Content="Play in 3D" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Launch the selected game in 3D" />
             <Button Command="{x:Bind ViewModel.RefreshLibraryCommand}" Content="Refresh library" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Re-check Steam installs and reload from cache" />
-            <Button Command="{x:Bind ViewModel.RefreshCoverArtCommand}" Content="Refresh cover art" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Download missing cover images only" />
-            <Button Command="{x:Bind ViewModel.OpenCatalogCommand}" Content="Browse catalog" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Center" />
+            <Button Command="{x:Bind ViewModel.RefreshCoverArtCommand}" Content="Refresh cover art" Style="{StaticResource AppButtonStyle}" ToolTipService.ToolTip="Download missing cover images only" Visibility="{x:Bind ViewModel.ShowDenseFilters, Mode=OneWay, Converter={StaticResource BoolToVisibility}}" />
+            <Button Command="{x:Bind ViewModel.OpenCatalogCommand}" Content="Browse catalog" Style="{StaticResource AppButtonStyle}" VerticalAlignment="Center" Visibility="{x:Bind ViewModel.ShowDenseFilters, Mode=OneWay, Converter={StaticResource BoolToVisibility}}" />
             <TextBlock VerticalAlignment="Center" Opacity="0.7" Text="{x:Bind ViewModel.WarmStartStatus, Mode=OneWay}" />
         </StackPanel>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
@@ -35,7 +37,7 @@
                     <ComboBoxItem Content="Name" />
                     <ComboBoxItem Content="Genre" />
                 </ComboBox>
-                <ComboBox Width="200" Header="Min 3D quality" SelectedIndex="{x:Bind ViewModel.MinRank3DScoreIndex, Mode=TwoWay}" VerticalAlignment="Bottom">
+                <ComboBox Width="200" Header="Min 3D quality" SelectedIndex="{x:Bind ViewModel.MinRank3DScoreIndex, Mode=TwoWay}" VerticalAlignment="Bottom" Visibility="{x:Bind ViewModel.ShowDenseFilters, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
                     <ComboBoxItem Content="Any" />
                     <ComboBoxItem Content="Experimental (26+)" />
                     <ComboBoxItem Content="Playable (42+)" />
@@ -43,7 +45,7 @@
                     <ComboBoxItem Content="Native (72+)" />
                     <ComboBoxItem Content="Ultra (88+)" />
                 </ComboBox>
-                <ComboBox Width="200" Header="Smart collection" SelectedIndex="{x:Bind ViewModel.SmartCollectionIndex, Mode=TwoWay}" VerticalAlignment="Bottom">
+                <ComboBox Width="200" Header="Smart collection" SelectedIndex="{x:Bind ViewModel.SmartCollectionIndex, Mode=TwoWay}" VerticalAlignment="Bottom" Visibility="{x:Bind ViewModel.ShowDenseFilters, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
                     <ComboBoxItem Content="None" />
                     <ComboBoxItem Content="Favorites + tier" />
                     <ComboBoxItem Content="Never played in 3D" />
@@ -54,14 +56,23 @@
                     <ComboBoxItem Content="Monitor" Tag="Monitor" />
                     <ComboBoxItem Content="Headset" Tag="Headset" />
                 </ComboBox>
-                <Button VerticalAlignment="Bottom" Command="{x:Bind ViewModel.SaveOutputCommand}" Content="Save output" Style="{StaticResource AppButtonStyle}" />
+                <Button VerticalAlignment="Bottom" Command="{x:Bind ViewModel.SaveOutputCommand}" Content="Save output" Style="{StaticResource AppButtonStyle}" Visibility="{x:Bind ViewModel.ShowDenseFilters, Mode=OneWay, Converter={StaticResource BoolToVisibility}}" />
                 <CheckBox VerticalAlignment="Bottom" Content="Favorites" IsChecked="{x:Bind ViewModel.ShowFavoritesOnly, Mode=TwoWay}" />
-                <CheckBox VerticalAlignment="Bottom" Content="Local" IsChecked="{x:Bind ViewModel.ShowLocalOnly, Mode=TwoWay}" />
-                <CheckBox VerticalAlignment="Bottom" Content="Why not ready?" IsChecked="{x:Bind ViewModel.ShowWhyNotReady, Mode=TwoWay}" />
-                <CheckBox VerticalAlignment="Bottom" Content="3D Ultra / Native" IsChecked="{x:Bind ViewModel.FilterUltraNative, Mode=TwoWay}" />
-                <CheckBox VerticalAlignment="Bottom" Content="TrueGame" IsChecked="{x:Bind ViewModel.FilterTrueGame, Mode=TwoWay}" />
-                <CheckBox VerticalAlignment="Bottom" Content="UEVR" IsChecked="{x:Bind ViewModel.FilterUevr, Mode=TwoWay}" />
-                <CheckBox VerticalAlignment="Bottom" Content="3D Vision" IsChecked="{x:Bind ViewModel.Filter3DVision, Mode=TwoWay}" />
+                <Button VerticalAlignment="Bottom" Content="More filters" Style="{StaticResource AppButtonStyle}" Visibility="{x:Bind ViewModel.ShowDenseFilters, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
+                    <Button.Flyout>
+                        <Flyout>
+                            <StackPanel Spacing="8" MinWidth="220">
+                                <CheckBox Content="Local" IsChecked="{x:Bind ViewModel.ShowLocalOnly, Mode=TwoWay}" />
+                                <CheckBox Content="Why not ready?" IsChecked="{x:Bind ViewModel.ShowWhyNotReady, Mode=TwoWay}" />
+                                <CheckBox Content="3D Ultra / Native" IsChecked="{x:Bind ViewModel.FilterUltraNative, Mode=TwoWay}" />
+                                <CheckBox Content="TrueGame" IsChecked="{x:Bind ViewModel.FilterTrueGame, Mode=TwoWay}" />
+                                <CheckBox Content="UEVR" IsChecked="{x:Bind ViewModel.FilterUevr, Mode=TwoWay}" />
+                                <CheckBox Content="3D Vision" IsChecked="{x:Bind ViewModel.Filter3DVision, Mode=TwoWay}" />
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <TextBlock VerticalAlignment="Bottom" Opacity="0.75" Text="{x:Bind ViewModel.ActiveFilterChips, Mode=OneWay}" Visibility="{x:Bind ViewModel.ShowDenseFilters, Mode=OneWay, Converter={StaticResource BoolToVisibility}}" />
             </StackPanel>
         </ScrollViewer>
         <Grid x:Name="LibraryContentGrid" Grid.Row="2">
@@ -78,6 +89,11 @@
                 ItemsSource="{x:Bind ViewModel.Games, Mode=OneWay}"
                 SelectedItem="{x:Bind ViewModel.SelectedGame, Mode=TwoWay}"
                 SelectionMode="Single">
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
                 <GridView.ItemContainerStyle>
                     <Style TargetType="GridViewItem">
                         <Setter Property="ContextFlyout">

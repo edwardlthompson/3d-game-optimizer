@@ -19,6 +19,7 @@ public sealed partial class GameLibraryViewModel
         {
             if (SetProperty(ref _filterUltraNative, value))
             {
+                OnPropertyChanged(nameof(ActiveFilterChips));
                 _ = LoadAsync();
                 ScheduleSaveLibraryPrefs();
             }
@@ -32,6 +33,7 @@ public sealed partial class GameLibraryViewModel
         {
             if (SetProperty(ref _filterTrueGame, value))
             {
+                OnPropertyChanged(nameof(ActiveFilterChips));
                 _ = LoadAsync();
                 ScheduleSaveLibraryPrefs();
             }
@@ -45,6 +47,7 @@ public sealed partial class GameLibraryViewModel
         {
             if (SetProperty(ref _filterUevr, value))
             {
+                OnPropertyChanged(nameof(ActiveFilterChips));
                 _ = LoadAsync();
                 ScheduleSaveLibraryPrefs();
             }
@@ -58,6 +61,7 @@ public sealed partial class GameLibraryViewModel
         {
             if (SetProperty(ref _filter3DVision, value))
             {
+                OnPropertyChanged(nameof(ActiveFilterChips));
                 _ = LoadAsync();
                 ScheduleSaveLibraryPrefs();
             }

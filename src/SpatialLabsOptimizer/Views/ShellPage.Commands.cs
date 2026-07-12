@@ -14,8 +14,8 @@ public sealed partial class ShellPage
         switch (commandId)
         {
             case "setup-wizard":
-                _settingsViewModel.ExpandToolchain = true;
-                NavigateToTag("settings");
+            case "setup-wizard-guided":
+                NavigateToTag("setup-wizard");
                 break;
             case "play-3d":
                 NavigateToTag("library");
@@ -41,15 +41,28 @@ public sealed partial class ShellPage
                 await ToggleSafeLaunchAsync();
                 break;
             case "safe-launch":
-                NavigateToTag("settings");
+                await EnableSafeLaunchAndPlayAsync();
                 break;
             case "diagnostic-bundle":
                 NavigateToTag("troubleshoot");
                 break;
             case "command-palette":
+            case "shortcut-ctrl-k":
                 NavigateToTag("commands");
                 break;
+            case "shortcut-safe":
+                await ToggleSafeLaunchAsync();
+                break;
         }
+    }
+
+    private async Task EnableSafeLaunchAndPlayAsync()
+    {
+        await _prefs.SetSafeLaunchAsync(true);
+        _settingsViewModel.SafeLaunch = true;
+        NavigateToTag("library");
+        _libraryViewModel.PlayCommand.Execute(null);
+        await Task.CompletedTask;
     }
 
     private async Task CacheTopPresetsAsync()

@@ -18,7 +18,13 @@ public sealed partial class Global3DSettingsViewModel
     public bool V2PanelVisible
     {
         get => _v2PanelVisible;
-        private set => SetProperty(ref _v2PanelVisible, value);
+        private set
+        {
+            if (SetProperty(ref _v2PanelVisible, value))
+            {
+                OnPropertyChanged(nameof(ShowIntegrationsPanel));
+            }
+        }
     }
 
     private bool _v2Initializing;

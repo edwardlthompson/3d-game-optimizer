@@ -16,6 +16,14 @@
             <TextBlock Text="Settings" FontSize="28" FontWeight="SemiBold" />
             <TextBlock Text="Grouped global 3D, launch, and session preferences." TextWrapping="Wrap" Opacity="0.8" />
 
+            <Border Background="{StaticResource Brush.SurfaceAlt}" CornerRadius="8" Padding="16">
+                <StackPanel Spacing="6">
+                    <TextBlock FontWeight="SemiBold" Text="Readiness" />
+                    <TextBlock FontSize="32" FontWeight="Bold" Foreground="{StaticResource Brush.Accent}" Text="{x:Bind ViewModel.ReadinessScoreValue, Mode=OneWay}" />
+                    <TextBlock Opacity="0.8" Text="{x:Bind ViewModel.ReadinessFactorsText, Mode=OneWay}" TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+
             <Expander x:Name="ToolchainExpander" Header="Toolchain &amp; display" IsExpanded="True" Style="{StaticResource SettingsExpanderStyle}">
                 <views:ToolchainSetupPanel x:Name="ToolchainPanel" />
             </Expander>
@@ -62,6 +70,7 @@
                     <ToggleSwitch Header="I use game trainers (WeMod, Wand, etc.)" IsOn="{x:Bind ViewModel.TrainerCoexistence, Mode=TwoWay}" OffContent="Off" OnContent="On" />
                     <ToggleSwitch Header="I use a mod manager (Vortex, Mod Organizer)" IsOn="{x:Bind ViewModel.ModManagerCoexistence, Mode=TwoWay}" OffContent="Off" OnContent="On" />
                     <ToggleSwitch Header="Simple mode UI" IsOn="{x:Bind ViewModel.SimpleMode, Mode=TwoWay}" OffContent="Off" OnContent="On" />
+                    <TextBlock FontSize="12" Opacity="0.7" Text="Simple mode hides Advanced settings and dense library filters." TextWrapping="Wrap" />
                     <TextBlock FontSize="12" Opacity="0.7" Text="{x:Bind ViewModel.DetectedToolsText, Mode=OneWay}" TextWrapping="Wrap" />
                     <Button Command="{x:Bind ViewModel.RefreshDetectedToolsCommand}" Content="Refresh detected tools" Style="{StaticResource AppButtonStyle}" />
                 </StackPanel>
@@ -81,7 +90,7 @@
                 </StackPanel>
             </Expander>
 
-            <Expander Header="Integrations" IsExpanded="False" Style="{StaticResource SettingsExpanderStyle}" Visibility="{x:Bind ViewModel.V2PanelVisible, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
+            <Expander Header="Integrations" IsExpanded="False" Style="{StaticResource SettingsExpanderStyle}" Visibility="{x:Bind ViewModel.ShowIntegrationsPanel, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
                 <StackPanel Style="{StaticResource SettingsSectionContentStyle}">
                     <TextBlock Opacity="0.8" Text="Enable optional integrations. Restart required after changes." TextWrapping="Wrap" />
                     <CheckBox Content="LAN session export" IsChecked="{x:Bind ViewModel.V2LanEnabled, Mode=TwoWay}" />
@@ -91,7 +100,7 @@
                 </StackPanel>
             </Expander>
 
-            <Expander Header="Advanced" IsExpanded="False" Style="{StaticResource SettingsExpanderStyle}">
+            <Expander Header="Advanced" IsExpanded="False" Style="{StaticResource SettingsExpanderStyle}" Visibility="{x:Bind ViewModel.ShowAdvancedSettings, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
                 <StackPanel Style="{StaticResource SettingsSectionContentStyle}">
                     <Button Command="{x:Bind ViewModel.CachePresetsCommand}" Content="Cache top presets" Style="{StaticResource AppButtonStyle}" />
                     <TextBlock Opacity="0.7" Text="{x:Bind ViewModel.BulkPresetStatus, Mode=OneWay}" />

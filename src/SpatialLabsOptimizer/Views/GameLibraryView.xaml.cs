@@ -34,6 +34,8 @@ public sealed partial class GameLibraryView : Page
         }
 
         ViewModel = vm;
+        ViewModel.PropertyChanged -= ViewModel_PropertyChanged;
+        ViewModel.PropertyChanged += ViewModel_PropertyChanged;
         Bindings.Update();
         if (vm.IsLibraryLoaded)
         {
@@ -42,6 +44,24 @@ public sealed partial class GameLibraryView : Page
         else
         {
             await vm.LoadAsync();
+        }
+
+        ApplyGridColumns();
+    }
+
+    private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName is nameof(GameLibraryViewModel.GridColumns) or nameof(GameLibraryViewModel.Games))
+        {
+            ApplyGridColumns();
+        }
+    }
+
+    private void ApplyGridColumns()
+    {
+        if (GamesGrid.ItemsPanelRoot is ItemsWrapGrid wrap)
+        {
+            wrap.MaximumRowsOrColumns = Math.Max(1, ViewModel.GridColumns);
         }
     }
 

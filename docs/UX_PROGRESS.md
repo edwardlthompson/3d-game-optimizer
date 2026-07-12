@@ -149,5 +149,18 @@ Deliver a one-click flow that helps users select a supported display, detect com
 ## Completed UX Actions
 
 - ~~Add glossary for terms like SBS, depth, convergence, and tier levels.~~ **Done** — GlossaryView in shell nav.
-- Include "What changed" summary before applying presets — launch preview covers platform/depth/toolchain before Play in 3D.
+- Include "What changed" summary before applying presets — **Done** — `ILaunchConfirmationService` ContentDialog before config mutation (UX-A).
 - Ensure every automated action has a rollback or undo guidance link — Safe launch + troubleshooting copy remain primary paths.
+- Wire Simple mode + theme — **Done** (UX-A).
+- Guided first-run setup wizard — **Done** (UX-A).
+- Catalog Steam unavailable / loading / confirm / unmatched / filter prefs — **Done** (UX-C).
+
+## UX Roadmap 2026-07-12 (AGENT)
+
+| Sprint | Items | Status |
+|--------|-------|--------|
+| UX-A | D1–D4 Simple mode, theme, pre-launch confirm, setup wizard | Shipped (unpushed) |
+| UX-B | D5–D8 Detail notes/queue, readiness, filter flyout, Ctrl+K | Shipped (unpushed) |
+| UX-C | C1–C5 Catalog Steam UX + filter parity | Shipped (unpushed) |
+| HUMAN | Steam KV/secrets/smoke, hardware QA, README shots | Open on BUILD_PLAN |
+

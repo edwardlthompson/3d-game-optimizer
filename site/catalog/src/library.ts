@@ -8,6 +8,7 @@ export type LibraryMergeMode = "merge" | "replace";
 export interface SteamSyncMeta {
   steamId?: string;
   lastSyncAt?: string;
+  lastMatchedIds?: string[];
 }
 
 export function loadLibrary(): Set<string> {
@@ -62,6 +63,13 @@ export function loadSteamMeta(): SteamSyncMeta {
 
 export function saveSteamMeta(meta: SteamSyncMeta): void {
   localStorage.setItem(STEAM_META_KEY, JSON.stringify(meta));
+}
+
+export function clearSteamSyncedMarks(syncedCatalogIds: string[]): Set<string> {
+  const next = loadLibrary();
+  for (const id of syncedCatalogIds) next.delete(id);
+  saveLibrary(next);
+  return next;
 }
 
 export function clearSteamCredentials(): void {

@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Product releases use tags `SpatialLabsOptimizer-v*`. Template bootstrap history is retained below.
 
+## [1.5.0] - 2026-07-12
+
+### Added
+
+- **Setup wizard** — three-step first-run (disclaimer → display → toolchain) instead of dumping into Settings
+- **Play in 3D confirmation** — preview dialog (platform, depth, toolchain, tier) with Glossary link before config mutation
+- **Readiness score** on Settings home from `ReadinessScoreService`
+- Library **filter flyout** + active filter chips; responsive grid columns
+- Game detail: compatibility notes, play queue, playlist save/load
+- Catalog: Steam unavailable state, sync loading, Resync, unmatched App ID modal, toolbar prefs persistence, TrueGame/UEVR/min 3D Rank filters
+- `AppThemeService` light/dark/system theme application; Simple mode hides Advanced UI
+- Global **Ctrl+K** Quick Actions; shortcut help entries in Command Palette
+- Audit: `undici >=7.28.0` overrides; `security-triage` label bootstrap; Health Check CI dispatch when missing; catalog large-file hygiene allowlist
+
+### Fixed
+
+- Theme and Simple mode toggles that previously persisted with no UI effect
+- Weekly Security Triage failure when `security-triage` label was missing
+- Health Check false-fail when Dependabot merges skipped push-triggered CI
+- CodeQL `js/double-escaping` in catalog `stripHtml`
+- Safe Launch Quick Action now enables safe launch and plays selected game
+
+### Removed
+
+- Orphan `ToolchainHealthView` (duplicate of Settings launch-safety controls)
+
+### Changed
+
+- Catalog footer notes Steam sync unavailable vs available based on worker URL
+
 ## [1.4.0] - 2026-06-17
 
 ### Added

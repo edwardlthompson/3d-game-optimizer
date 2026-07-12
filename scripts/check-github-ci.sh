@@ -64,7 +64,9 @@ fi
 
 deadline=$((SECONDS + WAIT))
 while true; do
-  mapfile -t RUNS < <(gh run list --repo "$REPO" --commit "$REF" --json workflowName,conclusion,status,url -q '.[] | [.workflowName,.status,.conclusion,.url] | @tsv')
+  # High --limit: scheduled workflows on a quiet main can bury older push CI otherwise
+  mapfile -t RUNS < <(gh run list --repo "$REPO" --commit "$REF" --limit 100 \
+    --json workflowName,conclusion,status,url -q '.[] | [.workflowName,.status,.conclusion,.url] | @tsv')
 
   declare -A SEEN=()
   PENDING=0

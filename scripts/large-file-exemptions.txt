@@ -1,0 +1,4 @@
+# Intentional product data over the 500 KB tracked-file budget.
+# One path per line; matched exactly against `git ls-files` paths.
+data/compatibility/catalog-v2.json
+site/catalog/public/data/catalog-v2.json

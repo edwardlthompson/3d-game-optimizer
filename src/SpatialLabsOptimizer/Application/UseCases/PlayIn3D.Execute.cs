@@ -49,6 +49,12 @@ public sealed partial class PlayIn3D
         var preview = _launchPreview.Summarize(plan);
         Publish(_launchPreview.ToProgressMessage(preview));
 
+        if (!await _launchConfirm.ConfirmAsync(preview, cancellationToken))
+        {
+            Publish("Launch cancelled.", complete: true);
+            return (false, null);
+        }
+
         Publish("Checking launch readiness…");
         var catalogGame = await _database.GetGameAsync(appId, cancellationToken);
         var readiness = await _readiness.EvaluateAsync(

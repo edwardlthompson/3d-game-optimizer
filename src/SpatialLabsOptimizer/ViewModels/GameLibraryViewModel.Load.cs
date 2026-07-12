@@ -9,7 +9,11 @@ public sealed partial class GameLibraryViewModel
 {
     public bool IsLibraryLoaded { get; private set; }
 
-    public async Task LoadAsync() => await LoadFromCacheAsync();
+    public async Task LoadAsync()
+    {
+        SimpleMode = await _preferences.GetSimpleModeAsync();
+        await LoadFromCacheAsync();
+    }
 
     public async Task RefreshLibraryAsync()
     {

@@ -153,6 +153,7 @@ public class PlayIn3DLaunchTests
             new SafeLaunchService(launcher),
             prefs,
             new LaunchPreviewService(),
+            new AlwaysConfirmLaunchConfirmationService(),
             intelligence,
             gameDb,
             defaults,

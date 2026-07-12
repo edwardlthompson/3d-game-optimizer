@@ -16,6 +16,21 @@ public class AccessibilitySmokeTests
     }
 
     [Fact]
+    public void SetupWizard_CanGoNext_RequiresDisplayOnStepOne()
+    {
+        Assert.False(SetupWizardFlow.CanGoNext(1, disclaimerAccepted: true, displaySelected: false));
+        Assert.True(SetupWizardFlow.CanGoNext(1, disclaimerAccepted: true, displaySelected: true));
+    }
+
+    [Fact]
+    public void SetupWizard_NextPrevious_Clamp()
+    {
+        Assert.Equal(1, SetupWizardFlow.NextStep(0));
+        Assert.Equal(2, SetupWizardFlow.NextStep(2));
+        Assert.Equal(0, SetupWizardFlow.PreviousStep(0));
+    }
+
+    [Fact]
     public void AccessibilityIds_ToolchainControlsAreDefined()
     {
         Assert.Equal("Toolchain_DisclaimerCheck", AccessibilityIds.ToolchainDisclaimer);

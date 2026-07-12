@@ -1,6 +1,6 @@
 import type { GridOptions } from "./grid-types";
 import { matchesListFilter } from "./list-filter";
-import { rank3DLabel } from "./rank-3d";
+import { rank3DLabel, rank3DScore } from "./rank-3d";
 import type { CatalogGame } from "./types";
 
 export interface GlobalFilterContext {
@@ -8,6 +8,10 @@ export interface GlobalFilterContext {
   library: Set<string>;
   options: GridOptions;
   globalFilter: string;
+}
+
+function hasPlatform(game: CatalogGame, key: string): boolean {
+  return (game.platformSupport ?? []).some((p) => p.platformKey === key);
 }
 
 export function matchesCatalogGlobalFilter(game: CatalogGame, ctx: GlobalFilterContext): boolean {
@@ -20,6 +24,9 @@ export function matchesCatalogGlobalFilter(game: CatalogGame, ctx: GlobalFilterC
     const nvidia = game.sources.find((s) => s.sourceId === "nvidia-3d-vision");
     if (!nvidia || nvidia.label !== "3D Vision Ready") return false;
   }
+  if (ctx.options.trueGameOnly && !hasPlatform(game, "truegame")) return false;
+  if (ctx.options.uevrOnly && !hasPlatform(game, "uevr")) return false;
+  if (ctx.options.minRank3D > 0 && rank3DScore(game) < ctx.options.minRank3D) return false;
   if (!ctx.globalFilter) return true;
   const hay = [
     game.title,

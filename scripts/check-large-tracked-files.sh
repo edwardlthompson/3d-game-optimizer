@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Fail if any tracked file exceeds size budget (matches pre-commit 500KB gate)
+# Exempt intentional product data listed in scripts/large-file-exemptions.txt
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -10,9 +11,19 @@ MAX_BYTES=$((MAX_KB * 1024))
 ERRORS=0
 MAX_REPORT=20
 reported=0
+EXEMPTIONS_FILE="$ROOT/scripts/large-file-exemptions.txt"
+
+is_exempt() {
+  local rel="$1"
+  [ -f "$EXEMPTIONS_FILE" ] || return 1
+  grep -Fxq "$rel" "$EXEMPTIONS_FILE"
+}
 
 while IFS= read -r file; do
   [ -z "$file" ] && continue
+  if is_exempt "$file"; then
+    continue
+  fi
   size=$(git cat-file -s "HEAD:$file" 2>/dev/null || echo 0)
   if [ "$size" -gt "$MAX_BYTES" ]; then
     kb=$((size / 1024))

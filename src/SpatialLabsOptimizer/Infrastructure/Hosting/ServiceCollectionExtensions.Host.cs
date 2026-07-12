@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SpatialLabsOptimizer.Application.UseCases;
 using SpatialLabsOptimizer.Infrastructure;
 using SpatialLabsOptimizer.Infrastructure.Pcvr;
+using SpatialLabsOptimizer.Infrastructure.Launch;
 using SpatialLabsOptimizer.Infrastructure.Settings;
 using SpatialLabsOptimizer.Infrastructure.Updates;
 using SpatialLabsOptimizer.ViewModels;
@@ -32,6 +33,9 @@ public static partial class ServiceCollectionExtensions
         services.AddSingleton<CommandPaletteService>();
         services.AddSingleton<PlayQueueService>();
         services.AddSingleton<UserPreferencesService>();
+        services.AddSingleton<AppThemeService>();
+        services.AddSingleton<ILaunchConfirmationService, LaunchConfirmationService>();
+        services.AddSingleton<SetupWizardViewModel>();
 
         if (FeatureFlags.V101Enabled)
         {
@@ -72,7 +76,6 @@ public static partial class ServiceCollectionExtensions
         services.AddSingleton<TroubleshootingViewModel>();
         services.AddSingleton<GlossaryViewModel>();
         services.AddSingleton<CommandPaletteViewModel>();
-        services.AddSingleton<ToolchainHealthViewModel>();
         services.AddSingleton<Global3DSettingsViewModel>();
     }
 }

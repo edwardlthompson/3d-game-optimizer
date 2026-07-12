@@ -18,6 +18,7 @@ export interface SteamSyncStats {
   ownedTotal: number;
   ownedUnmatched: number;
   catalogNoSteamLink: number;
+  unmatchedAppIds: number[];
 }
 
 export interface SteamExchangeResult {
@@ -59,8 +60,12 @@ export function mapOwnedAppIdsToCatalogIds(
   }
 
   let ownedUnmatched = 0;
+  const unmatchedAppIds: number[] = [];
   for (const appId of owned) {
-    if (!linkableAppIds.has(appId)) ownedUnmatched += 1;
+    if (!linkableAppIds.has(appId)) {
+      ownedUnmatched += 1;
+      unmatchedAppIds.push(appId);
+    }
   }
 
   const catalogNoSteamLink = games.filter((game) => {
@@ -75,6 +80,7 @@ export function mapOwnedAppIdsToCatalogIds(
       ownedTotal: owned.size,
       ownedUnmatched,
       catalogNoSteamLink,
+      unmatchedAppIds: unmatchedAppIds.sort((a, b) => a - b),
     },
   };
 }
@@ -102,6 +108,7 @@ export function applySteamSyncToLibrary(
   saveSteamMeta({
     steamId: result.steamIdTruncated,
     lastSyncAt: new Date().toISOString(),
+    lastMatchedIds: matchedIds,
   });
   return stats;
 }
