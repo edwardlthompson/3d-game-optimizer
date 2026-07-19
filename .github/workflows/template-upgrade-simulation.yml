@@ -13,5 +13,5 @@ jobs:
     name: Simulate Template Upgrade
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - run: bash scripts/simulate-template-upgrade.sh
