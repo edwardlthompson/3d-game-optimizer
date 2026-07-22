@@ -11,7 +11,7 @@
 | Catalog site | Vite + TypeScript | 0.1.0 | `site/catalog/` — GitHub Pages at `/catalog/` |
 | Steam sync | Cloudflare Worker | 0.1.0 | `workers/steam-library/` — OpenID + owned-games proxy |
 | Data | SQLite + JSON seeds | catalog-v2 | `data/compatibility/` merged catalog |
-| Template | agent-project-bootstrap | 0.7.1 | `.template-version` — agent rules, CI gates |
+| Template | agent-project-bootstrap | 0.15.0 | `.template-version` — agent rules, CI gates; see `docs/BOOTSTRAP_ALIGNMENT.md` |
 | License | MIT | — | Pure FOSS; GitHub Releases (zip + MSI) |
 
 ## Active Modules
@@ -65,6 +65,7 @@
 
 | Date | Milestone | What worked | What to improve |
 |------|-----------|-------------|-----------------|
+| 2026-07-21 | Bootstrap → 0.15.0 | Cherry-pick rules/batch/skills/hooks-opt-in; product START_HERE; no CI replace | Enable hooks after smoke; Steam Connect still HUMAN |
 | 2026-07-12 | UX roadmap A–C | Pre-launch confirm + setup wizard; catalog Steam unavailable UX | HUMAN Steam secrets still block live Connect |
 | 2026-07-12 | Audit Sprint | Git Bash for gates on Windows; undici overrides; Health Check CI dispatch | Dependabot automerge still uses GITHUB_TOKEN (needs dispatch workaround); Scorecard backlog |
 | 2026-07-12 | v1.5.0 ship | UX A–C + audit undici/CI; Dependabot clears after push | Steam Connect still HUMAN (KV/secrets) |
@@ -74,6 +75,8 @@
 ## Template Provenance
 
 - **Source template:** `edwardlthompson/agent-project-bootstrap`
-- **Template version:** `0.7.1` (see `.template-version`)
+- **Template version:** `0.15.0` (see `.template-version`)
 - **Child-repo mode:** Reference + customized `INITIALIZATION_PROMPT.md` (WinUI product)
+- **Alignment:** `docs/BOOTSTRAP_ALIGNMENT.md` (2026-07-21)
+- **Cursor hooks:** Opt-in — `<!-- cursor-hooks: off -->` in BUILD_PLAN until human smoke-enables `.cursor/hooks.json`
 - **Last update check:** See `.template-update.json`

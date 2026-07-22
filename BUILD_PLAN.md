@@ -1,6 +1,10 @@
 # Build Plan
 
-> Active board only. Finished work: [COMPLETED_TASKS.md](COMPLETED_TASKS.md)
+<!-- cursor-hooks: off -->
+
+> Active board only. Finished work: [COMPLETED_TASKS.md](COMPLETED_TASKS.md). Alignment notes: [docs/BOOTSTRAP_ALIGNMENT.md](docs/BOOTSTRAP_ALIGNMENT.md).
+>
+> Cursor hooks are **opt-in**: copy `.cursor/hooks.json.example` → `.cursor/hooks.json` and remove the `cursor-hooks: off` marker above after a local smoke test.
 
 ## Legend
 
@@ -11,26 +15,35 @@
 | `ADB` | Android device/emulator testing |
 | `AUTO` | CI / scripts / bots |
 
+Status: 🔲 open · ✅ done · ❌ blocked
+
 ---
 
-## Status (2026-07-12)
+## Status (2026-07-21)
 
 | Track | State |
 |-------|--------|
 | Product | **v1.5.0** — [release](https://github.com/edwardlthompson/3d-game-optimizer/releases/tag/SpatialLabsOptimizer-v1.5.0) |
-| Template | **v0.7.1** on `main` |
+| Template | **v0.15.0** — see [BOOTSTRAP_ALIGNMENT.md](docs/BOOTSTRAP_ALIGNMENT.md) |
 | GitHub Pages | **Live** — [catalog](https://edwardlthompson.github.io/3d-game-optimizer/catalog/) |
 | Next gate | **HUMAN** — Steam Connect live + hardware QA |
 
 ---
 
-## Sequential — HUMAN (Steam Connect)
+## Sequential — AGENT (bootstrap alignment)
 
-> Agent UX A–C, audit, and `/ship` v1.5.0 are archived in [COMPLETED_TASKS.md](COMPLETED_TASKS.md).
+> Archived to [COMPLETED_TASKS.md](COMPLETED_TASKS.md) after `/push` (template v0.15.0; product remains v1.5.0).
 
-1. ⬜ [HUMAN] Cloudflare KV namespace id → `workers/steam-library/wrangler.toml`
-2. ⬜ [HUMAN] GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `STEAM_WEB_API_KEY`
-3. ⬜ [HUMAN] Post-deploy smoke — [STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md) § Post-deploy smoke (Connect Steam visible, OpenID, Lib ✓, `/health`)
+---
+
+## Sequential — Human & device (after automation)
+
+> Steam Connect remains the product blocker. Template hooks enablement is optional.
+
+1. 🔲 [HUMAN] Cloudflare KV namespace id → `workers/steam-library/wrangler.toml`
+2. 🔲 [HUMAN] GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `STEAM_WEB_API_KEY`
+3. 🔲 [HUMAN] Post-deploy smoke — [STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md) § Post-deploy smoke (Connect Steam visible, OpenID, Lib ✓, `/health`)
+4. 🔲 [HUMAN] Optional: copy `.cursor/hooks.json.example` → `.cursor/hooks.json` after local smoke
 
 ---
 
@@ -68,6 +81,7 @@ Run `bash scripts/check-parallel-scope.sh` before dispatch.
 | Topic | Location |
 |-------|----------|
 | Slash commands | [`.cursor/commands/README.md`](.cursor/commands/README.md) |
+| Batch commands | [`docs/help/BATCH_COMMANDS.md`](docs/help/BATCH_COMMANDS.md) |
 | UX tracker | [docs/UX_PROGRESS.md](docs/UX_PROGRESS.md) |
 | Steam ops | [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md) |
 | Agent memory | [AGENT_MEMORY.md](AGENT_MEMORY.md) |

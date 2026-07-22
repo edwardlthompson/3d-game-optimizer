@@ -1,5 +1,7 @@
 # Full repo review and BUILD_PLAN execution
 
+> Skill: `.cursor/skills/check-repo-hygiene/`
+
 Framework: use AGENT/HUMAN/ADB/AUTO labels; Sequential before Parallel; gates after AGENT steps; update memory files at milestones.
 
 ## Step 1 — Review
@@ -17,7 +19,7 @@ Check Dependabot/CodeQL via `gh` if authenticated. Write @CODE_REVIEW.md from @C
 
 ## Step 2 — BUILD_PLAN
 
-Add a review sprint at the top of @BUILD_PLAN.md active board. Link findings to CODE_REVIEW sections. Use ⬜ [AGENT] / ⬜ [HUMAN] format.
+Add a review sprint at the top of @BUILD_PLAN.md active board. Link findings to CODE_REVIEW sections. Use 🔲 [AGENT] / 🔲 [HUMAN] format (✅ done · ❌ blocked).
 
 ## Step 3 — Execute
 

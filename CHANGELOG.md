@@ -327,8 +327,13 @@ Product releases use tags `SpatialLabsOptimizer-v*`. Template bootstrap history 
 
 ## [Unreleased]
 
+### Added
+
+- Bootstrap alignment to agent-project-bootstrap **v0.15.0**: missing Cursor rules, batch-command docs/help, skills/agents, opt-in hooks, hygiene/radar docs, parallel/dispatch scripts (`docs/BOOTSTRAP_ALIGNMENT.md`)
+
 ### Changed
 
+- Template provenance **0.7.1 → 0.15.0**; product-aware `docs/START_HERE.md`; BUILD_PLAN status glyphs 🔲/✅/❌; README agent workflow section
 - README (M5.1): hero badges, table of contents, GitHub alert callouts, collapsible detail sections, audience dividers
 - README (M5): shields.io badges + HTML definition lists/tables for What's Included, BUILD_PLAN Labels, Template Update Checker, and Supported Stacks
 - `scripts/normalize-markdown-whitespace.py`: table-aware blank-line collapse

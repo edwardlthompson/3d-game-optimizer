@@ -16,6 +16,13 @@
 
 ## Entries
 
+### 2026-07-21 — Align to agent-project-bootstrap v0.15.0
+- **Status:** Accepted
+- **Context:** Live product on template 0.7.1; upstream at 0.15.0 with rules, batch commands, hooks/skills, radar, dispatch helpers
+- **Decision:** Cherry-pick agent/tooling surfaces; keep product CI/workflows; skip `commercial-compliance.mdc`; install hooks with BUILD_PLAN `cursor-hooks: off` until human smoke; Sequential-first retained over upstream parallel-first defaults
+- **Alternatives considered:** Blind sync of entire template; enable hooks immediately; replace `ci.yml`
+- **Consequences:** Agents get 0.15.0 process surface; Steam Connect / hardware QA unchanged as HUMAN; enable hooks by removing marker + confirming `.cursor/hooks.json`
+
 ### 2026-07-12 — Ship v1.5.0 (/ship)
 - **Status:** Accepted
 - **Context:** Pre-release gate blocked on remote Dependabot undici High alerts until lockfile overrides land on `main`

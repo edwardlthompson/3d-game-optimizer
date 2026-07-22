@@ -2,6 +2,14 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## BUILD_PLAN execution — Bootstrap align v0.15.0 (archived 2026-07-21)
+
+- [x] [AGENT] Gap analysis → `docs/BOOTSTRAP_ALIGNMENT.md`
+- [x] [AGENT] Cursor rules, batch commands, `/cleanup`, product START_HERE
+- [x] [AGENT] Skills/agents/radar; hooks opt-in (`cursor-hooks: off`); scripts cherry-pick
+- [x] [AGENT] TEMPLATE_INDEX + `.template-version` 0.15.0; README agent section; memory/decision logs
+- [x] [AUTO] Local `validate-bootstrap --quick` PASS; push via `/push` (no product tag)
+
 ## BUILD_PLAN execution — UX roadmap A–C (archived 2026-07-12)
 
 - [x] [AGENT] UX-A — Simple mode hides Advanced/dense filters; theme applies via `AppThemeService`; Play in 3D pre-launch confirm; 3-step `SetupWizardView`

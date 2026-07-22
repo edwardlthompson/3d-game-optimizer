@@ -4,37 +4,46 @@
 
 ## What is this?
 
-`agent-project-bootstrap` is a **GitHub Template Repository** for bootstrapping FOSS projects with Cursor agents.
+**3D Game Optimizer** is a FOSS WinUI 3 / .NET 8 desktop hub for glasses-free 3D PC gaming, plus a public catalog site and optional Steam library sync worker. Agent process and tooling come from [agent-project-bootstrap](https://github.com/edwardlthompson/agent-project-bootstrap) (see `.template-version`).
+
+Alignment status: [`docs/BOOTSTRAP_ALIGNMENT.md`](BOOTSTRAP_ALIGNMENT.md).
 
 ## Which mode are you in?
 
-- **Bootstrap:** New project from **Use this template** → read `INITIALIZATION_PROMPT.md` next
-- **Reference:** Existing project using this repo as rules reference → read `FOR_AGENTS.md` next
+This is a **live product repo** (Reference mode), not a fresh template bootstrap.
 
-## Bootstrap Read Order
+- **Reference (default):** Read `FOR_AGENTS.md` next, then `AGENTS.md` + `BUILD_PLAN.md` Sequential lane
+- **Bootstrap / re-init only:** Rare — use `INITIALIZATION_PROMPT.md` if re-running Sprint 0 style setup; do not overwrite product golden paths
 
-1. `README.md`
-2. `docs/START_HERE.md`
-3. `docs/INITIALIZATION_PROMPT.md`
-4. `AGENTS.md`
-5. `BUILD_PLAN.md` Sequential lane
-6. Active `modules/{stack}/MODULE.md` only
-7. Active `examples/{stack}/` only
-8. `docs/WEB_PROJECT_LAYOUT.md` when stack includes web (folder roles, GitHub Pages)
-9. `docs/DESIGN_GUIDE.md` when stack includes web or Android UI (tokens, themes, i18n)
+## Cursor IDE mode (Ask / Plan / Agent / Debug)
 
-## Reference Read Order
+Pick the correct Cursor mode before editing: [`docs/CURSOR_MODES.md`](CURSOR_MODES.md).
 
-1. `docs/START_HERE.md`
+## Product read order (Reference)
+
+1. `docs/START_HERE.md` (this file)
 2. `docs/FOR_AGENTS.md`
 3. `TEMPLATE_INDEX.json`
 4. `AGENTS.md`
-5. Matching `modules/{stack}/MODULE.md` only
-6. `.cursor/commands/README.md` — slash commands (`/build`, `/gates`, `/ship`, …)
+5. `BUILD_PLAN.md` Sequential lane
+6. Active modules only (see `.cursor/stack-selection.json`):
+   - `modules/winui/MODULE.md` → `src/SpatialLabsOptimizer*`
+   - `modules/web/MODULE.md` → `site/catalog/`
+   - `modules/node/MODULE.md` → `workers/steam-library/`
+   - `modules/python/MODULE.md` → `scripts/sync-catalog/`
+7. `docs/WEB_PROJECT_LAYOUT.md` for Pages / catalog hosting
+8. `docs/DESIGN_GUIDE.md` / `docs/DESIGN_SYSTEM.md` for UI tokens
+9. `.cursor/commands/README.md` — slash commands (`/build`, `/gates`, `/ship`, …)
+
+## Do Not Read Yet
+
+- Inactive `examples/` folders (stubs only; product code is under `src/`, `site/`, `workers/`)
+- Entire `KNOWLEDGE_BASE.md` unless debugging
+- `docs/MAINTAINING_THE_TEMPLATE.md` (template maintainers only)
 
 ## Slash commands
 
-Type `/` in Cursor Agent chat. Workflows live in `.cursor/commands/` — see [`.cursor/commands/README.md`](../.cursor/commands/README.md).
+Type `/` in Cursor Agent chat. Workflows live in [`.cursor/commands/`](../.cursor/commands/README.md).
 
 | Common | Command |
 |--------|---------|
@@ -42,23 +51,19 @@ Type `/` in Cursor Agent chat. Workflows live in `.cursor/commands/` — see [`.
 | Local gates | `/gates` |
 | Release | `/ship` or `/push` |
 | After AGENT step | `/fix` or `watch-agent-gates.sh` |
-
-## Do Not Read Yet
-
-- Inactive `examples/` folders
-- `KNOWLEDGE_BASE.md` (empty)
-- `docs/MAINTAINING_THE_TEMPLATE.md` (maintainers only)
+| Archive done rows | `/cleanup` |
+| Batch cheat sheet | [`docs/help/BATCH_COMMANDS.md`](help/BATCH_COMMANDS.md) |
 
 ## BUILD_PLAN Labels
 
 `AGENT` | `HUMAN` | `ADB` | `AUTO` — filter with `grep '\[AGENT\]' BUILD_PLAN.md`
 
+Status markers: 🔲 open · ✅ done · ❌ blocked (emoji only — never GitHub `- [ ]` checkboxes).
+
 ## Security
 
-Enable Dependabot alerts on GitHub (Settings → Code security and analysis). Weekly CVE triage: `docs/SECURITY_TRIAGE.md`. Vulnerability reporting: `SECURITY.md`.
+Dependabot alerts + weekly CVE triage: `docs/SECURITY_TRIAGE.md`. Vulnerability reporting: `SECURITY.md`.
 
-## Agent Prompts
+## Agent prompt (this repo)
 
-**Bootstrap:** Read @docs/START_HERE.md and @docs/INITIALIZATION_PROMPT.md. Follow Section 8. Use BUILD_PLAN Sequential lane.
-
-**Reference:** Read @docs/FOR_AGENTS.md and @TEMPLATE_INDEX.json. Apply matching rules. Do not copy examples/ wholesale.
+Read @docs/START_HERE.md, @docs/FOR_AGENTS.md, and @TEMPLATE_INDEX.json. Apply matching rules for active stacks only. Do not copy `examples/` wholesale. Prefer Sequential lane before Parallel. After each `[AGENT]` step: `bash scripts/watch-agent-gates.sh --once --autofix`.

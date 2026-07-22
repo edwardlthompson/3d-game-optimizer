@@ -1,6 +1,6 @@
 # Cursor slash commands
 
-Type `/` in Cursor Agent chat to invoke these workflows. Commands live in `.cursor/commands/` (from [agent-project-bootstrap](https://github.com/edwardlthompson/agent-project-bootstrap) v0.7.1+).
+Type `/` in Cursor Agent chat to invoke these workflows. Commands live in `.cursor/commands/` (from [agent-project-bootstrap](https://github.com/edwardlthompson/agent-project-bootstrap); see `.template-version`).
 
 ## Super workflows
 
@@ -11,6 +11,7 @@ Type `/` in Cursor Agent chat to invoke these workflows. Commands live in `.curs
 | `/bootstrap` | Sprint 0: init → prune → setup → gates |
 | `/verify` | docs → gates → ci |
 | `/audit` | Full repo review + BUILD_PLAN execution |
+| `/cleanup` | Archive finished BUILD_PLAN rows into COMPLETED_TASKS |
 
 ## Planning & scope
 

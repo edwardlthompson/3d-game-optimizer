@@ -9,7 +9,7 @@
 ![WinUI 3](https://img.shields.io/badge/UI-WinUI%203-68217A?style=flat-square)
 ![.NET 8](https://img.shields.io/badge/.NET-8-512BD4?style=flat-square&logo=dotnet&logoColor=white)
 ![Product](https://img.shields.io/badge/product-v1.5.0-68217A?style=flat-square)
-![Template](https://img.shields.io/badge/template-v0.7.1-656d76?style=flat-square)
+![Template](https://img.shields.io/badge/template-v0.15.0-656d76?style=flat-square)
 
 _Product releases: tags `SpatialLabsOptimizer-v*`. Template bootstrap: `v*` matching `.template-version`._
 
@@ -246,20 +246,29 @@ No. Outbound HTTP is limited to Steam APIs, Steam CDN, signed GitHub release man
 
 </details>
 
+## How agents should work in this repo
+
+1. Read [`docs/START_HERE.md`](docs/START_HERE.md) → [`docs/FOR_AGENTS.md`](docs/FOR_AGENTS.md) → [`AGENTS.md`](AGENTS.md).
+2. Pick Cursor mode ([`docs/CURSOR_MODES.md`](docs/CURSOR_MODES.md)): Ask / Plan / Agent / Debug.
+3. Work [`BUILD_PLAN.md`](BUILD_PLAN.md) **Sequential** before Parallel. Labels: `[AGENT]` `[HUMAN]` `[ADB]` `[AUTO]`. Status: 🔲 ✅ ❌.
+4. After each `[AGENT]` step: `bash scripts/watch-agent-gates.sh --once --autofix`.
+5. Slash commands: [`.cursor/commands/README.md`](.cursor/commands/README.md) · cheat sheet: [`docs/help/BATCH_COMMANDS.md`](docs/help/BATCH_COMMANDS.md).
+6. Cursor hooks are **opt-in** (see `<!-- cursor-hooks: off -->` in BUILD_PLAN; example at `.cursor/hooks.json.example`).
+
+Alignment record: [`docs/BOOTSTRAP_ALIGNMENT.md`](docs/BOOTSTRAP_ALIGNMENT.md).
+
 ## Agent bootstrap
 
-Child repo of [agent-project-bootstrap](https://github.com/edwardlthompson/agent-project-bootstrap) **v0.7.1**.
+Child repo of [agent-project-bootstrap](https://github.com/edwardlthompson/agent-project-bootstrap) **v0.15.0**.
 
 | Track | Version | Tag pattern | Workflow |
 |-------|---------|-------------|----------|
 | **Product** | 1.5.0 | `SpatialLabsOptimizer-v*` | `product-release.yml` |
-| **Template** | 0.7.1 | `v*` | `release.yml` |
+| **Template** | 0.15.0 | `v*` | `release.yml` |
 
 **Active stacks:** WinUI (`src/`), web catalog (`site/catalog/`), Cloudflare worker (`workers/steam-library/`), Python sync (`scripts/sync-catalog/`). Inactive template stubs under `examples/` — see [docs/OPTIONAL_STACKS.md](docs/OPTIONAL_STACKS.md).
 
-Task board and migration status: [BUILD_PLAN.md](BUILD_PLAN.md) · Agent memory: [AGENT_MEMORY.md](AGENT_MEMORY.md)
-
-**Cursor slash commands:** type `/` in Agent chat — [`/.cursor/commands/README.md`](.cursor/commands/README.md) (`/build`, `/gates`, `/ship`, `/audit`, …)
+Task board: [BUILD_PLAN.md](BUILD_PLAN.md) · Human backlog: [HUMAN_BACKLOG.md](HUMAN_BACKLOG.md) · Agent memory: [AGENT_MEMORY.md](AGENT_MEMORY.md)
 
 ---
 
