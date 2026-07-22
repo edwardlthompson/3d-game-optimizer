@@ -396,7 +396,7 @@
     },
     {
       "path": ".github/workflows/dependency-review.yml",
-      "purpose": "PR dependency review \u2014 fail on new High/Critical vulnerabilities",
+      "purpose": "PR dependency review — fail on new High/Critical vulnerabilities",
       "read_when": "contributing",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -1061,7 +1061,7 @@
     },
     {
       "path": "scripts/check-steamdb-policy.sh",
-      "purpose": "Enforce ADR-0005 \u2014 no SteamDB scraping in automation paths",
+      "purpose": "Enforce ADR-0005 — no SteamDB scraping in automation paths",
       "read_when": "catalog_sync",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -1096,7 +1096,7 @@
     },
     {
       "path": "scripts/run-out-of-band-qa.ps1",
-      "purpose": "Windows out-of-band QA \u2014 cover art, PCVR, ADR-0005",
+      "purpose": "Windows out-of-band QA — cover art, PCVR, ADR-0005",
       "read_when": "release",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -1117,21 +1117,21 @@
     },
     {
       "path": "docs/adr/0005-steamdb-price-history.md",
-      "purpose": "ADR \u2014 SteamDB price history policy (no scraping)",
+      "purpose": "ADR — SteamDB price history policy (no scraping)",
       "read_when": "catalog_sync",
       "update_when": "architectural_decision",
       "owner": "agent+human"
     },
     {
       "path": "workers/steam-library/",
-      "purpose": "Cloudflare Worker \u2014 Steam OpenID, owned games proxy, KV sync tokens",
+      "purpose": "Cloudflare Worker — Steam OpenID, owned games proxy, KV sync tokens",
       "read_when": "catalog_sync",
       "update_when": "milestone_boundary",
       "owner": "agent"
     },
     {
       "path": ".github/workflows/reusable-steam-worker-lint.yml",
-      "purpose": "Reusable workflow \u2014 worker lint and vitest",
+      "purpose": "Reusable workflow — worker lint and vitest",
       "read_when": "catalog_sync",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -1327,14 +1327,14 @@
     },
     {
       "path": "modules/winui/MODULE.md",
-      "purpose": "WinUI 3 Golden Path \u2014 SpatialLabsOptimizer desktop hub (MVVM + Clean)",
+      "purpose": "WinUI 3 Golden Path — SpatialLabsOptimizer desktop hub (MVVM + Clean)",
       "read_when": "milestone_boundary",
       "update_when": "milestone_boundary",
       "owner": "agent"
     },
     {
       "path": "site/catalog/README.md",
-      "purpose": "3D Game Catalog browser \u2014 primary GitHub Pages app at /catalog/",
+      "purpose": "3D Game Catalog browser — primary GitHub Pages app at /catalog/",
       "read_when": "web_hosting",
       "update_when": "milestone_boundary",
       "owner": "agent"
@@ -1348,7 +1348,7 @@
     },
     {
       "path": ".cursor/commands/README.md",
-      "purpose": "Index of Cursor slash commands (/build, /gates, /ship, \u2026)",
+      "purpose": "Index of Cursor slash commands (/build, /gates, /ship, …)",
       "read_when": "session_start",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -1397,7 +1397,7 @@
     }
   },
   "roadmap": {
-    "active": "BUILD_PLAN.md \u2014 maintenance + human open items",
+    "active": "BUILD_PLAN.md — maintenance + human open items",
     "completed_archive": "COMPLETED_TASKS.md",
     "batch_commands": [
       ".cursor/commands/audit.md",
