@@ -22,6 +22,7 @@
 - **Decision:** Cherry-pick agent/tooling surfaces; keep product CI/workflows; skip `commercial-compliance.mdc`; install hooks with BUILD_PLAN `cursor-hooks: off` until human smoke; Sequential-first retained over upstream parallel-first defaults
 - **Alternatives considered:** Blind sync of entire template; enable hooks immediately; replace `ci.yml`
 - **Consequences:** Agents get 0.15.0 process surface; Steam Connect / hardware QA unchanged as HUMAN; enable hooks by removing marker + confirming `.cursor/hooks.json`
+- **Validation (push):** `597ed9c` on `main` — CI, Security Scan, CodeQL success (2026-07-22); no product tag (remains v1.5.0)
 
 ### 2026-07-12 — Ship v1.5.0 (/ship)
 - **Status:** Accepted
