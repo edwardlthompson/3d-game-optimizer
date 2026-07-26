@@ -22,7 +22,7 @@ jobs:
       (github.event_name == 'release' && !startsWith(github.event.release.tag_name, 'SpatialLabsOptimizer-v'))
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Resolve release tag
         id: tag
@@ -67,7 +67,7 @@ jobs:
           output-file: sbom-python.cyclonedx.json
 
       - name: Generate provenance attestation
-        uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32 # v2.2.0
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v2.2.0
         with:
           subject-path: sbom.cyclonedx.json
 
