@@ -22,7 +22,7 @@ jobs:
       (github.event_name == 'release' && !startsWith(github.event.release.tag_name, 'SpatialLabsOptimizer-v'))
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Resolve release tag
         id: tag
@@ -44,7 +44,7 @@ jobs:
           fi
 
       - name: Generate root SBOM
-        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.20.6
+        uses: anchore/sbom-action@aa80c8c5bd439a416a62804f2151ab38c671a638 # v0.20.6
         with:
           path: .
           format: cyclonedx-json
@@ -52,7 +52,7 @@ jobs:
 
       - name: Generate web stack SBOM slice
         if: hashFiles('examples/web/package.json') != ''
-        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.20.6
+        uses: anchore/sbom-action@aa80c8c5bd439a416a62804f2151ab38c671a638 # v0.20.6
         with:
           path: examples/web
           format: cyclonedx-json
@@ -60,14 +60,14 @@ jobs:
 
       - name: Generate python stack SBOM slice
         if: hashFiles('examples/python/pyproject.toml') != ''
-        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0.20.6
+        uses: anchore/sbom-action@aa80c8c5bd439a416a62804f2151ab38c671a638 # v0.20.6
         with:
           path: examples/python
           format: cyclonedx-json
           output-file: sbom-python.cyclonedx.json
 
       - name: Generate provenance attestation
-        uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32 # v2.2.0
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v2.2.0
         with:
           subject-path: sbom.cyclonedx.json
 
