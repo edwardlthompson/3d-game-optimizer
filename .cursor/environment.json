@@ -1,0 +1,17 @@
+{
+  "name": "3D Game Optimizer",
+  "install": "bash .cursor/install.sh",
+  "terminals": [
+    {
+      "name": "catalog-dev",
+      "command": "cd site/catalog && VITE_STEAM_SYNC_URL=https://steam-sync.example.test npm run dev -- --host 0.0.0.0 --port 5173",
+      "description": "Vite dev server for the public 3D game catalog site (http://localhost:5173)."
+    }
+  ],
+  "ports": [
+    {
+      "name": "catalog-site",
+      "port": 5173
+    }
+  ]
+}
