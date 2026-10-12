@@ -1,11 +1,12 @@
 # Lenticular 3D Game Catalog
 
-> Auto-generated from `catalog-v2.json` — 686 titles · merged 2026-06-15T17:55:28Z
+> Auto-generated from `catalog-v2.json` — 698 titles · merged 2026-10-12T15:10:42Z
 
 ## Best overall (by 3D tier)
 
 | Title | Best experience | Platforms | Buy |
 | --- | --- | --- | --- |
+| A journey through shadow, to Reach the light. | UEVR · Experimental | uevr | — |
 | Amygdala | UEVR · Experimental | uevr | [Steam](https://store.steampowered.com/app/2453920/) |
 | Assassin's Creed Valhalla | ReShade depth · Experimental | reshade-depth | [Steam](https://store.steampowered.com/app/2208920/) |
 | Bylina | UEVR · Experimental | uevr | [Steam](https://store.steampowered.com/app/2461440/) |
@@ -115,8 +116,9 @@
 | Abiotic Factor | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/427410/) |
 | Adios | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1271400/) |
 | Alice's Lullaby | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3205190/) |
+| Aliens: Fireteam Elite 2 | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3448650/) |
 | All-Star Fruit Racing | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/673190/) |
-| Ambrosia Sky: Act One | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3763620/) |
+| Ambrosia Sky: Act One | UEVR · Optimized | uevr | — |
 | Arcus | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1479960/) |
 | Assetto Corsa Rally | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3917090/) |
 | Avowed | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2457220/) |
@@ -128,6 +130,7 @@
 | Bodycam | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2406770/) |
 | Boti: Byteland Overclocked | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2161050/) |
 | Breathedge | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/738520/) |
+| Breathedge 2 | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2412960/) |
 | Brick Rigs | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/552100/) |
 | Brothers: A Tale of Two Sons Remake | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2153350/) |
 | Bunker's Shadow | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2767450/) |
@@ -152,6 +155,7 @@
 | ENTITY: THE BLACK DAY | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2517220/) |
 | ESCAPE Protocol: Online | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3655040/) |
 | EVERSPACE™ 2 | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1128920/) |
+| Far Far West | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3124540/) |
 | Fast Food Simulator: Prologue | UEVR · Optimized | uevr | — |
 | Fastival | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2830700/) |
 | FINAL FANTASY VII REBIRTH | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2909400/) |
@@ -246,11 +250,13 @@
 | Sonic Racing: CrossWorlds | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2486820/) |
 | Sorrow Be The Night | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/4133710/) |
 | Soulmask | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2646460/) |
+| Space Hulk: Deathwing Enhanced Edition | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/816090/) |
 | Species: Unknown | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2747330/) |
 | Spider Fox | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2478640/) |
 | SpongeBob SquarePants: The Cosmic Shake | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1282150/) |
 | SpongeBob SquarePants: Titans of the Tide | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2479650/) |
 | STAR WARS Jedi: Fallen Order™ | UEVR · Optimized | uevr | — |
+| STAR WARS Zero Company™ | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2075800/) |
 | StarRupture | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1631270/) |
 | State of Decay 2 | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/495420/) |
 | Stellar Blade™ | UEVR · Optimized | uevr | — |
@@ -261,6 +267,7 @@
 | Supraland | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/813630/) |
 | SWORD ART ONLINE Fractured Daydream | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1858630/) |
 | System Shock | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/482400/) |
+| The Adventures of Elliot: The Millennium Tales | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3483510/) |
 | The Anacrusis | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1120480/) |
 | The Axis Unseen | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1807810/) |
 | The Beast Inside | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/792300/) |
@@ -269,6 +276,7 @@
 | The Forever Winter | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2828860/) |
 | The Invincible | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/731040/) |
 | The Killing Antidote | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2254890/) |
+| The Last Caretaker | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1783560/) |
 | The Lord of the Rings: Return to Moria™ | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2933130/) |
 | The Mean Greens - Plastic Warfare | UEVR · Optimized | uevr | — |
 | The Outer Worlds 2 | UEVR · Optimized | uevr | — |
@@ -293,10 +301,6 @@
 | Xenon Racer | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/899390/) |
 | Zoochosis | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2458560/) |
 | Zoonomaly | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2101890/) |
-| <a href="https://patreon.com/realvr" target="_blank" rel="noopener noreferrer">REALVR</a> | VRto3D · Playable | uevr | — |
-| <a href="https://raicuparta.com/rai-pal" target="_blank" rel="noopener noreferrer">UUVR</a> | VRto3D · Playable | uevr | — |
-| <a href="https://www.patreon.com/NoMoreFlat" target="_blank" rel="noopener noreferrer">NoMoreFlat</a> | VRto3D · Playable | uevr | — |
-| <a href="https://www.vorpx.com/" target="_blank" rel="noopener noreferrer">vorpX</a> | VRto3D · Playable | uevr | — |
 | Alien: Rogue Incursion Evolved Edition | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/3655390/) |
 | Alone in the Dark | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1310410/) |
 | Alpha Response | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2089250/) |
@@ -326,10 +330,11 @@
 | Fear The Timeloop LiveNow Broadcasting: Watch the developer play | UEVR · Playable | uevr | — |
 | Flintlock: The Siege of Dawn | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1832040/) |
 | Fobia - St. Dinfna Hotel | UEVR · Playable | uevr | — |
-| Game of Thrones: Kingsroad | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/3183280/) |
+| Game of Thrones: Kingsroad | UEVR · Playable | uevr | — |
 | Granny Remake | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2110820/) |
+| Halo: Campaign Evolved | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2806050/) |
 | HelixVision DX9 | VRto3D · Playable | uevr | — |
-| Hermit | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2408350/) |
+| Hermit | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/3876210/) |
 | Homeworld 3 | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1840080/) |
 | Horizon Zero Dawn | ReShade depth · Playable | reshade-depth | [Steam](https://store.steampowered.com/app/2561580/) |
 | Incursion Red River | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2116120/) |
@@ -342,10 +347,12 @@
 | Metro Exodus | ReShade depth · Playable | reshade-depth | [Steam](https://store.steampowered.com/app/412020/) |
 | Mods | VRto3D · Playable | uevr | [Steam](https://store.steampowered.com/app/2830960/) |
 | Necromunda: Hired Gun | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1222370/) |
+| NoMoreFlat | VRto3D · Playable | uevr | — |
 | North Sentinel Island | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/4199440/) |
 | Professional Baseball Spirits 2024-2025 | UEVR · Playable | uevr | — |
+| REALVR | VRto3D · Playable | uevr | — |
 | Red Dead Redemption 2 | Curated · Playable | manual, reshade-depth | [Steam](https://store.steampowered.com/app/1174180/) |
-| REFramework <a href="https://github.com/praydog/REFramework/releases" target="_blank" rel="noopener noreferrer">Release</a> <a href="https://github.com/praydog/REFramework-nightly/releases" target="_blank" rel="noopener noreferrer">Nightly</a> <a href="https://github.com/praydog/REFramework/actions/runs/11318179052" target="_blank" rel="noopener noreferrer">pd_upscaler</a> | VRto3D · Playable | uevr | — |
+| REFramework Release Nightly pd_upscaler | VRto3D · Playable | uevr | — |
 | Reign of Guilds | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/716350/) |
 | RIDE 4 | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1259980/) |
 | RIPOUT | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1558830/) |
@@ -366,11 +373,13 @@
 | The Forgotten Villages of Gondomayit 2 - Kost Karangsari | UEVR · Playable | uevr | — |
 | The Sinking City | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/750130/) |
 | The Witch of Fern Island | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1550010/) |
-| UEVR <a href="https://github.com/praydog/UEVR/releases" target="_blank" rel="noopener noreferrer">Release</a> <a href="https://github.com/praydog/UEVR-nightly/releases" target="_blank" rel="noopener noreferrer">Nightly</a> | VRto3D · Playable | uevr | — |
+| UEVR Release Nightly | VRto3D · Playable | uevr | — |
+| UUVR | VRto3D · Playable | uevr | — |
+| vorpX | VRto3D · Playable | uevr | — |
 | Waking Tides | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2475480/) |
 | William and Sly | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2459620/) |
 | ZomGoBo | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2975190/) |
-| 471 games and counting... | UEVR · 3D Ultra | uevr | — |
+| 484 games and counting... | UEVR · 3D Ultra | uevr | — |
 | A Juggler's Tale | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/1252830/) |
 | A Plague Tale: Innocence | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/752590/) |
 | A Plague Tale: Requiem | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/1182900/) |
@@ -379,6 +388,7 @@
 | Ad Infinitum | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1234430/) |
 | ADACA | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1765780/) |
 | Afterimage | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/1701520/) |
+| Akimbot | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1843540/) |
 | Alchemy Garden | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/935400/) |
 | Aliens: Dark Descent | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1150440/) |
 | Aliens: Fireteam Elite | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1549970/) |
@@ -481,6 +491,7 @@
 | GigaBash | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1546400/) |
 | Goat Simulator 3 | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/850190/) |
 | God of War | Acer TrueGame · 3D Ultra | odyssey-hub, truegame | [Steam](https://store.steampowered.com/app/1593500/) |
+| Grand Theft Auto: San Andreas – The Definitive Edition | UEVR · 3D Ultra | uevr | — |
 | Gravel | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/558260/) |
 | GRIME | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/1123050/) |
 | Grippy Golf | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/2299080/) |
@@ -524,7 +535,7 @@
 | Luna Abyss | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1933000/) |
 | Maelstrom | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/764050/) |
 | Mandragora: Whispers of the Witch Tree | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1721060/) |
-| Marvel's Midnight Suns | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/368260/) |
+| Marvel's Midnight Suns | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/368260/) |
 | Medieval Dynasty | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1129580/) |
 | Metal Garden | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/3539440/) |
 | METAL GEAR SOLID 2: Sons of Liberty | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/2131640/) |
@@ -534,6 +545,7 @@
 | Monster Boy and the Cursed Kingdom | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/449610/) |
 | Monster Energy Supercross - The Official Videogame 5 | UEVR · 3D Ultra | uevr | — |
 | Mortal Shell | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1110910/) |
+| Mortal Shell II | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/2584270/) |
 | Motor Town: Behind The Wheel | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1369670/) |
 | MXGP PRO | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/798290/) |
 | MythForce | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/363860/) |
@@ -664,7 +676,7 @@
 | Trek to Yomi | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/1370050/) |
 | Trepang2 | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1164940/) |
 | TRIANGLE STRATEGY | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/1850510/) |
-| Trine | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/2932260/) |
+| Trine | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/1436700/) |
 | Trine 2 | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/35720/) |
 | Trine 3: The Artifacts of Power | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/319910/) |
 | TRON RUN/r | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/392000/) |
@@ -800,7 +812,7 @@
 | LOST EMBER | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/563840/) |
 | Maneater | Acer TrueGame · 3D | truegame, uevr | [Steam](https://store.steampowered.com/app/629820/) |
 | Marvel's Guardians of the Galaxy | Acer TrueGame · 3D | truegame | [Steam](https://store.steampowered.com/app/1088850/) |
-| Marvel's Midnight Suns | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/368260/) |
+| Marvel's Midnight Suns | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/368260/) |
 | Max Payne 3 | Acer TrueGame · 3D | truegame | [Steam](https://store.steampowered.com/app/204100/) |
 | METAL GEAR SOLID 2: Sons of Liberty | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/2131640/) |
 | METAL GEAR SOLID 3: Snake Eater | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/2131650/) |
@@ -900,7 +912,7 @@
 | Trackmania | Acer TrueGame · 3D | truegame | [Steam](https://store.steampowered.com/app/2225070/) |
 | Trek to Yomi | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/1370050/) |
 | TRIANGLE STRATEGY | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/1850510/) |
-| Trine | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/2932260/) |
+| Trine | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/1436700/) |
 | Trine 2 | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/35720/) |
 | Trine 3: The Artifacts of Power | Acer TrueGame · 3D Ultra | truegame | [Steam](https://store.steampowered.com/app/319910/) |
 | TUNIC | Acer TrueGame · 3D | truegame | [Steam](https://store.steampowered.com/app/553420/) |
@@ -944,11 +956,8 @@
 
 | Title | Best experience | Platforms | Buy |
 | --- | --- | --- | --- |
-| 471 games and counting... | UEVR · 3D Ultra | uevr | — |
-| <a href="https://patreon.com/realvr" target="_blank" rel="noopener noreferrer">REALVR</a> | VRto3D · Playable | uevr | — |
-| <a href="https://raicuparta.com/rai-pal" target="_blank" rel="noopener noreferrer">UUVR</a> | VRto3D · Playable | uevr | — |
-| <a href="https://www.patreon.com/NoMoreFlat" target="_blank" rel="noopener noreferrer">NoMoreFlat</a> | VRto3D · Playable | uevr | — |
-| <a href="https://www.vorpx.com/" target="_blank" rel="noopener noreferrer">vorpX</a> | VRto3D · Playable | uevr | — |
+| 484 games and counting... | UEVR · 3D Ultra | uevr | — |
+| A journey through shadow, to Reach the light. | UEVR · Experimental | uevr | — |
 | A Quiet Place: The Road Ahead | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2233120/) |
 | A.I.L.A | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2695430/) |
 | Abiotic Factor | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/427410/) |
@@ -957,15 +966,17 @@
 | Ad Infinitum | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1234430/) |
 | ADACA | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1765780/) |
 | Adios | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1271400/) |
+| Akimbot | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1843540/) |
 | Alchemy Garden | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/935400/) |
 | Alice's Lullaby | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3205190/) |
 | Alien: Rogue Incursion Evolved Edition | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/3655390/) |
 | Aliens: Dark Descent | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1150440/) |
 | Aliens: Fireteam Elite | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1549970/) |
+| Aliens: Fireteam Elite 2 | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3448650/) |
 | All-Star Fruit Racing | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/673190/) |
 | Alone in the Dark | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1310410/) |
 | Alpha Response | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2089250/) |
-| Ambrosia Sky: Act One | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3763620/) |
+| Ambrosia Sky: Act One | UEVR · Optimized | uevr | — |
 | Amenti | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/3292260/) |
 | Amygdala | UEVR · Experimental | uevr | [Steam](https://store.steampowered.com/app/2453920/) |
 | Aquanox Deep Descent | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/254370/) |
@@ -997,6 +1008,7 @@
 | BPM: BULLETS PER MINUTE | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1286350/) |
 | Bramble: The Mountain King | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/1623940/) |
 | Breathedge | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/738520/) |
+| Breathedge 2 | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2412960/) |
 | Brick Rigs | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/552100/) |
 | Bright Memory: Infinite | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/1178830/) |
 | Broken Pieces | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1293730/) |
@@ -1080,6 +1092,7 @@
 | Evil West | Acer TrueGame · 3D | truegame, uevr | [Steam](https://store.steampowered.com/app/1065310/) |
 | F.I.S.T.: Forged In Shadow Torch | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/1330470/) |
 | Faaast Penguin | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2590150/) |
+| Far Far West | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3124540/) |
 | Faraday Protocol | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1107750/) |
 | Fast Food Simulator: Prologue | UEVR · Optimized | uevr | — |
 | Fastival | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2830700/) |
@@ -1102,7 +1115,7 @@
 | Frozenheim | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1134100/) |
 | Fuck You Witch | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2736020/) |
 | G.I. Joe: Operation Blackout | UEVR · Optimized | uevr | — |
-| Game of Thrones: Kingsroad | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/3183280/) |
+| Game of Thrones: Kingsroad | UEVR · Playable | uevr | — |
 | Gamedec - Definitive Edition | UEVR · Optimized | uevr | — |
 | Garden Life: A Cozy Simulator | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1915380/) |
 | Genesis Alpha One Deluxe Edition | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/712190/) |
@@ -1114,6 +1127,7 @@
 | Godfall | Acer TrueGame · 3D | truegame, uevr | [Steam](https://store.steampowered.com/app/928960/) |
 | GONE Fishing | UEVR · Experimental | uevr | [Steam](https://store.steampowered.com/app/3645890/) |
 | Gotham Knights | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1496790/) |
+| Grand Theft Auto: San Andreas – The Definitive Edition | UEVR · 3D Ultra | uevr | — |
 | Granny Remake | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2110820/) |
 | Granny: Escape Together | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3070520/) |
 | Gravel | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/558260/) |
@@ -1126,6 +1140,7 @@
 | GUNDAM BREAKER 4 | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1672500/) |
 | GYLT | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/2206210/) |
 | Half Sword | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2397300/) |
+| Halo: Campaign Evolved | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2806050/) |
 | Hatred | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/341940/) |
 | Heavy Metal Death Can | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/3726370/) |
 | HelixVision DX9 | VRto3D · Playable | uevr | — |
@@ -1134,7 +1149,7 @@
 | Hello Neighbor 2 | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1321680/) |
 | Hello Neighbor 3 | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/2789680/) |
 | Hello Neighbor: Hide and Seek | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/960420/) |
-| Hermit | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2408350/) |
+| Hermit | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/3876210/) |
 | Hex Gambit: Respawned | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1297680/) |
 | High On Life | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/1583230/) |
 | High On Life 2 | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2069250/) |
@@ -1189,6 +1204,7 @@
 | Mandragora: Whispers of the Witch Tree | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1721060/) |
 | Maneater | Acer TrueGame · 3D | truegame, uevr | [Steam](https://store.steampowered.com/app/629820/) |
 | Martha Is Dead | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/515960/) |
+| Marvel's Midnight Suns | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/368260/) |
 | MechWarrior 5: Clans | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2000890/) |
 | Medieval Dynasty | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1129580/) |
 | Melted Valor | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3949190/) |
@@ -1203,6 +1219,7 @@
 | Monsters Domain | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1442450/) |
 | Mortal Kombat 1 | UEVR · Experimental | uevr | [Steam](https://store.steampowered.com/app/1971870/) |
 | Mortal Shell | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1110910/) |
+| Mortal Shell II | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/2584270/) |
 | MOTHERGUNSHIP | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/574090/) |
 | Motor Town: Behind The Wheel | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1369670/) |
 | Mutant Year Zero: Road to Eden | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/760060/) |
@@ -1215,6 +1232,7 @@
 | NINJA GAIDEN 2 Black | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3287520/) |
 | Nobody Wants To Die | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1939970/) |
 | Nomads of Driftland | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1400520/) |
+| NoMoreFlat | VRto3D · Playable | uevr | — |
 | North Sentinel Island | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/4199440/) |
 | Observer: System Redux | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/1386900/) |
 | Oceanhorn 2: Knights of the Lost Realm | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1622710/) |
@@ -1259,8 +1277,9 @@
 | RAD | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/722560/) |
 | Rainy Season | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1094420/) |
 | Ready or Not | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1144200/) |
+| REALVR | VRto3D · Playable | uevr | — |
 | Redfall | UEVR · Experimental | uevr | [Steam](https://store.steampowered.com/app/1294810/) |
-| REFramework <a href="https://github.com/praydog/REFramework/releases" target="_blank" rel="noopener noreferrer">Release</a> <a href="https://github.com/praydog/REFramework-nightly/releases" target="_blank" rel="noopener noreferrer">Nightly</a> <a href="https://github.com/praydog/REFramework/actions/runs/11318179052" target="_blank" rel="noopener noreferrer">pd_upscaler</a> | VRto3D · Playable | uevr | — |
+| REFramework Release Nightly pd_upscaler | VRto3D · Playable | uevr | — |
 | Reign of Guilds | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/716350/) |
 | Relicta | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/941570/) |
 | Remnant II | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1282100/) |
@@ -1315,6 +1334,7 @@
 | Soulstice | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1602080/) |
 | Soundfall | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1608700/) |
 | SOUTH PARK: SNOW DAY! | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1214650/) |
+| Space Hulk: Deathwing Enhanced Edition | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/816090/) |
 | Species: Unknown | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2747330/) |
 | Spider Fox | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2478640/) |
 | Spirit of the North | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1213700/) |
@@ -1326,6 +1346,7 @@
 | Squad 44 | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/736220/) |
 | STAR WARS Jedi: Fallen Order™ | UEVR · Optimized | uevr | — |
 | STAR WARS Jedi: Survivor™ | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1774580/) |
+| STAR WARS Zero Company™ | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2075800/) |
 | StarRupture | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1631270/) |
 | State of Decay 2 | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/495420/) |
 | Stellar Blade™ | UEVR · Optimized | uevr | — |
@@ -1349,6 +1370,7 @@
 | TEKKEN 8 | Acer TrueGame · 3D Ultra | odyssey-hub, truegame, uevr | [Steam](https://store.steampowered.com/app/1778820/) |
 | Tempest Rising | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/1486920/) |
 | Terminator: Resistance | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/954740/) |
+| The Adventures of Elliot: The Millennium Tales | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3483510/) |
 | The Anacrusis | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1120480/) |
 | The Axis Unseen | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1807810/) |
 | The Beast Inside | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/792300/) |
@@ -1364,6 +1386,7 @@
 | The Forgotten Villages of Gondomayit 2 - Kost Karangsari | UEVR · Playable | uevr | — |
 | The Invincible | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/731040/) |
 | The Killing Antidote | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2254890/) |
+| The Last Caretaker | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1783560/) |
 | The Lord of the Rings: Return to Moria™ | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2933130/) |
 | The Mean Greens - Plastic Warfare | UEVR · Optimized | uevr | — |
 | The Outer Worlds | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/1449110/) |
@@ -1393,11 +1416,12 @@
 | TRON RUN/r | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/392000/) |
 | Troublemaker | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1498740/) |
 | Twin Mirror | Acer TrueGame · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/1552810/) |
-| UEVR <a href="https://github.com/praydog/UEVR/releases" target="_blank" rel="noopener noreferrer">Release</a> <a href="https://github.com/praydog/UEVR-nightly/releases" target="_blank" rel="noopener noreferrer">Nightly</a> | VRto3D · Playable | uevr | — |
+| UEVR Release Nightly | VRto3D · Playable | uevr | — |
 | Under The Waves | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1975440/) |
 | Unhomely | UEVR · Experimental | uevr | [Steam](https://store.steampowered.com/app/2941990/) |
 | Until Dawn™ | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2172010/) |
 | Urban Trial Playground | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/988240/) |
+| UUVR | VRto3D · Playable | uevr | — |
 | Valor Mortis | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/2828710/) |
 | Vampyr | UEVR · 3D Ultra | truegame, uevr | [Steam](https://store.steampowered.com/app/427290/) |
 | Vesnith Tapes | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/3284900/) |
@@ -1407,6 +1431,7 @@
 | VLADiK BRUTAL | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1316680/) |
 | VOID/BREAKER | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/2615540/) |
 | Voidtrain | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/1159690/) |
+| vorpX | VRto3D · Playable | uevr | — |
 | Waking Tides | UEVR · Playable | uevr | [Steam](https://store.steampowered.com/app/2475480/) |
 | Warhammer 40,000: Boltgun | UEVR · 3D Ultra | uevr | [Steam](https://store.steampowered.com/app/2005010/) |
 | Way of the Hunter | UEVR · Optimized | uevr | [Steam](https://store.steampowered.com/app/1288320/) |
