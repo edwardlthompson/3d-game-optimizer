@@ -1,11 +1,16 @@
 {
   "version": "v1",
-  "updatedAt": "2026-06-15",
+  "updatedAt": "2026-11-02",
   "apps": {
     "1252830": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 17.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 17.99,
           "onSale": false
         }
@@ -19,9 +24,14 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 3.99,
       "highUsd": 39.99
     },
     "1182900": {
@@ -30,15 +40,25 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 49.99,
+      "lowUsd": 14.99,
       "highUsd": 49.99
     },
     "2233120": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -52,15 +72,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 14.99,
       "highUsd": 29.99
     },
     "427410": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 34.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 34.99,
           "onSale": false
         }
@@ -74,6 +104,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -85,15 +120,25 @@
           "date": "2026-06-15",
           "priceUsd": 3.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 3.99,
+      "lowUsd": 2.49,
       "highUsd": 3.99
     },
     "1765780": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -107,6 +152,11 @@
           "date": "2026-06-15",
           "priceUsd": 17.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 17.99,
+          "onSale": false
         }
       ],
       "lowUsd": 17.99,
@@ -116,6 +166,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -129,9 +184,14 @@
           "date": "2026-06-15",
           "priceUsd": 6.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 6.99,
+      "lowUsd": 3.49,
       "highUsd": 6.99
     },
     "3205190": {
@@ -140,15 +200,25 @@
           "date": "2026-06-15",
           "priceUsd": 14.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 14.99,
+      "lowUsd": 7.49,
       "highUsd": 14.99
     },
     "3655390": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -162,9 +232,14 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 11.99,
       "highUsd": 39.99
     },
     "1549970": {
@@ -173,15 +248,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 5.99,
       "highUsd": 29.99
     },
     "673190": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 9.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 9.99,
           "onSale": false
         }
@@ -195,15 +280,25 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 9.99,
       "highUsd": 39.99
     },
     "2089250": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -228,15 +323,25 @@
           "date": "2026-06-15",
           "priceUsd": 6.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 6.99,
+      "lowUsd": 3.49,
       "highUsd": 6.99
     },
     "673130": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -250,15 +355,25 @@
           "date": "2026-06-15",
           "priceUsd": 6.66,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.33,
+          "onSale": true
         }
       ],
-      "lowUsd": 6.66,
+      "lowUsd": 3.33,
       "highUsd": 6.66
     },
     "1368030": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -272,6 +387,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -283,9 +403,14 @@
           "date": "2026-06-15",
           "priceUsd": 44.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.24,
+          "onSale": true
         }
       ],
-      "lowUsd": 44.99,
+      "lowUsd": 11.24,
       "highUsd": 44.99
     },
     "48190": {
@@ -294,9 +419,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 4.99,
       "highUsd": 19.99
     },
     "33230": {
@@ -305,15 +435,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 4.99,
       "highUsd": 19.99
     },
     "2208920": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -327,6 +467,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
@@ -338,10 +483,15 @@
           "date": "2026-06-15",
           "priceUsd": 23.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 23.99,
-      "highUsd": 23.99
+      "highUsd": 29.99
     },
     "1731070": {
       "points": [
@@ -349,15 +499,25 @@
           "date": "2026-06-15",
           "priceUsd": 8.74,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 34.99,
+          "onSale": false
         }
       ],
       "lowUsd": 8.74,
-      "highUsd": 8.74
+      "highUsd": 34.99
     },
     "2353250": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -371,6 +531,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -380,6 +545,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -393,10 +563,15 @@
           "date": "2026-06-15",
           "priceUsd": 2.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 2.99,
-      "highUsd": 2.99
+      "highUsd": 29.99
     },
     "2457220": {
       "points": [
@@ -404,15 +579,25 @@
           "date": "2026-06-15",
           "priceUsd": 32.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 32.49,
-      "highUsd": 32.49
+      "highUsd": 49.99
     },
     "924970": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -426,6 +611,11 @@
           "date": "2026-06-15",
           "priceUsd": 6.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.99,
+          "onSale": false
         }
       ],
       "lowUsd": 6.99,
@@ -437,15 +627,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 6.99,
       "highUsd": 9.99
     },
     "3094480": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 12.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 12.99,
           "onSale": false
         }
@@ -459,6 +659,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -470,15 +675,25 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 49.99,
+      "lowUsd": 14.99,
       "highUsd": 49.99
     },
     "35140": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -492,6 +707,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -501,6 +721,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -514,6 +739,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -525,9 +755,14 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 19.99,
       "highUsd": 29.99
     },
     "1146310": {
@@ -536,9 +771,14 @@
           "date": "2026-06-15",
           "priceUsd": 34.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 34.99,
+      "lowUsd": 6.99,
       "highUsd": 34.99
     },
     "409720": {
@@ -547,9 +787,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 2.99,
       "highUsd": 19.99
     },
     "8870": {
@@ -558,9 +803,14 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 7.49,
       "highUsd": 29.99
     },
     "409710": {
@@ -569,15 +819,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 4.99,
       "highUsd": 19.99
     },
     "2222540": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -591,6 +851,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -600,6 +865,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -613,6 +883,11 @@
           "date": "2026-06-15",
           "priceUsd": 17.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 17.99,
+          "onSale": false
         }
       ],
       "lowUsd": 17.99,
@@ -622,6 +897,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 5.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 5.99,
           "onSale": false
         }
@@ -635,9 +915,14 @@
           "date": "2026-06-15",
           "priceUsd": 7.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 7.99,
+      "lowUsd": 5.99,
       "highUsd": 7.99
     },
     "692850": {
@@ -646,15 +931,25 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 9.99,
       "highUsd": 39.99
     },
     "2406770": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 33.32,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 33.32,
           "onSale": false
         }
@@ -668,10 +963,15 @@
           "date": "2026-06-15",
           "priceUsd": 4.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 4.99,
-      "highUsd": 4.99
+      "highUsd": 19.99
     },
     "397540": {
       "points": [
@@ -679,10 +979,15 @@
           "date": "2026-06-15",
           "priceUsd": 5.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 5.99,
-      "highUsd": 5.99
+      "highUsd": 59.99
     },
     "729040": {
       "points": [
@@ -690,15 +995,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.89,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.89,
-      "highUsd": 9.89
+      "highUsd": 29.99
     },
     "2161050": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 7.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 7.99,
           "onSale": false
         }
@@ -712,6 +1027,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -723,15 +1043,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.39,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 5.39,
       "highUsd": 29.99
     },
     "738520": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -745,6 +1075,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -754,6 +1089,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -767,6 +1107,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
@@ -778,15 +1123,25 @@
           "date": "2026-06-15",
           "priceUsd": 7.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.99,
-      "highUsd": 7.99
+      "highUsd": 19.99
     },
     "501590": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -800,6 +1155,11 @@
           "date": "2026-06-15",
           "priceUsd": 0.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 0.99,
+          "onSale": false
         }
       ],
       "lowUsd": 0.99,
@@ -809,6 +1169,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -822,15 +1187,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 2.99,
       "highUsd": 19.99
     },
     "204450": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -844,6 +1219,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -853,6 +1233,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 9.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 9.99,
           "onSale": false
         }
@@ -866,15 +1251,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 6.99,
       "highUsd": 19.99
     },
     "1824220": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -888,6 +1283,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -897,6 +1297,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -910,6 +1315,11 @@
           "date": "2026-06-15",
           "priceUsd": 89.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 89.99,
+          "onSale": false
         }
       ],
       "lowUsd": 89.99,
@@ -919,6 +1329,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -932,6 +1347,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -943,15 +1363,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.39,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 3.39,
       "highUsd": 19.99
     },
     "879000": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -965,6 +1395,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -974,6 +1409,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -987,6 +1427,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -998,15 +1443,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 6.99,
       "highUsd": 9.99
     },
     "3843400": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 11.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 11.99,
           "onSale": false
         }
@@ -1020,6 +1475,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -1029,6 +1489,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -1042,10 +1507,15 @@
           "date": "2026-06-15",
           "priceUsd": 17.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 17.49,
-      "highUsd": 17.49
+      "highUsd": 49.99
     },
     "1790930": {
       "points": [
@@ -1053,9 +1523,14 @@
           "date": "2026-06-15",
           "priceUsd": 17.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 13.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 17.99,
+      "lowUsd": 13.49,
       "highUsd": 17.99
     },
     "2101960": {
@@ -1064,15 +1539,25 @@
           "date": "2026-06-15",
           "priceUsd": 35.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 35.99,
+      "lowUsd": 29.99,
       "highUsd": 35.99
     },
     "17300": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -1086,6 +1571,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -1097,15 +1587,25 @@
           "date": "2026-06-15",
           "priceUsd": 12.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 12.49,
-      "highUsd": 12.49
+      "highUsd": 24.99
     },
     "1091500": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -1119,6 +1619,11 @@
           "date": "2026-06-15",
           "priceUsd": 4.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": false
         }
       ],
       "lowUsd": 4.99,
@@ -1128,6 +1633,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -1141,15 +1651,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.9,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.95,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.9,
+      "lowUsd": 9.95,
       "highUsd": 19.9
     },
     "1839940": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -1163,6 +1683,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -1172,6 +1697,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -1185,6 +1715,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -1194,6 +1729,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -1207,6 +1747,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -1216,6 +1761,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -1229,6 +1779,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -1240,9 +1795,14 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 11.99,
       "highUsd": 29.99
     },
     "842100": {
@@ -1251,15 +1811,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 2.99,
       "highUsd": 29.99
     },
     "1259420": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -1273,6 +1843,11 @@
           "date": "2026-06-15",
           "priceUsd": 4.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": false
         }
       ],
       "lowUsd": 4.99,
@@ -1284,15 +1859,25 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 49.99,
+      "lowUsd": 4.99,
       "highUsd": 49.99
     },
     "427190": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 9.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 9.99,
           "onSale": false
         }
@@ -1306,6 +1891,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -1315,6 +1905,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -1328,6 +1923,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -1339,15 +1939,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 1.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 1.49,
       "highUsd": 9.99
     },
     "4123950": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 6.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 6.99,
           "onSale": false
         }
@@ -1361,10 +1971,15 @@
           "date": "2026-06-15",
           "priceUsd": 13.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 13.99,
-      "highUsd": 13.99
+      "highUsd": 39.99
     },
     "894020": {
       "points": [
@@ -1372,10 +1987,15 @@
           "date": "2026-06-15",
           "priceUsd": 3.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 3.99,
-      "highUsd": 3.99
+      "highUsd": 19.99
     },
     "548430": {
       "points": [
@@ -1383,15 +2003,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 8.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 8.99,
       "highUsd": 29.99
     },
     "1345890": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -1405,6 +2035,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -1414,6 +2049,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -1427,6 +2067,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -1436,6 +2081,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -1449,6 +2099,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -1458,6 +2113,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -1471,6 +2131,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.89,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.89,
+          "onSale": false
         }
       ],
       "lowUsd": 9.89,
@@ -1480,6 +2145,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -1493,15 +2163,25 @@
           "date": "2026-06-15",
           "priceUsd": 23.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 23.99,
-      "highUsd": 23.99
+      "highUsd": 29.99
     },
     "1216060": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -1515,6 +2195,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -1524,6 +2209,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -1537,9 +2227,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 4.99,
       "highUsd": 19.99
     },
     "1790600": {
@@ -1548,15 +2243,25 @@
           "date": "2026-06-15",
           "priceUsd": 34.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 34.99,
-      "highUsd": 34.99
+      "highUsd": 49.99
     },
     "2436570": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 27.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 27.99,
           "onSale": false
         }
@@ -1570,6 +2275,11 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 49.99,
@@ -1579,6 +2289,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -1592,6 +2307,11 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 49.99,
@@ -1601,6 +2321,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -1614,9 +2339,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 3.99,
       "highUsd": 19.99
     },
     "945710": {
@@ -1625,9 +2355,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.79,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 6.79,
       "highUsd": 19.99
     },
     "3122170": {
@@ -1636,9 +2371,14 @@
           "date": "2026-06-15",
           "priceUsd": 7.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 0.87,
+          "onSale": true
         }
       ],
-      "lowUsd": 7.99,
+      "lowUsd": 0.87,
       "highUsd": 7.99
     },
     "2353690": {
@@ -1647,15 +2387,25 @@
           "date": "2026-06-15",
           "priceUsd": 7.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.99,
-      "highUsd": 7.99
+      "highUsd": 14.99
     },
     "718650": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -1669,15 +2419,25 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 17.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 17.49,
       "highUsd": 24.99
     },
     "1101190": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -1691,6 +2451,11 @@
           "date": "2026-06-15",
           "priceUsd": 1.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 1.49,
+          "onSale": false
         }
       ],
       "lowUsd": 1.49,
@@ -1702,15 +2467,25 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 2.49,
       "highUsd": 24.99
     },
     "1039890": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -1724,6 +2499,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -1735,15 +2515,25 @@
           "date": "2026-06-15",
           "priceUsd": 6.24,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 6.24,
-      "highUsd": 6.24
+      "highUsd": 24.99
     },
     "2306030": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 16.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 16.99,
           "onSale": false
         }
@@ -1757,6 +2547,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -1766,6 +2561,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -1779,6 +2579,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -1788,6 +2593,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -1801,15 +2611,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
-      "highUsd": 9.99
+      "highUsd": 24.99
     },
     "2517220": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 17.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 17.99,
           "onSale": false
         }
@@ -1823,6 +2643,11 @@
           "date": "2026-06-15",
           "priceUsd": 3.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.99,
+          "onSale": false
         }
       ],
       "lowUsd": 3.99,
@@ -1834,15 +2659,25 @@
           "date": "2026-06-15",
           "priceUsd": 8.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 1.07,
+          "onSale": true
         }
       ],
-      "lowUsd": 8.99,
+      "lowUsd": 1.07,
       "highUsd": 8.99
     },
     "2377280": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -1856,15 +2691,25 @@
           "date": "2026-06-15",
           "priceUsd": 18.74,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 18.74,
-      "highUsd": 18.74
+      "highUsd": 24.99
     },
     "3697290": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 15.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 15.99,
           "onSale": false
         }
@@ -1878,6 +2723,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -1887,6 +2737,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -1900,9 +2755,14 @@
           "date": "2026-06-15",
           "priceUsd": 16.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.79,
+          "onSale": true
         }
       ],
-      "lowUsd": 16.99,
+      "lowUsd": 6.79,
       "highUsd": 16.99
     },
     "1128920": {
@@ -1911,15 +2771,25 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 49.99,
+      "lowUsd": 9.99,
       "highUsd": 49.99
     },
     "1516940": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 1.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 1.99,
           "onSale": false
         }
@@ -1933,6 +2803,11 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 49.99,
@@ -1942,6 +2817,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 44.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 44.99,
           "onSale": false
         }
@@ -1955,6 +2835,11 @@
           "date": "2026-06-15",
           "priceUsd": 15.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 15.99,
+          "onSale": false
         }
       ],
       "lowUsd": 15.99,
@@ -1964,6 +2849,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -1977,6 +2867,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -1986,6 +2881,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 16.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 16.99,
           "onSale": false
         }
@@ -1999,10 +2899,15 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
-      "highUsd": 19.99
+      "highUsd": 49.99
     },
     "1462040": {
       "points": [
@@ -2010,10 +2915,15 @@
           "date": "2026-06-15",
           "priceUsd": 13.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 13.99,
-      "highUsd": 13.99
+      "highUsd": 39.99
     },
     "1669480": {
       "points": [
@@ -2021,15 +2931,25 @@
           "date": "2026-06-15",
           "priceUsd": 32.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 34.99,
+          "onSale": false
         }
       ],
       "lowUsd": 32.99,
-      "highUsd": 32.99
+      "highUsd": 34.99
     },
     "383870": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -2043,6 +2963,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -2052,6 +2977,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -2065,10 +2995,15 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.24,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
-      "highUsd": 9.99
+      "highUsd": 11.24
     },
     "1641960": {
       "points": [
@@ -2076,9 +3011,14 @@
           "date": "2026-06-15",
           "priceUsd": 14.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 14.99,
+      "lowUsd": 11.99,
       "highUsd": 14.99
     },
     "1590910": {
@@ -2087,9 +3027,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 4.99,
       "highUsd": 19.99
     },
     "2272250": {
@@ -2098,15 +3043,25 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 9.99,
       "highUsd": 24.99
     },
     "3194360": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -2120,6 +3075,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -2131,10 +3091,15 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
-      "highUsd": 29.99
+      "highUsd": 59.99
     },
     "2299660": {
       "points": [
@@ -2142,15 +3107,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 11.99,
       "highUsd": 19.99
     },
     "2496000": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -2164,15 +3139,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
-      "highUsd": 19.99
+      "highUsd": 39.99
     },
     "581320": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -2186,10 +3171,15 @@
           "date": "2026-06-15",
           "priceUsd": 7.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.49,
-      "highUsd": 7.49
+      "highUsd": 14.99
     },
     "1129580": {
       "points": [
@@ -2197,15 +3187,25 @@
           "date": "2026-06-15",
           "priceUsd": 17.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 34.99,
+          "onSale": false
         }
       ],
       "lowUsd": 17.49,
-      "highUsd": 17.49
+      "highUsd": 34.99
     },
     "3050900": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -2219,10 +3219,15 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
-      "highUsd": 9.99
+      "highUsd": 39.99
     },
     "2796180": {
       "points": [
@@ -2230,9 +3235,14 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.19,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 3.19,
       "highUsd": 9.99
     },
     "2124490": {
@@ -2241,9 +3251,14 @@
           "date": "2026-06-15",
           "priceUsd": 69.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 31.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 69.99,
+      "lowUsd": 31.99,
       "highUsd": 69.99
     },
     "2947440": {
@@ -2252,9 +3267,14 @@
           "date": "2026-06-15",
           "priceUsd": 69.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 69.99,
+      "lowUsd": 39.99,
       "highUsd": 69.99
     },
     "691280": {
@@ -2263,15 +3283,25 @@
           "date": "2026-06-15",
           "priceUsd": 18.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.79,
+          "onSale": true
         }
       ],
-      "lowUsd": 18.99,
+      "lowUsd": 3.79,
       "highUsd": 18.99
     },
     "1548850": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -2285,6 +3315,11 @@
           "date": "2026-06-15",
           "priceUsd": 4.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": false
         }
       ],
       "lowUsd": 4.99,
@@ -2294,6 +3329,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 12.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 12.99,
           "onSale": false
         }
@@ -2307,6 +3347,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
@@ -2318,15 +3363,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 6.99,
       "highUsd": 19.99
     },
     "2631250": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -2340,6 +3395,11 @@
           "date": "2026-06-15",
           "priceUsd": 34.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 34.99,
+          "onSale": false
         }
       ],
       "lowUsd": 34.99,
@@ -2349,6 +3409,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -2362,6 +3427,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -2371,6 +3441,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -2384,15 +3459,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 4.49,
       "highUsd": 29.99
     },
     "1237320": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -2406,15 +3491,25 @@
           "date": "2026-06-15",
           "priceUsd": 69.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 69.99,
+      "lowUsd": 39.99,
       "highUsd": 69.99
     },
     "2022670": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -2428,9 +3523,14 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 59.99,
+      "lowUsd": 5.99,
       "highUsd": 59.99
     },
     "2646460": {
@@ -2439,9 +3539,14 @@
           "date": "2026-06-15",
           "priceUsd": 23.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 17.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 23.99,
+      "lowUsd": 17.99,
       "highUsd": 23.99
     },
     "2429240": {
@@ -2450,15 +3555,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.39,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 2.39,
       "highUsd": 19.99
     },
     "1602080": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -2472,6 +3587,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -2481,6 +3601,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -2494,15 +3619,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 7.99,
       "highUsd": 9.99
     },
     "2478640": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 7.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 7.99,
           "onSale": false
         }
@@ -2516,6 +3651,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -2525,6 +3665,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -2538,6 +3683,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -2547,6 +3697,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -2560,6 +3715,11 @@
           "date": "2026-06-15",
           "priceUsd": 14.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": false
         }
       ],
       "lowUsd": 14.99,
@@ -2569,6 +3729,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -2582,6 +3747,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -2591,6 +3761,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -2604,6 +3779,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -2613,6 +3793,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 69.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 69.99,
           "onSale": false
         }
@@ -2626,6 +3811,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -2635,6 +3825,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -2648,6 +3843,11 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 49.99,
@@ -2657,6 +3857,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -2670,15 +3875,25 @@
           "date": "2026-06-15",
           "priceUsd": 5.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 5.99,
-      "highUsd": 5.99
+      "highUsd": 29.99
     },
     "3489700": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -2692,6 +3907,11 @@
           "date": "2026-06-15",
           "priceUsd": 14.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": false
         }
       ],
       "lowUsd": 14.99,
@@ -2701,6 +3921,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -2714,10 +3939,15 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
-      "highUsd": 19.99
+      "highUsd": 39.99
     },
     "310950": {
       "points": [
@@ -2736,6 +3966,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -2745,6 +3980,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -2758,6 +3998,11 @@
           "date": "2026-06-15",
           "priceUsd": 8.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 8.99,
+          "onSale": false
         }
       ],
       "lowUsd": 8.99,
@@ -2767,6 +4012,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 16.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 16.99,
           "onSale": false
         }
@@ -2780,15 +4030,25 @@
           "date": "2026-06-15",
           "priceUsd": 7.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 1.51,
+          "onSale": true
         }
       ],
-      "lowUsd": 7.99,
+      "lowUsd": 1.51,
       "highUsd": 7.99
     },
     "813630": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -2802,6 +4062,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -2813,15 +4078,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 1.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 1.99,
       "highUsd": 19.99
     },
     "1645820": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 11.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 11.99,
           "onSale": false
         }
@@ -2835,6 +4110,11 @@
           "date": "2026-06-15",
           "priceUsd": 23.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 23.99,
+          "onSale": false
         }
       ],
       "lowUsd": 23.99,
@@ -2844,6 +4124,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 4.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 4.99,
           "onSale": false
         }
@@ -2857,15 +4142,25 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 11.99,
       "highUsd": 39.99
     },
     "865610": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -2879,15 +4174,25 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 49.99,
+      "lowUsd": 19.99,
       "highUsd": 49.99
     },
     "1436920": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 9.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 9.99,
           "onSale": false
         }
@@ -2901,6 +4206,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -2912,15 +4222,25 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 5.99,
       "highUsd": 39.99
     },
     "1778820": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -2934,6 +4254,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -2943,6 +4268,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -2956,6 +4286,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
@@ -2965,6 +4300,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -2978,6 +4318,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -2989,9 +4334,14 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 2.49,
       "highUsd": 24.99
     },
     "1611430": {
@@ -3000,15 +4350,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 11.99,
       "highUsd": 19.99
     },
     "1544020": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -3022,6 +4382,11 @@
           "date": "2026-06-15",
           "priceUsd": 4.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": false
         }
       ],
       "lowUsd": 4.99,
@@ -3031,6 +4396,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 9.89,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 9.89,
           "onSale": false
         }
@@ -3044,6 +4414,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
@@ -3053,6 +4428,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 7.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 7.99,
           "onSale": false
         }
@@ -3066,6 +4446,11 @@
           "date": "2026-06-15",
           "priceUsd": 14.79,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.79,
+          "onSale": false
         }
       ],
       "lowUsd": 14.79,
@@ -3077,15 +4462,25 @@
           "date": "2026-06-15",
           "priceUsd": 7.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.39,
+          "onSale": true
         }
       ],
-      "lowUsd": 7.99,
+      "lowUsd": 2.39,
       "highUsd": 7.99
     },
     "2623190": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -3099,6 +4494,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -3108,6 +4508,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 2.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 2.99,
           "onSale": false
         }
@@ -3121,6 +4526,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -3132,15 +4542,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 14.99,
       "highUsd": 29.99
     },
     "874260": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -3154,15 +4574,25 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 2.49,
       "highUsd": 24.99
     },
     "731040": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -3176,6 +4606,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -3185,6 +4620,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -3198,10 +4638,15 @@
           "date": "2026-06-15",
           "priceUsd": 13.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 13.49,
-      "highUsd": 13.49
+      "highUsd": 29.99
     },
     "1293160": {
       "points": [
@@ -3209,9 +4654,14 @@
           "date": "2026-06-15",
           "priceUsd": 14.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 12.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 14.99,
+      "lowUsd": 12.49,
       "highUsd": 14.99
     },
     "1449110": {
@@ -3220,15 +4670,25 @@
           "date": "2026-06-15",
           "priceUsd": 41.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 69.99,
+          "onSale": false
         }
       ],
       "lowUsd": 41.99,
-      "highUsd": 41.99
+      "highUsd": 69.99
     },
     "1920490": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -3242,9 +4702,14 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 11.99,
       "highUsd": 39.99
     },
     "402020": {
@@ -3253,15 +4718,25 @@
           "date": "2026-06-15",
           "priceUsd": 12.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.89,
+          "onSale": true
         }
       ],
-      "lowUsd": 12.99,
+      "lowUsd": 3.89,
       "highUsd": 12.99
     },
     "1492680": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -3275,10 +4750,15 @@
           "date": "2026-06-15",
           "priceUsd": 9.89,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.89,
-      "highUsd": 9.89
+      "highUsd": 29.99
     },
     "1577120": {
       "points": [
@@ -3286,15 +4766,25 @@
           "date": "2026-06-15",
           "priceUsd": 10.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 10.49,
+      "lowUsd": 5.99,
       "highUsd": 10.49
     },
     "750130": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -3308,15 +4798,25 @@
           "date": "2026-06-15",
           "priceUsd": 1.79,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 17.99,
+          "onSale": false
         }
       ],
       "lowUsd": 1.79,
-      "highUsd": 1.79
+      "highUsd": 17.99
     },
     "644830": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -3330,15 +4830,25 @@
           "date": "2026-06-15",
           "priceUsd": 7.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.49,
-      "highUsd": 7.49
+      "highUsd": 39.99
     },
     "1684350": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 34.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 34.99,
           "onSale": false
         }
@@ -3352,6 +4862,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -3361,6 +4876,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -3374,6 +4894,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -3385,10 +4910,15 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
-      "highUsd": 39.99
+      "highUsd": 49.99
     },
     "1985420": {
       "points": [
@@ -3396,15 +4926,25 @@
           "date": "2026-06-15",
           "priceUsd": 16.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 13.59,
+          "onSale": true
         }
       ],
-      "lowUsd": 16.99,
+      "lowUsd": 13.59,
       "highUsd": 16.99
     },
     "1343240": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 6.24,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 6.24,
           "onSale": false
         }
@@ -3418,15 +4958,25 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 59.99,
+      "lowUsd": 29.99,
       "highUsd": 59.99
     },
     "1154030": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 34.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 34.99,
           "onSale": false
         }
@@ -3440,6 +4990,11 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 49.99,
@@ -3451,9 +5006,14 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 17.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 17.99,
       "highUsd": 29.99
     },
     "1860510": {
@@ -3462,15 +5022,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 19.49,
       "highUsd": 29.99
     },
     "2178070": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -3484,6 +5054,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -3495,10 +5070,15 @@
           "date": "2026-06-15",
           "priceUsd": 4.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 4.99,
-      "highUsd": 4.99
+      "highUsd": 19.99
     },
     "1164940": {
       "points": [
@@ -3506,15 +5086,25 @@
           "date": "2026-06-15",
           "priceUsd": 7.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.49,
-      "highUsd": 7.49
+      "highUsd": 9.99
     },
     "1850510": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -3528,6 +5118,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -3537,6 +5132,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -3550,6 +5150,11 @@
           "date": "2026-06-15",
           "priceUsd": 21.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 21.99,
+          "onSale": false
         }
       ],
       "lowUsd": 21.99,
@@ -3559,6 +5164,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -3572,6 +5182,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -3581,6 +5196,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -3594,9 +5214,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 2.99,
       "highUsd": 19.99
     },
     "405830": {
@@ -3605,9 +5230,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 3.99,
       "highUsd": 19.99
     },
     "1996770": {
@@ -3616,15 +5246,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 8.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 8.99,
       "highUsd": 29.99
     },
     "1552810": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 5.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 5.99,
           "onSale": false
         }
@@ -3638,6 +5278,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -3647,6 +5292,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -3660,6 +5310,11 @@
           "date": "2026-06-15",
           "priceUsd": 6.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.99,
+          "onSale": false
         }
       ],
       "lowUsd": 6.99,
@@ -3671,15 +5326,25 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 3.99,
       "highUsd": 39.99
     },
     "3284900": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 4.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 4.99,
           "onSale": false
         }
@@ -3693,15 +5358,25 @@
           "date": "2026-06-15",
           "priceUsd": 34.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 17.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 34.99,
+      "lowUsd": 17.49,
       "highUsd": 34.99
     },
     "2490990": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -3715,6 +5390,11 @@
           "date": "2026-06-15",
           "priceUsd": 11.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.99,
+          "onSale": false
         }
       ],
       "lowUsd": 11.99,
@@ -3726,15 +5406,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
-      "highUsd": 19.99
+      "highUsd": 29.99
     },
     "1159690": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -3748,9 +5438,14 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 5.99,
       "highUsd": 9.99
     },
     "1876890": {
@@ -3759,15 +5454,25 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 17.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 17.49,
       "highUsd": 24.99
     },
     "2005010": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 21.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 21.99,
           "onSale": false
         }
@@ -3781,6 +5486,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -3790,6 +5500,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -3803,15 +5518,25 @@
           "date": "2026-06-15",
           "priceUsd": 5.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 5.99,
-      "highUsd": 5.99
+      "highUsd": 39.99
     },
     "501300": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -3825,6 +5550,11 @@
           "date": "2026-06-15",
           "priceUsd": 14.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": false
         }
       ],
       "lowUsd": 14.99,
@@ -3834,6 +5564,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 12.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 12.99,
           "onSale": false
         }
@@ -3847,6 +5582,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -3858,15 +5598,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
-      "highUsd": 19.99
+      "highUsd": 39.99
     },
     "612880": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -3880,6 +5630,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -3891,15 +5646,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
-      "highUsd": 9.99
+      "highUsd": 24.99
     },
     "2277560": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 41.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 41.99,
           "onSale": false
         }
@@ -3913,6 +5678,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
@@ -3924,10 +5694,15 @@
           "date": "2026-06-15",
           "priceUsd": 14.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 14.99,
-      "highUsd": 14.99
+      "highUsd": 49.99
     },
     "3717340": {
       "points": [
@@ -3935,15 +5710,25 @@
           "date": "2026-06-15",
           "priceUsd": 11.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 11.99,
-      "highUsd": 11.99
+      "highUsd": 19.99
     },
     "846870": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -3957,15 +5742,25 @@
           "date": "2026-06-15",
           "priceUsd": 10.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 10.99,
+      "lowUsd": 5.99,
       "highUsd": 10.99
     },
     "2975190": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 4.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 4.99,
           "onSale": false
         }
@@ -3979,15 +5774,25 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 9.99,
       "highUsd": 24.99
     },
     "2101890": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 5.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 5.99,
           "onSale": false
         }
@@ -4001,6 +5806,11 @@
           "date": "2026-06-15",
           "priceUsd": 5.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": false
         }
       ],
       "lowUsd": 5.99,
@@ -4012,9 +5822,14 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 1.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 1.99,
       "highUsd": 9.99
     },
     "1915380": {
@@ -4023,9 +5838,14 @@
           "date": "2026-06-15",
           "priceUsd": 10.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 10.49,
+      "lowUsd": 7.49,
       "highUsd": 10.49
     },
     "712190": {
@@ -4034,10 +5854,15 @@
           "date": "2026-06-15",
           "priceUsd": 1.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 1.99,
-      "highUsd": 1.99
+      "highUsd": 19.99
     },
     "2383990": {
       "points": [
@@ -4045,15 +5870,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 7.99,
       "highUsd": 19.99
     },
     "1449280": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -4067,10 +5902,15 @@
           "date": "2026-06-15",
           "priceUsd": 7.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.49,
-      "highUsd": 7.49
+      "highUsd": 19.99
     },
     "2144740": {
       "points": [
@@ -4078,10 +5918,15 @@
           "date": "2026-06-15",
           "priceUsd": 7.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 13.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.99,
-      "highUsd": 7.99
+      "highUsd": 13.99
     },
     "1475810": {
       "points": [
@@ -4089,9 +5934,14 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 59.99,
+      "lowUsd": 14.99,
       "highUsd": 59.99
     },
     "1546400": {
@@ -4100,15 +5950,25 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 8.74,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 8.74,
       "highUsd": 24.99
     },
     "850190": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -4122,6 +5982,11 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 49.99,
@@ -4131,6 +5996,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 9.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 9.99,
           "onSale": false
         }
@@ -4144,15 +6014,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.69,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 6.69,
       "highUsd": 9.99
     },
     "1496790": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -4166,9 +6046,14 @@
           "date": "2026-06-15",
           "priceUsd": 6.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.09,
+          "onSale": true
         }
       ],
-      "lowUsd": 6.99,
+      "lowUsd": 2.09,
       "highUsd": 6.99
     },
     "3070520": {
@@ -4177,15 +6062,25 @@
           "date": "2026-06-15",
           "priceUsd": 4.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.99,
+          "onSale": false
         }
       ],
       "lowUsd": 4.99,
-      "highUsd": 4.99
+      "highUsd": 6.99
     },
     "558260": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -4199,9 +6094,14 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 4.99,
       "highUsd": 24.99
     },
     "1123050": {
@@ -4210,15 +6110,25 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 9.99,
       "highUsd": 24.99
     },
     "2299080": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 11.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 11.99,
           "onSale": false
         }
@@ -4232,6 +6142,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -4241,6 +6156,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -4254,6 +6174,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -4265,10 +6190,15 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
-      "highUsd": 29.99
+      "highUsd": 59.99
     },
     "2206210": {
       "points": [
@@ -4276,15 +6206,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 7.99,
       "highUsd": 19.99
     },
     "2397300": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -4298,6 +6238,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
@@ -4307,6 +6252,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -4320,6 +6270,11 @@
           "date": "2026-06-15",
           "priceUsd": 5.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": false
         }
       ],
       "lowUsd": 5.99,
@@ -4331,15 +6286,25 @@
           "date": "2026-06-15",
           "priceUsd": 17.5,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.37,
+          "onSale": true
         }
       ],
-      "lowUsd": 17.5,
+      "lowUsd": 11.37,
       "highUsd": 17.5
     },
     "1620730": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -4353,15 +6318,25 @@
           "date": "2026-06-15",
           "priceUsd": 7.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.49,
-      "highUsd": 7.49
+      "highUsd": 29.99
     },
     "521890": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 5.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 5.99,
           "onSale": false
         }
@@ -4375,15 +6350,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
-      "highUsd": 9.99
+      "highUsd": 39.99
     },
     "960420": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 5.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 5.99,
           "onSale": false
         }
@@ -4408,6 +6393,11 @@
           "date": "2026-06-15",
           "priceUsd": 14.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": false
         }
       ],
       "lowUsd": 14.99,
@@ -4417,6 +6407,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -4430,6 +6425,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -4441,15 +6441,25 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 59.99,
+      "lowUsd": 39.99,
       "highUsd": 59.99
     },
     "404680": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -4463,6 +6473,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -4472,6 +6487,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -4485,15 +6505,25 @@
           "date": "2026-06-15",
           "priceUsd": 12.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 12.99,
+      "lowUsd": 6.49,
       "highUsd": 12.99
     },
     "1840080": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -4507,6 +6537,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -4516,6 +6551,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -4529,6 +6569,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -4538,6 +6583,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 34.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 34.99,
           "onSale": false
         }
@@ -4551,6 +6601,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -4560,6 +6615,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -4573,6 +6633,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -4584,15 +6649,25 @@
           "date": "2026-06-15",
           "priceUsd": 21.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 17.59,
+          "onSale": true
         }
       ],
-      "lowUsd": 21.99,
+      "lowUsd": 17.59,
       "highUsd": 21.99
     },
     "1373960": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -4606,15 +6681,25 @@
           "date": "2026-06-15",
           "priceUsd": 1.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 1.39,
+          "onSale": true
         }
       ],
-      "lowUsd": 1.99,
+      "lowUsd": 1.39,
       "highUsd": 1.99
     },
     "1895810": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -4628,6 +6713,11 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 49.99,
@@ -4639,15 +6729,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 0.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 0.99,
       "highUsd": 9.99
     },
     "448370": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 5.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 5.99,
           "onSale": false
         }
@@ -4659,6 +6759,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 34.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 34.99,
           "onSale": false
         }
@@ -4683,6 +6788,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -4694,15 +6804,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 4.99,
       "highUsd": 9.99
     },
     "8190": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -4716,6 +6836,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -4727,15 +6852,25 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 12.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 12.99,
       "highUsd": 24.99
     },
     "1954200": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -4749,6 +6884,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -4758,6 +6898,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 12.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 12.99,
           "onSale": false
         }
@@ -4771,15 +6916,25 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 19.99,
       "highUsd": 39.99
     },
     "2319390": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -4793,15 +6948,25 @@
           "date": "2026-06-15",
           "priceUsd": 11.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 10.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 11.99,
+      "lowUsd": 10.49,
       "highUsd": 11.99
     },
     "3571710": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -4815,6 +6980,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
@@ -4824,6 +6994,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -4837,6 +7012,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -4848,15 +7028,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
-      "highUsd": 29.99
+      "highUsd": 59.99
     },
     "1265920": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -4870,6 +7060,11 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 49.99,
@@ -4879,6 +7074,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -4892,10 +7092,15 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
-      "highUsd": 24.99
+      "highUsd": 29.99
     },
     "3282700": {
       "points": [
@@ -4903,9 +7108,14 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 5.99,
       "highUsd": 9.99
     },
     "424840": {
@@ -4914,9 +7124,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 7.49,
       "highUsd": 19.99
     },
     "860510": {
@@ -4925,9 +7140,14 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.89,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 9.89,
       "highUsd": 29.99
     },
     "1392860": {
@@ -4936,15 +7156,25 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 19.99,
       "highUsd": 39.99
     },
     "1049890": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -4958,15 +7188,25 @@
           "date": "2026-06-15",
           "priceUsd": 44.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 26.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 44.99,
+      "lowUsd": 26.99,
       "highUsd": 44.99
     },
     "2455070": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 5.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 5.99,
           "onSale": false
         }
@@ -4980,6 +7220,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -4989,6 +7234,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -5002,6 +7252,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -5013,9 +7268,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 11.99,
       "highUsd": 19.99
     },
     "3452900": {
@@ -5024,10 +7284,15 @@
           "date": "2026-06-15",
           "priceUsd": 7.89,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.89,
-      "highUsd": 7.89
+      "highUsd": 9.99
     },
     "1030840": {
       "points": [
@@ -5035,10 +7300,15 @@
           "date": "2026-06-15",
           "priceUsd": 5.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 5.99,
-      "highUsd": 5.99
+      "highUsd": 39.99
     },
     "1941540": {
       "points": [
@@ -5046,10 +7316,15 @@
           "date": "2026-06-15",
           "priceUsd": 34.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 34.99,
-      "highUsd": 34.99
+      "highUsd": 49.99
     },
     "1721060": {
       "points": [
@@ -5057,15 +7332,25 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 17.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 17.99,
       "highUsd": 39.99
     },
     "629820": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -5079,15 +7364,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 7.49,
       "highUsd": 29.99
     },
     "1088850": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -5101,15 +7396,25 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 8.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 59.99,
+      "lowUsd": 8.99,
       "highUsd": 59.99
     },
     "204100": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -5123,6 +7428,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -5132,6 +7442,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 7.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 7.99,
           "onSale": false
         }
@@ -5145,6 +7460,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -5156,15 +7476,25 @@
           "date": "2026-06-15",
           "priceUsd": 4.19,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": false
         }
       ],
       "lowUsd": 4.19,
-      "highUsd": 4.19
+      "highUsd": 5.99
     },
     "2131640": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -5178,6 +7508,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -5189,9 +7524,14 @@
           "date": "2026-06-15",
           "priceUsd": 69.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 69.99,
+      "lowUsd": 49.99,
       "highUsd": 69.99
     },
     "286690": {
@@ -5200,15 +7540,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 1.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 1.99,
       "highUsd": 19.99
     },
     "412020": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -5222,9 +7572,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 1.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 1.99,
       "highUsd": 19.99
     },
     "1672970": {
@@ -5233,10 +7588,15 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
-      "highUsd": 9.99
+      "highUsd": 19.99
     },
     "2830960": {
       "points": [
@@ -5244,15 +7604,25 @@
           "date": "2026-06-15",
           "priceUsd": 4.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 8.99,
+          "onSale": false
         }
       ],
       "lowUsd": 4.49,
-      "highUsd": 4.49
+      "highUsd": 8.99
     },
     "1798950": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 9.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 9.99,
           "onSale": false
         }
@@ -5266,9 +7636,14 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.89,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 9.89,
       "highUsd": 29.99
     },
     "1209360": {
@@ -5277,15 +7652,25 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 19.99,
       "highUsd": 39.99
     },
     "1442450": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -5299,6 +7684,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -5308,6 +7698,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -5321,6 +7716,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -5330,6 +7730,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -5343,6 +7748,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -5352,6 +7762,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 34.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 34.99,
           "onSale": false
         }
@@ -5365,6 +7780,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -5376,15 +7796,25 @@
           "date": "2026-06-15",
           "priceUsd": 3.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 3.99,
-      "highUsd": 3.99
+      "highUsd": 19.99
     },
     "363860": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -5398,6 +7828,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.9,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.9,
+          "onSale": false
         }
       ],
       "lowUsd": 9.9,
@@ -5407,6 +7842,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -5420,6 +7860,11 @@
           "date": "2026-06-15",
           "priceUsd": 69.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 69.99,
+          "onSale": false
         }
       ],
       "lowUsd": 69.99,
@@ -5431,10 +7876,15 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
-      "highUsd": 19.99
+      "highUsd": 39.99
     },
     "798460": {
       "points": [
@@ -5442,15 +7892,25 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 49.99,
+      "lowUsd": 7.49,
       "highUsd": 49.99
     },
     "1113560": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -5464,6 +7924,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -5473,6 +7938,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -5486,6 +7956,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -5497,10 +7972,15 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
-      "highUsd": 24.99
+      "highUsd": 49.99
     },
     "485510": {
       "points": [
@@ -5508,10 +7988,15 @@
           "date": "2026-06-15",
           "priceUsd": 7.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.49,
-      "highUsd": 7.49
+      "highUsd": 49.99
     },
     "275850": {
       "points": [
@@ -5519,15 +8004,25 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 23.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 59.99,
+      "lowUsd": 23.99,
       "highUsd": 59.99
     },
     "1939970": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -5541,6 +8036,11 @@
           "date": "2026-06-15",
           "priceUsd": 3.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.99,
+          "onSale": false
         }
       ],
       "lowUsd": 3.99,
@@ -5552,9 +8052,14 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 5.99,
       "highUsd": 29.99
     },
     "1622710": {
@@ -5563,15 +8068,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 10.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 10.49,
       "highUsd": 29.99
     },
     "921570": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -5585,6 +8100,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -5596,10 +8116,15 @@
           "date": "2026-06-15",
           "priceUsd": 19.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.49,
-      "highUsd": 19.49
+      "highUsd": 29.99
     },
     "2708450": {
       "points": [
@@ -5607,9 +8132,14 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 9.99,
+      "lowUsd": 7.99,
       "highUsd": 9.99
     },
     "587620": {
@@ -5618,9 +8148,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 9.99,
       "highUsd": 19.99
     },
     "1835190": {
@@ -5629,9 +8164,14 @@
           "date": "2026-06-15",
           "priceUsd": 17.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 12.05,
+          "onSale": true
         }
       ],
-      "lowUsd": 17.99,
+      "lowUsd": 12.05,
       "highUsd": 17.99
     },
     "1089090": {
@@ -5640,15 +8180,25 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 7.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 7.99,
       "highUsd": 39.99
     },
     "2500750": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 4.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 4.99,
           "onSale": false
         }
@@ -5662,6 +8212,11 @@
           "date": "2026-06-15",
           "priceUsd": 6.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 6.99,
+          "onSale": false
         }
       ],
       "lowUsd": 6.99,
@@ -5671,6 +8226,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -5684,15 +8244,25 @@
           "date": "2026-06-15",
           "priceUsd": 7.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.49,
-      "highUsd": 7.49
+      "highUsd": 29.99
     },
     "1442530": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -5706,6 +8276,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -5715,6 +8290,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -5728,6 +8308,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.89,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.89,
+          "onSale": false
         }
       ],
       "lowUsd": 9.89,
@@ -5739,15 +8324,25 @@
           "date": "2026-06-15",
           "priceUsd": 4.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.09,
+          "onSale": true
         }
       ],
-      "lowUsd": 4.99,
+      "lowUsd": 2.09,
       "highUsd": 4.99
     },
     "986680": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -5761,6 +8356,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -5770,6 +8370,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -5783,6 +8388,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -5794,15 +8404,25 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
-      "highUsd": 9.99
+      "highUsd": 19.99
     },
     "1733240": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -5816,15 +8436,25 @@
           "date": "2026-06-15",
           "priceUsd": 1.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 1.99,
-      "highUsd": 1.99
+      "highUsd": 9.99
     },
     "703080": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 44.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 44.99,
           "onSale": false
         }
@@ -5838,6 +8468,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -5847,6 +8482,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -5860,6 +8500,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
@@ -5871,9 +8516,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 4.99,
       "highUsd": 19.99
     },
     "1678430": {
@@ -5882,15 +8532,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 4.99,
       "highUsd": 19.99
     },
     "2751000": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -5904,9 +8564,14 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 16.49,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 16.49,
       "highUsd": 29.99
     },
     "2585830": {
@@ -5915,15 +8580,25 @@
           "date": "2026-06-15",
           "priceUsd": 16.24,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 16.24,
-      "highUsd": 16.24
+      "highUsd": 24.99
     },
     "2365810": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 5.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 5.99,
           "onSale": false
         }
@@ -5937,6 +8612,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -5948,15 +8628,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 2.09,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 2.09,
       "highUsd": 29.99
     },
     "1564220": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 19.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 19.99,
           "onSale": false
         }
@@ -5970,6 +8660,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -5979,6 +8674,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 9.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 9.99,
           "onSale": false
         }
@@ -5992,9 +8692,14 @@
           "date": "2026-06-15",
           "priceUsd": 6.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 1.04,
+          "onSale": true
         }
       ],
-      "lowUsd": 6.99,
+      "lowUsd": 1.04,
       "highUsd": 6.99
     },
     "722560": {
@@ -6003,9 +8708,14 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 4.99,
       "highUsd": 19.99
     },
     "648800": {
@@ -6014,15 +8724,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 13.39,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 13.39,
       "highUsd": 19.99
     },
     "1094420": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 3.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 3.99,
           "onSale": false
         }
@@ -6036,15 +8756,25 @@
           "date": "2026-06-15",
           "priceUsd": 6.24,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 6.24,
-      "highUsd": 6.24
+      "highUsd": 24.99
     },
     "1144200": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -6058,6 +8788,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -6067,6 +8802,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -6080,15 +8820,25 @@
           "date": "2026-06-15",
           "priceUsd": 1.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 1.99,
-      "highUsd": 1.99
+      "highUsd": 19.99
     },
     "1282100": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 49.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 49.99,
           "onSale": false
         }
@@ -6102,6 +8852,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -6111,6 +8866,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 9.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 9.99,
           "onSale": false
         }
@@ -6124,6 +8884,11 @@
           "date": "2026-06-15",
           "priceUsd": 9.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 9.99,
@@ -6133,6 +8898,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -6146,6 +8916,11 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 59.99,
@@ -6155,6 +8930,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 39.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 39.99,
           "onSale": false
         }
@@ -6168,6 +8948,11 @@
           "date": "2026-06-15",
           "priceUsd": 49.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 49.99,
@@ -6177,6 +8962,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -6190,6 +8980,11 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 19.99,
@@ -6199,6 +8994,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 12.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 12.99,
           "onSale": false
         }
@@ -6212,6 +9012,11 @@
           "date": "2026-06-15",
           "priceUsd": 3.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.99,
+          "onSale": false
         }
       ],
       "lowUsd": 3.99,
@@ -6223,15 +9028,25 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 16.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 16.99,
       "highUsd": 24.99
     },
     "1253920": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -6245,9 +9060,14 @@
           "date": "2026-06-15",
           "priceUsd": 17.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 16.24,
+          "onSale": false
         }
       ],
-      "lowUsd": 17.49,
+      "lowUsd": 16.24,
       "highUsd": 17.49
     },
     "2785280": {
@@ -6256,9 +9076,14 @@
           "date": "2026-06-15",
           "priceUsd": 6.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 5.59,
+          "onSale": true
         }
       ],
-      "lowUsd": 6.99,
+      "lowUsd": 5.59,
       "highUsd": 6.99
     },
     "464060": {
@@ -6267,10 +9092,15 @@
           "date": "2026-06-15",
           "priceUsd": 1.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 1.99,
-      "highUsd": 1.99
+      "highUsd": 19.99
     },
     "1643320": {
       "points": [
@@ -6278,15 +9108,25 @@
           "date": "2026-06-15",
           "priceUsd": 59.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 41.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 59.99,
+      "lowUsd": 41.99,
       "highUsd": 59.99
     },
     "1599660": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -6300,15 +9140,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
-      "highUsd": 29.99
+      "highUsd": 59.99
     },
     "1119840": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 24.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 24.99,
           "onSale": false
         }
@@ -6322,6 +9172,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -6331,6 +9186,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 29.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 29.99,
           "onSale": false
         }
@@ -6344,6 +9204,11 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 24.99,
+          "onSale": false
         }
       ],
       "lowUsd": 24.99,
@@ -6355,10 +9220,15 @@
           "date": "2026-06-15",
           "priceUsd": 3.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 4.99,
+          "onSale": false
         }
       ],
       "lowUsd": 3.99,
-      "highUsd": 3.99
+      "highUsd": 4.99
     },
     "872670": {
       "points": [
@@ -6366,15 +9236,25 @@
           "date": "2026-06-15",
           "priceUsd": 19.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 15.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 19.99,
+      "lowUsd": 15.99,
       "highUsd": 19.99
     },
     "513710": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 44.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 44.99,
           "onSale": false
         }
@@ -6388,9 +9268,14 @@
           "date": "2026-06-15",
           "priceUsd": 24.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 24.99,
+      "lowUsd": 9.99,
       "highUsd": 24.99
     },
     "1566390": {
@@ -6399,15 +9284,25 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 29.99,
+      "lowUsd": 14.99,
       "highUsd": 29.99
     },
     "814380": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 59.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 59.99,
           "onSale": false
         }
@@ -6421,10 +9316,15 @@
           "date": "2026-06-15",
           "priceUsd": 12.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
         }
       ],
       "lowUsd": 12.49,
-      "highUsd": 12.49
+      "highUsd": 49.99
     },
     "257420": {
       "points": [
@@ -6432,10 +9332,15 @@
           "date": "2026-06-15",
           "priceUsd": 7.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.99,
-      "highUsd": 7.99
+      "highUsd": 39.99
     },
     "1792250": {
       "points": [
@@ -6443,10 +9348,15 @@
           "date": "2026-06-15",
           "priceUsd": 4.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
         }
       ],
       "lowUsd": 4.99,
-      "highUsd": 4.99
+      "highUsd": 19.99
     },
     "750920": {
       "points": [
@@ -6454,9 +9364,14 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 3.99,
+          "onSale": true
         }
       ],
-      "lowUsd": 39.99,
+      "lowUsd": 3.99,
       "highUsd": 39.99
     },
     "324800": {
@@ -6465,10 +9380,15 @@
           "date": "2026-06-15",
           "priceUsd": 2.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 2.99,
-      "highUsd": 2.99
+      "highUsd": 29.99
     },
     "1036890": {
       "points": [
@@ -6476,15 +9396,25 @@
           "date": "2026-06-15",
           "priceUsd": 11.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 11.99,
-      "highUsd": 11.99
+      "highUsd": 39.99
     },
     "2868100": {
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 14.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 14.99,
           "onSale": false
         }
@@ -6498,6 +9428,11 @@
           "date": "2026-06-15",
           "priceUsd": 29.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
         }
       ],
       "lowUsd": 29.99,
@@ -6507,6 +9442,11 @@
       "points": [
         {
           "date": "2026-06-15",
+          "priceUsd": 44.99,
+          "onSale": false
+        },
+        {
+          "date": "2026-11-02",
           "priceUsd": 44.99,
           "onSale": false
         }
@@ -6520,6 +9460,11 @@
           "date": "2026-06-15",
           "priceUsd": 39.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
         }
       ],
       "lowUsd": 39.99,
@@ -6531,10 +9476,15 @@
           "date": "2026-06-15",
           "priceUsd": 7.49,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 9.99,
+          "onSale": false
         }
       ],
       "lowUsd": 7.49,
-      "highUsd": 7.49
+      "highUsd": 9.99
     },
     "2779730": {
       "points": [
@@ -6542,10 +9492,169 @@
           "date": "2026-06-15",
           "priceUsd": 8.99,
           "onSale": false
+        },
+        {
+          "date": "2026-11-02",
+          "priceUsd": 8.99,
+          "onSale": false
         }
       ],
       "lowUsd": 8.99,
       "highUsd": 8.99
+    },
+    "1843540": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 19.99,
+      "highUsd": 19.99
+    },
+    "3448650": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 39.99,
+      "highUsd": 39.99
+    },
+    "2412960": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 19.99,
+      "highUsd": 19.99
+    },
+    "3124540": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 15.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 15.99,
+      "highUsd": 15.99
+    },
+    "2806050": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 49.99,
+      "highUsd": 49.99
+    },
+    "2584270": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 49.99,
+      "highUsd": 49.99
+    },
+    "2688780": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 11.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 11.99,
+      "highUsd": 11.99
+    },
+    "816090": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 29.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 29.99,
+      "highUsd": 29.99
+    },
+    "2075800": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 49.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 49.99,
+      "highUsd": 49.99
+    },
+    "444680": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 19.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 19.99,
+      "highUsd": 19.99
+    },
+    "3483510": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 59.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 59.99,
+      "highUsd": 59.99
+    },
+    "1783560": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 34.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 34.99,
+      "highUsd": 34.99
+    },
+    "35700": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 14.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 14.99,
+      "highUsd": 14.99
+    },
+    "2828710": {
+      "points": [
+        {
+          "date": "2026-11-02",
+          "priceUsd": 39.99,
+          "onSale": false
+        }
+      ],
+      "lowUsd": 39.99,
+      "highUsd": 39.99
     }
   }
 }
