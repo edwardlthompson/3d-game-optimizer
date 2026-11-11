@@ -22,7 +22,7 @@ SteamDB's FAQ explicitly states: no public API, no scraping/crawling (risk of ba
 ## Alternatives considered
 
 | Alternative | Rejected because |
-|-------------|------------------|
+| ------------- | ------------------ |
 | Automated SteamDB scraper in CI | Violates SteamDB ToS; Cloudflare blocks; FOSS redistribution risk |
 | Manual CSV backfill from SteamDB | Does not scale; gray area for public static site |
 | Contact SteamDB for academic dump | Out of scope for a community catalog; access not guaranteed |

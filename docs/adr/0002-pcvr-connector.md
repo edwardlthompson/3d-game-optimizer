@@ -13,7 +13,7 @@ v1.1 adds **Play in VR** for titles with native VR or UEVR compatibility. The pr
 - Implement `PcvrRuntimeConnector` as a **read-only probe** for SteamVR/OpenXR installations.
 - `PlayInVR` delegates launch to the detected runtime; no headset configuration UI in v1.1.
 - Flat-screen `PlayIn3D` remains the primary path; VR is additive.
-- Per-game `preferredOutput` override: Monitor | Headset | Auto (stored locally in SQLite).
+| - Per-game `preferredOutput` override: Monitor | Headset | Auto (stored locally in SQLite). |
 
 ## Consequences
 
