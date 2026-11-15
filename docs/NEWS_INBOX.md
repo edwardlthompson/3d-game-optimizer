@@ -13,7 +13,7 @@ A Cursor planning agent should review these items and fold the useful ones into 
 
 **Tasks for the planning agent**
 
-- [ ] Rebuild on .NET 8.0.34 and bump Microsoft.* packages — Ships the November .NET security fixes in the WinUI app. Label: `[AGENT]` · Priority: P1 · https://devblogs.microsoft.com/dotnet/dotnet-and-dotnet-framework-november-2026-servicing-updates/
+- [x] Rebuild on .NET 8.0.34 and bump Microsoft.* packages — Ships the November .NET security fixes in the WinUI app. Label: `[AGENT]` · Priority: P1 · https://devblogs.microsoft.com/dotnet/dotnet-and-dotnet-framework-november-2026-servicing-updates/ (synced to BUILD_PLAN)
 - [ ] Plan a .NET 11 target migration — Keeps the app on a current runtime line. Label: `[AGENT]` · Priority: P3 · https://devblogs.microsoft.com/dotnet/announcing-dotnet-11/
 
 ## 2026-11-14
