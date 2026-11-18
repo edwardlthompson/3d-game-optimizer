@@ -27,3 +27,15 @@ A Cursor planning agent should review these items and fold the useful ones into 
 
 - [ ] Confirm secret scanning is on before wiring the Cloudflare token — The new Cloudflare detector will catch an accidentally committed Worker token. Label: `[AGENT]` · Priority: P3 · https://github.blog/changelog/2026-11-12-secret-scanning-adds-a-detector-for-cloudflare
 - [ ] Detect OptiScaler/ANR proxy DLLs and warn about injection conflicts — Proxy DLLs can clash with ReShade/UEVR/TrueGame 3D injection. Label: `[AGENT]` · Priority: P3 · https://github.com/apex-compute/ANR/releases
+
+## 2026-11-18
+
+Catch-up for Nov 17–18 (the daily brief did not run those mornings).
+
+**News and updates**
+
+- ANR frame-generation FG V.B19 fixes crashes on CPUs without AVX2 and in MSFS when DLSS-G did not start, fixes garbled Vulkan images on AMD GPUs presented as NVIDIA, and is up to 7% faster on Blackwell. [source](https://github.com/apex-compute/ANR/releases/tag/FG-V.B19)
+
+**Tasks for the planning agent**
+
+- [ ] Re-check OptiScaler/ANR injection against FG V.B19 and note the non-AVX2 and Vulkan AMD fixes — B19 changes crash and image-quality behavior of the same proxy DLLs the existing P3 wants to detect. Label: `[AGENT]` · Priority: P3 · https://github.com/apex-compute/ANR/releases/tag/FG-V.B19
