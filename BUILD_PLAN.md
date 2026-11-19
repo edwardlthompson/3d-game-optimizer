@@ -43,6 +43,7 @@ Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path
 <!-- local-agent-lane:begin -->
 - Status: 🔲 open · ✅ done · ❌ blocked
 - 🔲 [AGENT][LOCAL] Rebuild on .NET 8.0.34 and bump Microsoft.* packages — scope: src/ (news P1, 2026-11-13) https://devblogs.microsoft.com/dotnet/dotnet-and-dotnet-framework-november-2026-servicing-updates/
+- 🔲 [AGENT][LOCAL] Cut/update GitHub Release with signed Android APK/AAB — scope: examples/android/
 <!-- local-agent-lane:end -->
 
 ### Cloud agent (Cursor Cloud)
@@ -160,19 +161,43 @@ Run `bash scripts/check-parallel-scope.sh` before dispatch.
 </details>
 
 <!-- argus-portfolio-chores:start -->
-## Argus portfolio chores
+## Argus portfolio chores — Android release
 
-Synced from argus-runner (2026-11-18). Prefer YOLO maintain on the runner; keep these until cleared.
+Synced from argus-runner. **Agent must ship binaries**, not only docs.
 
 | Status | Venue | Task |
 |--------|-------|------|
-| 🔲 | `[AUTO][CLOUD]` | Clear open Dependabot alerts |
-| 🔲 | `[HUMAN][PC]` | Publish Android release asset (APK or AAB) |
+| 🔲 | `[AGENT][LOCAL]` — scope: `examples/android/` | **Cut/update GitHub Release with signed Android APK/AAB** |
+
+### Agent instructions (paste / follow)
 
 ```text
 Repo: edwardlthompson/3d-game-optimizer
-1) Squash-merge green Dependabot PRs.
-2) Attach signed APK/AAB to GitHub Release.
-Gate: alerts 0; .apk/.aab on release.
+Goal: Latest GitHub Release must include a real Android binary (.apk and/or .aab).
+
+Why: Latest release is Windows MSI/ZIP only — also ship Android APK/AAB for the Android surface.
+
+Steps:
+1) Read AGENT.md + docs for the Android ship path. Prefer gradle under `examples/android/`.
+2) Ensure signing is available (local keystore / CI secrets already used by this repo). Do not invent a new Play upload.
+3) From `examples/android` (or repo root if that is the documented path):
+     ./gradlew assembleRelease
+     # and if the project ships bundles:
+     ./gradlew bundleRelease
+4) Locate outputs under app/build/outputs/apk/ and app/build/outputs/bundle/.
+5) Create a new tag/release OR update the latest release:
+     gh release list -R edwardlthompson/3d-game-optimizer --limit 3
+     # Prefer the repo's normal /ship or Release Please flow if documented; otherwise:
+     gh release create <TAG> --generate-notes -R edwardlthompson/3d-game-optimizer
+     gh release upload <TAG> <path-to.apk> [<path-to.aab>] -R edwardlthompson/3d-game-optimizer --clobber
+6) Expected artifact names: *-release.apk / *.aab
+7) Verify:
+     gh release view <TAG> -R edwardlthompson/3d-game-optimizer --json assets --jq ".assets[].name"
+   Gate: at least one asset ends with .apk or .aab.
+8) Mark this BUILD_PLAN row ✅ and note the tag + asset names in the commit/PR body.
+
+Do not force-push main. Do not delete the repo. Prefer PR + release assets over committing binaries to git.
 ```
+
+Releases page: https://github.com/edwardlthompson/3d-game-optimizer/releases
 <!-- argus-portfolio-chores:end -->
