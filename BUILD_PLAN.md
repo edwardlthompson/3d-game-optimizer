@@ -42,7 +42,6 @@ Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path
 
 <!-- local-agent-lane:begin -->
 - Status: 🔲 open · ✅ done · ❌ blocked
-- 🔲 [AGENT][LOCAL] Rebuild on .NET 8.0.34 and bump Microsoft.* packages — scope: src/ (news P1, 2026-11-13) https://devblogs.microsoft.com/dotnet/dotnet-and-dotnet-framework-november-2026-servicing-updates/
 <!-- local-agent-lane:end -->
 
 ### Cloud agent (Cursor Cloud)
@@ -53,12 +52,21 @@ Standing queue for Cursor Cloud. Rows: `🔲 [AGENT][CLOUD] … — scope: path`
 _No cloud agent items._
 <!-- cloud-agent-lane:end -->
 
+## Child Repo Playbook
+
+### Sprint News — News Bot follow-ups
+
+<!-- parallel_exception: independent news follow-ups; run sequentially -->
+
+1. 🔲 [AGENT] Rebuild on .NET 8.0.34 and bump Microsoft.* packages — scope: src/ (news P1, 2026-11-13) https://devblogs.microsoft.com/dotnet/dotnet-and-dotnet-framework-november-2026-servicing-updates/
+
+
 <!-- argus-android-release-sprint:begin -->
 ### Sprint 55 — Ship Android GitHub Release
 
 Numbered rows so child `/build` (parse_board_queue) picks them up. **Not** under Archive lanes.
 
-1. 🔲 [AGENT][LOCAL] Cut/update GitHub Release with signed Android APK/AAB — scope: examples/android/
+1. 🔲 [AGENT] Cut/update GitHub Release with signed Android APK/AAB — scope: examples/android/
 
 #### Agent instructions (release row)
 
