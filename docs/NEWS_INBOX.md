@@ -39,3 +39,13 @@ Catch-up for Nov 17–18 (the daily brief did not run those mornings).
 **Tasks for the planning agent**
 
 - [ ] Re-check OptiScaler/ANR injection against FG V.B19 and note the non-AVX2 and Vulkan AMD fixes — B19 changes crash and image-quality behavior of the same proxy DLLs the existing P3 wants to detect. Label: `[AGENT]` · Priority: P3 · https://github.com/apex-compute/ANR/releases/tag/FG-V.B19
+
+## 2026-11-19
+
+**News and updates**
+
+- Windows App SDK 2.7.0 adds GPU support for the on-device LanguageModel, moves ONNX Runtime to 1.28.3, and fixes WinUI issues: DPI-aware input offset, a crash reading Window.DispatcherQueue after XAML shutdown, ContentDialog/MenuFlyout glitches and ARM64EC startup. This repo is on 2.2.0. [source](https://github.com/microsoft/WindowsAppSDK/releases/tag/v2.7.0)
+
+**Tasks for the planning agent**
+
+- [ ] Bump Microsoft.WindowsAppSDK 2.2.0 to 2.7.0 and smoke-test the WinUI shell (dialogs, flyouts, window close/reopen, high-DPI input) — five minors of WinUI fixes, including the DPI input and DispatcherQueue crash fixes, at low risk. Label: `[AGENT]` · Priority: P3 · https://github.com/microsoft/WindowsAppSDK/releases/tag/v2.7.0
