@@ -42,6 +42,7 @@ Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path
 
 <!-- local-agent-lane:begin -->
 - Status: 🔲 open · ✅ done · ❌ blocked
+- 🔲 [AGENT][LOCAL] Rebuild on .NET 8.0.34 and bump Microsoft.* packages — scope: src/ (news P1, 2026-11-13) https://devblogs.microsoft.com/dotnet/dotnet-and-dotnet-framework-november-2026-servicing-updates/
 <!-- local-agent-lane:end -->
 
 ### Cloud agent (Cursor Cloud)
@@ -198,11 +199,3 @@ Run `bash scripts/check-parallel-scope.sh` before dispatch.
 | Steam ops | [docs/STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md) |
 | Agent memory | [AGENT_MEMORY.md](AGENT_MEMORY.md) |
 | Live catalog | https://edwardlthompson.github.io/3d-game-optimizer/catalog/ |
-
-## News inbox (synced)
-
-- 🔲 [AGENT] Rebuild on .NET 8.0.34 and bump Microsoft.* packages — scope: src/ (news P1, 2026-11-13) https://devblogs.microsoft.com/dotnet/dotnet-and-dotnet-framework-november-2026-servicing-updates/
-
-</details>
-
-
