@@ -1,5 +1,118 @@
 # Build Plan
 
+<!-- remaining-tally -->
+**Remaining:** (tally on next sync)
+<!-- /remaining-tally -->
+
+Live board. Canonical shape: agent-project-bootstrap `BUILD_PLAN_TEMPLATE.md`.
+Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
+
+**Who:** `AGENT` code · `HUMAN` person · `ADB` device · `AUTO` CI/scripts
+**Venue (AGENT only):** `[LOCAL]` This Computer · `[CLOUD]` Cursor Cloud
+**State:** 🔲 open · ✅ done · ❌ blocked
+
+Format: `🔲 [AGENT][LOCAL] Short task — scope: path/prefix`.
+
+### Open PRs (synced)
+
+> Auto-managed. Do not hand-edit inside the markers.
+
+<!-- open-prs-sync:begin -->
+_No open Dependabot or Release Please PRs._
+<!-- open-prs-sync:end -->
+
+### Template gaps (synced)
+
+> Auto-managed. Do not hand-edit inside the markers.
+
+<!-- template-gaps-sync:begin -->
+_No template gaps._
+<!-- template-gaps-sync:end -->
+
+### Waiting on a person
+
+1. 🔲 [HUMAN] Cloudflare KV namespace id → `workers/steam-library/wrangler.toml`
+2. 🔲 [HUMAN] GitHub secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `STEAM_WEB_API_KEY`
+3. 🔲 [HUMAN] Post-deploy smoke — [STEAM_CATALOG_SYNC.md](docs/STEAM_CATALOG_SYNC.md) § Post-deploy smoke (Connect Steam visible, OpenID, Lib ✓, `/health`)
+4. 🔲 [HUMAN] Optional: copy `.cursor/hooks.json.example` → `.cursor/hooks.json` after local smoke
+
+### Local agent (This Computer)
+
+Standing queue for This Computer. Rows: `🔲 [AGENT][LOCAL] … — scope: path`.
+
+<!-- local-agent-lane:begin -->
+- Status: 🔲 open · ✅ done · ❌ blocked
+- 🔲 [AGENT][LOCAL] Rebuild on .NET 8.0.34 and bump Microsoft.* packages — scope: src/ (news P1, 2026-11-13) https://devblogs.microsoft.com/dotnet/dotnet-and-dotnet-framework-november-2026-servicing-updates/
+<!-- local-agent-lane:end -->
+
+### Cloud agent (Cursor Cloud)
+
+Standing queue for Cursor Cloud. Rows: `🔲 [AGENT][CLOUD] … — scope: path`.
+
+<!-- cloud-agent-lane:begin -->
+_No cloud agent items._
+<!-- cloud-agent-lane:end -->
+
+## Child Repo Playbook
+
+### Sprint News — News Bot follow-ups
+
+<!-- parallel_exception: independent news follow-ups; run sequentially -->
+
+1. 🔲 [AGENT] Rebuild on .NET 8.0.34 and bump Microsoft.* packages — scope: src/ (news P1, 2026-11-13) https://devblogs.microsoft.com/dotnet/dotnet-and-dotnet-framework-november-2026-servicing-updates/
+
+
+<!-- argus-android-release-sprint:begin -->
+### Sprint 55 — Ship Android GitHub Release
+
+Numbered rows so child `/build` (parse_board_queue) picks them up. **Not** under Archive lanes.
+
+1. 🔲 [AGENT] Cut/update GitHub Release with signed Android APK/AAB — scope: examples/android/
+
+#### Agent instructions (release row)
+
+```text
+Repo: edwardlthompson/3d-game-optimizer
+Goal: Latest GitHub Release must include a real Android binary (.apk and/or .aab).
+
+Why: Latest release is Windows-only — also ship Android APK/AAB.
+
+Steps:
+1) Read AGENT.md + Android docs. Prefer gradle under `examples/android/`.
+2) Use existing signing (local keystore / repo CI secrets). Do not invent Play Store upload.
+3) From `examples/android` (or documented root):
+     ./gradlew assembleRelease
+     ./gradlew bundleRelease
+4) Outputs: app/build/outputs/apk/ and app/build/outputs/bundle/.
+5) Prefer this repo's /ship or Release Please flow if documented; else:
+     gh release list -R edwardlthompson/3d-game-optimizer --limit 3
+     gh release create <TAG> --generate-notes -R edwardlthompson/3d-game-optimizer
+     gh release upload <TAG> <apk> [<aab>] -R edwardlthompson/3d-game-optimizer --clobber
+6) Expected names: *-release.apk / *.aab
+7) Gate:
+     gh release view <TAG> -R edwardlthompson/3d-game-optimizer --json assets --jq ".assets[].name"
+   At least one asset must end with .apk or .aab.
+8) Mark the BUILD_PLAN release row ✅; note tag + asset names.
+
+No force-push to main. No committing binaries into git.
+```
+
+Releases: https://github.com/edwardlthompson/3d-game-optimizer/releases
+<!-- argus-android-release-sprint:end -->
+
+## Archive
+
+Older sprints: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
+
+## Preserved source board
+
+Quoted so no prior task is lost. Prefer the lanes above; do not invent work.
+
+<details>
+<summary>Previous board</summary>
+
+# Build Plan
+
 <!-- cursor-hooks: off -->
 
 > Active board only. Finished work: [COMPLETED_TASKS.md](COMPLETED_TASKS.md). Alignment notes: [docs/BOOTSTRAP_ALIGNMENT.md](docs/BOOTSTRAP_ALIGNMENT.md).

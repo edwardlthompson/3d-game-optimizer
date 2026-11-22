@@ -277,3 +277,10 @@ Task board: [BUILD_PLAN.md](BUILD_PLAN.md) · Human backlog: [HUMAN_BACKLOG.md](
 MIT License · Built with [agent-project-bootstrap](https://github.com/edwardlthompson/agent-project-bootstrap)
 
 </div>
+
+## What this is not
+
+- A finished commercial product promise
+- A place for secrets or production credentials
+- An unbounded scope — see README goals above
+

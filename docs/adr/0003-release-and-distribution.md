@@ -13,7 +13,7 @@ The repository ships two release tracks: template bootstrap (`agent-project-boot
 ### Tag naming
 
 | Track | Tag format | Version source | Workflow |
-|-------|------------|----------------|----------|
+| ------- | ------------ | ---------------- | ---------- |
 | Template | `v{semver}` | `.template-version` | `release.yml` |
 | Product | `SpatialLabsOptimizer-v{semver}` | `src/SpatialLabsOptimizer/product-version.json` | `product-release.yml` |
 

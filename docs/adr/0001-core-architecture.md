@@ -63,7 +63,7 @@ The project adopts **MVVM on top of Clean Architecture**:
 ## Alternatives Considered
 
 | Alternative | Why not selected |
-|---|---|
+| --- | --- |
 | UI-centric code-behind architecture | Fast to start, but poor testability and weak boundary control for process/network operations. |
 | Pure Clean without MVVM conventions | Strong core separation, but less ergonomic for WinUI command/state binding patterns. |
 | Plugin-first architecture from day one | Useful later, but premature for initial product scope and team size. |
