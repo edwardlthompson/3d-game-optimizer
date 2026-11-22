@@ -14,12 +14,15 @@
     "@cloudflare/vitest-pool-workers": "^0.13.2",
     "@cloudflare/workers-types": "^4.20241127.0",
     "typescript": "~5.7.2",
-    "vitest": "^4.1.9",
+    "vitest": "^4.1.12",
     "wrangler": "^4.101.0"
   },
   "overrides": {
     "esbuild": "^0.28.1",
-    "undici": ">=7.28.0",
-    "ws": "^8.21.0"
+    "undici": ">=8.12.2",
+    "ws": "^8.21.0",
+    "@vitest/mocker": ">=4.1.12",
+    "postcss": ">=8.5.23",
+    "source-map-js": ">=1.2.2"
   }
 }
