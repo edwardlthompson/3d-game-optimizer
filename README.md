@@ -268,7 +268,7 @@ Child repo of [agent-project-bootstrap](https://github.com/edwardlthompson/agent
 
 **Active stacks:** WinUI (`src/`), web catalog (`site/catalog/`), Cloudflare worker (`workers/steam-library/`), Python sync (`scripts/sync-catalog/`). Inactive template stubs under `examples/` — see [docs/OPTIONAL_STACKS.md](docs/OPTIONAL_STACKS.md).
 
-Task board: [BUILD_PLAN.md](BUILD_PLAN.md) · Human backlog: [HUMAN_BACKLOG.md](HUMAN_BACKLOG.md) · Agent memory: [AGENT_MEMORY.md](AGENT_MEMORY.md)
+Task board: [BUILD_PLAN.md](BUILD_PLAN.md) · Human backlog: [HUMAN_BACKLOG.md](HUMAN_BACKLOG.md) · Agent memory: [AGENT_MEMORY.md](.agent/AGENT_MEMORY.md)
 
 ---
 
