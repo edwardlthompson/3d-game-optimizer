@@ -49,3 +49,9 @@ Catch-up for Nov 17–18 (the daily brief did not run those mornings).
 **Tasks for the planning agent**
 
 - [ ] Bump Microsoft.WindowsAppSDK 2.2.0 to 2.7.0 and smoke-test the WinUI shell (dialogs, flyouts, window close/reopen, high-DPI input) — five minors of WinUI fixes, including the DPI input and DispatcherQueue crash fixes, at low risk. Label: `[AGENT]` · Priority: P3 · https://github.com/microsoft/WindowsAppSDK/releases/tag/v2.7.0
+
+## 2026-11-25
+
+**News and updates**
+
+- Socket found 13 malicious NuGet packages (Nov 23) that pose as WinUI 3 and WPF button controls in fake 'home assessment' job projects for Windows .NET developers; building or running them pulled a further payload and staged a DLL side-loading pair. No action unless someone installs an unsolicited assessment zip; do not add those packages. [Socket](https://socket.dev/blog/malicious-nuget-packages-fake-job-assessments)
